@@ -1,0 +1,33 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+	align-items: center;
+}
+
+.header__logo {
+	width: 90px;
+	object-fit: contain;
+}
+
+.header__icons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.icon {
+	margin: 0 0 0 2rem;
+}
+
+.menu__icon {
+	display: flex;
+}
+
+.circle__icon {
+	margin: 0 0 0 7px;
+	width: 5px;
+	height: 5px;
+	background-color: black;
+	border-radius: 5px;
+}
