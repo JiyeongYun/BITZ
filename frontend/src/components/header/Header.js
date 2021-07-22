@@ -4,7 +4,7 @@ import "./Header.css"
 function Header(){
   return (
     <div className="header">
-      <img className="header__logo" src="/images/logo.png" alt="logo" />
+      <img className="header__logo" src="/images/symbol.png" alt="logo" />
       <div className="header__icons">
         <p className="icon">로그인</p>
         <div className="icon menu__icon">
