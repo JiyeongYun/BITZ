@@ -1,14 +1,13 @@
-package com.web.curation;
+package com.osds.bitz;
 
 import org.junit.jupiter.api.Test;
-
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebCurationApplicationTests {
+class BitzApplicationTests {
 
-	
-
+    @Test
+    void contextLoads() {
+    }
 
 }
