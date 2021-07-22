@@ -1,14 +1,28 @@
 .header {
-	background-color: rgb(255, 255 ,255);
+	width: 80vw;
+	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
 	padding-top: 2rem;
 	align-items: center;
-	padding-right: 2rem;
-	padding-left: 2rem;
 }
 
-.header__logo {
+.grey__canvas {
+	position: absolute;
+	top: 0;
+	right: -100vw;
+	z-index: 1;
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100vw;
+	height: 100vh;
+	transition: all 0.5s;
+}
+
+.grey__canvas__show {
+	right: 0;
+}
+
+.header__symbol {
 	width: 90px;
 	object-fit: contain;
 }
@@ -25,6 +39,7 @@
 
 .menu__icon {
 	display: flex;
+	padding: 10px 0;
 }
 
 .circle__icon {
@@ -33,4 +48,25 @@
 	height: 5px;
 	background-color: black;
 	border-radius: 5px;
+}
+
+.offcanvas {
+	position: absolute;
+	height: 100vh;
+	z-index: 2;
+	top: 0;
+	right: -400px;
+	width: 400px;
+	text-align: center;
+	background-color: white;
+	transition: all 0.5s;
+}
+.offcanvas__close {
+	margin: 30px 0 0;
+	position: relative;
+	left: -160px;
+}
+
+.offcanvas__show {
+	right: 0;
 }

@@ -1,0 +1,11 @@
+.line {
+	width: 200px;
+	height: 1px;
+	background-color: #ffad4e;
+	margin: 40px auto;
+}
+
+.offcanvas__logo {
+	width: 300px;
+	object-fit: contain;
+}
