@@ -1,8 +1,11 @@
 .header {
+	background-color: rgb(255, 255 ,255);
 	display: flex;
 	justify-content: space-between;
-	margin-top: 2rem;
+	padding-top: 2rem;
 	align-items: center;
+	padding-right: 2rem;
+	padding-left: 2rem;
 }
 
 .header__logo {
