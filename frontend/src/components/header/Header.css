@@ -1,0 +1,36 @@
+.header {
+	background-color: rgb(255, 255 ,255);
+	display: flex;
+	justify-content: space-between;
+	padding-top: 2rem;
+	align-items: center;
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+.header__logo {
+	width: 90px;
+	object-fit: contain;
+}
+
+.header__icons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.icon {
+	margin: 0 0 0 2rem;
+}
+
+.menu__icon {
+	display: flex;
+}
+
+.circle__icon {
+	margin: 0 0 0 7px;
+	width: 5px;
+	height: 5px;
+	background-color: black;
+	border-radius: 5px;
+}
