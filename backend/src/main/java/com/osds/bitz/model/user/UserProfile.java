@@ -2,7 +2,9 @@ package com.osds.bitz.model.user;
 
 public class UserProfile {
     private String uID;
-    private String email;
-    private String password;
-    private String birth;
+    private String name;
+    private String nickName;
+    private String phone;
+    private String location;
+    private int height;
 }
