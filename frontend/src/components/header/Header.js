@@ -24,7 +24,6 @@ function Header(){
       </div>
       <div className={offcanvas ? "grey__canvas grey__canvas__show": "grey__canvas"} onClick={toggleCanvas}></div>
       <div className={offcanvas ? "offcanvas__show offcanvas": "offcanvas"}>
-        <i className="fas fa-times fa-2x offcanvas__close" onClick={toggleCanvas}></i>
         <OffCanvas />
       </div>
     </div>
