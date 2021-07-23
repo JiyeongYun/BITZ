@@ -1,11 +1,75 @@
-import React from "react";
+import React, { useState } from 'react';
+import './login.css';
 
 function Login() {
-  return(
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userKind, setUserKind] = useState('user');
+
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    if (name === 'email') {
+      setEmail(value);
+    }
+    if (name === 'password') {
+      setPassword(value);
+    }
+
+    if (name === 'userKind') {
+      setUserKind(value);
+    }
+  };
+
+  const onSubmit = () => {
+    if (email.length === 0 || password.length === 0) alert('입력하세요');
+    alert('eamil : ' + email + ' password : ' + password + ' userKind : ' + userKind);
+  };
+
+  const onFindPasswordClick = () => {
+    alert('비밀번호 찾기');
+  };
+
+  const onGoogleLogin = () => {
+    alert('구글 계정으로 로그인');
+  };
+
+  return (
     <div>
-      Login
+      <div className="loginForm">
+        <img className="login__logo" src="/images/logo.png" alt="logo" />
+        <form onSubmit={onSubmit}>
+          {/* radio 버튼은 부트스트랩 필요할 듯 */}
+          <label claaName="userKindRadio">
+            <input type="radio" value="player" name="userKind" onChange={onChange} checked />
+            플레이어
+          </label>
+          <label className="userKindRadio">
+            <input type="radio" value="business" name="userKind" onChange={onChange} />
+            비즈니스
+          </label>
+          <br />
+          아이디
+          <br />
+          <input type="email" onChange={onChange} name="email" />
+          <br />
+          비밀번호
+          <br />
+          <input type="password" onChange={onChange} name="password" />
+          <br />
+          <div className="userHelp">
+            <button onClick={onFindPasswordClick}>비밀번호 찾기</button>
+            <span>아직 계정이 없으신가요?</span>
+          </div>
+          <button type="sumbit">로그인</button>
+        </form>
+        <div className="snsLogin">
+          <button onClick={onGoogleLogin}>구글 계정으로 로그인</button>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
