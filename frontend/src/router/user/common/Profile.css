@@ -1,0 +1,9 @@
+.profile__div {
+  text-align: center;
+  align-items: center;
+}
+
+.accountSetting span {
+  margin: 30px;
+  cursor: pointer;
+}
