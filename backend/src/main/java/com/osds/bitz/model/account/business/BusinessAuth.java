@@ -1,4 +1,4 @@
-package com.osds.bitz.model.user;
+package com.osds.bitz.model.account.business;
 
 public class BusinessAuth {
     private String bID;

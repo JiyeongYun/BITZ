@@ -1,4 +1,4 @@
-package com.osds.bitz.model.user;
+package com.osds.bitz.model.account.business;
 
 public class BusinessProfile {
     private String bID;
@@ -6,5 +6,5 @@ public class BusinessProfile {
     private String phone;
     private String bank;
     private String account;
-    private byte[] business_registration;
+    private byte[] businessRegistration;
 }

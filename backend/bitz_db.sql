@@ -56,7 +56,7 @@ CREATE TABLE `businessprofile` (
   `phone` varchar(15) COLLATE utf8_bin NOT NULL,
   `bank` varchar(10) COLLATE utf8_bin NOT NULL,
   `account` varchar(25) COLLATE utf8_bin NOT NULL,
-  `business_registration` blob NOT NULL,
+  `businessRegistration` blob NOT NULL,
   PRIMARY KEY (`bID`),
   UNIQUE KEY `bID_UNIQUE` (`bID`),
   CONSTRAINT `businessprofile_ibfk_1` FOREIGN KEY (`bID`) REFERENCES `businessauth` (`bID`)

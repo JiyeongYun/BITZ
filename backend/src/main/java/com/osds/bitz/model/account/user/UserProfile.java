@@ -1,4 +1,4 @@
-package com.osds.bitz.model.user;
+package com.osds.bitz.model.account.user;
 
 public class UserProfile {
     private String uID;
