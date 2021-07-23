@@ -44,3 +44,26 @@ React, React-router-DOM, Redux
 | /match/register               | 경기 등록        | 관리자 전용                                                 |
 | /match/:match_id/update       | 경기 수정        | 관리자 전용                                                 |
 
+
+
+## 개발 특이사항
+
+### 2021-07-23
+
+#### RegisterGeneral/Business
+
+[담당자]
+
+: 박정웅
+
+[특이사항]
+
+: Components에 추가한 validation 파일로 유효성 검증 (코드가 길어지고 읽기 힘들어지는 것 방지 용도)
+
+[참고자료]
+
+: https://www.daleseo.com/react-forms-with-hooks/
+
+https://skm1104.tistory.com/4
+
+https://webdir.tistory.com/435
