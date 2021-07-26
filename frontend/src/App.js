@@ -5,7 +5,8 @@ import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
 import Register from './router/user/common/Register.js';
 import Profile from './router/user/common/Profile';
-import FirstLogin from "./components/user/player/FirstLogin";
+import FirstLogin from './components/user/player/FirstLogin';
+import RegisterGym from './router/user/business/gym/RegisterGym';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/accounts/login" exact={true} component={Login}></Route>
         <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/profile" exact={true} component={Profile} />
+        <Route path="/registerGym" exact={true} component={RegisterGym} />
       </BrowserRouter>
     </div>
   );
