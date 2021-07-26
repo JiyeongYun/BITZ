@@ -54,7 +54,7 @@ input:focus {
   width: 12vw;
 }
 
-.snsLogin__logo {
+.registerForm__snsLogin__logo {
   width: 15px;
   margin: 0px 10px;
 }
@@ -94,7 +94,7 @@ input:focus {
   border-radius: 5px;
 }
 
-.snsLogin__button {
+.registerForm__snsLogin__button {
   background-color: rgb(255, 255, 255);
   border: solid black;
   color: black;

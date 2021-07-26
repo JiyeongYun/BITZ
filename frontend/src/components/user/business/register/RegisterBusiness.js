@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
-import RegisterBusinessValidation from "components/user/business/RegisterBusinessValidation";
+import React, { useState, useEffect, useContext } from "react";
+import RegisterBusinessValidation from "components/user/business/register/RegisterBusinessValidation";
 import "./RegisterBusiness.css"
+import { dispatchSubmitContext, stateSubmitContext } from "router/user/common/Register";
 
 function RegisterBusiness() {
+  // Context-Reducer
+  const submit = useContext(stateSubmitContext)
+  const dispatch = useContext(dispatchSubmitContext)
   // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
@@ -104,7 +108,7 @@ function RegisterBusiness() {
   // PJW - 회원가입 버튼 클릭
   const onRegister = () => {
     alert('API 연결이 필요합니다!')
-    console.log(values)
+    dispatch({type: "SUBMIT"})
   } // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
@@ -226,9 +230,9 @@ function RegisterBusiness() {
           className={isValidated ? "registerForm__button register__button": "disabled registerForm__button register__button"}>
             회원가입
         </button>
-        <div className="snsLogin">
-          <button className="registerForm__button snsLogin__button" onClick={onGoogleRegister}>
-            <img className="snsLogin__logo" src="/images/google_logo.png" alt="sns_logo" />
+        <div className="registerForm__snsLogin">
+          <button className="registerForm__button registerForm__snsLogin__button" onClick={onGoogleRegister}>
+            <img className="registerForm__snsLogin__logo" src="/images/google_logo.png" alt="sns_logo" />
             구글 계정으로 회원가입
           </button>
         </div>
