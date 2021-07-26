@@ -9,14 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserAuthResponse {
-    private String id;
+    private Integer id;
     private String email;
     private String password;
     private String birth;
     private String url;
 
     public UserAuthResponse(UserAuth userAuth){
+
         this.id = userAuth.getUID();
+
         this.email = userAuth.getEmail();
         this.password = userAuth.getPassword();
         this.birth = userAuth.getBirth();

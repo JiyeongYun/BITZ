@@ -11,7 +11,8 @@ import javax.persistence.*;
 public class UserAuth {
 
     @Id
-    private String uID; // 유저ID
+    @GeneratedValue
+    private Integer uID; // 유저ID
 
     @Column
     private String email; // 이메일(아이디)
