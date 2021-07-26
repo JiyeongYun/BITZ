@@ -1,0 +1,170 @@
+.registerForm {
+  margin: 5vw 5vw 2vw 5vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.registerForm__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 290px;
+}
+
+.register__email {
+  margin: 5px;
+}
+
+.change_to_business {
+  text-align: center;
+}
+
+.register__logo {
+  position: absolute;
+  left: 7vw;
+  width: 25vw;
+}
+
+.errorMessage {
+  position: relative;
+  font-size: small;
+  color: red;
+}
+
+input:focus {
+  outline-color: #FFAD4E;
+}
+
+.inputBox {
+  display: block;
+  position: relative;
+  width: 280px;
+  height: 29px;
+  border: none;
+  border-radius: 5px;
+  background: #f8f8f8;
+  font-size: 15px;
+  margin: 10px 1px 10px 1px;
+}
+
+.inputBox__businessRegistration {
+  display: inline-block;
+  margin-right: 5px;
+  width: 12vw;
+}
+
+.snsLogin__logo {
+  width: 15px;
+  margin: 0px 10px;
+}
+
+.register__birthForm {
+  display: table;
+  width: 100%;
+}
+
+.register__birthYear {
+  display: table-cell;
+  width: 80px;
+  height: 29px;
+  margin-right: 5px;
+  border: none;
+  background: #f8f8f8;
+  border-radius: 5px;
+}
+
+.register__birthMonth {
+  display: table-cell;
+  width: 80px;
+  height: 29px;
+  vertical-align: middle;
+  margin-right: 5px;
+  border: none;
+  background: #f8f8f8;
+  border-radius: 5px;
+}
+
+.register__birthDay {
+  display: table-cell;
+  width: 80px;
+  height: 29px;
+  border: none;
+  background: #f8f8f8;
+  border-radius: 5px;
+}
+
+.snsLogin__button {
+  background-color: rgb(255, 255, 255);
+  border: solid black;
+  color: black;
+  padding: 5px 15px 5px 0px;
+}
+
+.registerForm__button {
+  width: 20vw;
+  border-width: 1px;
+  border-radius: 12px;
+  margin: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register__button {
+  margin-top: 50px;
+  padding: 5px 0px 5px 0px;
+  background: #FFAD4E;
+  border: none;
+  color: #ffffff;
+}
+
+.duplicateCheck__button {
+  position: relative;
+  left: 167px;
+  width: 100px;
+  background: #FFAD4E;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: small;
+  height: 20px;
+}
+
+.register__businessRegistration {
+  margin-top: 50px;
+}
+
+.register__businessRegistration label {
+  font-weight: bold;
+}
+
+.businessRegistration__button {
+  display: inline-block;
+  left: 10vw;
+  width: 3vw;
+  margin-left: 5px;
+  background: #FFAD4E;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: small;
+  height: 27px;
+}
+
+.change_to_business div {
+  color: #0A1840;
+}
+
+.change_to_business__button {
+  background: #0A1840;
+  color: #ffffff;
+  padding: 5px 0px 5px 0px;
+}
+
+.disabled {
+  background-color: rgb(184, 184, 184);
+  color: rgb(224, 224, 224);
+  pointer-events: none;
+}

@@ -5,13 +5,13 @@ import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
 import Register from './router/user/common/Register.js';
 import Profile from './router/user/common/Profile';
-import FirstLogin from "./components/user/player/FirstLogin"
+import FirstLogin from "./components/user/player/FirstLogin";
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <BrowserRouter>
+        <Header />
         <Route path="/" exact={true} component={MainPage}></Route>
         <Route path="/accounts/login" exact={true} component={Login}></Route>
         <Route path="/accounts/register" exact={true} component={Register}></Route>

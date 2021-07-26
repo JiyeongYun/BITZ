@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { Link } from "react-router-dom"
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -41,7 +42,7 @@ function Login() {
         <img className="login__logo" src="/images/logo.png" alt="logo" />
         <form onSubmit={onSubmit}>
           {/* radio 버튼은 부트스트랩 필요할 듯 */}
-          <label claaName="userKindRadio">
+          <label className="userKindRadio">
             <input type="radio" value="player" name="userKind" onChange={onChange} checked />
             플레이어
           </label>
@@ -60,7 +61,7 @@ function Login() {
           <br />
           <div className="userHelp">
             <button onClick={onFindPasswordClick}>비밀번호 찾기</button>
-            <span>아직 계정이 없으신가요?</span>
+            <Link to="register">아직 계정이 없으신가요?</Link>
           </div>
           <button type="sumbit">로그인</button>
         </form>

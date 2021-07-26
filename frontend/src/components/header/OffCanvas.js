@@ -4,7 +4,7 @@ import './OffCanvas.css'
 function OffCanvas(){
     return (
     <div>
-      <img className="offcanvas__logo" src="images/logo.png" alt="symbol" />
+      <img className="offcanvas__logo" src="/images/logo.png" alt="symbol" />
       <div className="offcanvas__links">
         <p>BITZ 소개</p>
         <p>공지사항</p>
