@@ -8,11 +8,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 290px;
+  width: 500px;
 }
 
-.register__email {
-  margin: 5px;
+.registerForm__component {
+  width: 285px;
+  margin: 10px 0px 10px 0px;
 }
 
 .change_to_business {
@@ -26,9 +27,9 @@
 }
 
 .errorMessage {
-  position: relative;
   font-size: small;
   color: red;
+  margin-bottom: 5px;
 }
 
 input:focus {
@@ -44,7 +45,7 @@ input:focus {
   border-radius: 5px;
   background: #f8f8f8;
   font-size: 15px;
-  margin: 10px 1px 10px 1px;
+  margin: 0px 1px 0px 1px;
 }
 
 .inputBox__businessRegistration {
@@ -120,7 +121,7 @@ input:focus {
   color: #ffffff;
 }
 
-.duplicateCheck__button {
+.duplicationCheck__button {
   position: relative;
   left: 167px;
   width: 100px;
@@ -130,6 +131,7 @@ input:focus {
   color: #ffffff;
   font-size: small;
   height: 20px;
+  margin: 0px 10px 0px 10px;
 }
 
 .register__businessRegistration {
@@ -143,8 +145,10 @@ input:focus {
 .businessRegistration__button {
   display: inline-block;
   left: 10vw;
-  width: 3vw;
-  margin-left: 5px;
+  width: 60px;
+  /* width: 3vw; */
+  margin: 1px 10px 1px 5px;
+  padding-top: 4.5px;
   background: #FFAD4E;
   border: none;
   border-radius: 3px;
