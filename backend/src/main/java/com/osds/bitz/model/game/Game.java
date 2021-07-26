@@ -12,7 +12,10 @@ import java.time.LocalDateTime;
 @Entity(name="game")
 public class Game {
 
-    @Id
+    @EmbeddedId
+    private GamePK gamePK;
+
+    @Column
     private String gameID; // 게임ID
     private LocalDateTime date; // 날짜
     private String gymID; // 체육관ID

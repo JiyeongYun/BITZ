@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Entity(name="manner")
 public class Manner {
 
-    @Id
-    // PK변수
+    @EmbeddedId
+    private MannerPK mannerPK;
 
     @Column
     private String uID; // 유저ID

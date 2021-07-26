@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Entity(name="gameParticipant")
 public class GameParticipant {
 
-    @Id
-    // PK
+    @EmbeddedId
+    private GameParticipantPK gameParticipantPK;
 
     @Column
     private String gameID; // 게임ID

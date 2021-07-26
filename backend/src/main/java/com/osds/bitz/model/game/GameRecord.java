@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Entity(name="gameRecord")
 public class GameRecord {
 
-    @Id
-    // PK키
+    @EmbeddedId
+    private GameRecordPK gameRecordPK;
 
     @Column
     private String gameID; // 게임ID
