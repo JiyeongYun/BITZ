@@ -1,0 +1,13 @@
+.mygym {
+  margin: 50px;
+}
+
+.mygym__span {
+  display: inline;
+}
+
+.mygym__title {
+  margin: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
