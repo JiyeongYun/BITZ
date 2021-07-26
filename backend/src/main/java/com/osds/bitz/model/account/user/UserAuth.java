@@ -1,5 +1,6 @@
 package com.osds.bitz.model.account.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,12 +8,13 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="userAuth")
+@Entity(name="userauth")
+@Builder
 public class UserAuth {
 
     @Id
-    @GeneratedValue
-    private Integer uID; // 유저ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; // 유저ID
 
     @Column
     private String email; // 이메일(아이디)

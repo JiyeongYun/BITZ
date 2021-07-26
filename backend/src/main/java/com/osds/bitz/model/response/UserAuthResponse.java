@@ -13,16 +13,15 @@ public class UserAuthResponse {
     private String email;
     private String password;
     private String birth;
-    private String url;
+    //private String url;
 
     public UserAuthResponse(UserAuth userAuth){
 
-        this.id = userAuth.getUID();
-
+        this.id = userAuth.getId();
         this.email = userAuth.getEmail();
         this.password = userAuth.getPassword();
         this.birth = userAuth.getBirth();
 
-        this.url = "http://localhost:8080/" + this.id;
+        //this.url = "http://localhost:8080/" + this.id;
     }
 }

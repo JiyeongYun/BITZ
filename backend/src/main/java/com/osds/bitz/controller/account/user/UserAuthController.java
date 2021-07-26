@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,8 @@ public class UserAuthController {
 
         log.info("{}", userAuthRequest);
         UserAuthResponse response = new UserAuthResponse(userAuthService.write(userAuthRequest));
+        log.info("{}", response);
+
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
