@@ -1,0 +1,145 @@
+.registerGym__div {
+  text-align: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5%;
+  width: 800px;
+}
+
+.registerGym__div button {
+  cursor: pointer;
+}
+
+.gymPhoto__box {
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 10%;
+  width: 100px;
+  height: 70px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.gymInfo__div input {
+  border: 1px solid #ffad4e;
+  background-color: #f8f8f8;
+  border-radius: 8%;
+}
+
+.gymInfo__div textarea {
+  resize: none;
+  border: 1px solid #ffad4e;
+  background-color: #f8f8f8;
+  border-radius: 8%;
+  width: 400px;
+  height: 150px;
+}
+
+.courtSize {
+  width: 45px;
+}
+
+.filebox input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
+} /* named upload */
+
+.filebox .upload-name {
+  display: inline-block;
+  padding: 0.5em 0.75em; /* label의 패딩값과 일치 */
+  font-size: inherit;
+  font-family: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #f5f5f5;
+  border: 1px solid hsl(0, 0%, 92%);
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
+  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.test {
+  width: 100px;
+  height: 50px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 3px black;
+}
+
+.clicked {
+  box-shadow: none;
+}
+
+.unClicked {
+  background-color: white;
+}
+
+.clicked {
+  background-color: #ffad4e;
+}
+
+.facilities__table {
+  border: 2px solid #ffad4e;
+  border-collapse: collapse;
+  /* border-radius: 10%; */
+}
+
+.facilities__table td {
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #ffad4e;
+}
+img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 50%;
+}
+
+#water {
+  background-image: url('../../../../components/images/water.png');
+}
+
+#basketball {
+  background-image: url('../../../../components/images/basketball.png');
+}
+
+#scoreboard {
+  background-image: url('../../../../components/images/scoreboard.png');
+}
+
+#parking {
+  background-image: url('../../../../components/images/parking.png');
+}
+
+#shower {
+  background-image: url('../../../../components/images/shower.png');
+}
+
+#airconditioner {
+  background-image: url('../../../../components/images/airconditioner.png');
+}
