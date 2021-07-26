@@ -104,7 +104,7 @@ label {
     color: white;
 }
 
-button {
+.location__box + button {
     width: 60%;
     background-color: #ffad4e;
     border: none;
