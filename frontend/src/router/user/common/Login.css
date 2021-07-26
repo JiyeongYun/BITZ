@@ -31,7 +31,7 @@
   border-bottom: 2px solid black;
 }
 
-.emailbox, .passwordbox {
+.emailbox {
   margin-bottom: 20px;
 }
 
@@ -62,7 +62,7 @@
   margin: 30px 0 50px;
 }
 
-.snsLogin {
+.googleLogin {
   font-weight: bold;
   font-size: 14px;
   width: 100%;
@@ -77,7 +77,7 @@
   justify-content: center;
 }
 
-#google__logo {
+#google__logo  {
   height: 20px;
   width: 20px;
   margin-right: 10px;

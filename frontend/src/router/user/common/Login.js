@@ -63,7 +63,7 @@ function Login() {
         </div>
         <button type="sumbit">로그인</button>
       </form>
-      <button className="snsLogin">
+      <button className="googleLogin">
         <img src="/images/google_logo.png" alt="sns_logo" id="google__logo"/>
         <span>구글 계정으로 로그인</span>
       </button>
