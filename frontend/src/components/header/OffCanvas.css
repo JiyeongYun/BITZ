@@ -1,5 +1,5 @@
 .line {
-	width: 250px;
+	width: 200px;
 	height: 2px;
 	background-color: #ffad4e;
 	margin: 40px auto;
@@ -7,7 +7,7 @@
 
 .offcanvas__logo {
 	margin: 50px 0;
-	width: 300px;
+	width: 200px;
 	object-fit: contain;
 }
 
