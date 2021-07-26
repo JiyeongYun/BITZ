@@ -67,6 +67,12 @@
             <version>2.9.2</version>
         </dependency>
 
+        <!-- H2 Database 추가 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
