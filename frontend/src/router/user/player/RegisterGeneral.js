@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RegisterGeneralValidation from "components/user/player/RegisterGeneralValidation.js" // 유효성 검사 함수
 
 function RegisterGeneral() {
-  // State
+  // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
     email: "",
@@ -33,18 +33,24 @@ function RegisterGeneral() {
     password: true,
     passwordConfirm: true,
     phoneNumber: true,
-    birth: false,
+    birth: true,
     birthYear: true,
     birthMonth: true,
     birthDay: true,
   })
   // 값을 모두 입력했는지 검증
   const [isValidated, setIsValidated] = useState(false)
+  // 중복 체크
+  const [duplicationCheck, setDuplicationCheck] = useState({
+    emailCheck: false,
+    nicknameCheck: false,
+  })
 
-  // useEffect
+
+  // useEffect ***************************************************************
   // PJW - 데이터 유효성 검증
   useEffect(()=>{
-    setErrors(RegisterGeneralValidation(values, isFirst))
+    setErrors({...RegisterGeneralValidation(values, isFirst)})
   }, [values, isFirst])
   // 데이터 유효성 검증 End
 
@@ -54,12 +60,15 @@ function RegisterGeneral() {
     Object.values(errors).forEach(value=>{
       check = check && !value
     })
+    Object.values(duplicationCheck).forEach(value=>{
+      check = check && value
+    })
     setIsValidated(check)
-  }, [errors])
-  
+  }, [errors, duplicationCheck])
   // 전체 데이터 유효성 검사 End
 
-  // methods
+
+  // methods ***************************************************************
   // PJW - 데이터 입력 시 값 업데이트
   const updateValue = (event) => {
     let { name, value } = event.target;
@@ -106,8 +115,21 @@ function RegisterGeneral() {
       lateValidateValue(event)
     }
   } // updateIsFirst End
+
+  // PJW - 이메일 중복 체크
+  const onEmailCheck = () => {
+    alert('이메일 중복 확인')
+    setDuplicationCheck({...duplicationCheck, emailCheck: true})
+  } // onEmailCheck End
+
+  // PJW - 닉네임 중복 체크
+  const onNicknameCheck = () => {
+    alert('닉네임 중복 확인')
+    setDuplicationCheck({...duplicationCheck, nicknameCheck: true})
+  } // onNicknameCheck End
   
   
+  // view ***************************************************************
   return(
     <div className="registerForm">
       {/* 좌측 영역 */}
@@ -118,51 +140,61 @@ function RegisterGeneral() {
       {/* 중앙 영역 */}
       <div className="registerForm__center">
         {/*  이메일 */}
-        <div className="register__email">
+        <div className="register__email registerForm__component">
           <label>이메일</label>
           <br />
           <input className="inputBox" type="email" name="email" value={values.email} onChange={updateValue} onBlur={updateIsFirst} autoCapitalize="none"></input>
           <div className="errorMessage">{errors.email}</div>
-          <button className="registerForm__button duplicateCheck__button">중복체크</button>
+          <button
+          type="sumbit"
+          onClick={onEmailCheck}
+          className={!errors.email ? "registerForm__button duplicationCheck__button": "disabled registerForm__button duplicationCheck__button"}>
+            중복체크
+          </button>
         </div>
         {/* 이름 */}
-        <div className="register__name">
+        <div className="register__name registerForm__component">
           <label>이름</label>
           <br />
           <input className="inputBox" type="text" name="name" value={values.name} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.name}</div>
         </div>
         {/* 닉네임 */}
-        <div className="register__nickname">
+        <div className="register__nickname registerForm__component">
           <label>닉네임</label>
           <br />
           <input className="inputBox" type="text" name="nickname" value={values.nickname} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.nickname}</div>
-          <button className="registerForm__button duplicateCheck__button">중복체크</button>
+          <button
+          type="sumbit"
+          onClick={onNicknameCheck}
+          className={!errors.nickname ? "registerForm__button duplicationCheck__button": "disabled registerForm__button duplicationCheck__button"}>
+            중복체크
+          </button>
         </div>
         {/* 비밀번호 */}
-        <div className="register__password">
+        <div className="register__password registerForm__component">
           <label>비밀번호</label>
           <br />
           <input className="inputBox" type="password" name="password" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.password}</div>
         </div>
         {/* 비밀번호 확인 */}
-        <div className="register__passwordConfirm">
+        <div className="register__passwordConfirm registerForm__component">
           <label>비밀번호 확인</label>
           <br />
           <input className="inputBox" type="password" name="passwordConfirm" value={values.passwordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
           <div className="errorMessage">{errors.passwordConfirm}</div>
         </div>
         {/* 핸드폰 번호 */}
-        <div className="register__phoneNumber">
+        <div className="register__phoneNumber registerForm__component">
           <label>핸드폰 번호</label>
           <br />
           <input className="inputBox" type="tel" name="phoneNumber" value={values.phoneNumber} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.phoneNumber}</div>
         </div>
         {/* 생년월일 */}
-        <div className="register__birth">
+        <div className="register__birth registerForm__component">
           <label>생년월일</label>
           <div className="register__birthForm">
             {/* 년 */}

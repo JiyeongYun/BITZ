@@ -8,6 +8,7 @@ export default function RegisterGeneralValidation({ email, name, nickname, passw
     phoneNumber: true,
     birth: false,
   }
+  
   if (!isFirst.email) {
     if (!email) {
       errors.email = "이메일이 입력되지 않았습니다.";
@@ -39,7 +40,7 @@ export default function RegisterGeneralValidation({ email, name, nickname, passw
   if (!isFirst.password) {
     if (!password) {
       errors.password = "비밀번호가 입력되지 않았습니다.";
-    } else if (!/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(email)) {
+    } else if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(password)) {
       errors.password = "비밀번호는 특수문자 / 문자 / 숫자를 포함하여 8~20 자리로 입력해야 합니다.";
     } else {
       errors.password = ""
@@ -59,7 +60,7 @@ export default function RegisterGeneralValidation({ email, name, nickname, passw
   if (!isFirst.phoneNumber) {
     if (!phoneNumber) {
       errors.phoneNumber = "핸드폰 번호가 입력되지 않았습니다.";
-    } else if (!/^010-?([0-9]{3,4})-?([0-9]{4})$/.test(phoneNumber)) {
+    } else if (!/^010-?([0-9]{4})-?([0-9]{4})$/.test(phoneNumber)) {
       errors.phoneNumber = "010-0000-0000 형식으로 입력해 주세요.";
     } else {
       errors.phoneNumber = ""
