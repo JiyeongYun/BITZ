@@ -28,10 +28,6 @@ function Login() {
     alert('eamil : ' + email + ' password : ' + password + ' userKind : ' + userKind);
   };
 
-  const onFindPasswordClick = () => {
-    alert('비밀번호 찾기');
-  };
-
   const onGoogleLogin = () => {
     alert('구글 계정으로 로그인');
   };
@@ -60,7 +56,7 @@ function Login() {
           <input type="password" onChange={onChange} name="password" />
           <br />
           <div className="userHelp">
-            <button onClick={onFindPasswordClick}>비밀번호 찾기</button>
+            <button><Link to="/accounts/find_password">비밀번호 찾기</Link></button>
             <Link to="register">아직 계정이 없으신가요?</Link>
           </div>
           <button type="sumbit">로그인</button>

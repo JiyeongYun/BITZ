@@ -30,16 +30,6 @@ const RegisterGym = () => {
     }
   };
 
-  const onClickTest = (event) => {
-    event.preventDefault();
-    const { target } = event;
-
-    if (target.classList.contains('test2')) target.classList.remove('test2');
-    else target.classList.add('test2');
-
-    console.log(target.classList);
-  };
-
   const onClickFacilities = (event) => {
     event.preventDefault();
     const { target } = event;
@@ -141,9 +131,6 @@ const RegisterGym = () => {
                 />
               </tr>
             </table>
-          </div>
-          <div className="test" value="test" onClick={onClickTest}>
-            {' '}
           </div>
           시설 사진
           <br />
