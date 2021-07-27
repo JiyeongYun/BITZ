@@ -39,7 +39,7 @@ public class UserAuthController {
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/updatepassword")
+    @PutMapping("/updatepassword")
     @ApiOperation(value="비밀번호 변경하기", notes="회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<UserAuthResponse> updatePassword(@RequestBody @ApiParam(value="회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception{
         UserAuthResponse response = new UserAuthResponse(userAuthService.updatePassword(updatePasswordRequest));
@@ -48,11 +48,9 @@ public class UserAuthController {
 
     @PutMapping("/readpassword")
     @ApiOperation(value="비밀번호 찾기", notes="회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
-    public ResponseEntity<UserAuthResponse> readPassword(@RequestBody @ApiParam(value=" 비밀번호 찾기") UserAuthRequest userAuthRequest)throws Exception{
-        // 이메일에 해당하는 정보 있는지 확인하기
-        // 임시 비밀번호로 비밀번호 변경하기
-        // 해당 이메일로 임시 비밀번호 발급하기
-        return null;
+    public ResponseEntity<UserAuthResponse> readPassword(@RequestBody @ApiParam(value=" 비밀번호 찾기") UserAuthRequest UserAuthRequest)throws Exception{
+        UserAuthResponse response = new UserAuthResponse(userAuthService.readPassword(UserAuthRequest));
+        return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
 
