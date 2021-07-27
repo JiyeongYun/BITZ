@@ -1,0 +1,42 @@
+.gameDetail {
+  align-items: center;
+  text-align: center;
+}
+
+.gameInfo {
+  display: inline-block;
+}
+
+.gameDetail__footer {
+  display: inline-block;
+  width: 40%;
+}
+
+.footer_left {
+  text-align: left;
+  border-right: 1px solid black;
+  height: 200px;
+}
+
+.gameDetail__footer h1 {
+  color: #ea7c31;
+}
+
+.gameDetail__hr {
+  width: 80%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reservation__btn {
+  border-radius: 5%;
+  margin: 20px;
+  width: 400px;
+  height: 50px;
+  background-color: #ea7c31;
+  border: 1px solid #ea7c31;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+}
