@@ -1,10 +1,9 @@
 package com.osds.bitz.service.account.user;
 
-import com.osds.bitz.model.account.user.UserAuth;
-import com.osds.bitz.model.request.ReadUserAuthRequest;
-import com.osds.bitz.model.request.UpdatePasswordRequest;
-import com.osds.bitz.model.request.UserAuthRequest;
-
+import com.osds.bitz.model.entity.account.user.UserAuth;
+import com.osds.bitz.model.network.request.ReadUserAuthRequest;
+import com.osds.bitz.model.network.request.UpdatePasswordRequest;
+import com.osds.bitz.model.network.request.UserAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 
 import lombok.extern.slf4j.Slf4j;
