@@ -16,12 +16,17 @@ public class UserAuthService {
     @Autowired
     private UserAuthRepository userAuthRepository;
 
-    public UserAuth write(UserAuthRequest userAuthRequest) {
+    public UserAuth createUser(UserAuthRequest userAuthRequest) {
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
                 .password(userAuthRequest.getPassword())
                 .build();
         return this.userAuthRepository.save(userAuth);
+    }
+
+    public UserAuth updatePassword(UserAuthRequest userAuthRequest) {
+        log.info("{}", userAuthRequest);
+        return null;
     }
 }
