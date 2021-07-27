@@ -19,17 +19,131 @@
 }
 
 .userKind > label {
-  border-left: 2px solid black;
-  border-top: 2px solid black;
-  border-right: 2px solid black;
-  padding: 10px 50px;
-  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  position: relative;
+  width: 170px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
 }
 
-.userKind > .unselected {
-  border: none;
-  border-bottom: 2px solid black;
+/* 애니메이션 관련 css 시작*/
+.userKind > label:nth-child(1).selected::before {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-left: 2px solid #ffad4e;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: height .2s;
+  animation-fill-mode: forwards;
 }
+
+.userKind > label:nth-child(1).selected::after {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-top: 2px solid #ffad4e;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: width .2s .2s;
+  animation-fill-mode: backwards;
+}
+
+.userKind > label:nth-child(1).selected > span::after {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-right: 2px solid #ffad4e;
+  position: absolute;
+  top: 0;
+  right: 0;
+  animation: height .2s .4s;
+  animation-fill-mode: backwards;
+}
+
+.userKind > label:nth-child(2).unselected::before {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-bottom: 2px solid #ffad4e;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: width .2s .6s;
+  animation-fill-mode: backwards;
+}
+
+.userKind > label:nth-child(2).selected::before {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-right: 2px solid #ffad4e;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: height .2s;
+  animation-fill-mode: forwards;
+}
+
+.userKind > label:nth-child(2).selected::after {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-top: 2px solid #ffad4e;
+  position: absolute;
+  top: 0;
+  right: 0;
+  animation: width .2s .2s;
+  animation-fill-mode: backwards;
+}
+
+.userKind > label:nth-child(2).selected > span::after {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-left: 2px solid #ffad4e;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: height .2s .4s;
+  animation-fill-mode: backwards;
+}
+
+.userKind > label:nth-child(1).unselected::before {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-bottom: 2px solid #ffad4e;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: width .2s .6s;
+  animation-fill-mode: backwards;
+}
+
+
+
+@keyframes width {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes height {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+/* 애니메이션 관련 css 끝*/
 
 .emailbox {
   margin-bottom: 20px;
