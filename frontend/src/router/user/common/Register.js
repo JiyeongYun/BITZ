@@ -35,15 +35,15 @@ function Register() {
             <div>
               {isBusiness ? (
                 <div>
-                <RegisterBusiness />
+                  <RegisterBusiness />
                 </div>
                 ):(
                 <div>
-                <RegisterGeneral />
-                <div className="change_to_business">
-                <div>체육관 소유주이신가요?</div>
-                <button className="registerForm__button change_to_business__button" onClick={change_to_business}>비즈니스 계정 회원가입</button>
-                </div>
+                  <RegisterGeneral />
+                  <div className="change_to_business">
+                    <div>체육관 소유주이신가요?</div>
+                    <button className="registerForm__button change_to_business__button" onClick={change_to_business}>비즈니스 계정 회원가입</button>
+                  </div>
                 </div>
               )}
             </div>
