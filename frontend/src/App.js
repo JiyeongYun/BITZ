@@ -1,5 +1,7 @@
 import Header from './components/header/Header';
+import OffCanvas from './components/header/OffCanvas';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
@@ -10,13 +12,22 @@ import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js'
 
 function App() {
+  const [offcanvas, setOffcanvas] = useState(false)
+  const toggleCanvas = () => {
+    setOffcanvas(!offcanvas)
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
-        <Route path="/" exact={true} component={MainPage} />
-        <Route path="/accounts/login" exact={true} component={Login} />
-        <Route path="/accounts/register" exact={true} component={Register} />
+        <Header toggleCanvas={toggleCanvas}/>
+        <div className={offcanvas ? "grey__canvas grey__canvas__show": "grey__canvas"} onClick={toggleCanvas}></div>
+        <div className={offcanvas ? "offcanvas__show offcanvas": "offcanvas"}>
+          <OffCanvas />
+        </div>
+        <Route path="/" exact={true} component={MainPage}></Route>
+        <Route path="/accounts/login" exact={true} component={Login}></Route>
+        <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/profile" exact={true} component={Profile} />
         <Route path="/registerGym" exact={true} component={RegisterGym} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
