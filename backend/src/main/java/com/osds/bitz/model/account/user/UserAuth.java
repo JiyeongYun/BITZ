@@ -12,11 +12,13 @@ import javax.persistence.*;
 public class UserAuth {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 유저ID
+    private String id;          // 유저ID
 
-    private String email; // 이메일(아이디)
-    private String password; // 비밀번호
-    private String birth; // 생년월일
+    @Column(nullable = false)
+    private String email;       // 이메일(아이디)
+    @Column(nullable = false)
+    private String password;    // 비밀번호
+    @Column(nullable = false)
+    private String birth;       // 생년월일
 
 }

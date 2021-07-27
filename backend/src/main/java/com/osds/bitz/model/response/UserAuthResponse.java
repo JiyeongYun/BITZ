@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserAuthResponse {
 
-    private Integer id;
+    private String id;
     private String email;
     private String password;
     private String birth;
