@@ -50,6 +50,10 @@
   justify-content: space-between;
 }
 
+.userHelp > a:hover {
+  text-decoration: underline;
+}
+
 .loginForm > form > button {
   font-weight: bold;
   font-size: 14px;
