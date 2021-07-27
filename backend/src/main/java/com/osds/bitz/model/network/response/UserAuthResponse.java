@@ -1,6 +1,6 @@
-package com.osds.bitz.model.response;
+package com.osds.bitz.model.network.response;
 
-import com.osds.bitz.model.account.user.UserAuth;
+import com.osds.bitz.model.entity.account.user.UserAuth;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
