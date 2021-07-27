@@ -1,0 +1,67 @@
+.main__dateCarousel__Carousel {
+  display: flex;
+  align-items: center;
+  width: 70vw;
+  overflow: hidden;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 10vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.main__dateCarousel__element {
+  position: relative;
+  text-align: center;
+  padding: 4vw;
+  font-weight: 600;
+  font-size: 1vw;
+  transition: 0.5s;
+}
+
+.main__dateCarousel__element:hover {
+  cursor: pointer;
+  background-color: #F8F8F8;
+  transition: 0.5s;
+}
+
+.main__dateCarousel__date {
+  width: 2vw;
+}
+
+.main__dateCarousel__date div {
+  text-align: center;
+}
+
+.day_red {
+  color: red;
+}
+
+.day_blue {
+  color: blue;
+}
+
+.day_today {
+  color: #FFAD4E;
+  font-weight: 900;
+}
+
+.carouselArrow {
+  position: absolute;
+  left: 7vw;
+  width: 1.5vw;
+}
+.carouselArrow:hover {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.carouselArrow__left {
+  position: absolute;
+  left: 0;
+}
+
+.carouselArrow__right {
+  position: absolute;
+  left: 68.5vw;
+}

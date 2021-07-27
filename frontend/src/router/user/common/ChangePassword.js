@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChangePasswordValidation from "components/user/common/ChangePasswordValidation.js" // 유효성 검사 함수
 import "./ChangePassword.css" // Register.css의 내용을 많이 차용함 (Form이 비슷하기 때문)
 
-function ChangePassword() {
+function ChangePassword({ history }) {
   // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
@@ -72,6 +72,7 @@ function ChangePassword() {
   // PJW - 비밀번호 변경
   const onChangePassword = () => {
     alert('비밀번호가 변경되었습니다!')
+    history.push("/profile")
   }
 
   return(
