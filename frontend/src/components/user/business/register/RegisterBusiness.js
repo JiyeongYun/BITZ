@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import RegisterBusinessValidation from "components/user/business/register/RegisterBusinessValidation";
 import "./RegisterBusiness.css"
-import { dispatchSubmitContext, stateSubmitContext } from "router/user/common/Register";
+import { dispatchSubmitContext } from "router/user/common/Register";
 
 function RegisterBusiness() {
   // Context-Reducer

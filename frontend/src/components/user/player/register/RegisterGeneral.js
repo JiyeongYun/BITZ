@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import RegisterGeneralValidation from "components/user/player/register/RegisterGeneralValidation.js" // 유효성 검사 함수
-import { dispatchSubmitContext, stateSubmitContext } from "router/user/common/Register";
+import { dispatchSubmitContext } from "router/user/common/Register";
 
 function RegisterGeneral() {
   // Context-Reducer
