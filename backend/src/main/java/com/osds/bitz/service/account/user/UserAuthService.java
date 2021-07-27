@@ -13,16 +13,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserAuthService {
 
+    @Autowired
     private UserAuthRepository userAuthRepository;
 
     public UserAuth write(UserAuthRequest userAuthRequest) {
-        log.info("{}", userAuthRequest);
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
                 .password(userAuthRequest.getPassword())
                 .build();
-        log.info("{}", userAuth);
         return this.userAuthRepository.save(userAuth);
     }
 }

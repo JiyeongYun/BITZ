@@ -9,9 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +26,16 @@ public class UserAuthController {
 
     @PostMapping("/signup")
     @ApiOperation(value = "가입하기", notes = "회원의 정보를 DB에 저장합니다.")
-    public ResponseEntity<UserAuthResponse> write(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) {
-
-        log.info("{}", userAuthRequest);
+    public ResponseEntity<UserAuthResponse> write(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception{
         UserAuthResponse response = new UserAuthResponse(userAuthService.write(userAuthRequest));
-        log.info("{}", response);
-
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
+
+//    @PutMapping("/findpassword")
+//    @ApiOperation(value="비밀번호 찾기", notes="회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
+//    public ResponseEntity<UserAuthResponse> findpassword(@RequestBody @ApiParam(value=" 비밀번호 찾기") UserAuthRequest userAuthRequest)throws Exception{
+//        // 이메일에 해당하는
+//        UserAuthReponse response = new UserAuthResponse(userAuthService.)
+//    }
 
 }
