@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserAuthRepository extends JpaRepository<UserAuth, Integer> {
     UserAuth getUserAuthByEmail(String email);
+    UserAuth findUserAuthByEmailAndPassword(String email, String password);
 }

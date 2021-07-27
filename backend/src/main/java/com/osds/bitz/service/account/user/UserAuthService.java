@@ -1,6 +1,7 @@
 package com.osds.bitz.service.account.user;
 
 import com.osds.bitz.model.account.user.UserAuth;
+import com.osds.bitz.model.request.ReadUserAuthRequest;
 import com.osds.bitz.model.request.UpdatePasswordRequest;
 import com.osds.bitz.model.request.UserAuthRequest;
 
@@ -35,4 +36,10 @@ public class UserAuthService {
         newUserAuth.setPassword(updatePasswordRequest.getNewPassword());
         return this.userAuthRepository.save(newUserAuth);
     }
+
+    public UserAuth readUser(ReadUserAuthRequest readUserAuthRequest){
+        // 이메일과 비밀번호로 객체 찾아오기
+        return this.userAuthRepository.findUserAuthByEmailAndPassword(readUserAuthRequest.getEmail(), readUserAuthRequest.getPassword());
+    }
+
 }
