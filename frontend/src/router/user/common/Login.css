@@ -1,0 +1,84 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.login__logo {
+  width: 300px;
+}
+
+.userKind {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.userKindRadio > input {
+  display: none;
+}
+
+.userKind > label {
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  padding: 10px 50px;
+  border-radius: 10px 10px 0 0;
+}
+
+.userKind > .unselected {
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+.emailbox {
+  margin-bottom: 20px;
+}
+
+.emailbox > input,
+.passwordbox > input
+{
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  width: 100%;
+  height: 35px;
+}
+
+.userHelp {
+  display: flex;
+  justify-content: space-between;
+}
+
+.loginForm > form > button {
+  font-weight: bold;
+  font-size: 14px;
+  width: 100%;
+  color: white;
+  background-color: #ffad4e;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin: 30px 0 50px;
+}
+
+.googleLogin {
+  font-weight: bold;
+  font-size: 14px;
+  width: 100%;
+  background-color: #f8f8f8;
+  border: 1px solid #ffad4e;
+  border-radius: 5px;
+  height: 30px;
+  width: 348px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#google__logo  {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}

@@ -1,0 +1,39 @@
+.profile__div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user__profile {
+  text-align: center;
+}
+
+.user__profile > img {
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 50%;
+  object-fit: scale-down;
+  object-position: center;
+}
+
+.user__profile > #nickname {
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user__profile > #email {
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: #ffad4e;
+}
+
+.accountSetting > h2{
+  text-align: center;
+  margin: 50px 0 30px;
+}
+
+.accountSetting span {
+  margin: 0 30px;
+  cursor: pointer;
+}
