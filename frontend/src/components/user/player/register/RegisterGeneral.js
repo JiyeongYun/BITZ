@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import RegisterGeneralValidation from "components/user/player/register/RegisterGeneralValidation.js" // 유효성 검사 함수
-import { dispatchSubmitContext, stateSubmitContext } from "../../../../router/user/common/Register";
+import { dispatchSubmitContext, stateSubmitContext } from "router/user/common/Register";
 
 function RegisterGeneral() {
   // Context-Reducer
-  const submit = useContext(stateSubmitContext)
   const dispatch = useContext(dispatchSubmitContext)
   // State ***************************************************************
   // 입력 데이터
@@ -109,7 +108,7 @@ function RegisterGeneral() {
   // PJW - 회원가입 버튼 클릭
   const onRegister = () => {
     alert('API 연결이 필요합니다!')
-    dispatch({type: "SUBMIT"})
+    dispatch({type: "SUBMIT", value: values.email})
   } // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인

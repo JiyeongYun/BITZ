@@ -8,7 +8,7 @@ import "./Register.css"
 const reducerSubmit = (state, action) => {
   switch (action.type) {
     case "SUBMIT":
-      return {state:true}
+      return {state: true, email: action.value}
     default:
       throw new Error("회원가입 실패")
   }
@@ -18,7 +18,7 @@ export const dispatchSubmitContext = createContext()
 
 function Register() {
   // useReducer(reducer, initialState)
-  const [stateSubmit, dispatch] = useReducer(reducerSubmit, {state: false})
+  const [stateSubmit, dispatch] = useReducer(reducerSubmit, {state: false, email: ""})
 
   const [isBusiness, setIsBusiness] = useState(false)
   const change_to_business = () => {
@@ -27,7 +27,7 @@ function Register() {
 
   return (
     <dispatchSubmitContext.Provider value={dispatch}>
-      <stateSubmitContext.Provider value={stateSubmit.state}>
+      <stateSubmitContext.Provider value={stateSubmit}>
         {
           stateSubmit.state ? (
             <RegisterComplete />

@@ -5,7 +5,6 @@ import { dispatchSubmitContext, stateSubmitContext } from "router/user/common/Re
 
 function RegisterBusiness() {
   // Context-Reducer
-  const submit = useContext(stateSubmitContext)
   const dispatch = useContext(dispatchSubmitContext)
   // State ***************************************************************
   // 입력 데이터
@@ -108,7 +107,7 @@ function RegisterBusiness() {
   // PJW - 회원가입 버튼 클릭
   const onRegister = () => {
     alert('API 연결이 필요합니다!')
-    dispatch({type: "SUBMIT"})
+    dispatch({type: "SUBMIT", value: values.email})
   } // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
