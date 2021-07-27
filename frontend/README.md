@@ -67,3 +67,17 @@ React, React-router-DOM, Redux
 https://skm1104.tistory.com/4
 
 https://webdir.tistory.com/435
+
+
+
+### 2021-07-27
+
+#### Frontend 전체
+
+[작성자]
+
+: 박정웅
+
+[특이사항]
+
+: 동일 Form이지만 각 페이지가 다른 CSS를 가지고 있음 => 통일 필요
