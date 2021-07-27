@@ -34,9 +34,9 @@ public class UserAuthController {
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/readuser")
+    @PostMapping("/readuserauth")
     @ApiOperation(value = "로그인", notes = "회원의 정보를 통해 로그인 처리를 합니다.")
-    public ResponseEntity<UserAuthResponse> readUser(@RequestBody @ApiParam(value="회원 정보") ReadUserAuthRequest readUserAuthRequest) throws Exception {
+    public ResponseEntity<UserAuthResponse> readUserAuth(@RequestBody @ApiParam(value="회원 정보") ReadUserAuthRequest readUserAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.readUser(readUserAuthRequest));
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
