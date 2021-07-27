@@ -1,7 +1,5 @@
 .score__box {
-  display: inline-block;
-}
-
-.skill {
-  margin-right: 50px;
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
 }

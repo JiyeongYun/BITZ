@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `businessauth`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `businessauth` (
-  `bID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` char(8) COLLATE utf8_bin NOT NULL,
   `email` varchar(50) COLLATE utf8_bin NOT NULL,
   `password` varchar(30) COLLATE utf8_bin NOT NULL,
   `birth` char(8) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`bID`),
-  UNIQUE KEY `bID_UNIQUE` (`bID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,15 +51,17 @@ DROP TABLE IF EXISTS `businessprofile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `businessprofile` (
-  `bID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_bin NOT NULL,
   `phone` varchar(15) COLLATE utf8_bin NOT NULL,
   `bank` varchar(10) COLLATE utf8_bin NOT NULL,
-  `account` varchar(25) COLLATE utf8_bin NOT NULL,
-  `businessRegistration` blob NOT NULL,
-  PRIMARY KEY (`bID`),
-  UNIQUE KEY `bID_UNIQUE` (`bID`),
-  CONSTRAINT `businessprofile_ibfk_1` FOREIGN KEY (`bID`) REFERENCES `businessauth` (`bID`)
+  `account` varchar(20) COLLATE utf8_bin NOT NULL,
+  `business_registration` blob NOT NULL,
+  `business_id` char(8) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `business_id` (`business_id`),
+  CONSTRAINT `businessprofile_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `businessauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -80,16 +82,18 @@ DROP TABLE IF EXISTS `favoritelocation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `favoritelocation` (
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
   `sido1` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `gugun1` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `sido2` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `gugun2` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `sido3` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `gugun3` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`uID`),
-  UNIQUE KEY `uID_UNIQUE` (`uID`),
-  CONSTRAINT `favoritelocation_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `favoritelocation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -110,19 +114,19 @@ DROP TABLE IF EXISTS `game`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `game` (
-  `gameID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `gymID` char(8) COLLATE utf8_bin NOT NULL,
-  `startTime` time NOT NULL,
-  `endTime` time NOT NULL,
-  `minPeople` int NOT NULL,
-  `maxPeople` int NOT NULL,
-  `participant` int NOT NULL DEFAULT '0',
+  `gym_id` bigint NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `min_people` int NOT NULL,
+  `max_people` int NOT NULL,
+  `participant` int NOT NULL,
   `quarter` int DEFAULT NULL,
-  PRIMARY KEY (`gameID`),
-  UNIQUE KEY `gameID_UNIQUE` (`gameID`),
-  KEY `gymID` (`gymID`),
-  CONSTRAINT `game_ibfk_1` FOREIGN KEY (`gymID`) REFERENCES `gyminfo` (`gymID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `gym_id` (`gym_id`),
+  CONSTRAINT `game_ibfk_1` FOREIGN KEY (`gym_id`) REFERENCES `gym` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -143,14 +147,17 @@ DROP TABLE IF EXISTS `gameparticipant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gameparticipant` (
-  `gameID` char(8) COLLATE utf8_bin NOT NULL,
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `game_id` bigint NOT NULL,
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
   `state` int NOT NULL,
-  `team` int DEFAULT NULL,
-  KEY `gameID` (`gameID`),
-  KEY `uID` (`uID`),
-  CONSTRAINT `gameparticipant_ibfk_1` FOREIGN KEY (`gameID`) REFERENCES `game` (`gameID`),
-  CONSTRAINT `gameparticipant_ibfk_2` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  `team` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `game_id` (`game_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `gameparticipant_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
+  CONSTRAINT `gameparticipant_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -171,16 +178,19 @@ DROP TABLE IF EXISTS `gamerecord`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gamerecord` (
-  `gameID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `team` int NOT NULL,
   `quarter` int NOT NULL,
   `score` int NOT NULL,
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
-  `recordTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `gameID` (`gameID`),
-  KEY `uID` (`uID`),
-  CONSTRAINT `gamerecord_ibfk_1` FOREIGN KEY (`gameID`) REFERENCES `game` (`gameID`),
-  CONSTRAINT `gamerecord_ibfk_2` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  `record_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `game_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `game_id` (`game_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `gamerecord_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
+  CONSTRAINT `gamerecord_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -194,39 +204,39 @@ LOCK TABLES `gamerecord` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `gyminfo`
+-- Table structure for table `gym`
 --
 
-DROP TABLE IF EXISTS `gyminfo`;
+DROP TABLE IF EXISTS `gym`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `gyminfo` (
-  `gymID` char(8) COLLATE utf8_bin NOT NULL,
-  `bID` char(8) COLLATE utf8_bin NOT NULL,
+CREATE TABLE `gym` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `business_id` char(8) COLLATE utf8_bin NOT NULL,
   `name` varchar(20) COLLATE utf8_bin NOT NULL,
   `address` varchar(100) COLLATE utf8_bin NOT NULL,
-  `courtWidth` int NOT NULL DEFAULT '15',
-  `courtLength` int NOT NULL DEFAULT '28',
-  `isParking` tinyint(1) NOT NULL DEFAULT '1',
-  `isShower` tinyint(1) NOT NULL DEFAULT '1',
-  `isAirConditional` tinyint(1) NOT NULL DEFAULT '1',
-  `isWater` tinyint(1) NOT NULL DEFAULT '1',
-  `isBasketball` tinyint(1) NOT NULL DEFAULT '1',
-  `isScoreboard` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`gymID`),
-  UNIQUE KEY `gymID_UNIQUE` (`gymID`),
-  KEY `bID` (`bID`),
-  CONSTRAINT `gyminfo_ibfk_1` FOREIGN KEY (`bID`) REFERENCES `businessauth` (`bID`)
+  `court_width` int NOT NULL DEFAULT '15',
+  `court_length` int NOT NULL DEFAULT '28',
+  `is_parking` tinyint(1) NOT NULL DEFAULT '1',
+  `is_shower` tinyint(1) NOT NULL DEFAULT '1',
+  `is_airconditional` tinyint(1) NOT NULL DEFAULT '1',
+  `is_water` tinyint(1) NOT NULL DEFAULT '1',
+  `is_basketball` tinyint(1) NOT NULL DEFAULT '1',
+  `is_scoreboard` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `business_id` (`business_id`),
+  CONSTRAINT `gym_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `businessauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gyminfo`
+-- Dumping data for table `gym`
 --
 
-LOCK TABLES `gyminfo` WRITE;
-/*!40000 ALTER TABLE `gyminfo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gyminfo` ENABLE KEYS */;
+LOCK TABLES `gym` WRITE;
+/*!40000 ALTER TABLE `gym` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gym` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -237,15 +247,18 @@ DROP TABLE IF EXISTS `gymreview`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gymreview` (
-  `gymID` char(8) COLLATE utf8_bin NOT NULL,
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `gym_id` bigint NOT NULL,
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
   `text` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   `rate` int DEFAULT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY `uID_UNIQUE` (`uID`),
-  KEY `gymID` (`gymID`),
-  CONSTRAINT `gymreview_ibfk_1` FOREIGN KEY (`gymID`) REFERENCES `gyminfo` (`gymID`),
-  CONSTRAINT `gymreview_ibfk_2` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `gym_id` (`gym_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `gymreview_ibfk_1` FOREIGN KEY (`gym_id`) REFERENCES `gym` (`id`),
+  CONSTRAINT `gymreview_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -266,11 +279,11 @@ DROP TABLE IF EXISTS `loginlog`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `loginlog` (
-  `id` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  `is_general` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  CONSTRAINT `loginlog_ibfk_1` FOREIGN KEY (`id`) REFERENCES `userauth` (`uID`),
-  CONSTRAINT `loginlog_ibfk_2` FOREIGN KEY (`id`) REFERENCES `businessauth` (`bID`)
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -291,14 +304,17 @@ DROP TABLE IF EXISTS `manner`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `manner` (
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
-  `recordID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  `record_id` char(8) COLLATE utf8_bin NOT NULL,
   `score` int DEFAULT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `uID` (`uID`),
-  KEY `recordID` (`recordID`),
-  CONSTRAINT `manner_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`),
-  CONSTRAINT `manner_ibfk_2` FOREIGN KEY (`recordID`) REFERENCES `userauth` (`uID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `record_id` (`record_id`),
+  CONSTRAINT `manner_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`),
+  CONSTRAINT `manner_ibfk_2` FOREIGN KEY (`record_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -319,13 +335,15 @@ DROP TABLE IF EXISTS `position`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `position` (
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
-  `guard` tinyint(1) DEFAULT NULL,
-  `center` tinyint(1) DEFAULT NULL,
-  `forward` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`uID`),
-  UNIQUE KEY `uID_UNIQUE` (`uID`),
-  CONSTRAINT `position_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `guard` tinyint(1) DEFAULT '0',
+  `center` tinyint(1) DEFAULT '0',
+  `forward` tinyint(1) DEFAULT '0',
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `position_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -346,13 +364,15 @@ DROP TABLE IF EXISTS `skill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
-  `winCnt` int NOT NULL,
-  `loseCnt` int NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  `win_cnt` int NOT NULL,
+  `lose_cnt` int NOT NULL,
   `score` int NOT NULL,
-  PRIMARY KEY (`uID`),
-  UNIQUE KEY `uID_UNIQUE` (`uID`),
-  CONSTRAINT `skill_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `skill_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -373,12 +393,12 @@ DROP TABLE IF EXISTS `userauth`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userauth` (
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` char(8) COLLATE utf8_bin NOT NULL,
   `email` varchar(50) COLLATE utf8_bin NOT NULL,
   `password` varchar(30) COLLATE utf8_bin NOT NULL,
   `birth` char(8) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`uID`),
-  UNIQUE KEY `uID_UNIQUE` (`uID`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uID_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -399,14 +419,17 @@ DROP TABLE IF EXISTS `userprofile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userprofile` (
-  `uID` char(8) COLLATE utf8_bin NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_bin NOT NULL,
-  `nickName` varchar(30) COLLATE utf8_bin NOT NULL,
+  `nickname` varchar(30) COLLATE utf8_bin NOT NULL,
   `phone` varchar(15) COLLATE utf8_bin NOT NULL,
   `location` varchar(100) COLLATE utf8_bin NOT NULL,
   `height` int NOT NULL,
-  UNIQUE KEY `uID_UNIQUE` (`uID`),
-  CONSTRAINT `userprofile_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `userauth` (`uID`)
+  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `userprofile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -428,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-23 14:08:55
+-- Dump completed on 2021-07-27 14:31:06

@@ -1,0 +1,71 @@
+.gymInfo {
+  font-weight: bold;
+}
+
+.introduce {
+  color: #ea7c31;
+  text-align: left;
+  margin-left: 20%;
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 250%;
+}
+
+.gymInfo input {
+  background-color: #eaeaea;
+  width: 130px;
+  height: 30px;
+  border-radius: 10%;
+  text-align: center;
+  font-size: 20px;
+  border: 0px;
+}
+
+.gymInfo input::placeholder {
+  color: #ea7c31;
+  font-weight: bold;
+}
+.facilities__div {
+  display: inline-block;
+}
+
+.facilities {
+  margin: 30px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid #ffefe3;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #ffd3b5;
+}
+
+.no {
+  background-color: gray;
+  border: 1px solid gray;
+}
+
+#water {
+  background-image: url('../../components/images/water.png');
+}
+
+#basketball {
+  background-image: url('../../components/images/basketball.png');
+}
+
+#scoreboard {
+  background-image: url('../../components/images/scoreboard.png');
+}
+
+#parking {
+  background-image: url('../../components/images/parking.png');
+}
+
+#shower {
+  background-image: url('../../components/images/shower.png');
+}
+
+#airconditioner {
+  background-image: url('../../components/images/airconditioner.png');
+}

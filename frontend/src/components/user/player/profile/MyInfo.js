@@ -45,6 +45,24 @@ const MyInfo = ({ userObj }) => {
     }
   };
 
+  const addPosition = (e) => {
+    if (selectedPosition.includes(e.target.id)) {
+      const idx = selectedPosition.indexOf(e.target.id)
+      selectedPosition.splice(idx, 1)
+    } else {
+      selectedPosition.push(e.target.id)
+    }
+    checked(e)
+  }
+
+  const checked = (t) => {
+    if (t.target.className) {
+      t.target.className = ""
+    } else {
+      t.target.className ="checked"
+    }
+  }
+
   const onAddLocation = () => {
     // 주소 묻는 창 필요
     alert('선호하는 지역 등록');
@@ -54,59 +72,53 @@ const MyInfo = ({ userObj }) => {
     <div className="MyInfo">
       <h2>내 정보</h2>
       <div className="height">
-        <h4>신장</h4>
+        <p>신장</p>
         <form className="heightForm" onSubmit={onSubmit} name="heightForm">
-          <input type="text" name="height" onChange={onChange} /> cm
-          <br />
-          <button className="btn">수정</button>
+          <input type="text" name="height" onChange={onChange} /><span>cm</span><br/>
+          <button className="btn__update">수정</button>
         </form>
       </div>
       <div className="position">
-        포지션
+        <p>포지션</p>
         <form className="positionForm" onSubmit={onSubmit} name="positionForm">
           <input
             type="checkbox"
             name="position"
             value="foward"
             className="position__check"
-            onChange={onChange}
           />
-          포워드
+          <span id="guard" onClick={addPosition}>가드</span>
           <input
             type="checkbox"
             name="position"
             value="center"
             className="position__check"
-            onChange={onChange}
           />
-          센터
+          <span id="forward" onClick={addPosition}>포워드</span>
           <input
             type="checkbox"
             name="position"
             value="guard"
             className="position__check"
-            onChange={onChange}
           />
-          가드
-          <br />
-          <button className="btn">수정</button>
+          <span id="center" onClick={addPosition}>센터</span><br/>
+          <button className="btn__update">수정</button>
         </form>
       </div>
       <div className="location">
-        <div className="locationFirst location__box" onClick={onAddLocation}>
-          {' '}
-          +{' '}
+        <p>선호지역</p>
+        <div className="location__container">
+          <div className="location__box" onClick={onAddLocation}>
+            <span>+</span>
+          </div>
+          <div className="location__box" onClick={onAddLocation}>
+            <span>+</span>
+          </div>
+          <div className="location__box" onClick={onAddLocation}>
+            <span>+</span>
+          </div>
         </div>
-        <div className="locationSecond location__box" onClick={onAddLocation}>
-          {' '}
-          +{' '}
-        </div>
-        <div className="locationThird location__box" onClick={onAddLocation}>
-          {' '}
-          +{' '}
-        </div>
-        <br />
-        <button className="btn">수정</button>
+        <button className="btn__update">수정</button>
       </div>
     </div>
   );

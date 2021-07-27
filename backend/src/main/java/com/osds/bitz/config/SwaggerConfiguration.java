@@ -41,7 +41,7 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
         return new ApiInfoBuilder()
                 .title("OSDS BITZ API")
                 .description("<h3>OSDS API Reference for Developers</h3> Swagger를 이용한 BITZ API")
-                .contact(new Contact("BITZ", "https://www.bitz.com", "0_9_6@naver.com"))
+                .contact(new Contact("BITZ", "", "0_9_6@naver.com"))
                 .version("V1")
                 .build();
     }
