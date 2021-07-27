@@ -1,3 +1,4 @@
+/* Register */
 .registerForm {
   margin: 5vw 5vw 2vw 5vw;
   display: flex;
@@ -54,7 +55,7 @@ input:focus {
   width: 12vw;
 }
 
-.snsLogin__logo {
+.registerForm__snsLogin__logo {
   width: 15px;
   margin: 0px 10px;
 }
@@ -94,7 +95,7 @@ input:focus {
   border-radius: 5px;
 }
 
-.snsLogin__button {
+.registerForm__snsLogin__button {
   background-color: rgb(255, 255, 255);
   border: solid black;
   color: black;
@@ -171,4 +172,32 @@ input:focus {
   background-color: rgb(184, 184, 184);
   color: rgb(224, 224, 224);
   pointer-events: none;
+}
+
+/* Register Complete */
+.registerComplete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerComplete__logo {
+  width: 400px;
+}
+
+.registerComplete__comments {
+  text-align: center;
+}
+
+.registerComplete__comments div {
+  margin: 15px;
+}
+
+.registerComplete__email {
+  color: #FFAD4E;
+}
+
+.registerComplete__excuse {
+  font-size: small;
 }

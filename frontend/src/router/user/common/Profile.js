@@ -3,14 +3,11 @@ import MyInfo from '../../../components/user/player/profile/MyInfo';
 import Score from '../../../components/user/player/profile/Score';
 import MyGym from '../../../components/user/business/profile/MyGym';
 import './Profile.css';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const [userObj, setUserObj] = useState(null); // 로그인한 유저객체
   const [isPlayer, setIsPlayer] = useState(true); // 플레이어, 비즈니스 구분용 임시 state
-
-  const onChangePassword = () => {
-    alert('비밀번호 변경');
-  };
 
   const onLogout = () => {
     alert('로그아웃');
@@ -44,7 +41,7 @@ const Profile = () => {
       )}
       <div className="accountSetting">
         <h2>계정 관리</h2>
-        <span onClick={onChangePassword}>비밀번호 변경</span>
+        <Link to="/accounts/change_password">비밀번호 변경</Link>
         <span onClick={onLogout}>로그아웃</span>
       </div>
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

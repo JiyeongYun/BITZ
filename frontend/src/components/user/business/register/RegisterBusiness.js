@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from "react";
-import RegisterGeneralValidation from "components/user/player/RegisterGeneralValidation.js" // 유효성 검사 함수
+import React, { useState, useEffect, useContext } from "react";
+import RegisterBusinessValidation from "components/user/business/register/RegisterBusinessValidation";
+import "./RegisterBusiness.css"
+import { dispatchSubmitContext } from "router/user/common/Register";
 
-function RegisterGeneral() {
+function RegisterBusiness() {
+  // Context-Reducer
+  const dispatch = useContext(dispatchSubmitContext)
   // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
     email: "",
     name: "",
-    nickname: "",
     password: "",
     passwordConfirm: "",
     phoneNumber: "",
     birthYear: "",
     birthMonth: "",
     birthDay: "",
+    businessRegistration: "",
   })
   // 유효성 검사 결과
   const [errors, setErrors] = useState({
     email: true,
     name: true,
-    nickname: true,
     password: true,
     passwordConfirm: true,
     phoneNumber: true,
     birth: true,
+    businessRegistration: true
   })
   // 최초 입력 확인
   const [isFirst, setIsFirst] = useState({
     email: true,
     name: true,
-    nickname: true,
     password: true,
     passwordConfirm: true,
     phoneNumber: true,
@@ -43,14 +46,13 @@ function RegisterGeneral() {
   // 중복 체크
   const [duplicationCheck, setDuplicationCheck] = useState({
     emailCheck: false,
-    nicknameCheck: false,
   })
 
 
   // useEffect ***************************************************************
   // PJW - 데이터 유효성 검증
   useEffect(()=>{
-    setErrors({...RegisterGeneralValidation(values, isFirst)})
+    setErrors({...RegisterBusinessValidation(values, isFirst)})
   }, [values, isFirst])
   // 데이터 유효성 검증 End
 
@@ -105,7 +107,7 @@ function RegisterGeneral() {
   // PJW - 회원가입 버튼 클릭
   const onRegister = () => {
     alert('API 연결이 필요합니다!')
-    console.log(values)
+    dispatch({type: "SUBMIT", value: values.email})
   } // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
@@ -122,12 +124,12 @@ function RegisterGeneral() {
     setDuplicationCheck({...duplicationCheck, emailCheck: true})
   } // onEmailCheck End
 
-  // PJW - 닉네임 중복 체크
-  const onNicknameCheck = () => {
-    alert('닉네임 중복 확인')
-    setDuplicationCheck({...duplicationCheck, nicknameCheck: true})
-  } // onNicknameCheck End
-  
+  // PJW - 파일 업로드
+  const fileUploaded = (event) => {
+    const converted = event.target.value.split('\\')
+    setValues({...values, businessRegistration: converted[converted.length-1]})
+  }
+
   
   // view ***************************************************************
   return(
@@ -158,19 +160,6 @@ function RegisterGeneral() {
           <br />
           <input className="inputBox" type="text" name="name" value={values.name} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.name}</div>
-        </div>
-        {/* 닉네임 */}
-        <div className="register__nickname registerForm__component">
-          <label>닉네임</label>
-          <br />
-          <input className="inputBox" type="text" name="nickname" value={values.nickname} onChange={updateValue} onBlur={updateIsFirst}></input>
-          <div className="errorMessage">{errors.nickname}</div>
-          <button
-          type="sumbit"
-          onClick={onNicknameCheck}
-          className={!errors.nickname ? "registerForm__button duplicationCheck__button": "disabled registerForm__button duplicationCheck__button"}>
-            중복체크
-          </button>
         </div>
         {/* 비밀번호 */}
         <div className="register__password registerForm__component">
@@ -222,6 +211,17 @@ function RegisterGeneral() {
           </div>
           <div className="errorMessage">{errors.birth}</div>
         </div>
+        {/* 사업자 등록증 파일 업로드 */}
+        <div className="register__businessRegistration">
+          <label>사업자 등록증 파일 업로드</label>
+          <br />
+          {/* type file 형태로 바꾸고 업로드 가능하게 만들기 */}
+          <input type="text" id="show-upload" className="inputBox inputBox__businessRegistration" value={values.businessRegistration} disabled="disabled"></input>
+          <label className="registerForm__button businessRegistration__button" htmlFor="real-upload">업로드</label>
+          <input type="file" id="real-upload" className="upload-hidden" onChange={fileUploaded}/>
+          <div className="errorMessage">{errors.businessRegistration}</div>
+        </div>
+
 
         <button
           type="sumbit"
@@ -229,13 +229,13 @@ function RegisterGeneral() {
           className={isValidated ? "registerForm__button register__button": "disabled registerForm__button register__button"}>
             회원가입
         </button>
-        <div className="snsLogin">
-          <button className="registerForm__button snsLogin__button" onClick={onGoogleRegister}>
-            <img className="snsLogin__logo" src="/images/google_logo.png" alt="sns_logo" />
+        <div className="registerForm__snsLogin">
+          <button className="registerForm__button registerForm__snsLogin__button" onClick={onGoogleRegister}>
+            <img className="registerForm__snsLogin__logo" src="/images/google_logo.png" alt="sns_logo" />
             구글 계정으로 회원가입
           </button>
         </div>
-        
+
       </div>
 
       {/* 우측 영역 */}
@@ -244,4 +244,4 @@ function RegisterGeneral() {
   )
 }
 
-export default RegisterGeneral
+export default RegisterBusiness
