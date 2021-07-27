@@ -18,11 +18,10 @@ const Profile = () => {
 
   return (
     <div className="profile__div">
-      <div className="">
-        <img src="profile" alt="profile" />
-        <br />
-        덩크하는 물소 <br />
-        dunkman@ssafy.com
+      <div className="user__profile">
+        <img src="/images/symbol.png" alt="profile" />
+        <p id="nickname">덩크하는 물소</p>
+        <p id="email">dunkman@ssafy.com</p>
       </div>
       {/* 유저가 플레이어일 경우 */}
       {isPlayer && (
@@ -48,6 +47,7 @@ const Profile = () => {
         <span onClick={onChangePassword}>비밀번호 변경</span>
         <span onClick={onLogout}>로그아웃</span>
       </div>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
   );
 };
