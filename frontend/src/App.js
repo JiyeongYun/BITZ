@@ -10,6 +10,7 @@ import Profile from './router/user/common/Profile.js';
 import RegisterGym from './router/user/business/gym/RegisterGym.js';
 import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js'
+import MyGame from './router/game/player/MyGame'
 
 function App() {
   const [offcanvas, setOffcanvas] = useState(false)
@@ -32,6 +33,7 @@ function App() {
         <Route path="/registerGym" exact={true} component={RegisterGym} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
+        <Route path="/match/mygames" exact={true} component={MyGame} />
       </BrowserRouter>
     </div>
   );
