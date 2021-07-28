@@ -1,0 +1,39 @@
+.mygame {
+    margin: 50px auto;
+    width: 60vw;
+    min-height: 70vh;
+}
+
+.mygame > h3 {
+    text-align: end;
+}
+
+.mygame > h3:hover {
+    text-decoration: underline;
+}
+
+.mygame > h2 {
+    margin: 30px 0;
+    color: #ffad4e;
+}
+
+.nogame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate( -50%, 0);
+}
+
+.nogame > h2 {
+    color: #ffad4e;
+    margin-bottom: 70px;
+}
+
+.nogame > a {
+    color: white;
+    background-color: #ffad4e;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.5s;
+}

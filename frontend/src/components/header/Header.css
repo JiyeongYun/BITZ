@@ -1,12 +1,18 @@
-.header {
+.header__container {
 	position: sticky;
 	top: 0;
+	background-color: white;
+	z-index: 1;
+}
+
+.header {
 	width: 70vw;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
 	padding-top: 2rem;
 	align-items: center;
+	z-index: 1;
 }
 
 .grey__canvas {
@@ -36,6 +42,15 @@
 	align-items: center;
 }
 
+.header__icons > a {
+	text-align: center;
+	transition: all .5s;
+}
+
+.header__icons > a:hover {
+	transform: scale(1.1);
+}
+
 .icon {
 	margin: 0 0 0 2rem;
 	text-decoration: none;
@@ -44,6 +59,12 @@
 .menu__icon {
 	display: flex;
 	padding: 10px 0;
+	cursor: pointer;
+	transition: all .5s;
+}
+
+.menu__icon:hover {
+	transform: scale(1.2);
 }
 
 .circle__icon {

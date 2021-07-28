@@ -34,7 +34,7 @@ function MainPage() {
         <div className="main__games"><GameList /></div>
       </store.Provider>
     </div>
-  )
+  );
 }
 
-export default MainPage
+export default MainPage;
