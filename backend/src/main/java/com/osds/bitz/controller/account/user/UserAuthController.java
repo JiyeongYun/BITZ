@@ -1,12 +1,10 @@
 package com.osds.bitz.controller.account.user;
 
-import com.osds.bitz.model.request.ReadUserAuthRequest;
-import com.osds.bitz.model.request.UpdatePasswordRequest;
-import com.osds.bitz.model.request.UserAuthRequest;
-import com.osds.bitz.model.response.UserAuthResponse;
-import com.osds.bitz.repository.account.user.UserAuthRepository;
+import com.osds.bitz.model.network.request.ReadUserAuthRequest;
+import com.osds.bitz.model.network.request.UpdatePasswordRequest;
+import com.osds.bitz.model.network.request.UserAuthRequest;
+import com.osds.bitz.model.network.response.UserAuthResponse;
 import com.osds.bitz.service.account.user.UserAuthService;
-
 import io.swagger.annotations.Api;
 
 import io.swagger.annotations.ApiOperation;
@@ -41,18 +39,19 @@ public class UserAuthController {
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/updatepassword")
+    @PutMapping("/updatepassword")
     @ApiOperation(value="비밀번호 변경하기", notes="회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<UserAuthResponse> updatePassword(@RequestBody @ApiParam(value="회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception{
         UserAuthResponse response = new UserAuthResponse(userAuthService.updatePassword(updatePasswordRequest));
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
-//    @PutMapping("/findpassword")
-//    @ApiOperation(value="비밀번호 찾기", notes="회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
-//    public ResponseEntity<UserAuthResponse> findpassword(@RequestBody @ApiParam(value=" 비밀번호 찾기") UserAuthRequest userAuthRequest)throws Exception{
-//        // 이메일에 해당하는 정보 있는지 확인하기
-//        // 임시 비밀번호로 비밀번호 변경하기
-//    }
-//        // 해당 이메일로 임시 비밀번호 발급하기
+
+    @PutMapping("/readpassword")
+    @ApiOperation(value="비밀번호 찾기", notes="회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
+    public ResponseEntity<UserAuthResponse> readPassword(@RequestBody @ApiParam(value=" 비밀번호 찾기") UserAuthRequest UserAuthRequest)throws Exception{
+        UserAuthResponse response = new UserAuthResponse(userAuthService.readPassword(UserAuthRequest));
+        return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
+    }
+
 
 }
