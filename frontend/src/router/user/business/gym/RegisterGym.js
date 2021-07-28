@@ -98,9 +98,7 @@ const RegisterGym = () => {
             <table className="facilities__table">
               <tr>
                 <td value="water" id="water" className="unClicked" onClick={onClickFacilities} />
-
                 <td value="shower" id="shower" className="unClicked" onClick={onClickFacilities} />
-
                 <td
                   value="scoreboard"
                   id="scoreboard"
@@ -115,14 +113,12 @@ const RegisterGym = () => {
                   className="unClicked"
                   onClick={onClickFacilities}
                 />
-
                 <td
                   value="basketball"
                   id="basketball"
                   className="unClicked"
                   onClick={onClickFacilities}
                 />
-
                 <td
                   value="airconditioner"
                   id="airconditioner"
