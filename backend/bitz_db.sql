@@ -55,7 +55,7 @@ CREATE TABLE `businessprofile` (
   `name` varchar(30) COLLATE utf8_bin NOT NULL,
   `phone` varchar(15) COLLATE utf8_bin NOT NULL,
   `bank` varchar(10) COLLATE utf8_bin NOT NULL,
-  `account` varchar(20) COLLATE utf8_bin NOT NULL,
+  `account` varchar(50) COLLATE utf8_bin NOT NULL,
   `business_registration` blob NOT NULL,
   `business_id` char(8) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
@@ -282,11 +282,11 @@ DROP TABLE IF EXISTS `loginlog`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `loginlog` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` char(8) COLLATE utf8_bin NOT NULL,
+  `user_email` varchar(50) COLLATE utf8_bin NOT NULL,
   `is_general` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -432,7 +432,7 @@ CREATE TABLE `userprofile` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `userprofile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `userauth` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,4 +453,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-28 10:34:41
+-- Dump completed on 2021-07-28 23:50:32
