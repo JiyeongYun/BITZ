@@ -1,0 +1,7 @@
+.main__preferredArea {
+  display: flex;
+}
+
+.preferredArea__area {
+  margin: 10px;
+}

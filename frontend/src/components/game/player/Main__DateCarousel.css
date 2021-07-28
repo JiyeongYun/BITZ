@@ -6,7 +6,6 @@
   margin-left: 10px;
   margin-right: 10px;
   height: 10vw;
-  overflow: hidden;
   position: relative;
 }
 
@@ -54,6 +53,8 @@
 .carouselArrow:hover {
   z-index: 1;
   cursor: pointer;
+  width: 1.8vw;
+  transition: 0.2s;
 }
 
 .carouselArrow__left {

@@ -44,14 +44,14 @@ export default function Main__DateCarousel() {
   // Effect
   // PJW - offset 조정 시 실제로 이동
   // PJW - offset 에 따라 이동 버튼 활성화
-  const MoveCarousel = useEffect(()=>{
+  useEffect(()=>{
     const carousel = document.querySelectorAll('.main__dateCarousel__element')
     carousel.forEach((element)=>{
       element.style.left = `${offset}vw`
     })
     
-    const leftArrow = document.querySelector('.carouselArrow__left')
-    const rightArrow = document.querySelector('.carouselArrow__right')
+    const leftArrow = document.querySelector('.carouselArrow__right')
+    const rightArrow = document.querySelector('.carouselArrow__left')
     if (offset<=-70) {
       leftArrow.style.display = 'none'
     } else if (offset>=0) {
@@ -81,8 +81,8 @@ export default function Main__DateCarousel() {
           </div>
         </div>
         ))}
-      <img className="carouselArrow carouselArrow__left" src="/images/left-arrow.png" alt="logo" onClick={moveLeft} />
-      <img className="carouselArrow carouselArrow__right" src="/images/right-arrow.png" alt="logo" onClick={moveRight} />
+      <img className="carouselArrow carouselArrow__left" src="/images/left-arrow.png" alt="logo" onClick={moveRight} />
+      <img className="carouselArrow carouselArrow__right" src="/images/right-arrow.png" alt="logo" onClick={moveLeft} />
       </div>
     </div>
   )

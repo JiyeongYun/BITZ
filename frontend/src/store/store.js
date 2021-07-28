@@ -1,22 +1,23 @@
-// Context file 불러오기
-import { authStateContext, authDispatchContext } from "./authContext";
+import React, {createContext, useReducer} from "react";
 
-// state 모음
-const stateMap = {
-  auth: authStateContext,
+const initialState = {
+  gameList: [],
 };
+const store = createContext(initialState);
+const {Provider} = store;
 
-// dispatch 모음
-const dispatchMap = {
-  auth: authDispatchContext,
-};
+const StateProvider = ({children}) => {
+  const [state, dispatch] = useReducer((arg,action)=>{
+    switch(action.type) {
+      case 'GET_GAME_LIST':
+        const newState = {...state, arg}
+        return newState;
+      default:
+        throw new Error();
+    };
+  },initialState);
 
-// state 선택 callback | useSelector(state => state.auth) | 이런 식으로 사용
-export const useSelector = (callback) => {
-  return callback(stateMap)();
-};
+  return <Provider value={{state,dispatch}}>{children}</Provider>;
+}
 
-// dispatch 선택 callback | useDispatch(dispatch => dispatch.auth) | 이런 식으로 사용
-export const useDispatch = (callback) => {
-  return callback(dispatchMap)();
-};
+export {store, StateProvider}

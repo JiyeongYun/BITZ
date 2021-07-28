@@ -1,0 +1,29 @@
+.main__gameList {
+  width: 70vw;
+  position: relative;
+}
+
+.gameList__List {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70vw;
+  position: relative;
+}
+
+.gameList__game {
+  width: 70vw;
+}
+
+.gameList__content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.gameList__game__facility {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 20vw;
+}
