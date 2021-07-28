@@ -2,6 +2,7 @@ package com.osds.bitz.service.account.user;
 
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.account.user.UserProfile;
+import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.network.request.ReadUserAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
@@ -9,6 +10,7 @@ import com.osds.bitz.model.network.request.UserAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.account.user.UserProfileRepository;
 
+import com.osds.bitz.repository.log.LoginLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +32,9 @@ public class UserAuthService {
 
     @Autowired
     private UserProfileRepository userProfileRepository;
+
+    @Autowired
+    private LoginLogRepository loginLogRepository;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -54,11 +59,14 @@ public class UserAuthService {
     // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
         // userauth테이블 내용 설정하기
+
+        String userAuthId = "S" + generateRandomNumber();
+
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
                 .password(userAuthRequest.getPassword())
-                .id("U1234567")
+                .id(userAuthId)
                 .build();
 
         // userauth테이블에서 값 가져와서 userprofile의 userID값 설정하기
@@ -68,8 +76,14 @@ public class UserAuthService {
                 .userAuth(userAuth)
                 .build();
 
+        LoginLog loginLog = LoginLog.builder()
+                .userId(userAuthId)
+                .isGeneral(true)
+                .build();
+
         UserAuth newUserAuth = this.userAuthRepository.save(userAuth);
         this.userProfileRepository.save(userProfile);
+        this.loginLogRepository.save(loginLog);
         return newUserAuth;
     }
 
@@ -118,5 +132,19 @@ public class UserAuthService {
         newUserAuth.setPassword(code);
         return this.userAuthRepository.save(newUserAuth);
     }
+
+    public String generateRandomNumber() {
+        int length = 7;
+        Random random = new Random(System.currentTimeMillis());
+
+        int range = (int)Math.pow(10,length);
+        int trim = (int)Math.pow(10, length-1);
+        int result = random.nextInt(range) + trim;
+
+        if(result > range) result = result - trim;
+        return String.valueOf(result);
+    }
+
+
 
 }
