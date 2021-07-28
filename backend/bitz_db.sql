@@ -214,6 +214,8 @@ CREATE TABLE `gym` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `business_id` char(8) COLLATE utf8_bin NOT NULL,
   `name` varchar(20) COLLATE utf8_bin NOT NULL,
+  `sido` varchar(10) COLLATE utf8_bin NOT NULL,
+  `gugun` varchar(10) COLLATE utf8_bin NOT NULL,
   `address` varchar(100) COLLATE utf8_bin NOT NULL,
   `court_width` int NOT NULL DEFAULT '15',
   `court_length` int NOT NULL DEFAULT '28',
@@ -421,10 +423,10 @@ DROP TABLE IF EXISTS `userprofile`;
 CREATE TABLE `userprofile` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8_bin NOT NULL,
-  `nickname` varchar(30) COLLATE utf8_bin NOT NULL,
+  `nickname` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   `phone` varchar(15) COLLATE utf8_bin NOT NULL,
-  `location` varchar(100) COLLATE utf8_bin NOT NULL,
-  `height` int NOT NULL,
+  `location` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `height` int DEFAULT NULL,
   `user_id` char(8) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -451,4 +453,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-27 14:31:06
+-- Dump completed on 2021-07-28 10:34:41
