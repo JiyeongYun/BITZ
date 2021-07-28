@@ -1,10 +1,13 @@
 package com.osds.bitz.service.account.user;
 
 import com.osds.bitz.model.entity.account.user.UserAuth;
+import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.network.request.ReadUserAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
+
 import com.osds.bitz.repository.account.user.UserAuthRepository;
+import com.osds.bitz.repository.account.user.UserProfileRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,10 @@ public class UserAuthService {
     private UserAuthRepository userAuthRepository;
 
     @Autowired
-    private JavaMailSender mailSender;
+    private UserProfileRepository userProfileRepository;
 
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Bean
     public JavaMailSenderImpl mailSender() {
@@ -46,15 +51,29 @@ public class UserAuthService {
         return javaMailSender;
     }
 
+    // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
+        // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
                 .password(userAuthRequest.getPassword())
+                .id("U1234567")
                 .build();
-        return this.userAuthRepository.save(userAuth);
+
+        // userauth테이블에서 값 가져와서 userprofile의 userID값 설정하기
+        UserProfile userProfile = UserProfile.builder()
+                .name(userAuthRequest.getName())
+                .phone(userAuthRequest.getPhone())
+                .userAuth(userAuth)
+                .build();
+
+        UserAuth newUserAuth = this.userAuthRepository.save(userAuth);
+        this.userProfileRepository.save(userProfile);
+        return newUserAuth;
     }
 
+    // 비밀번호 변경하기
     public UserAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = new UserAuth();
@@ -65,11 +84,13 @@ public class UserAuthService {
         return this.userAuthRepository.save(newUserAuth);
     }
 
+    // 로그인
     public UserAuth readUser(ReadUserAuthRequest readUserAuthRequest) {
         // 이메일과 비밀번호로 객체 찾아오기
         return this.userAuthRepository.findUserAuthByEmailAndPassword(readUserAuthRequest.getEmail(), readUserAuthRequest.getPassword());
     }
 
+    // 비밀번호 찾기
     public UserAuth readPassword(UserAuthRequest userAuthRequest) {
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = new UserAuth();
@@ -96,7 +117,6 @@ public class UserAuthService {
         // 임시 비밀번호로 비밀번호 변경하기
         newUserAuth.setPassword(code);
         return this.userAuthRepository.save(newUserAuth);
-
     }
 
 }
