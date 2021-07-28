@@ -1,8 +1,9 @@
 package com.osds.bitz.controller.account.user;
 
-import com.osds.bitz.model.network.request.ReadUserAuthRequest;
+import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
+import com.osds.bitz.model.network.response.BusinessAuthResponse;
 import com.osds.bitz.model.network.response.UserAuthResponse;
 import com.osds.bitz.service.account.user.UserAuthService;
 import io.swagger.annotations.Api;
@@ -33,8 +34,10 @@ public class UserAuthController {
 
     @PostMapping("/readuserauth")
     @ApiOperation(value = "로그인", notes = "회원의 정보를 통해 로그인 처리를 합니다.")
-    public ResponseEntity<UserAuthResponse> readUserAuth(@RequestBody @ApiParam(value="회원 정보") ReadUserAuthRequest readUserAuthRequest) throws Exception {
-        UserAuthResponse response = new UserAuthResponse(userAuthService.readUser(readUserAuthRequest));
+    public ResponseEntity<UserAuthResponse> readUserAuth(@RequestBody @ApiParam(value="회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
+        UserAuthResponse response = new UserAuthResponse(userAuthService.readUser(readAuthRequest));
+        if(response == null)
+            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 

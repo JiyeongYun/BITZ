@@ -14,5 +14,8 @@ public class BusinessAuthRequest {
     private String email;
     private String password;
     private String birth;
+//    private String bank;
+//    private String account;
+//    private char[] businessRegistration;
 
 }

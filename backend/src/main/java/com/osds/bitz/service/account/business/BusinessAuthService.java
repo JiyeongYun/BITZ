@@ -1,9 +1,12 @@
 package com.osds.bitz.service.account.business;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
+import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.network.request.BusinessAuthRequest;
+import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
+import com.osds.bitz.repository.log.LoginLogRepository;
 import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,9 @@ public class BusinessAuthService extends BaseAuthService {
     private BusinessAuthRepository businessAuthRepository;
 
     @Autowired
+    private LoginLogRepository loginLogRepository;
+
+    @Autowired
     private JavaMailSender mailSender;
 
     // 회원가입
@@ -30,10 +36,24 @@ public class BusinessAuthService extends BaseAuthService {
     }
 
     // 로그인
-    public BusinessAuth readBusiness(BusinessAuthRequest businessAuthRequest) {
-        return null;
-    }
+    public BusinessAuth readBusiness(ReadAuthRequest readAuthRequest) {
+        BusinessAuth businessAuth = this.businessAuthRepository.findBusinessAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
 
+        // 로그인 유효성 검사
+        if(businessAuth == null) return null;
+
+        LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(),false);
+        if(loginLog == null){
+            loginLog = LoginLog.builder()
+                    .userEmail(readAuthRequest.getEmail())
+                    .isGeneral(false)
+                    .build();
+            this.loginLogRepository.save(loginLog);
+        }else{
+            // TODO: 최초 로그인이 아닌 경우 처리하기
+        }
+        return businessAuth;
+    }
 
     // 비밀번호 변경하기
     public BusinessAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
@@ -49,8 +69,7 @@ public class BusinessAuthService extends BaseAuthService {
     // 비밀번호 찾기
     public BusinessAuth readPassword(BusinessAuthRequest businessAuthRequest) {
         // 이메일로 해당 객체 찾아오기
-        BusinessAuth newBusinessAuth = new BusinessAuth();
-        newBusinessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
+        BusinessAuth newBusinessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
 
         // 임시 비밀번호 생성 및 메일 전송
         String code = "";

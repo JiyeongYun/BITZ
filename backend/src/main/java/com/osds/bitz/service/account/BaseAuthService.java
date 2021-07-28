@@ -1,5 +1,7 @@
 package com.osds.bitz.service.account;
 
+import com.osds.bitz.repository.log.LoginLogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -38,7 +40,9 @@ public class BaseAuthService<T> {
         if(result > range) result = result - trim;
 
         String id = String.valueOf(result);
-        return isGeneral? "S" + id : "B" + id;
+
+        if(isGeneral) return "S" + id;      // 일반 사용자
+        else return "B" + id;               // 관리자
     }
 
 

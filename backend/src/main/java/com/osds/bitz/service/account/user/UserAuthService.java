@@ -3,7 +3,7 @@ package com.osds.bitz.service.account.user;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
-import com.osds.bitz.model.network.request.ReadUserAuthRequest;
+import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
@@ -55,21 +55,33 @@ public class UserAuthService extends BaseAuthService {
                 .userAuth(userAuth)
                 .build();
 
-        LoginLog loginLog = LoginLog.builder()
-                .userId(userAuthId)
-                .isGeneral(true)
-                .build();
-
         UserAuth newUserAuth = this.userAuthRepository.save(userAuth);
         this.userProfileRepository.save(userProfile);
-        this.loginLogRepository.save(loginLog);
+
         return newUserAuth;
     }
 
     // 로그인
-    public UserAuth readUser(ReadUserAuthRequest readUserAuthRequest) {
+    public UserAuth readUser(ReadAuthRequest readAuthRequest) {
         // 이메일과 비밀번호로 객체 찾아오기
-        return this.userAuthRepository.findUserAuthByEmailAndPassword(readUserAuthRequest.getEmail(), readUserAuthRequest.getPassword());
+        UserAuth userAuth = this.userAuthRepository.findUserAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+
+        // 로그인 유효성 검사
+        if(userAuth == null) return null;
+
+        // 최초 로그인 체크하기
+        LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), true);
+        log.info("{}", loginLog);
+        if(loginLog == null){               // 최초 로그인시
+            loginLog = LoginLog.builder()
+                    .userEmail(readAuthRequest.getEmail())
+                    .isGeneral(true)
+                    .build();
+            this.loginLogRepository.save(loginLog);
+        }else{                              // 최초 로그인이 아닌 경우
+            // TODO: 최초 로그인이 아닌 경우 처리하기
+        }
+        return userAuth;
     }
 
     // 비밀번호 변경하기
@@ -86,8 +98,7 @@ public class UserAuthService extends BaseAuthService {
     // 비밀번호 찾기
     public UserAuth readPassword(UserAuthRequest userAuthRequest) {
         // 이메일로 해당 객체 찾아오기
-        UserAuth newUserAuth = new UserAuth();
-        newUserAuth = this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail());
+        UserAuth newUserAuth = this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail());
 
         // 임시 비밀번호 생성 및 메일 전송
         String code = "";
