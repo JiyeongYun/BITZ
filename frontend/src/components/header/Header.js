@@ -1,13 +1,23 @@
-import React from 'react'
-import "./Header.css"
-import { Link } from "react-router-dom"
+import React, { useEffect, useState } from 'react';
+import './Header.css';
+import { Link } from 'react-router-dom';
 
-function Header(props){
+function Header(props) {
+  const [isLogin, setIsLogin] = useState(false);
   // const [offcanvas, setOffcanvas] = useState(false)
   // const toggleCanvas = () => {
   //   setOffcanvas(!offcanvas)
   // }
+  // <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
 
+  useEffect(() => {
+    console.log(props.userObj);
+    if (props.userObj) {
+      setIsLogin(true);
+    } else setIsLogin(false);
+
+    console.log('상태 : ' + isLogin);
+  });
 
   return (
     <div className="header__container">
@@ -16,7 +26,13 @@ function Header(props){
           <img className="header__symbol" src="/images/symbol.png" alt="logo" />
         </Link>
         <div className="header__icons">
-          <Link to="/accounts/login"><p className="icon">로그인</p></Link>
+          {isLogin ? (
+            <img src={process.env.PUBLIC_URL + `/images/profile.png`} width="20px" />
+          ) : (
+            <Link to="/accounts/login">
+              <p className="icon">로그인</p>
+            </Link>
+          )}
           <div className="icon menu__icon" onClick={props.toggleCanvas}>
             <div className="circle__icon"></div>
             <div className="circle__icon"></div>
@@ -29,7 +45,7 @@ function Header(props){
         </div> */}
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
