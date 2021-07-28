@@ -53,7 +53,7 @@ public class UserAuthService {
 
     // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
-
+        // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
@@ -67,10 +67,10 @@ public class UserAuthService {
                 .phone(userAuthRequest.getPhone())
                 .userAuth(userAuth)
                 .build();
-        System.out.println(userProfile);
-        this.userProfileRepository.save(userProfile);
 
-        return this.userAuthRepository.save(userAuth);
+        UserAuth newUserAuth = this.userAuthRepository.save(userAuth);
+        this.userProfileRepository.save(userProfile);
+        return newUserAuth;
     }
 
     // 비밀번호 변경하기

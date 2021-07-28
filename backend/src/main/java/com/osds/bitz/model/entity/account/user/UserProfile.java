@@ -27,7 +27,7 @@ public class UserProfile {
 
     private int height;         // 키
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private UserAuth userAuth;
 }
