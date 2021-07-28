@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import RegisterGeneralValidation from "components/user/player/register/RegisterGeneralValidation.js" // 유효성 검사 함수
 import { dispatchSubmitContext } from "router/user/common/Register";
+import UserApi from 'api/UserApi'
 
 function RegisterGeneral() {
   // Context-Reducer
@@ -92,6 +93,9 @@ function RegisterGeneral() {
       if (values.birthMonth.length ===1) {
         const birthValue = values.birthYear + '0' + values.birthMonth + values.birthDay;
         setValues({ ...values, birth: birthValue});
+      } else if (values.birthDay.length ===1) {
+        const birthValue = values.birthYear + values.birthMonth + '0' + values.birthDay;
+        setValues({ ...values, birth: birthValue});
       } else {
         const birthValue = values.birthYear + values.birthMonth + values.birthDay;
         setValues({ ...values, birth: birthValue});
@@ -107,14 +111,29 @@ function RegisterGeneral() {
 
   // PJW - 회원가입 버튼 클릭
   const onRegister = () => {
-    alert('API 연결이 필요합니다!')
+    const data = {
+      birth: values.birth,
+      email: values.email,
+      name: values.name,
+      password: values.password,
+      phone: values.phoneNumber,
+    }
+    UserApi.requestJoin(
+      data,
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log(err)
+      }
+    )
     dispatch({type: "SUBMIT", value: values.email})
   } // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
   const updateIsFirst = (event) => {
     setIsFirst({...isFirst, [event.target.name]: false})
-    if (event.target.name === "birthYear" || event.target.name === "birthYear" || event.target.name === "birthYear") {
+    if (event.target.name === "birthYear" || event.target.name === "birthMonth" || event.target.name === "birthDay") {
       lateValidateValue(event)
     }
   } // updateIsFirst End
