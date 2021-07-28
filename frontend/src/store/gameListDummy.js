@@ -1,5 +1,3 @@
-import { createContext, useReducer } from "react";
-
 const gameListDummy = [
   {
     id: 0,

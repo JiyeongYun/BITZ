@@ -28,9 +28,9 @@ function Login() {
     alert('eamil : ' + email + ' password : ' + password + ' userKind : ' + userKind);
   };
 
-  const onGoogleLogin = () => {
-    alert('구글 계정으로 로그인');
-  };
+  // const onGoogleLogin = () => {
+  //   alert('구글 계정으로 로그인');
+  // };
 
   return (
     <div className="loginForm">

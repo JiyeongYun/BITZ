@@ -8,7 +8,7 @@ export default function Main__PreferredArea() {
   return(
     <div className="main__preferredArea">
       { areas.map((area)=>(
-        <div className="preferredArea__area">
+        <div className="preferredArea__area" key={area}>
           {area}
         </div>
       )) }

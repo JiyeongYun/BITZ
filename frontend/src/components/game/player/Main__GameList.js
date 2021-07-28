@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import "./Main__GameList.css"
-import { stateGameContext } from "router/game/common/MainPage"
+import { store } from 'store/store.js';
 
 export default function Main__GameList() {
-  const gameData = useContext(stateGameContext)
+  const globalState = useContext(store);
+  console.log('4', globalState.value, '(자식)')
+  const gameData = globalState.value.gameList
   console.log(gameData)
 
   return(
