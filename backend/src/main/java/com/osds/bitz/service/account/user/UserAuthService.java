@@ -5,25 +5,21 @@ import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.network.request.ReadUserAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
-
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.account.user.UserProfileRepository;
-
+import com.osds.bitz.service.account.MailSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 import java.util.Random;
 
 @Service
 @Slf4j
-public class UserAuthService {
+public class UserAuthService extends MailSender {
 
     @Autowired
     private UserAuthRepository userAuthRepository;
@@ -33,23 +29,6 @@ public class UserAuthService {
 
     @Autowired
     private JavaMailSender mailSender;
-
-    @Bean
-    public JavaMailSenderImpl mailSender() {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setProtocol("smtp");
-        javaMailSender.setHost("smtp.gmail.com");
-        javaMailSender.setPort(587);
-        javaMailSender.setUsername("angpang1106@gmail.com");
-        javaMailSender.setPassword("rozqumdjyahhtaui");
-        javaMailSender.setDefaultEncoding("UTF-8");
-        Properties properties = javaMailSender.getJavaMailProperties();
-        properties.put("mail.smtp.starttls.enable", true);
-        properties.put("mail.smtp.auth", true);
-        properties.put("mail.debug", true);
-        javaMailSender.setJavaMailProperties(properties);
-        return javaMailSender;
-    }
 
     // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
@@ -73,6 +52,12 @@ public class UserAuthService {
         return newUserAuth;
     }
 
+    // 로그인
+    public UserAuth readUser(ReadUserAuthRequest readUserAuthRequest) {
+        // 이메일과 비밀번호로 객체 찾아오기
+        return this.userAuthRepository.findUserAuthByEmailAndPassword(readUserAuthRequest.getEmail(), readUserAuthRequest.getPassword());
+    }
+
     // 비밀번호 변경하기
     public UserAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         // 이메일로 해당 객체 찾아오기
@@ -82,12 +67,6 @@ public class UserAuthService {
         // 변경할 비밀번호 설정하기
         newUserAuth.setPassword(updatePasswordRequest.getNewPassword());
         return this.userAuthRepository.save(newUserAuth);
-    }
-
-    // 로그인
-    public UserAuth readUser(ReadUserAuthRequest readUserAuthRequest) {
-        // 이메일과 비밀번호로 객체 찾아오기
-        return this.userAuthRepository.findUserAuthByEmailAndPassword(readUserAuthRequest.getEmail(), readUserAuthRequest.getPassword());
     }
 
     // 비밀번호 찾기

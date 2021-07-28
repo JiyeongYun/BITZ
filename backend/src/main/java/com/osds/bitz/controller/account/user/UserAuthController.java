@@ -6,7 +6,6 @@ import com.osds.bitz.model.network.request.UserAuthRequest;
 import com.osds.bitz.model.network.response.UserAuthResponse;
 import com.osds.bitz.service.account.user.UserAuthService;
 import io.swagger.annotations.Api;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
