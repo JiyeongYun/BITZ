@@ -60,7 +60,7 @@ public class UserAuthService {
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
         // userauth테이블 내용 설정하기
 
-        String userAuthId = "S" + generateRandomNumber();
+        String userAuthId = generateRandomNumber();
 
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
@@ -133,6 +133,7 @@ public class UserAuthService {
         return this.userAuthRepository.save(newUserAuth);
     }
 
+    // 7자리 난수 만들기
     public String generateRandomNumber() {
         int length = 7;
         Random random = new Random(System.currentTimeMillis());
@@ -142,7 +143,7 @@ public class UserAuthService {
         int result = random.nextInt(range) + trim;
 
         if(result > range) result = result - trim;
-        return String.valueOf(result);
+        return "S" + String.valueOf(result);
     }
 
 
