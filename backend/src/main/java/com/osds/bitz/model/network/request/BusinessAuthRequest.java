@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAuthRequest {
+public class BusinessAuthRequest {
 
     private String name;
     private String phone;
