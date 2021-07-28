@@ -10,6 +10,7 @@ function Header(props){
 
 
   return (
+    <div className="header__container">
       <div className="header">
         <Link to="/">
           <img className="header__symbol" src="/images/symbol.png" alt="logo" />
@@ -27,6 +28,7 @@ function Header(props){
           <OffCanvas />
         </div> */}
       </div>
+    </div>
   )
 }
 

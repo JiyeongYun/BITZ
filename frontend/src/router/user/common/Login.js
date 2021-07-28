@@ -38,13 +38,13 @@ function Login() {
       <form onSubmit={onSubmit}>
         {/* radio 버튼은 부트스트랩 필요할 듯 */}
         <div className="userKind">
-          <label className={userKind==='player' ? 'userKindRadio' : 'userKindRadio unselected'}>
+          <label className={userKind==='player' ? 'userKindRadio selected' : 'userKindRadio unselected'}>
             <input type="radio" value="player" name="userKind" onClick={onChange} />
-            플레이어
+            <span>플레이어</span>
           </label>
-          <label className={userKind==='business' ? 'userKindRadio' : 'userKindRadio unselected'}>
+          <label className={userKind==='business' ? 'userKindRadio selected' : 'userKindRadio unselected'}>
             <input type="radio" value="business" name="userKind" onClick={onChange} />
-            비즈니스
+            <span>비즈니스</span>
           </label>
         </div>
         <div className="emailbox">
