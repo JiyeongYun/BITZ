@@ -24,6 +24,7 @@ const requsetJoin = (data, callback, errorCallback) => {
 
 const UserApi = {
   requsetJoin: (data, callback, errorCallback) => requsetJoin(data, callback, errorCallback),
+  requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
 };
 
 export default UserApi;
