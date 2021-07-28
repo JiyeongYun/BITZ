@@ -21,13 +21,13 @@ const GameInfo = () => {
     const {
       target: { id },
     } = event;
-    document.getElementsByClassName(`${id}spec`)[0].style.display = 'block';
+    document.getElementsByClassName(`${id}user`)[0].style.display = 'block';
   };
   const out = (event) => {
     const {
       target: { id },
     } = event;
-    document.getElementsByClassName(`${id}spec`)[0].style.display = 'none';
+    document.getElementsByClassName(`${id}user`)[0].style.display = 'none';
   };
 
   return (
@@ -57,7 +57,7 @@ const GameInfo = () => {
               onMouseOver={over}
               onMouseOut={out}
             ></img>
-            <div className={idx + 'spec'} kdy={idx}>
+            <div className={idx + 'user spec'} kdy={idx}>
               <div className="test">
                 <div>
                   {user.name}
