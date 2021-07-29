@@ -31,16 +31,19 @@
 ### 프로젝트 명세
 
 - 개발 문서
+
   S05P12A504 > OSDS_BITZ_개발문서_SUB23 
 
 
 
 - 개발 기간
+
   2021.07.05(월) ~ 2021.08.20(금)
 
 
 
 - 개발 환경
+
   - Window10
   - Backend : Spring Boot
   - Frontend : React
@@ -49,6 +52,7 @@
 
 
 - 개발 멤버
+
   - 권오우 (Fronted)
   - 박정웅 (Fronted)
   - 윤지영 (Backend)
