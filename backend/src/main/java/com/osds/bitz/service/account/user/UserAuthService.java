@@ -17,7 +17,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
-import java.util.Random;
 
 @Service
 @Slf4j
@@ -103,8 +102,7 @@ public class UserAuthService extends BaseAuthService {
         // 임시 비밀번호 생성 및 메일 전송
         String code = "";
         try {
-            for (int i = 0; i < 10; i++)
-                code = code + String.valueOf(new Random().nextInt(9) + 1);
+            code = generateRandomNumber();
             String msg = "<p><b> " + newUserAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + code + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
