@@ -36,10 +36,14 @@ public class UserAuthService extends BaseAuthService {
 
     // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
-        // userauth테이블 내용 설정하기
+        // 이메일이 중복되었는지 확인
+        if(this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail()) != null)
+            return null;
 
+        // userID로 설정할 랜덤 값 생성
         String userAuthId = generateRandomNumber(true);
 
+        // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
@@ -47,7 +51,7 @@ public class UserAuthService extends BaseAuthService {
                 .id(userAuthId)
                 .build();
 
-        // userauth테이블에서 값 가져와서 userprofile의 userID값 설정하기
+        // userauth테이블에서 값 가져와서 userprofile값 설정하기
         UserProfile userProfile = UserProfile.builder()
                 .name(userAuthRequest.getName())
                 .phone(userAuthRequest.getPhone())
