@@ -42,6 +42,11 @@ public class UserAuthService extends BaseAuthService {
 
         // userID로 설정할 랜덤 값 생성
         String userAuthId = generateRandomNumber(true);
+        // userID 중복 체크
+        UserAuth duplicationUserAuth = this.userAuthRepository.getById(userAuthId);
+        while(userAuthId.equals(duplicationUserAuth.getId())){
+            userAuthId = generateRandomNumber(true);
+        }
 
         // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
@@ -67,8 +72,7 @@ public class UserAuthService extends BaseAuthService {
     // 로그인
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
         // 이메일과 비밀번호로 객체 찾아오기
-        UserAuth userAuth = this.userAuthRepository.findUserAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
-        return userAuth;
+        return this.userAuthRepository.findUserAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
     }
 
     // 첫 로그인인지 확인하기
