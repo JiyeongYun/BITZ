@@ -5,6 +5,7 @@ import com.osds.bitz.model.network.request.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.response.BusinessAuthResponse;
+import com.osds.bitz.model.network.response.UserAuthResponse;
 import com.osds.bitz.service.account.business.BusinessAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +40,15 @@ public class BusinessAuthController {
     public ResponseEntity<BusinessAuthResponse> readBusinessAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.readBusiness(readAuthRequest));
         if(response == null)
+            return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/readfirstuserauth")
+    @ApiOperation(value = "첫 로그인인지 확인", notes = "회원이 처음으로 로그인했는지 DB에서 확인합니다.")
+    public ResponseEntity<BusinessAuthResponse> readFirstUserBusiness(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readUAuthRequest) throws Exception {
+        BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.readFirstBusinessAuthRequest(readUAuthRequest));
+        if (response == null) //최초 로그인이 아닙니다.
             return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
