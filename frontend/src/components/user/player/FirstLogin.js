@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './FirstLogin.css'
 
-function FirstLogin() {
+function FirstLogin(props) {
   const [guardChecked, setGuardChecked] = useState(false)
   const [forwardChecked, setForwardChecked] = useState(false)
   const [centerChecked, setCenterChecked] = useState(false)
@@ -71,7 +71,7 @@ function FirstLogin() {
               <div>C</div>
             </div>
           </div>
-          <button>픽업 게임 하러가기</button>
+          <button onClick={props.firstLoginData}>픽업 게임 하러가기</button>
         </div>
       </div>
     </div>
