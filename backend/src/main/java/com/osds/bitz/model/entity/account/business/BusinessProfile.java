@@ -28,8 +28,9 @@ public class BusinessProfile {
     @Column(nullable = false)
     private String account;                 // 입금계좌
 
+    @Lob
     @Column(nullable = false)
-    private char[] businessRegistration;    // 사업자등록증
+    private byte[] businessRegistration;    // 사업자등록증
 
     @OneToOne
     @JoinColumn(name = "business_id")

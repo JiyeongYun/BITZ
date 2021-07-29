@@ -50,14 +50,6 @@ public class BusinessAuthService extends BaseAuthService {
             businessAuthId = generateRandomNumber(false);
         }
 
-        // 파일 MultipartFile 타입을 char[] 타입으로 변환
-//        byte[] b = businessAuthRequest.getBusinessRegistration().getBytes();
-//        char[] file = new char[b.length];
-//        for (int i = 0; i < b.length; i++) {
-//            file[i] = (char) b[i];
-//        }
-        char[] file = new char[2];
-
         BusinessAuth businessAuth = BusinessAuth.builder()
                 .id(businessAuthId)
                 .email(businessAuthRequest.getEmail())
@@ -71,17 +63,13 @@ public class BusinessAuthService extends BaseAuthService {
                 .phone(businessAuthRequest.getPhone())
                 .bank(businessAuthRequest.getBank())
                 .account(businessAuthRequest.getAccount())
-                .businessRegistration(file)
+                .businessRegistration(businessAuthRequest.getBusinessRegistration().getBytes())
                 .businessAuth(businessAuth)
                 .build();
-
-
         log.info("{}", businessProfile);
 
         BusinessAuth newBusinessAuth = this.businessAuthRepository.save(businessAuth);
         this.businessProfileRepository.save(businessProfile);
-
-
 
         return newBusinessAuth;
     }

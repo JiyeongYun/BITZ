@@ -5,7 +5,6 @@ import com.osds.bitz.model.network.request.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.response.BusinessAuthResponse;
-import com.osds.bitz.model.network.response.UserAuthResponse;
 import com.osds.bitz.service.account.business.BusinessAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @CrossOrigin("*")
 @AllArgsConstructor
@@ -30,7 +27,7 @@ public class BusinessAuthController {
 
     @PostMapping("/createbusiness")
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
-    public ResponseEntity<BusinessAuthResponse> createBusiness(@RequestBody @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
+    public ResponseEntity<BusinessAuthResponse> createBusiness(@ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.createBusiness(businessAuthRequest));
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
@@ -39,7 +36,7 @@ public class BusinessAuthController {
     @ApiOperation(value = "로그인", notes = "회원의 정보를 통해 로그인 처리를 합니다.")
     public ResponseEntity<BusinessAuthResponse> readBusinessAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.readBusiness(readAuthRequest));
-        if(response == null)
+        if (response == null)
             return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
