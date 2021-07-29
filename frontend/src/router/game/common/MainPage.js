@@ -37,9 +37,14 @@ function MainPage() {
       }
     )
   },[])
+
+  const firstLoginData = function () {
+    setIsFirstLogin(false)
+  }
+
   return(
     <div className="main">
-      {isFirstLogin ? <FirstLogin /> :
+      {isFirstLogin ? <FirstLogin isFirstLogin={isFirstLogin} firstLoginData={firstLoginData} /> :
         <store.Provider value={globalState}>
           <div className="main__dates"><DateCarousel /></div>
           <div className="main__areas"><PreferredArea /></div>
