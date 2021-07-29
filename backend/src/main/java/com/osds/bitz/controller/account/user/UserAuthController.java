@@ -28,7 +28,7 @@ public class UserAuthController {
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
     public ResponseEntity<UserAuthResponse> createUser(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.createUser(userAuthRequest));
-        if (response == null) // 이미 존재하는 이메일이다.
+        if (response == null) // 이미 존재하는 이메일
             return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
@@ -46,7 +46,7 @@ public class UserAuthController {
     @ApiOperation(value = "첫 로그인인지 확인", notes = "회원이 처음으로 로그인했는지 DB에서 확인합니다.")
     public ResponseEntity<UserAuthResponse> readFirstUserAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readUAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.readFirstUserAuthRequest(readUAuthRequest));
-        if (response == null) //최초 로그인이 아닙니다.
+        if (response == null) //최초 로그인이 아님
             return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
@@ -55,6 +55,8 @@ public class UserAuthController {
     @ApiOperation(value = "비밀번호 변경", notes = "회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<UserAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.updatePassword(updatePasswordRequest));
+        if (response == null) //기존의 입력한 비밀번호가 일치하지 않음
+            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
