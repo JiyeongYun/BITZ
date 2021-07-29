@@ -1,6 +1,5 @@
 package com.osds.bitz.controller.account.user;
 
-
 import com.osds.bitz.model.network.request.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;

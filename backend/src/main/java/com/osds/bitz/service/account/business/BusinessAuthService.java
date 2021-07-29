@@ -11,13 +11,16 @@ import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.log.LoginLogRepository;
 import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 @Slf4j
@@ -49,6 +52,16 @@ public class BusinessAuthService extends BaseAuthService {
         while(businessAuthId.equals(duplicataionBusinessAuth.getId())){
             businessAuthId = generateRandomNumber(false);
         }
+
+        // 파일 로컬에 저장
+        File targetFile = new File("src/main/resources/static/imgs/" + businessAuthRequest.getBusinessRegistration().getOriginalFilename());
+        try {
+            InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+        } catch (IOException e) {
+            log.info("{}",e.getMessage());
+        }
+
 
         BusinessAuth businessAuth = BusinessAuth.builder()
                 .id(businessAuthId)
