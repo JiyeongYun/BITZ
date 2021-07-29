@@ -1,20 +1,26 @@
 package com.osds.bitz.service.account.business;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.network.request.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
+import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.log.LoginLogRepository;
 import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 @Slf4j
@@ -24,34 +30,84 @@ public class BusinessAuthService extends BaseAuthService {
     private BusinessAuthRepository businessAuthRepository;
 
     @Autowired
+    private BusinessProfileRepository businessProfileRepository;
+
+    @Autowired
     private LoginLogRepository loginLogRepository;
 
     @Autowired
     private JavaMailSender mailSender;
 
     // 회원가입
-    public BusinessAuth createBusiness(BusinessAuthRequest businessAuthRequest) {
-        return null;
+    public BusinessAuth createBusiness(BusinessAuthRequest businessAuthRequest) throws IOException {
+
+        // 이메일 중복체크
+        if(this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail()) != null)
+            return null;
+
+        // businessId로 설정할 랜덤 값 생성
+        String businessAuthId = generateRandomNumber(false);
+        // businessId 중복 체크
+        BusinessAuth duplicataionBusinessAuth = this.businessAuthRepository.getById(businessAuthId);
+        while(businessAuthId.equals(duplicataionBusinessAuth.getId())){
+            businessAuthId = generateRandomNumber(false);
+        }
+
+        // 파일 로컬에 저장
+        File targetFile = new File("src/main/resources/static/imgs/" + businessAuthRequest.getBusinessRegistration().getOriginalFilename());
+        try {
+            InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+        } catch (IOException e) {
+            log.info("{}",e.getMessage());
+        }
+
+
+        BusinessAuth businessAuth = BusinessAuth.builder()
+                .id(businessAuthId)
+                .email(businessAuthRequest.getEmail())
+                .password(businessAuthRequest.getPassword())
+                .birth(businessAuthRequest.getBirth())
+                .build();
+        log.info("{}", businessAuth);
+
+        BusinessProfile businessProfile = BusinessProfile.builder()
+                .name(businessAuthRequest.getName())
+                .phone(businessAuthRequest.getPhone())
+                .bank(businessAuthRequest.getBank())
+                .account(businessAuthRequest.getAccount())
+                .businessRegistration(businessAuthRequest.getBusinessRegistration().getBytes())
+                .businessAuth(businessAuth)
+                .build();
+        log.info("{}", businessProfile);
+
+        BusinessAuth newBusinessAuth = this.businessAuthRepository.save(businessAuth);
+        this.businessProfileRepository.save(businessProfile);
+
+        return newBusinessAuth;
     }
 
     // 로그인
     public BusinessAuth readBusiness(ReadAuthRequest readAuthRequest) {
-        BusinessAuth businessAuth = this.businessAuthRepository.findBusinessAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+        // 이메일과 비밀번호로 객체 찾아오기
+        return this.businessAuthRepository.findBusinessAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+    }
 
-        // 로그인 유효성 검사
-        if (businessAuth == null) return null;
+    // 첫 로그인인지 확인하기
+    public BusinessAuth readFirstBusinessAuthRequest(ReadAuthRequest readAuthRequest){
 
+        // 이메일로 로그인 로그 객체 찾아오기
         LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), false);
-        if (loginLog == null) {
+
+        if(loginLog == null){               // 최초 로그인시
             loginLog = LoginLog.builder()
                     .userEmail(readAuthRequest.getEmail())
                     .isGeneral(false)
                     .build();
             this.loginLogRepository.save(loginLog);
-        } else {
-            // TODO: 최초 로그인이 아닌 경우 처리하기
+            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getUserEmail());
         }
-        return businessAuth;
+        return null;
     }
 
     // 비밀번호 변경하기
