@@ -32,7 +32,8 @@ function MainPage() {
       () => {
         setIsFirstLogin(true)
       },
-      () => {
+      (err) => {
+        console.log(err)
       }
     )
   },[])

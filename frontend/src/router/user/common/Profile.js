@@ -29,6 +29,7 @@ const Profile = () => {
       {userKind==='player' && (
         <>
           <Score userObj={userObj} />
+          <hr/>
           <MyInfo userObj={userObj} />
         </>
       )}
@@ -44,12 +45,14 @@ const Profile = () => {
           <MyGym />
         </>
       )}
+      <button className="save__btn">저장</button>
+      <hr/>
       <div className="accountSetting">
         <h2>계정 관리</h2>
         <Link to="/accounts/change_password">비밀번호 변경</Link>
         <span onClick={onLogout}>로그아웃</span>
+        <br/><br/><br/><br/><br/><br/>
       </div>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
   );
 };
