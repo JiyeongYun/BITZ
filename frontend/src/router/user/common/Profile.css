@@ -54,5 +54,6 @@
 .profile__div hr {
   width: 600px;
   margin: 30px 0;
-  background-color: #ffad4e;
+  border: 0;
+  border-top: 1px dashed #ffad4e;
 }

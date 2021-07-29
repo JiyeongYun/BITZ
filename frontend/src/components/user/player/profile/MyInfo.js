@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './MyInfo.css';
 
 const MyInfo = ({ userObj }) => {
   // 내 정보를 보여주는 컴포넌트 (신장, 포지션, 선호지역 )
-
   const [height, setHeight] = useState('');
-  const selectedPosition = [];
+  const [isClickPos, setIsClickPos] = useState(false)
+
+  // height 수정 하기 위한 변수
+  const heightRef = useRef(null)
+  const selectedPosition = ['guard'];
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -15,13 +18,14 @@ const MyInfo = ({ userObj }) => {
     } = event;
     if (name === 'heightForm') {
       // 신장 수정 후 submit
-      alert(height);
+      heightRef.current.disabled = !heightRef.current.disabled
     }
     if (name === 'positionForm') {
+      setIsClickPos(!isClickPos)
       // 포지션 수정 후 submit
-      selectedPosition.map((object) => {
-        alert(object);
-      });
+      // selectedPosition.map((object) => {
+      //   alert(object);
+      // });
     }
   };
 
@@ -74,7 +78,7 @@ const MyInfo = ({ userObj }) => {
       <div className="height">
         <p>신장</p>
         <form className="heightForm" onSubmit={onSubmit} name="heightForm">
-          <input type="text" name="height" onChange={onChange} /><span>cm</span><br/>
+          <input ref={heightRef} type="text" name="height" disabled onChange={onChange} /><span>cm</span><br/>
           <button className="btn__update">수정</button>
         </form>
       </div>
@@ -87,21 +91,21 @@ const MyInfo = ({ userObj }) => {
             value="foward"
             className="position__check"
           />
-          <span id="guard" onClick={addPosition}>가드</span>
+          <span id="guard" className={isClickPos ? 'checked' : 'checked noclick'} onClick={addPosition}>가드</span>
           <input
             type="checkbox"
             name="position"
             value="center"
             className="position__check"
           />
-          <span id="forward" onClick={addPosition}>포워드</span>
+          <span id="forward" className={isClickPos ? null : 'noclick'} onClick={addPosition}>포워드</span>
           <input
             type="checkbox"
             name="position"
             value="guard"
             className="position__check"
           />
-          <span id="center" onClick={addPosition}>센터</span><br/>
+          <span id="center" className={isClickPos ? null : 'noclick'} onClick={addPosition}>센터</span><br/>
           <button className="btn__update">수정</button>
         </form>
       </div>
