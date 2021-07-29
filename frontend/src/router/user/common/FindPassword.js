@@ -25,15 +25,15 @@ function FindPassword() {
           setEmail={e => setEmail(e)}
           setIsSend={() => {
             const data = {email: email}
+            setIsSend(true)
             UserApi.findPwd(
               data,
               () => {
                 alert("메일이 전송되었습니다!")
-                setIsSend(true)
               },
-              err => {
+              () => {
+                setIsSend(false)
                 alert("이메일을 확인해주세요!")
-                console.log(err)
               }
             )
           }}
