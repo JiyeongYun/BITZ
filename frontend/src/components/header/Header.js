@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
@@ -6,7 +6,8 @@ import { store } from 'store/store.js'; // store import (store)
 function Header(props) {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
-  // const [isLogin, setIsLogin] = useState(false);
+  const [isScrollTop, setIsScrollTop] = useState(true)
+  
   // const [offcanvas, setOffcanvas] = useState(false)
   // const toggleCanvas = () => {
   //   setOffcanvas(!offcanvas)
@@ -14,16 +15,25 @@ function Header(props) {
   // <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
 
   useEffect(() => {
-    // console.log(props.userObj);
-    // if (props.userObj) {
-    //   setIsLogin(true);
-    // } else setIsLogin(false);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isScrollTop]);
 
-    console.log('상태 : ' + globalState.value.isLogin);
-  });
+  const handleScroll = () => {
+    if (!window.scrollY && !isScrollTop) {
+      setIsScrollTop(true);
+      return;
+    }
+    if (window.scrollY && isScrollTop) {
+      setIsScrollTop(false);
+      return;
+    }
+  };
 
   return (
-    <div className="header__container">
+    <div className={isScrollTop ? "header__container" : "header__container header__shadow"}>
       <div className="header">
         <Link to="/">
           <img className="header__symbol" src="/images/symbol.png" alt="logo" />

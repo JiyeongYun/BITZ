@@ -17,13 +17,61 @@
 
 .gameList__content {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  height: 150px;
 }
 
-.gameList__game__facility {
+.gameList__game__Time {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.gameList__end {
+  margin-left: 17px;
+}
+
+.gameList__game__name {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.gameList__game__facilities {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 20vw;
+  width: 30vw;
+}
+
+.gameList__game__facility {
+  display: inline-block;
+  width: 7vw;
+  height: 40px;
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid #FFAD4E;
+  border-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  color: #FFAD4E;
+  cursor: pointer;
+  box-shadow: 0px 5px 5px 2px rgba(5, 5, 5, .2);
+}
+
+.gameList__state__button {
+  display: inline-block;
+  width: 10vw;
+  height: 50px;
+  margin: 10px;
+  padding: 5px 0px 5px 0px;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  background: #FFAD4E;
+  color: #ffffff;
+  cursor: pointer;
 }

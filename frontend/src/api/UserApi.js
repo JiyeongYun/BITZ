@@ -28,7 +28,7 @@ const requestJoin = (data, callback, errorCallback) => {
 const changePassword = (data, callback, errorCallback) => {
   axios({
     method: 'put',
-    url: BASE_URL + 'account/updatepassword',
+    url: BASE_URL + '/account/updatepassword',
     data: data,
   })
     .then(callback)
