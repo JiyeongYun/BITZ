@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './FindPassword.css'
 import WriteEmail from 'components/user/WriteEmail'
 import SendPassword from 'components/user/SendPassword'
+import UserApi from 'api/UserApi'
 
 function FindPassword() {
   const [ email, setEmail ] = useState("")
@@ -22,7 +23,20 @@ function FindPassword() {
         <img src="/images/logo.png" alt="logo"></img>
         <WriteEmail
           setEmail={e => setEmail(e)}
-          setIsSend={() => setIsSend(true)}
+          setIsSend={() => {
+            const data = {email: email}
+            UserApi.findPwd(
+              data,
+              () => {
+                alert("메일이 전송되었습니다!")
+                setIsSend(true)
+              },
+              err => {
+                alert("이메일을 확인해주세요!")
+                console.log(err)
+              }
+            )
+          }}
         />
       </div>
     )
