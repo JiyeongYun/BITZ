@@ -42,13 +42,13 @@ public class UserAuthController {
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/readfirstuserauth")
-    @ApiOperation(value = "첫 로그인인지 확인", notes = "회원이 처음으로 로그인했는지 DB에서 확인합니다.")
-    public ResponseEntity<UserAuthResponse> readFirstUserAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readUAuthRequest) throws Exception {
-        UserAuthResponse response = new UserAuthResponse(userAuthService.readFirstUserAuthRequest(readUAuthRequest));
-        if (response == null) //최초 로그인이 아닙니다.
-            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
+        @PostMapping("/readfirstuserauth")
+        @ApiOperation(value = "첫 로그인인지 확인", notes = "회원이 처음으로 로그인했는지 DB에서 확인합니다.")
+        public ResponseEntity<UserAuthResponse> readFirstUserAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readUAuthRequest) throws Exception {
+            UserAuthResponse response = new UserAuthResponse(userAuthService.readFirstUserAuthRequest(readUAuthRequest));
+            if (response == null) //최초 로그인이 아닙니다.
+                return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
     @PutMapping("/updatepassword")

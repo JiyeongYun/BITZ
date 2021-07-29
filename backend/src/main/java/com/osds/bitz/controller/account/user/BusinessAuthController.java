@@ -11,10 +11,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @CrossOrigin("*")
@@ -29,7 +33,16 @@ public class BusinessAuthController {
 
     @PostMapping("/createbusiness")
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
-    public ResponseEntity<BusinessAuthResponse> createBusiness(@RequestBody @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
+    public ResponseEntity<BusinessAuthResponse> createBusiness(@ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
+        System.out.println("회원가입");
+        log.info("{}",businessAuthRequest);
+        File targetFile = new File("src/main/resources/static/imgs/" + businessAuthRequest.getBusinessRegistration().getOriginalFilename());
+        try {
+            InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+        } catch (IOException e) {
+            log.info("{}",e.getMessage());
+        }
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.createBusiness(businessAuthRequest));
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
