@@ -23,6 +23,10 @@
   margin-top: 10px;
 }
 
+.heightForm > input:disabled {
+  background-color: #ccc;
+}
+
 .heightForm > span {
   position: absolute;
   transform: translate(20%, 70%);
@@ -75,4 +79,14 @@
 
 .location__box > span {
   line-height: 70px;
+}
+
+.noclick {
+  pointer-events: none;
+}
+
+.noclick::after {
+  content: "안녕";
+  display: none;
+  background-color: black;
 }
