@@ -21,15 +21,15 @@ public class BusinessProfile {
     @Column(nullable = false)
     private String phone;                   // 휴대폰번호
 
-    @Column(nullable = false)
-    private String bank;                    // 입금은행
+//    @Column(nullable = false)
+//    private String bank;                    // 입금은행
 
-    @Column(nullable = false)
-    private String account;                 // 입금계좌
-
-    @Column(nullable = false)
-    private byte[] businessRegistration;    // 사업자등록증
-
-    @Column(nullable = false)
-    private String businessId;             // businessAuth ID
+//    @Column(nullable = false)
+//    private String account;                 // 입금계좌
+//
+//    @Column(nullable = false)
+//    private byte[] businessRegistration;    // 사업자등록증
+//
+//    @Column(nullable = false)
+//    private String businessId;             // businessAuth ID
 }
