@@ -64,26 +64,27 @@ public class UserAuthService extends BaseAuthService {
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
         // 이메일과 비밀번호로 객체 찾아오기
         UserAuth userAuth = this.userAuthRepository.findUserAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+        return userAuth;
+    }
 
-        // 로그인 유효성 검사
-        if(userAuth == null) return null;
+    // 첫 로그인인지 확인하기
+    public UserAuth readFirstUserAuthRequest(ReadAuthRequest readAuthRequest){
 
-        // 최초 로그인 체크하기
+        // 이메일로 로그인 로그 객체 찾아오기
         LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), true);
-        log.info("{}", loginLog);
+
         if(loginLog == null){               // 최초 로그인시
             loginLog = LoginLog.builder()
                     .userEmail(readAuthRequest.getEmail())
                     .isGeneral(true)
                     .build();
             this.loginLogRepository.save(loginLog);
-        }else{                              // 최초 로그인이 아닌 경우
-            // TODO: 최초 로그인이 아닌 경우 처리하기
+            return this.userAuthRepository.getUserAuthByEmail(loginLog.getUserEmail());
         }
-        return userAuth;
+        return null;
     }
 
-    // 비밀번호 변경하기
+    // 비밀번호 변경
     public UserAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = new UserAuth();
