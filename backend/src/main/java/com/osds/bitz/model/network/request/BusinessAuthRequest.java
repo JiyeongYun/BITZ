@@ -17,6 +17,6 @@ public class BusinessAuthRequest {
     private String birth;
     private String bank;
     private String account;
-    private MultipartFile businessRegistration;
+//    private MultipartFile businessRegistration;
 
 }

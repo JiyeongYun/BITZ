@@ -16,7 +16,7 @@ public class LoginLog {
     private Long id;            // 접속자ID
 
     @Column(nullable = false)
-    private String userEmail;      // 사용자 이메일
+    private String userEmail;   // 사용자 이메일
 
     @Column(nullable = false)
     private boolean isGeneral;  // 일반사용자여부

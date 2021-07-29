@@ -38,13 +38,25 @@ public class BusinessAuthService extends BaseAuthService {
     // 회원가입
     public BusinessAuth createBusiness(BusinessAuthRequest businessAuthRequest) throws IOException {
 
-        String businessAuthId = generateRandomNumber(false);
+        // 이메일 중복체크
+        if(this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail()) != null)
+            return null;
 
-        byte[] b = businessAuthRequest.getBusinessRegistration().getBytes();
-        char[] file = new char[b.length];
-        for (int i = 0; i < b.length; i++) {
-            file[i] = (char) b[i];
+        // businessId로 설정할 랜덤 값 생성
+        String businessAuthId = generateRandomNumber(false);
+        // businessId 중복 체크
+        BusinessAuth duplicataionBusinessAuth = this.businessAuthRepository.getById(businessAuthId);
+        while(businessAuthId.equals(duplicataionBusinessAuth.getId())){
+            businessAuthId = generateRandomNumber(false);
         }
+
+        // 파일 MultipartFile 타입을 char[] 타입으로 변환
+//        byte[] b = businessAuthRequest.getBusinessRegistration().getBytes();
+//        char[] file = new char[b.length];
+//        for (int i = 0; i < b.length; i++) {
+//            file[i] = (char) b[i];
+//        }
+        char[] file = new char[2];
 
         BusinessAuth businessAuth = BusinessAuth.builder()
                 .id(businessAuthId)
@@ -52,6 +64,7 @@ public class BusinessAuthService extends BaseAuthService {
                 .password(businessAuthRequest.getPassword())
                 .birth(businessAuthRequest.getBirth())
                 .build();
+        log.info("{}", businessAuth);
 
         BusinessProfile businessProfile = BusinessProfile.builder()
                 .name(businessAuthRequest.getName())
@@ -62,30 +75,38 @@ public class BusinessAuthService extends BaseAuthService {
                 .businessAuth(businessAuth)
                 .build();
 
+
+        log.info("{}", businessProfile);
+
         BusinessAuth newBusinessAuth = this.businessAuthRepository.save(businessAuth);
         this.businessProfileRepository.save(businessProfile);
+
+
 
         return newBusinessAuth;
     }
 
     // 로그인
     public BusinessAuth readBusiness(ReadAuthRequest readAuthRequest) {
-        BusinessAuth businessAuth = this.businessAuthRepository.findBusinessAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+        // 이메일과 비밀번호로 객체 찾아오기
+        return this.businessAuthRepository.findBusinessAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+    }
 
-        // 로그인 유효성 검사
-        if (businessAuth == null) return null;
+    // 첫 로그인인지 확인하기
+    public BusinessAuth readFirstBusinessAuthRequest(ReadAuthRequest readAuthRequest){
 
+        // 이메일로 로그인 로그 객체 찾아오기
         LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), false);
-        if (loginLog == null) {
+
+        if(loginLog == null){               // 최초 로그인시
             loginLog = LoginLog.builder()
                     .userEmail(readAuthRequest.getEmail())
                     .isGeneral(false)
                     .build();
             this.loginLogRepository.save(loginLog);
-        } else {
-            // TODO: 최초 로그인이 아닌 경우 처리하기
+            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getUserEmail());
         }
-        return businessAuth;
+        return null;
     }
 
     // 비밀번호 변경하기
