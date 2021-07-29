@@ -28,6 +28,8 @@ public class UserAuthController {
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
     public ResponseEntity<UserAuthResponse> createUser(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.createUser(userAuthRequest));
+        if (response == null) // 이미 존재하는 이메일이다.
+            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
