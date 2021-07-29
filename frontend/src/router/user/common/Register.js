@@ -1,7 +1,6 @@
 import React, { createContext, useReducer, useState } from "react";
 import RegisterGeneral from "components/user/player/register/RegisterGeneral.js"
 import RegisterBusiness from "components/user/business/register/RegisterBusiness.js"
-import RegisterComplete from "components/user/common/register/RegisterComplete.js"
 import "./Register.css"
 
 // Context-Reducer
@@ -16,7 +15,7 @@ const reducerSubmit = (state, action) => {
 export const stateSubmitContext = createContext()
 export const dispatchSubmitContext = createContext()
 
-function Register() {
+function Register(props) {
   // useReducer(reducer, initialState)
   const [stateSubmit, dispatch] = useReducer(reducerSubmit, {state: false, email: ""})
 
@@ -28,27 +27,19 @@ function Register() {
   return (
     <dispatchSubmitContext.Provider value={dispatch}>
       <stateSubmitContext.Provider value={stateSubmit}>
-        {
-          stateSubmit.state ? (
-            <RegisterComplete />
+        {isBusiness ? (
+          <div>
+            <RegisterBusiness history={props.history} />
+          </div>
           ):(
-            <div>
-              {isBusiness ? (
-                <div>
-                  <RegisterBusiness />
-                </div>
-                ):(
-                <div>
-                  <RegisterGeneral />
-                  <div className="change_to_business">
-                    <div>체육관 소유주이신가요?</div>
-                    <button className="registerForm__button change_to_business__button" onClick={change_to_business}>비즈니스 계정 회원가입</button>
-                  </div>
-                </div>
-              )}
+          <div>
+            <RegisterGeneral history={props.history}/>
+            <div className="change_to_business">
+              <div>체육관 소유주이신가요?</div>
+              <button className="registerForm__button change_to_business__button" onClick={change_to_business}>비즈니스 계정 회원가입</button>
             </div>
-            )
-          }
+          </div>
+        )}
     </stateSubmitContext.Provider>
   </dispatchSubmitContext.Provider>
   )};
