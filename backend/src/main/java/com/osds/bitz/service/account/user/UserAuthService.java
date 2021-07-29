@@ -17,7 +17,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
-import java.util.Random;
 
 @Service
 @Slf4j
@@ -37,10 +36,14 @@ public class UserAuthService extends BaseAuthService {
 
     // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
-        // userauth테이블 내용 설정하기
+        // 이메일이 중복되었는지 확인
+        if(this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail()) != null)
+            return null;
 
+        // userID로 설정할 랜덤 값 생성
         String userAuthId = generateRandomNumber(true);
 
+        // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
@@ -48,7 +51,7 @@ public class UserAuthService extends BaseAuthService {
                 .id(userAuthId)
                 .build();
 
-        // userauth테이블에서 값 가져와서 userprofile의 userID값 설정하기
+        // userauth테이블에서 값 가져와서 userprofile값 설정하기
         UserProfile userProfile = UserProfile.builder()
                 .name(userAuthRequest.getName())
                 .phone(userAuthRequest.getPhone())
@@ -65,26 +68,27 @@ public class UserAuthService extends BaseAuthService {
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
         // 이메일과 비밀번호로 객체 찾아오기
         UserAuth userAuth = this.userAuthRepository.findUserAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+        return userAuth;
+    }
 
-        // 로그인 유효성 검사
-        if(userAuth == null) return null;
+    // 첫 로그인인지 확인하기
+    public UserAuth readFirstUserAuthRequest(ReadAuthRequest readAuthRequest){
 
-        // 최초 로그인 체크하기
+        // 이메일로 로그인 로그 객체 찾아오기
         LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), true);
-        log.info("{}", loginLog);
+
         if(loginLog == null){               // 최초 로그인시
             loginLog = LoginLog.builder()
                     .userEmail(readAuthRequest.getEmail())
                     .isGeneral(true)
                     .build();
             this.loginLogRepository.save(loginLog);
-        }else{                              // 최초 로그인이 아닌 경우
-            // TODO: 최초 로그인이 아닌 경우 처리하기
+            return this.userAuthRepository.getUserAuthByEmail(loginLog.getUserEmail());
         }
-        return userAuth;
+        return null;
     }
 
-    // 비밀번호 변경하기
+    // 비밀번호 변경
     public UserAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = new UserAuth();
@@ -103,8 +107,7 @@ public class UserAuthService extends BaseAuthService {
         // 임시 비밀번호 생성 및 메일 전송
         String code = "";
         try {
-            for (int i = 0; i < 10; i++)
-                code = code + String.valueOf(new Random().nextInt(9) + 1);
+            code = generateRandomNumber();
             String msg = "<p><b> " + newUserAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + code + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");

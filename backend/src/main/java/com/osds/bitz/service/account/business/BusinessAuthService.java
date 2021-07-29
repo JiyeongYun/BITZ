@@ -15,7 +15,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
-import java.util.Random;
 
 @Service
 @Slf4j
@@ -40,16 +39,16 @@ public class BusinessAuthService extends BaseAuthService {
         BusinessAuth businessAuth = this.businessAuthRepository.findBusinessAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
 
         // 로그인 유효성 검사
-        if(businessAuth == null) return null;
+        if (businessAuth == null) return null;
 
-        LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(),false);
-        if(loginLog == null){
+        LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), false);
+        if (loginLog == null) {
             loginLog = LoginLog.builder()
                     .userEmail(readAuthRequest.getEmail())
                     .isGeneral(false)
                     .build();
             this.loginLogRepository.save(loginLog);
-        }else{
+        } else {
             // TODO: 최초 로그인이 아닌 경우 처리하기
         }
         return businessAuth;
@@ -74,8 +73,7 @@ public class BusinessAuthService extends BaseAuthService {
         // 임시 비밀번호 생성 및 메일 전송
         String code = "";
         try {
-            for (int i = 0; i < 10; i++)
-                code = code + String.valueOf(new Random().nextInt(9) + 1);
+            code = generateRandomNumber();
             String msg = "<p><b> " + newBusinessAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + code + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
