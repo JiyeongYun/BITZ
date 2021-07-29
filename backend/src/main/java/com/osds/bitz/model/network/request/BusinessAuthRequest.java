@@ -3,6 +3,7 @@ package com.osds.bitz.model.network.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -14,8 +15,8 @@ public class BusinessAuthRequest {
     private String email;
     private String password;
     private String birth;
-//    private String bank;
-//    private String account;
-//    private char[] businessRegistration;
+    private String bank;
+    private String account;
+    private MultipartFile businessRegistration;
 
 }
