@@ -5,7 +5,7 @@ function SendPassword(props) {
   return (
     <div className="sendpw">
       <div className="send__info">
-        <p>임시 비밀번호가 이메일로 발송되었습니다</p>
+        <p>아래의 주소로 메일을 보내는 중 입니다.(소요시간 : 1 ~ 2분)</p>
         <p id="email">{props.email}</p>
         <p>로그인 후 꼭 비밀번호를 바꿔주세요.</p>
       </div>

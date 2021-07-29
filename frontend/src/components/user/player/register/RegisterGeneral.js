@@ -3,7 +3,7 @@ import RegisterGeneralValidation from "components/user/player/register/RegisterG
 import { dispatchSubmitContext } from "router/user/common/Register";
 import UserApi from 'api/UserApi'
 
-function RegisterGeneral() {
+function RegisterGeneral({history}) {
   // Context-Reducer
   const dispatch = useContext(dispatchSubmitContext)
   // State ***************************************************************
@@ -122,6 +122,8 @@ function RegisterGeneral() {
       data,
       res => {
         console.log(res)
+        alert("회원가입이 완료되었습니다!")
+        history.push("/accounts/login")
       },
       err => {
         console.log(err)
