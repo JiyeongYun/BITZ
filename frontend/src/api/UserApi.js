@@ -13,7 +13,7 @@ const requestLogin = (data, callback, errorCallback) => {
     .catch(errorCallback);
 }; // requestLogin End
 
-// PJW - 회원가입 axios 요청
+// KOW - 회원가입 axios 요청
 const requestJoin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
@@ -23,6 +23,17 @@ const requestJoin = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback);
 }; // requestJoin End
+
+// PJW - 비밀번호 변경
+const changePassword = (data, callback, errorCallback) => {
+  axios({
+    method: 'put',
+    url: BASE_URL + 'account/updatepassword',
+    data: data,
+  })
+    .then(callback)
+    .catch(errorCallback);
+}; // changePassword End
 
 // KOW - 비밀번호 찾기 axios 요청
 const findPwd = (data, callback, errorCallback) => {
@@ -38,6 +49,7 @@ const findPwd = (data, callback, errorCallback) => {
 const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
+  changePassword: (data, callback, errorCallback) => changePassword(data, callback, errorCallback),
   findPwd: (data, callback, errorCallback) => findPwd(data, callback, errorCallback),
 };
 

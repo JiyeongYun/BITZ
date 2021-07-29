@@ -4,9 +4,7 @@ import { store } from 'store/store.js';
 
 export default function Main__GameList() {
   const globalState = useContext(store);
-  console.log('4', globalState.value, '(자식)')
   const gameData = globalState.value.gameList
-  console.log(gameData)
 
   return(
     <div className="main__gameList">

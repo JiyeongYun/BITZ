@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
+import { store } from 'store/store.js'; // store import (store)
 
 function Login({ history, changeUserObj }) {
+  // 전역 상태 관리 (store)
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+  const { userKind } = globalState.value;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userKind, setUserKind] = useState('player');
 
   const onChange = (event) => {
     const {
@@ -20,7 +25,8 @@ function Login({ history, changeUserObj }) {
     }
 
     if (name === 'userKind') {
-      setUserKind(value);
+      // userKind 전역 상태 관리 (store)
+      dispatch({ type: "SELECT_USER_KIND", value })
     }
   };
 
@@ -37,7 +43,6 @@ function Login({ history, changeUserObj }) {
           // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          console.log(data);
           changeUserObj(data);
         },
         (error) => {

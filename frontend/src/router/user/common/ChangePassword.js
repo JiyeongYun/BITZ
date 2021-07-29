@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ChangePasswordValidation from "components/user/common/ChangePasswordValidation.js" // 유효성 검사 함수
 import "./ChangePassword.css" // Register.css의 내용을 많이 차용함 (Form이 비슷하기 때문)
+import UserApi from "api/UserApi";
+import { store } from 'store/store.js'; // store import (store)
 
 function ChangePassword({ history }) {
+  // 전역 상태 관리 (store)
+  const globalState = useContext(store);
+  const { isLogin } = globalState.value;
+
   // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
@@ -71,9 +77,24 @@ function ChangePassword({ history }) {
 
   // PJW - 비밀번호 변경
   const onChangePassword = () => {
-    alert('비밀번호가 변경되었습니다!')
-    history.push("/profile")
-  }
+    const data = {
+      email: isLogin,
+      newPassword: values.newPassword,
+      password: values.password,
+    }
+
+    UserApi.changePassword(
+      data,
+      () => {
+        alert('비밀번호가 변경되었습니다!')
+        history.push(`/accounts/profile/${isLogin}`)
+      },
+      () => {
+        alert('비밀번호를 확인해주세요.');
+      }
+    )
+  } // onChangePassword End
+
 
   return(
     <div className="changePassword">

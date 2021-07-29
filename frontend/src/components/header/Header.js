@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
+import { store } from 'store/store.js'; // store import (store)
 
 function Header(props) {
-  const [isLogin, setIsLogin] = useState(false);
+  // 전역 상태 관리 (store)
+  const globalState = useContext(store);
+  // const [isLogin, setIsLogin] = useState(false);
   // const [offcanvas, setOffcanvas] = useState(false)
   // const toggleCanvas = () => {
   //   setOffcanvas(!offcanvas)
@@ -11,12 +14,12 @@ function Header(props) {
   // <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
 
   useEffect(() => {
-    console.log(props.userObj);
-    if (props.userObj) {
-      setIsLogin(true);
-    } else setIsLogin(false);
+    // console.log(props.userObj);
+    // if (props.userObj) {
+    //   setIsLogin(true);
+    // } else setIsLogin(false);
 
-    console.log('상태 : ' + isLogin);
+    console.log('상태 : ' + globalState.value.isLogin);
   });
 
   return (
@@ -26,8 +29,10 @@ function Header(props) {
           <img className="header__symbol" src="/images/symbol.png" alt="logo" />
         </Link>
         <div className="header__icons">
-          {isLogin ? (
-            <img src={process.env.PUBLIC_URL + `/images/profile.png`} width="20px" />
+          {globalState.value.isLogin ? (
+            <Link to={`/accounts/profile/${globalState.value.isLogin}`}>
+              <img src={process.env.PUBLIC_URL + `/images/profile.png`} width="20px" />
+            </Link>
           ) : (
             <Link to="/accounts/login">
               <p className="icon">로그인</p>
