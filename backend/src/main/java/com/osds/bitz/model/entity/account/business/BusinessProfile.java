@@ -1,6 +1,7 @@
 package com.osds.bitz.model.entity.account.business;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -21,15 +22,16 @@ public class BusinessProfile {
     @Column(nullable = false)
     private String phone;                   // 휴대폰번호
 
-//    @Column(nullable = false)
-//    private String bank;                    // 입금은행
+    @Column(nullable = false)
+    private String bank;                    // 입금은행
 
-//    @Column(nullable = false)
-//    private String account;                 // 입금계좌
-//
-//    @Column(nullable = false)
-//    private byte[] businessRegistration;    // 사업자등록증
-//
-//    @Column(nullable = false)
-//    private String businessId;             // businessAuth ID
+    @Column(nullable = false)
+    private String account;                 // 입금계좌
+
+    @Column(nullable = false)
+    private char[] businessRegistration;    // 사업자등록증
+
+    @OneToOne
+    @JoinColumn(name = "business_id")
+    private BusinessAuth businessAuth;
 }

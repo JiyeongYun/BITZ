@@ -1,11 +1,13 @@
 package com.osds.bitz.service.account.business;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.network.request.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
+import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.log.LoginLogRepository;
 import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 
 @Service
 @Slf4j
@@ -24,14 +27,45 @@ public class BusinessAuthService extends BaseAuthService {
     private BusinessAuthRepository businessAuthRepository;
 
     @Autowired
+    private BusinessProfileRepository businessProfileRepository;
+
+    @Autowired
     private LoginLogRepository loginLogRepository;
 
     @Autowired
     private JavaMailSender mailSender;
 
     // 회원가입
-    public BusinessAuth createBusiness(BusinessAuthRequest businessAuthRequest) {
-        return null;
+    public BusinessAuth createBusiness(BusinessAuthRequest businessAuthRequest) throws IOException {
+
+        String businessAuthId = generateRandomNumber(false);
+
+        byte[] b = businessAuthRequest.getBusinessRegistration().getBytes();
+        char[] file = new char[b.length];
+        for (int i = 0; i < b.length; i++) {
+            file[i] = (char) b[i];
+        }
+
+        BusinessAuth businessAuth = BusinessAuth.builder()
+                .id(businessAuthId)
+                .email(businessAuthRequest.getEmail())
+                .password(businessAuthRequest.getPassword())
+                .birth(businessAuthRequest.getBirth())
+                .build();
+
+        BusinessProfile businessProfile = BusinessProfile.builder()
+                .name(businessAuthRequest.getName())
+                .phone(businessAuthRequest.getPhone())
+                .bank(businessAuthRequest.getBank())
+                .account(businessAuthRequest.getAccount())
+                .businessRegistration(file)
+                .businessAuth(businessAuth)
+                .build();
+
+        BusinessAuth newBusinessAuth = this.businessAuthRepository.save(businessAuth);
+        this.businessProfileRepository.save(businessProfile);
+
+        return newBusinessAuth;
     }
 
     // 로그인
