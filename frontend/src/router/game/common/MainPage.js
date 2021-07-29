@@ -1,12 +1,16 @@
-import React, { useContext, useEffect } from "react"; // useContext import
+import React, { useContext, useEffect, useState } from "react"; // useContext import
 import "./MainPage.css";
 import DateCarousel from "components/game/player/Main__DateCarousel.js";
 import PreferredArea from "components/game/player/Main__PreferredArea.js";
 import GameList from "components/game/player/Main__GameList.js";
 import { store } from 'store/store.js'; // store import
 import gameListDummy from "store/gameListDummy.js"
+import UserApi from "api/UserApi";
+import FirstLogin from "components/user/player/FirstLogin";
 
 function MainPage() {
+  const [isFirstLogin, setIsFirstLogin] = useState(false)
+
   // (1) store에서 가져온 store Context를 globalState 변수에 집어넣음
   const globalState = useContext(store);
   // (2) globalState에서 전역 변수 value를 업데이트하는 dispatch만 가져오기
@@ -20,15 +24,33 @@ function MainPage() {
     이 때 dispatch가 바깥에 있으면. dispatch 재귀적 무한 실행 & 무한 렌더링으로 에러 발생 */
     dispatch({ type: 'TEST' })
     dispatch({ type: 'GET_GAME_LIST', value: gameListDummy })
+    const data = {
+      email : globalState.value.isLogin,
+      password : null,
+    }
+    UserApi.firstLogin(data,
+      () => {
+        setIsFirstLogin(true)
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
   },[])
+
+  const firstLoginData = function () {
+    setIsFirstLogin(false)
+  }
 
   return(
     <div className="main">
-      <store.Provider value={globalState}>
-        <div className="main__dates"><DateCarousel /></div>
-        <div className="main__areas"><PreferredArea /></div>
-        <div className="main__games"><GameList /></div>
-      </store.Provider>
+      {isFirstLogin ? <FirstLogin isFirstLogin={isFirstLogin} firstLoginData={firstLoginData} /> :
+        <store.Provider value={globalState}>
+          <div className="main__dates"><DateCarousel /></div>
+          <div className="main__areas"><PreferredArea /></div>
+          <div className="main__games"><GameList /></div>
+        </store.Provider>
+      }
     </div>
   );
 }

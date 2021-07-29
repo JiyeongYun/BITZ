@@ -30,10 +30,29 @@
 
 .accountSetting > h2{
   text-align: center;
-  margin: 50px 0 30px;
+  margin: 30px 0;
 }
 
 .accountSetting span {
   margin: 0 30px;
   cursor: pointer;
+}
+
+.save__btn {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  width: 100px;
+  color: white;
+  background-color: #ffad4e;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin: 30px 0;
+}
+
+.profile__div hr {
+  width: 600px;
+  margin: 30px 0;
+  background-color: #ffad4e;
 }

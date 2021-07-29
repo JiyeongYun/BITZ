@@ -15,7 +15,12 @@ export default function Main__GameList() {
             <div className="gameList__content">
 
               <div className="gameList__game__Time">
-                {game.start_time.substr(0,2)+" : "+game.start_time.substr(2,4)}<br />~ {game.end_time.substr(0,2)+" : "+game.end_time.substr(2,4)}
+                <div className="gameList__start">
+                  {game.start_time.substr(0,2)+" : "+game.start_time.substr(2,4)+" ~"}
+                </div>
+                <div className="gameList__end">
+                  {game.end_time.substr(0,2)+" : "+game.end_time.substr(2,4)}
+                </div>
               </div>
 
               <div className="gameList__game__info">
@@ -30,17 +35,17 @@ export default function Main__GameList() {
                 </div>
               </div>
 
-              <div className="gameList__game__facility">
-                {game.is_parking ? <div>주차장</div>:""}
-                {game.is_shower ? <div>샤워시설</div>:""}
-                {game.is_airconditional ? <div>에어컨</div>:""}
-                {game.is_basketball ? <div>농구공 대여</div>:""}
-                {game.is_scoreboard ? <div>점수판&호루라기</div>:""}
-                {game.is_water ? <div>정수기</div>:""}
+              <div className="gameList__game__facilities">
+                {game.is_parking ? <div className="gameList__game__facility">주차장</div>:""}
+                {game.is_shower ? <div className="gameList__game__facility">샤워시설</div>:""}
+                {game.is_airconditional ? <div className="gameList__game__facility">에어컨</div>:""}
+                {game.is_basketball ? <div className="gameList__game__facility">농구공 대여</div>:""}
+                {game.is_scoreboard ? <div className="gameList__game__facility">점수판&호루라기</div>:""}
+                {game.is_water ? <div className="gameList__game__facility">정수기</div>:""}
               </div>
 
               <div className="gameList__game__state">
-                <button>참여하기</button>
+                <button className="gameList__state__button">참여하기</button>
               </div>
             </div>
             <hr></hr>

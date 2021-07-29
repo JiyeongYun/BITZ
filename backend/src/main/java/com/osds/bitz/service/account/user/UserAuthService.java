@@ -94,6 +94,10 @@ public class UserAuthService extends BaseAuthService {
 
     // 비밀번호 변경
     public UserAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
+        // 전달된 비밀번호가 기존 DB의 비밀번호와 일치하는지 체크
+        if(this.userAuthRepository.getUserAuthByPasswordAndEmail(updatePasswordRequest.getPassword(), updatePasswordRequest.getEmail())==null)
+            return null;
+
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = new UserAuth();
         newUserAuth = this.userAuthRepository.getUserAuthByEmail(updatePasswordRequest.getEmail());
