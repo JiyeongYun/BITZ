@@ -50,7 +50,7 @@ public class BusinessAuthController {
     }
 
     @PutMapping("/updatepassword")
-    @ApiOperation(value = "비밀번호 변경하기", notes = "회원의 비밀번호를 DB에서 수정합니다.")
+    @ApiOperation(value = "비밀번호 변경", notes = "회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<BusinessAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.updatePassword(updatePasswordRequest));
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
