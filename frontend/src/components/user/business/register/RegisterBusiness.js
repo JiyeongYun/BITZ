@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import RegisterBusinessValidation from 'components/user/business/register/RegisterBusinessValidation';
 import './RegisterBusiness.css';
 import { dispatchSubmitContext } from 'router/user/common/Register';
-import axios from 'axios';
+import UserApi from 'api/UserApi';
 
-function RegisterBusiness() {
+function RegisterBusiness({history}) {
   // Context-Reducer
   const dispatch = useContext(dispatchSubmitContext);
   // State ***************************************************************
@@ -20,6 +20,8 @@ function RegisterBusiness() {
     birthDay: '',
     businessRegistration: '',
     file: {},
+    bank: '',
+    account: '',
   });
   // 유효성 검사 결과
   const [errors, setErrors] = useState({
@@ -30,6 +32,8 @@ function RegisterBusiness() {
     phoneNumber: true,
     birth: true,
     businessRegistration: true,
+    bank: true,
+    account: true,
   });
   // 최초 입력 확인
   const [isFirst, setIsFirst] = useState({
@@ -42,6 +46,8 @@ function RegisterBusiness() {
     birthYear: true,
     birthMonth: true,
     birthDay: true,
+    bank: true,
+    account: true,
   });
   // 값을 모두 입력했는지 검증
   const [isValidated, setIsValidated] = useState(false);
@@ -104,21 +110,32 @@ function RegisterBusiness() {
     console.log(values, errors, isValidated);
   }; // onGoogleRegister End
 
-  // PJW - 회원가입 버튼 클릭
+  // JHW - 회원가입 버튼 클릭
   const onRegister = () => {
     const formData = new FormData();
+    formData.append('email', values.email);
     formData.append('name', values.name);
     formData.append('password', values.password);
     formData.append('phone', values.phoneNumber);
     formData.append('birth', values.birthYear + values.birthMonth + values.birthDay);
     formData.append('businessRegistration', values.file);
+    formData.append('bank', values.bank);
+    formData.append('account', values.account);
 
-    axios.post('http://127.0.0.1:8080/accountbusiness/createbusiness', formData, {
-      headers: {
+    UserApi.requestBusinessJoin(
+      formData,
+      {
         'content-type': 'multipart/form-data',
+      }, 
+      res => {
+        console.log(res)
+        alert("회원가입이 완료되었습니다!")
+        history.push("/accounts/login")
       },
-    });
-    // dispatch({ type: 'SUBMIT', value: values.email });
+      err => {
+        console.log(err)
+      }
+    );    
   }; // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
@@ -141,7 +158,6 @@ function RegisterBusiness() {
 
   // PJW - 파일 업로드
   const fileUploaded = (event) => {
-    console.log(event.target.files[0]);
     // const formData = new FormData().append('file', event.target.files[0]);
     const converted = event.target.value.split('\\');
     setValues({
@@ -298,6 +314,34 @@ function RegisterBusiness() {
           </div>
           <div className="errorMessage">{errors.birth}</div>
         </div>
+        {/* 계좌 은행 */}
+        <div className="register__bank">
+          <label>은행</label>
+          <br />
+          <input
+            className="inputBox"
+            type="text"
+            name="bank"
+            value={values.bank}
+            onChange={updateValue}
+            onBlur={updateIsFirst}
+          ></input>
+          <div className="errorMessage">{errors.bank}</div>
+        </div>
+        {/* 계좌 번호 */}
+        <div className="register__account registerForm__component">
+          <label>계좌 번호</label>
+          <br />
+          <input
+            className="inputBox"
+            type="text"
+            name="account"
+            value={values.account}
+            onChange={updateValue}
+            onBlur={updateIsFirst}
+          ></input>
+          <div className="errorMessage">{errors.account}</div>
+        </div>
         {/* 사업자 등록증 파일 업로드 */}
         <div className="register__businessRegistration">
           <label>사업자 등록증 파일 업로드</label>
@@ -309,6 +353,7 @@ function RegisterBusiness() {
             className="inputBox inputBox__businessRegistration"
             value={values.businessRegistration}
             disabled="disabled"
+            accept=".pdf, .jpg, .png .jpeg"
           ></input>
           <label
             className="registerForm__button businessRegistration__button"

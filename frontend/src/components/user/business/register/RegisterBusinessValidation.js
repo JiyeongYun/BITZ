@@ -1,4 +1,4 @@
-export default function RegisterBusinessValidation({ email, name, password, passwordConfirm, phoneNumber, birthYear, birthMonth, birthDay, businessRegistration }, isFirst) {
+export default function RegisterBusinessValidation({ email, name, password, passwordConfirm, phoneNumber, birthYear, birthMonth, birthDay, businessRegistration, bank, account }, isFirst) {
   const errors = {
     email: true,
     name: true,
@@ -7,6 +7,8 @@ export default function RegisterBusinessValidation({ email, name, password, pass
     phoneNumber: true,
     birth: false,
     businessRegistration: false,
+    bank: true,
+    account: true,
   }
 
   if (!isFirst.email) {
@@ -75,5 +77,22 @@ export default function RegisterBusinessValidation({ email, name, password, pass
     errors.businessRegistration = ""
   }
 
+  // 은행 / 계좌 정보 유효성 검사 필요
+  if (!isFirst.bank) {
+    if (!bank) {
+      errors.bank = "은행 이름을 입력해 주세요.";
+    } else {
+      errors.bank = ""
+    }
+  }
+
+  if (!isFirst.account) {
+    if (!account) {
+      errors.account = "계좌번호를 입력해 주세요.";
+    } else {
+      errors.account = ""
+    }
+  }
+    
   return errors;
 }

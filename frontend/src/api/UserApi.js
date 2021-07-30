@@ -13,12 +13,24 @@ const requestLogin = (data, callback, errorCallback) => {
     .catch(errorCallback);
 }; // requestLogin End
 
-// KOW - 회원가입 axios 요청
+// KOW - 플레이어 회원가입 axios 요청
 const requestJoin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
     url: BASE_URL + '/account/createuser',
     data: data,
+  })
+    .then(callback)
+    .catch(errorCallback);
+}; // requestJoin End
+
+// JHW - 비즈니스 회원가입 axios 요청
+const requestBusinessJoin = (data, headers, callback, errorCallback) => {
+  axios({
+    method: 'post',
+    url: BASE_URL + '/accountbusiness/createbusiness',
+    data: data,
+    headers: headers,
   })
     .then(callback)
     .catch(errorCallback);
@@ -62,6 +74,7 @@ const UserApi = {
   changePassword: (data, callback, errorCallback) => changePassword(data, callback, errorCallback),
   findPwd: (data, callback, errorCallback) => findPwd(data, callback, errorCallback),
   firstLogin: (data, callback, errorCallback) => firstLogin(data, callback, errorCallback),
+  requestBusinessJoin: (data, headers, callback, errorCallback) => requestBusinessJoin(data, headers, callback, errorCallback),
 };
 
 export default UserApi;
