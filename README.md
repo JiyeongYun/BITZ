@@ -44,17 +44,17 @@
 
 - 개발 환경
 
-  - Window10
-  - Backend : Spring Boot
-  - Frontend : React
-  - DB : MySQL
+  -> Window10
+  -> Backend : Spring Boot
+  -> Frontend : React
+  -> DB : MySQL
 
 
 
 - 개발 멤버
 
-  - 권오우 (Fronted)
-  - 박정웅 (Fronted)
-  - 윤지영 (Backend)
-  - 이소은 (Backend)
-  - 장현웅 (Frontend + Backend)
+  -> 권오우 (FrontEnd)
+  -> 박정웅 (FrontEnd)
+  -> 윤지영 (BackEnd)
+  -> 이소은 (BackEnd)
+  -> 장현웅 (FrontEnd + BackEnd)
