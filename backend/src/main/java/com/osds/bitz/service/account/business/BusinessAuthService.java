@@ -53,12 +53,12 @@ public class BusinessAuthService extends BaseAuthService {
             businessAuthId = generateRandomNumber(false);
         }
 
-        // 파일 로컬에 저장
-        File targetFile = new File("src/main/resources/static/imgs/" + businessAuthRequest.getBusinessRegistration().getOriginalFilename());
-        try {
-            InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);
-        } catch (IOException e) {
+            // 파일 로컬에 저장
+            File targetFile = new File("src/main/resources/static/imgs/" + businessAuthRequest.getBusinessRegistration().getOriginalFilename());
+            try {
+                InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
+                FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            } catch (IOException e) {
             log.info("{}",e.getMessage());
         }
 
