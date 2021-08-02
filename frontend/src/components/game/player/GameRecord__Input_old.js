@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './GameRecord__Input.css';
 
-const GameRecord__Input2 = ({ game, gameData, setGameData, setShowInput, team1, team2 }) => {
+const GameRecord__Input = ({ game, gameData, setGameData, setShowInput }) => {
   // 이 컴포넌트가 어떤 게임의 입력창인지 지정
   const team1_score = game+'_team1_score'
   const team2_score = game+'_team2_score'
@@ -36,24 +36,15 @@ const GameRecord__Input2 = ({ game, gameData, setGameData, setShowInput, team1, 
       setShowInput(false)
     }
   }
-  // PJW - Modal 창 닫기
-  const closeModal = () => {
-    setShowInput(false)
-  }
   
   return (
-    <div className="modal">
-      <div className="modal__overlay"></div> {/* 배경 */}
-      <div className="modal__content">
-        <div className="modal__Scores">
-          <input className="GameRecord__Input_Score" name="team1_score" value={scores.team1_score} onChange={changeScore} placeholder={`${team1}팀`} />
-          <input className="GameRecord__Input_Score" name="team2_score" value={scores.team2_score} onChange={changeScore} placeholder={`${team2}팀`} />
-        </div>
-        <button className="GameRecord__Input_Submit" onClick={recordScore}>기록</button>
-        <button className="GameRecord__closeBtn" onClick={closeModal}>X</button>
-      </div>
-    </div>
+    <tr className="GameRecord__Input">
+      <td>{ gameData[recorder].length+1 }</td>
+      <td><input className="GameRecord__Input_Score" name="team1_score" value={scores.team1_score} onChange={changeScore} /></td>
+      <td><input className="GameRecord__Input_Score" name="team2_score" value={scores.team2_score} onChange={changeScore} /></td>
+      <td><button className="GameRecord__Input_Submit" onClick={recordScore}>기록</button></td>
+    </tr>
   );
 };
 
-export default GameRecord__Input2;
+export default GameRecord__Input;
