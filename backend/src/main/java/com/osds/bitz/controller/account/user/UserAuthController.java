@@ -62,9 +62,15 @@ public class UserAuthController {
 
     @PutMapping("/readpassword")
     @ApiOperation(value = "비밀번호 찾기", notes = "회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
-    public ResponseEntity<UserAuthResponse> readPassword(@RequestBody @ApiParam(value = " 비밀번호 찾기") UserAuthRequest userAuthRequest) throws Exception {
+    public ResponseEntity<UserAuthResponse> readPassword(@RequestBody @ApiParam(value = "비밀번호 찾기") UserAuthRequest userAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.readPassword(userAuthRequest));
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/deleteuserauth")
+    @ApiOperation(value = "회원탈퇴", notes = "회원의 계정을 DB에서 삭제합니다.")
+    public void deleteUserAuth(@RequestBody @ApiParam(value = "회원탈퇴") ReadAuthRequest readAuthRequest) throws Exception {
+        userAuthService.deleteUserAuth(readAuthRequest);
     }
 
 
