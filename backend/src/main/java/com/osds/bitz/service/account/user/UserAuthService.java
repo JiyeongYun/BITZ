@@ -134,4 +134,13 @@ public class UserAuthService extends BaseAuthService {
         return this.userAuthRepository.save(newUserAuth);
     }
 
+    // 회원탈퇴
+    public void deleteUserAuth(ReadAuthRequest readAuthRequest){
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
+        UserProfile userProfile = this.userProfileRepository.getUserProfileByUserAuth(userAuth);
+
+        this.userProfileRepository.delete(userProfile);
+        this.userAuthRepository.delete(userAuth);
+    }
+
 }
