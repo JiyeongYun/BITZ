@@ -62,6 +62,26 @@ const GymInfo = () => {
           <p>에어컨 & 난방</p>
         </div>
       </div>
+      <div className="gym__footer">
+        <div className="left">
+          <p>특이사항</p>
+          <ul>
+            <li>오픈 기념으로 이벤트 가격입니다.</li>
+            <li>많이들 참여해주세요~</li>
+          </ul>
+        </div>
+        <div className="right">
+          <p>관리자 정보</p>
+          <ul>
+            <li>권오우 010-1122-1122</li>
+          </ul>
+          <p>체육관 리뷰</p>
+          <ul>
+            <li>시설</li>
+            <li>친절</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
