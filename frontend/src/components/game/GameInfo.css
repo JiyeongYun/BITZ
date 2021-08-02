@@ -1,26 +1,44 @@
-.userImg {
-  width: 100px;
-  height: 100px;
+.gameInfo {
+  margin-right: 20px;
+  border-bottom: 1px solid black;
 }
 
-.test {
-  position: absolute;
-  /* width: 300px;
-  height: 314px;
-  left: 360px;
-  top: 30px; */
-  z-index: 1;
-  /* background: #ffffff;
-  border: 1px solid #909090;
-  font-size: 0.9em;
-  line-height: 1.5em;
-  padding: 10px 10px; */
+.gameInfo > div {
+  margin-bottom: 18px;
 }
 
-.spec {
-  position: relative;
-  z-index: 1;
-  left: 0px;
-  top: 0px;
-  display: none;
+.gameInfo > .gamedate {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.gameInfo > .gyminfo {
+  font-size : 14px;
+}
+
+.gameInfo > .gyminfo > #gymname {
+  color: #ffad4e;
+  font-weight: bold;
+}
+
+.gameInfo > .gyminfo > #gymaddress > button {
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.gameInfo > .gameuser > p {
+  font-size: 18px;
+}
+
+.gameInfo > .gameuser > p > span {
+  font-size: 24px;
+  color: #ffad4e;
+  font-weight: bold;
+}
+
+.participants {
+  display: flex;
+  flex-wrap: wrap;
 }
