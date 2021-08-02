@@ -1,10 +1,50 @@
 .gameDetail {
-  align-items: center;
-  text-align: center;
+  width: 60%;
+  margin: 30px auto;
+}
+
+.detail__top {
+  display: flex;
+  justify-content: space-around;
 }
 
 .gameInfo {
-  display: inline-block;
+  flex: 1;
+}
+
+.gympicture {
+  flex: 1;
+}
+
+.gympicture > img {
+  width: 100%;
+  object-fit: contain;
+  object-position: top;
+}
+
+.gameInfo > div {
+  margin-bottom: 18px;
+}
+
+.gameInfo > .gamedate {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.gameInfo > .gyminfo {
+  font-size : 14px;
+}
+
+.gameInfo > .gyminfo > #gymname {
+  color: #ffad4e;
+  font-weight: bold;
+}
+
+.gameInfo > .gyminfo > #gymaddress > button {
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  cursor: pointer;
 }
 
 .gameDetail__footer {
