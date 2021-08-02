@@ -2,6 +2,8 @@ package com.osds.bitz.service.account.business;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
+import com.osds.bitz.model.entity.account.user.UserAuth;
+import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.network.request.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
@@ -148,4 +150,12 @@ public class BusinessAuthService extends BaseAuthService {
         return this.businessAuthRepository.save(newBusinessAuth);
     }
 
+    // 회원탈퇴
+    public void deleteBusinessAuth(ReadAuthRequest readAuthRequest){
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(readAuthRequest.getEmail());
+        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
+
+        this.businessProfileRepository.delete(businessProfile);
+        this.businessAuthRepository.delete(businessAuth);
+    }
 }

@@ -62,4 +62,11 @@ public class BusinessAuthController {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.readPassword(businessAuthRequest));
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/deletebusinessauth")
+    @ApiOperation(value = "회원탈퇴", notes = "회원의 계정을 DB에서 삭제합니다.")
+    public void deleteBusinessAuth(@RequestBody @ApiParam(value = "회원탈퇴") ReadAuthRequest readAuthRequest) throws Exception {
+        businessAuthService.deleteBusinessAuth(readAuthRequest);
+    }
+
 }
