@@ -4,6 +4,7 @@
 }
 
 .RecordTable {
+  text-align: center;
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
@@ -15,7 +16,6 @@
 .RecordTable th {
   background-color: #FFAD4E;
   color: #ffffff;
-  text-align: left;
 }
 
 .RecordTable th,
