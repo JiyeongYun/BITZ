@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import GameRecord__Input2 from './GameRecord__Input2.js';
+import GameRecordInput from './GameRecord__Input.js';
 import './GameRecord__Table.css';
 
-const GameRecord__Table = ({ team1, team2, game, gameData, setGameData }) => {
+const GameRecord__Table = ({ team1, team2, game, gameData, setGameData, gameState }) => {
   const [showInput, setShowInput] = useState(false)
   const team1_score = game+'_team1_score'
   const team2_score = game+'_team2_score'
@@ -28,8 +28,11 @@ const GameRecord__Table = ({ team1, team2, game, gameData, setGameData }) => {
           <td>{gameData[team2_score][quarter]}</td>
           <td>{gameData[recorder][quarter]}</td>
           </tr>))}
-        { showInput ? <GameRecord__Input2 game={game} gameData={gameData} setGameData={setGameData} setShowInput={setShowInput} team1={team1} team2={team2} /> : "" }
+        { showInput ? <GameRecordInput game={game} gameData={gameData} setGameData={setGameData} setShowInput={setShowInput} team1={team1} team2={team2} /> : "" }
+        { gameState !== 4 ?
         <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '등록 중' }</td></tr>
+        : ""
+        }
       </table>
     </div>
   );

@@ -3,13 +3,14 @@ import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
 import GameInfo from 'components/game/GameInfo';
 import GameRecord from 'components/game/player/GameRecord';
+import GameResult from 'components/game/player/GameResult';
 
 const GameDetail = () => {
   // 픽업 게임 상세 내역 보여주는 컴포넌트
 
   // PJW - 게임 데이터를 가져오는 함수 필요
   const [gameData, setGameData] = useState({
-    gameType: 2, // 2: 2팀, 3: 3팀
+    gameType: 3, // 2: 2팀, 3: 3팀
     game1_team1_score: [11, 24, 36],
     game1_team2_score: [13, 24, 35],
     game2_team1_score: [15, 17, 14],
@@ -33,11 +34,10 @@ const GameDetail = () => {
     endTime: {
       year: 2021,
       month: 8,
-      date: 3,
+      date: 2,
       hour: 20,
       minute: 15
-    },
-    type: 2
+    }
   })
   // 임시 데이터 변경 (테스트 용)
   const changeTestTime = (event) => {
@@ -48,7 +48,7 @@ const GameDetail = () => {
   }
 
   // PJW - 시간에 따른 페이지 변경
-  const [gameState, setGameState] = useState(0) // 0: 예약 페이지, 1: 게임 1시간 전 팀 정보 페이지, 2: 게임 시작 중, 3: 게임 종료
+  const [gameState, setGameState] = useState(0) // 0: 예약 페이지, 1: 게임 1시간 전 팀 정보 페이지, 2: 게임 시작 중, 3: 게임 종료(1시간 동안 기록 가능), 4: 게임 종료(Data Fix)
   useEffect(()=>{
     setGameState(0) // 테스트 용 (나중에 지우기)
     const current_time = new Date();
@@ -58,22 +58,30 @@ const GameDetail = () => {
     const current_hour = current_time.getHours();
     const current_minutes = current_time.getMinutes();
     // 게임 준비
-    if ((current_year==tempGameData.startTime.year && current_month==tempGameData.startTime.month && current_date==tempGameData.startTime.date && current_hour==tempGameData.startTime.hour-1 && current_minutes>=tempGameData.startTime.minute) ||
-    (current_year==tempGameData.startTime.year && current_month==tempGameData.startTime.month && current_date==tempGameData.startTime.date && current_hour>tempGameData.startTime.hour-1)) {
+    if ((current_year===tempGameData.startTime.year && current_month===tempGameData.startTime.month && current_date===tempGameData.startTime.date && current_hour===tempGameData.startTime.hour-1 && current_minutes>=tempGameData.startTime.minute) ||
+    (current_year===tempGameData.startTime.year && current_month===tempGameData.startTime.month && current_date===tempGameData.startTime.date && current_hour>tempGameData.startTime.hour-1)) {
       setGameState(1)
     }
     // 게임 중
-    if ((current_year==tempGameData.startTime.year && current_month==tempGameData.startTime.month && current_date==tempGameData.startTime.date && current_hour==tempGameData.startTime.hour && current_minutes>=tempGameData.startTime.minute) ||
-    (current_year==tempGameData.startTime.year && current_month==tempGameData.startTime.month && current_date==tempGameData.startTime.date && current_hour>tempGameData.startTime.hour)) {
+    if ((current_year===tempGameData.startTime.year && current_month===tempGameData.startTime.month && current_date===tempGameData.startTime.date && current_hour===tempGameData.startTime.hour && current_minutes>=tempGameData.startTime.minute) ||
+    (current_year===tempGameData.startTime.year && current_month===tempGameData.startTime.month && current_date===tempGameData.startTime.date && current_hour>tempGameData.startTime.hour)) {
       setGameState(2)
     }
     // 게임 종료
     if ((current_year>tempGameData.endTime.year) || 
-    (current_year==tempGameData.startTime.year && current_month>tempGameData.endTime.month) ||
-    (current_year==tempGameData.startTime.year && current_month==tempGameData.endTime.month && current_date>tempGameData.endTime.date) ||
-    (current_year==tempGameData.startTime.year && current_month==tempGameData.endTime.month && current_date==tempGameData.endTime.date && current_hour>tempGameData.endTime.hour) ||
-    (current_year==tempGameData.startTime.year && current_month==tempGameData.endTime.month && current_date==tempGameData.endTime.date && current_hour==tempGameData.endTime.hour && current_minutes>tempGameData.endTime.minute)) {
+    (current_year===tempGameData.endTime.year && current_month>tempGameData.endTime.month) ||
+    (current_year===tempGameData.endTime.year && current_month===tempGameData.endTime.month && current_date>tempGameData.endTime.date) ||
+    (current_year===tempGameData.endTime.year && current_month===tempGameData.endTime.month && current_date===tempGameData.endTime.date && current_hour>tempGameData.endTime.hour) ||
+    (current_year===tempGameData.endTime.year && current_month===tempGameData.endTime.month && current_date===tempGameData.endTime.date && current_hour===tempGameData.endTime.hour && current_minutes>tempGameData.endTime.minute)) {
       setGameState(3)
+    }
+    // 게임 종료 (Fix)
+    if ((current_year>tempGameData.endTime.year) || 
+    (current_year===tempGameData.endTime.year && current_month>tempGameData.endTime.month) ||
+    (current_year===tempGameData.endTime.year && current_month===tempGameData.endTime.month && current_date>tempGameData.endTime.date) ||
+    (current_year===tempGameData.endTime.year && current_month===tempGameData.endTime.month && current_date===tempGameData.endTime.date && current_hour>tempGameData.endTime.hour+1) ||
+    (current_year===tempGameData.endTime.year && current_month===tempGameData.endTime.month && current_date===tempGameData.endTime.date && current_hour===tempGameData.endTime.hour+1 && current_minutes>tempGameData.endTime.minute)) {
+      setGameState(4)
     }
   })
 
@@ -81,27 +89,36 @@ const GameDetail = () => {
     <div className="gameDetail">
       {/* 시간 변경 테스트 */}
       <div id="TEST_TIME">
+        테스트 데이터(게임 시작/종료 시각) - 현재시간 기준
+        <br />시작 전 1시간 초과 : 게임 정보
+        <br />시작 전 1시간 이하 : 팀 정보
+        <br />게임 중 : 기록 입력
+        <br />종료 후 1시간 이하 : 결과 & 추가 입력
+        <br />종료 후 1시간 초과 : 결과 Fix
         <div>
-          시작 월
+          시작 
           <input name="startTime.month" value={tempGameData.startTime.month} onChange={changeTestTime} />
-          시작 일
+          월
           <input name="startTime.date" value={tempGameData.startTime.date} onChange={changeTestTime} />
-          시작 시
+          일
           <input name="startTime.hour" value={tempGameData.startTime.hour} onChange={changeTestTime} />
-          시작 분
+          시
           <input name="startTime.minute" value={tempGameData.startTime.minute} onChange={changeTestTime} />
+          분
         </div>
         <div>
-          끝 월
+          끝 
           <input name="endTime.month" value={tempGameData.endTime.month} onChange={changeTestTime} />
-          끝 일
+          월
           <input name="endTime.date" value={tempGameData.endTime.date} onChange={changeTestTime} />
-          끝 시
+          일
           <input name="endTime.hour" value={tempGameData.endTime.hour} onChange={changeTestTime} />
-          끝 분
+          시
           <input name="endTime.minute" value={tempGameData.endTime.minute} onChange={changeTestTime} />
+          분
         </div>
       </div>
+
       <div className="detail__top">
         <GameInfo />
         <div className="gympicture">
@@ -110,7 +127,7 @@ const GameDetail = () => {
       </div>
       {/* 예약 페이지 */}
       {
-        gameState==0?
+        gameState===0?
         <div>
           <GymInfo />
           <hr className="gameDetail__hr" />
@@ -140,24 +157,22 @@ const GameDetail = () => {
     }
     {/* 게임 시작 1시간 전 팀 정보 페이지 */}
     {
-      gameState==1?
+      gameState===1?
       <div>
         게임 1시간 전 팀 정보
       </div>
       : ""
     }
-    {/* 게임 중 기록 페이지 */}
+    {/* 게임 결과 페이지 */}
     {
-      gameState==2?
-      <GameRecord gameData={gameData} setGameData={setGameData} />
+      gameState>=3?
+      <GameResult gameData={gameData}/>
       : ""
     }
-    {/* 게임 후 리뷰 페이지 */}
+    {/* 게임 중 기록 페이지 */}
     {
-      gameState==3?
-      <div>
-        리뷰 페이지
-      </div>
+      gameState>=2?
+      <GameRecord gameData={gameData} setGameData={setGameData} gameState={gameState} />
       : ""
     }
       </div>
