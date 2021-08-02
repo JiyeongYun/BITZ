@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
-import GymPicture from 'components/game/GymPicture';
 import GameInfo from 'components/game/GameInfo';
 import GameRecord from 'components/game/player/GameRecord';
 
