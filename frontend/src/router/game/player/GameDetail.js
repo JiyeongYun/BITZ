@@ -111,31 +111,7 @@ const GameDetail = () => {
       {/* 예약 페이지 */}
       {
         gameState==0?
-        <div>
-          <GymInfo />
-          <hr className="gameDetail__hr" />
-          <div className="gameDetail__footer footer_left">
-          <h1>특이사항</h1>
-          <ul>
-            <li>오픈 기념으로 이벤트가 가격입니다.</li>
-            <li>많이들 참여해주세요 ~</li>
-          </ul>
-        </div>
-        <div className="gameDetail__footer">
-          <div className="gameDetail__footer__inner">
-            <h1>관리자 정보</h1>
-            권오우 010-1122-2233
-          </div>
-          <div className="gameDetail__footer__inner">
-            <h1>체육관 정보</h1>
-            시설
-            <br />
-            친절
-          </div>
-        </div>
-        <hr className="gameDetail__hr" />
-        <button className="reservation__btn">예약하기</button>
-      </div>
+        <GymInfo />
       : ""
     }
     {/* 게임 시작 1시간 전 팀 정보 페이지 */}
