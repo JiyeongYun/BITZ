@@ -1,15 +1,25 @@
 .gameDetail {
-  align-items: center;
-  text-align: center;
+  width: 60%;
+  margin: 30px auto;
+}
+
+.detail__top {
+  display: flex;
+  justify-content: space-around;
 }
 
 .gameInfo {
-  display: inline-block;
+  flex: 1;
 }
 
-.gameDetail__footer {
-  display: inline-block;
-  width: 40%;
+.gympicture {
+  flex: 1;
+}
+
+.gympicture > img {
+  width: 100%;
+  object-fit: contain;
+  object-position: top;
 }
 
 .footer_left {
