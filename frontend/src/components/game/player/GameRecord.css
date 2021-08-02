@@ -1,0 +1,18 @@
+.gameRecord .gameRecord__2 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.gameRecord .gameRecord__3 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.gameRecord__2 table{
+  width: 70vw;
+}
+
+.gameRecord__3 table{
+  margin: 20px;
+  width: 20vw;
+}
