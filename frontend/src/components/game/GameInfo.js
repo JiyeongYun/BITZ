@@ -1,6 +1,7 @@
 import React, { navigator, useEffect, useState } from 'react';
 import './GameInfo.css';
 import GymInfo from './GymInfo';
+import Participant from './Participant';
 
 const GameInfo = () => {
   // 픽업게임에 대한 정보를 보여주는 컴포넌트
@@ -64,6 +65,7 @@ const GameInfo = () => {
         <p>현재 모인 인원은 <span>13 </span> 명 입니다.</p>
         <p>참가비 <span>10,000</span> 원</p>
       </div>
+      <Participant />
       {users.map((user, idx) => {
         // console.log(idx);
         return (

@@ -1,4 +1,35 @@
-.gymInfo {
+.gameInfo > div {
+  margin-bottom: 18px;
+}
+
+.gameInfo > .gamedate {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.gameInfo > .gyminfo {
+  font-size : 14px;
+}
+
+.gameInfo > .gyminfo > #gymname {
+  color: #ffad4e;
+  font-weight: bold;
+}
+
+.gameInfo > .gyminfo > #gymaddress > button {
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.gameInfo > .gameuser > p {
+  font-size: 18px;
+}
+
+.gameInfo > .gameuser > p > span {
+  font-size: 24px;
+  color: #ffad4e;
   font-weight: bold;
 }
 

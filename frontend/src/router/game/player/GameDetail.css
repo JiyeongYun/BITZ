@@ -22,36 +22,6 @@
   object-position: top;
 }
 
-.gameInfo > div {
-  margin-bottom: 18px;
-}
-
-.gameInfo > .gamedate {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.gameInfo > .gyminfo {
-  font-size : 14px;
-}
-
-.gameInfo > .gyminfo > #gymname {
-  color: #ffad4e;
-  font-weight: bold;
-}
-
-.gameInfo > .gyminfo > #gymaddress > button {
-  font-weight: bold;
-  border: none;
-  background-color: white;
-  cursor: pointer;
-}
-
-.gameDetail__footer {
-  display: inline-block;
-  width: 40%;
-}
-
 .footer_left {
   text-align: left;
   border-right: 1px solid black;

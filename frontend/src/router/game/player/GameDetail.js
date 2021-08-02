@@ -10,7 +10,9 @@ const GameDetail = () => {
     <div className="gameDetail">
       <div className="detail__top">
         <GameInfo />
-        <GymPicture />
+        <div className="gympicture">
+          <img src={'/images/gym.jpg'} alt="gym" />
+        </div>
       </div>
       <GymInfo />
       <hr className="gameDetail__hr" />
