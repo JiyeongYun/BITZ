@@ -1,3 +1,7 @@
+.gameInfo {
+  margin-right: 20px;
+}
+
 .gameInfo > div {
   margin-bottom: 18px;
 }
@@ -32,6 +36,13 @@
   color: #ffad4e;
   font-weight: bold;
 }
+
+.participants {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* 현웅 */
 
 .introduce {
   color: #ea7c31;

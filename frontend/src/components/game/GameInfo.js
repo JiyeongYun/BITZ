@@ -26,28 +26,60 @@ const GameInfo = () => {
     {
       initial: 'KOW',
       name: '권오우',
-      height: 190,
-      center: true,
-      guard: true,
-      foward: false,
+      height: 176,
+      position: [
+        'guard',
+        'forward'
+      ],
       manner: 97,
       skill: false,
       photoUrl: '',
     },
+    {
+      initial: 'PJW',
+      name: '박정웅',
+      height: 187,
+      position: [
+        'center'
+      ],
+      manner: 100,
+      skill: 100,
+      photoUrl: '',
+    },
+    {
+      initial: 'YJY',
+      name: '윤지영',
+      height: 170,
+      position: [
+        'guard'
+      ],
+      manner: 99,
+      skill: 99,
+      photoUrl: '',
+    },
+    {
+      initial: 'LSE',
+      name: '이소은',
+      height: 173,
+      position: [
+        'guard'
+      ],
+      manner: 98,
+      skill: 98,
+      photoUrl: '',
+    },
+    {
+      initial: 'JHW',
+      name: '장현웅',
+      height: 184,
+      position: [
+        'forward'
+      ],
+      manner: 97,
+      skill: 97,
+      photoUrl: '',
+    },
   ]);
-
-  const over = (event) => {
-    const {
-      target: { id },
-    } = event;
-    document.getElementsByClassName(`${id}user`)[0].style.display = 'block';
-  };
-  const out = (event) => {
-    const {
-      target: { id },
-    } = event;
-    document.getElementsByClassName(`${id}user`)[0].style.display = 'none';
-  };
 
   return (
     <div className="gameInfo">
@@ -64,30 +96,19 @@ const GameInfo = () => {
         <p>현재 모인 인원은 <span>13 </span> 명 입니다.</p>
         <p>참가비 <span>10,000</span> 원</p>
       </div>
-      {users.map((user, idx) => {
-        return (
-          <Participant 
-            key={idx}
-            user={user}
-          />
-          // <img
-          //   id={idx}
-          //   src={process.env.PUBLIC_URL + `/images/KOW.jpg`}
-          //   className="userImg"
-          //   onMouseOver={over}
-          //   onMouseOut={out}
-          // ></img>
-          // <div className={idx + 'user spec'} kdy={idx}>
-          //   <div className="test">
-          //     <div>
-          //       {user.name}
-          //       <br />
-          //       {user.height}cm
-          //     </div>
-          //   </div>
-          // </div>
-        );
-      })}
+
+      {/* 참여자들 정보 및 프로필 사진 */}
+      <div className="participants">
+        {users.map((user, idx) => {
+          return (
+            <Participant 
+              key={idx}
+              idx={idx}
+              user={user}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
