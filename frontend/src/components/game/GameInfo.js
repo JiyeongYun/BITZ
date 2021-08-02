@@ -1,6 +1,5 @@
-import React, { navigator, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './GameInfo.css';
-import GymInfo from './GymInfo';
 import Participant from './Participant';
 
 const GameInfo = () => {
@@ -65,28 +64,28 @@ const GameInfo = () => {
         <p>현재 모인 인원은 <span>13 </span> 명 입니다.</p>
         <p>참가비 <span>10,000</span> 원</p>
       </div>
-      <Participant />
       {users.map((user, idx) => {
-        // console.log(idx);
         return (
-          <>
-            <img
-              id={idx}
-              src={process.env.PUBLIC_URL + `/images/KOW.jpg`}
-              className="userImg"
-              onMouseOver={over}
-              onMouseOut={out}
-            ></img>
-            <div className={idx + 'user spec'} kdy={idx}>
-              <div className="test">
-                <div>
-                  {user.name}
-                  <br />
-                  {user.height}cm
-                </div>
-              </div>
-            </div>
-          </>
+          <Participant 
+            key={idx}
+            user={user}
+          />
+          // <img
+          //   id={idx}
+          //   src={process.env.PUBLIC_URL + `/images/KOW.jpg`}
+          //   className="userImg"
+          //   onMouseOver={over}
+          //   onMouseOut={out}
+          // ></img>
+          // <div className={idx + 'user spec'} kdy={idx}>
+          //   <div className="test">
+          //     <div>
+          //       {user.name}
+          //       <br />
+          //       {user.height}cm
+          //     </div>
+          //   </div>
+          // </div>
         );
       })}
     </div>
