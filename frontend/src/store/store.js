@@ -16,6 +16,7 @@ const {Provider} = store;
 const StateProvider = ({children}) => {
   // Store - (5) useReducer를 사용해 value와 value를 업데이트하는 dispatch 생성 *****
   const [value, dispatch] = useReducer((state,action)=>{
+    console.log("hi")
     switch(action.type) {
       // store.js 구성 시연용 action type
       case 'TEST':
@@ -32,6 +33,7 @@ const StateProvider = ({children}) => {
       // Player, Business 계정 선택 action type
       case 'SELECT_USER_KIND':
         const userKind = action.value
+        console.log(action.value)
         return {...state, userKind};
       default:
         throw new Error();

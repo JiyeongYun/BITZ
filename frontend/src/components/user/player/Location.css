@@ -1,7 +1,7 @@
 select {
-    width: 120px;
-    height: 30px;
-    border: 1px solid #ffad4e;
+    width: 90px;
+    height: var(--btn-height);
+    border: 1px solid var(--main-color);
     border-radius: 5px;
-    background-color: #f8f8f8;
+    background-color: var(--grey-color);
 }

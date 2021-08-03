@@ -11,5 +11,37 @@
 }
 
 .register__bank {
-  margin-top: 50px;
+  margin-bottom: var(--main-margin-size);
+}
+
+.register__bank > label,
+.register__account > label,
+.register__businessRegistration > label {
+  font-size: var(--mid-font-size);
+}
+
+.register__businessRegistration {
+  margin: 0 0 var(--main-margin-size);
+  width: 340px;
+}
+
+.registerForm__center > button,
+.registerForm__center > .registerForm__snsLogin > button {
+  width: 340px;
+  font-size: var(--main-font-size);
+}
+
+.register__businessRegistration > .businessRegistration__button {
+  display: block;
+  text-align: center;
+  font-size: var(--main-font-size);
+  font-weight: normal;
+  background-color: var(--main-color);
+  color: white;
+  width: 100px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 5px;
+  margin: var(--small-margin-size) 0 0 auto;
+  cursor: pointer;
 }
