@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
+import TeamInfo from 'components/game/TeamInfo';
 import GameInfo from 'components/game/GameInfo';
+import GameInfo2 from 'components/game/GameInfo2';
 import GameRecord from 'components/game/player/GameRecord';
 import GameResult from 'components/game/player/GameResult';
 
@@ -27,17 +29,18 @@ const GameDetail = () => {
     startTime: {
       year: 2021,
       month: 8,
-      date: 2,
-      hour: 17,
-      minute: 15
+      date: 3,
+      hour: 11,
+      minute: 0
     },
     endTime: {
       year: 2021,
       month: 8,
-      date: 2,
-      hour: 20,
-      minute: 15
-    }
+      date: 3,
+      hour: 12,
+      minute: 0
+    },
+    type: 2
   })
   // 임시 데이터 변경 (테스트 용)
   const changeTestTime = (event) => {
@@ -120,59 +123,39 @@ const GameDetail = () => {
       </div>
 
       <div className="detail__top">
-        <GameInfo />
+        {gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
           <img src={'/images/gym.jpg'} alt="gym" />
         </div>
       </div>
       {/* 예약 페이지 */}
       {
-        gameState===0?
-        <div>
-          <GymInfo />
-          <hr className="gameDetail__hr" />
-          <div className="gameDetail__footer footer_left">
-          <h1>특이사항</h1>
-          <ul>
-            <li>오픈 기념으로 이벤트가 가격입니다.</li>
-            <li>많이들 참여해주세요 ~</li>
-          </ul>
-        </div>
-        <div className="gameDetail__footer">
-          <div className="gameDetail__footer__inner">
-            <h1>관리자 정보</h1>
-            권오우 010-1122-2233
-          </div>
-          <div className="gameDetail__footer__inner">
-            <h1>체육관 정보</h1>
-            시설
-            <br />
-            친절
-          </div>
-        </div>
-        <hr className="gameDetail__hr" />
-        <button className="reservation__btn">예약하기</button>
-      </div>
+        gameState==0?
+        <GymInfo />
       : ""
     }
     {/* 게임 시작 1시간 전 팀 정보 페이지 */}
     {
-      gameState===1?
-      <div>
-        게임 1시간 전 팀 정보
-      </div>
+      gameState==1?
+      <TeamInfo />
       : ""
     }
     {/* 게임 결과 페이지 */}
     {
-      gameState>=3?
-      <GameResult gameData={gameData}/>
+      gameState==2?
+      <div>
+        <GameRecord gameData={gameData} setGameData={setGameData} />
+        <TeamInfo />
+      </div>
       : ""
     }
     {/* 게임 중 기록 페이지 */}
     {
-      gameState>=2?
-      <GameRecord gameData={gameData} setGameData={setGameData} gameState={gameState} />
+      gameState==3?
+      <div>
+        리뷰 페이지
+        <TeamInfo />
+      </div>
       : ""
     }
       </div>

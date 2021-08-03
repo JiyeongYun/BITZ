@@ -1,0 +1,130 @@
+.teaminfo {
+    margin-top: 50px;
+}
+
+.teaminfo > p {
+    color: #ffad4e;
+    margin-bottom: 40px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.teaminfo > .teams {
+    display: flex;
+    justify-content: space-around;
+}
+
+.teaminfo > .teams > .team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.teaminfo > .teams > .team > p:nth-child(1) {
+    background-color: #ffad4e;
+    color: white;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+}
+
+.teaminfo > .teams > .team > .members {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    width: 250px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ffad4e;
+    padding-bottom: 20px;
+}
+
+.teaminfo > .teams > .team > .members > .member {
+    position: relative;
+}
+
+.teaminfo > .teams > .team > .members > .member > img {
+    width: 100px;
+}
+
+.teaminfo > .teams > .team > .members > .member > .userinfo {
+    display: none;
+}
+
+.teaminfo > .teams > .team > p:nth-child(3) {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.teaminfo > .teams > .team > p:nth-child(3) > span {
+    font-size: 24px;
+    color: #ffad4e;
+    font-weight: bold;
+}
+
+.teaminfo > .teams > .team > .members > .member > .userinfo {
+    display: none;
+    position: absolute;
+    text-align: center;
+    left: 100px;
+    top: 0;
+    border: 4px solid #E4D2B9;
+    background-color: white;
+    border-radius: 20px;
+    width: 200px;
+    z-index: 1;
+}
+
+.about__user {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.about__user > img {
+    width: 70px;
+}
+
+.about__user > div > p:nth-child(1) {
+    font-weight: bold;
+}
+
+.about__user > div > p:nth-child(2) {
+    font-size: 14px;
+}
+
+.about__position {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.about__position > .istrue {
+    background-color: #ffad4e;
+    padding: 5px 10px;
+    border-radius: 50vmin;
+    color: white;
+}
+
+.about__position > .isfalse {
+    background-color: #c0c0c0;
+    padding: 5px 10px;
+    border-radius: 50vmin;
+    color: white;
+}
+
+.userinfo > .points {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.userinfo > .points > div > p:nth-child(2) {
+    margin-top: 5px;
+    color: #ffad4e;
+    font-size: 18px;
+    font-weight: bold;
+}
