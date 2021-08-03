@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
+import TeamInfo from 'components/game/TeamInfo';
 import GameInfo from 'components/game/GameInfo';
+import GameInfo2 from 'components/game/GameInfo2';
 import GameRecord from 'components/game/player/GameRecord';
 
 const GameDetail = () => {
@@ -26,16 +28,16 @@ const GameDetail = () => {
     startTime: {
       year: 2021,
       month: 8,
-      date: 2,
-      hour: 17,
-      minute: 15
+      date: 3,
+      hour: 11,
+      minute: 0
     },
     endTime: {
       year: 2021,
       month: 8,
       date: 3,
-      hour: 20,
-      minute: 15
+      hour: 12,
+      minute: 0
     },
     type: 2
   })
@@ -103,7 +105,7 @@ const GameDetail = () => {
         </div>
       </div>
       <div className="detail__top">
-        <GameInfo />
+        {gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
           <img src={'/images/gym.jpg'} alt="gym" />
         </div>
@@ -117,9 +119,7 @@ const GameDetail = () => {
     {/* 게임 시작 1시간 전 팀 정보 페이지 */}
     {
       gameState==1?
-      <div>
-        게임 1시간 전 팀 정보
-      </div>
+      <TeamInfo />
       : ""
     }
     {/* 게임 중 기록 페이지 */}
