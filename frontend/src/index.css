@@ -11,4 +11,31 @@ a {
 
 body {
     overflow: scroll;
+    min-height: 100vh;
+}
+
+:root {
+    /* 색상 정보 */
+    --main-color: #ffad4e;
+    --grey-color: #f8f8f8;
+
+    /* 폰트 사이트 */
+    --main-font-size: 12px;
+    --mid-font-size: 14px;
+    --large-font-size: 18px;
+    --xlarge-font-size: 24px;
+
+    /* margin, padding */
+    --small-margin-size: 6px;
+    --main-margin-size: 12px;
+    --mid-margin-size: 18px;
+    --large-margin-size: 30px;
+    --xlarge-margin-size: 54px;
+
+    /* 버튼 크기 */
+    --btn-height: 30px;
+
+    /* 사진 크기 */
+    --small-picture: 20px;
+    --logo-width: 300px;
 }
