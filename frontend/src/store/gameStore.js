@@ -26,9 +26,7 @@ const initialState = {
     gameState: 0
   },
   // 참가자
-  gameParticipants: {
-    null: null
-  },
+  gameParticipants: [],
   // 경기 기록
   gameData: {
     gameType: 2, // 2: 2팀, 3: 3팀
@@ -48,7 +46,6 @@ const {Provider} = gameStore;
 
 const GameStateProvider = ({children}) => {
   const [aboutGame, gameDispatch] = useReducer((state,action)=>{
-    console.log(action)
     switch(action.type) {
       // GameData 저장
       case 'FETCH_GAME_DATA':
