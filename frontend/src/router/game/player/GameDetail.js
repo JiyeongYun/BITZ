@@ -125,7 +125,10 @@ const GameDetail = () => {
     {/* 게임 중 기록 페이지 */}
     {
       gameState==2?
-      <GameRecord gameData={gameData} setGameData={setGameData} />
+      <div>
+        <GameRecord gameData={gameData} setGameData={setGameData} />
+        <TeamInfo />
+      </div>
       : ""
     }
     {/* 게임 후 리뷰 페이지 */}
@@ -133,6 +136,7 @@ const GameDetail = () => {
       gameState==3?
       <div>
         리뷰 페이지
+        <TeamInfo />
       </div>
       : ""
     }
