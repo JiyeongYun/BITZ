@@ -2,16 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
 }
+
 .login__logo {
-  width: 300px;
+  width: var(--logo-width);
 }
 
 .userKind {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
+  margin-bottom: var(--large-margin-size);
+  font-size: var(--mid-font-size);
 }
 
 .userKindRadio > input {
@@ -28,7 +29,7 @@
 }
 
 .userKind > label:hover > span{
-  font-size: 18px;
+  font-size: var(--large-font-size);
   font-weight: bold;
 }
 
@@ -38,8 +39,8 @@
 
 .userKind > .selected {
   font-weight: bold;
-  font-size: 18px;
-  color: #ffad4e;
+  font-size: var(--large-font-size);
+  color: var(--main-color);
 }
 
 /* 애니메이션 관련 css 시작*/
@@ -47,7 +48,7 @@
   content:"";
   width: 1px;
   height: 100%;
-  border-left: 2px solid #ffad4e;
+  border-left: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -59,7 +60,7 @@
   content:"";
   width: 100%;
   height: 1px;
-  border-top: 2px solid #ffad4e;
+  border-top: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   left: 0;
@@ -71,7 +72,7 @@
   content:"";
   width: 1px;
   height: 100%;
-  border-right: 2px solid #ffad4e;
+  border-right: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   right: 0;
@@ -83,7 +84,7 @@
   content:"";
   width: 100%;
   height: 1px;
-  border-bottom: 2px solid #ffad4e;
+  border-bottom: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -95,7 +96,7 @@
   content:"";
   width: 1px;
   height: 100%;
-  border-right: 2px solid #ffad4e;
+  border-right: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   right: 0;
@@ -107,7 +108,7 @@
   content:"";
   width: 100%;
   height: 1px;
-  border-top: 2px solid #ffad4e;
+  border-top: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   right: 0;
@@ -119,7 +120,7 @@
   content:"";
   width: 1px;
   height: 100%;
-  border-left: 2px solid #ffad4e;
+  border-left: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   left: 0;
@@ -131,7 +132,7 @@
   content:"";
   width: 100%;
   height: 1px;
-  border-bottom: 2px solid #ffad4e;
+  border-bottom: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   right: 0;
@@ -163,7 +164,7 @@
 .emailbox,
 .passwordbox {
   margin: 20px 0 10px;
-  font-size: 18px;
+  font-size: var(--mid-font-size);
 }
 
 .emailbox > input,
@@ -171,16 +172,18 @@
 {
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-  background-color: #f8f8f8;
+  background-color: var(--grey-color);
   width: 100%;
-  height: 35px;
+  height: var(--btn-height);
+  padding-left: var(--small-margin-size);
+  margin-top: var(--small-margin-size);
 }
 
 .userHelp {
   display: flex;
   justify-content: space-between;
   font-weight: lighter;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   color: rgba(0, 0, 0, 0.5);
 }
 
@@ -191,33 +194,33 @@
 .loginForm > form > button {
   cursor: pointer;
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   width: 100%;
   color: white;
-  background-color: #ffad4e;
+  background-color: var(--main-color);
   border: none;
   border-radius: 5px;
   height: 30px;
-  margin: 30px 0 50px;
+  margin: var(--large-margin-size) 0 var(--xlarge-margin-size);
 }
 
 .googleLogin {
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   width: 100%;
-  background-color: #f8f8f8;
-  border: 1px solid #ffad4e;
+  background-color: var(--grey-color);
+  border: 1px solid var(--main-color);
   border-radius: 5px;
-  height: 30px;
+  height: var(--btn-height);
   width: 348px;
-  line-height: 30px;
+  line-height: var(--btn-height);
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 #google__logo  {
-  height: 20px;
-  width: 20px;
-  margin-right: 10px;
+  height: var(--small-picture);
+  margin-right: var(--small-margin-size)
 }

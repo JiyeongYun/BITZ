@@ -9,7 +9,7 @@ import UserApi from "api/UserApi";
 import FirstLogin from "components/user/player/FirstLogin";
 
 function MainPage() {
-  const [isFirstLogin, setIsFirstLogin] = useState(false)
+  const [isFirstLogin, setIsFirstLogin] = useState(true)
 
   // (1) store에서 가져온 store Context를 globalState 변수에 집어넣음
   const globalState = useContext(store);

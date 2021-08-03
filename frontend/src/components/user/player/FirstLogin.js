@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './FirstLogin.css'
+import Location from "./Location"
 
 function FirstLogin(props) {
   const [guardChecked, setGuardChecked] = useState(false)
@@ -62,13 +63,13 @@ function FirstLogin(props) {
               </div>
             </label>
           </div>
-          <div className="location__box">
+          <div className="location__container">
             <div>선호 지역이 있으신가요?</div>
             <div>최대 3개 선택 가능</div>
             <div className="location__data">
-              <div>A</div>
-              <div>B</div>
-              <div>C</div>
+              <Location/>
+              <Location/>
+              <Location/>
             </div>
           </div>
           <button onClick={props.firstLoginData}>픽업 게임 하러가기</button>
