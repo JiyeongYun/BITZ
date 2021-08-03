@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/account")
-@Api("GymInfo 컨트롤러 API V1")
+@Api("Gym 컨트롤러 API V1")
 @Slf4j
 public class GymController {
 
