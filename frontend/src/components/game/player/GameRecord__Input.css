@@ -18,6 +18,9 @@
 }
 
 .modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: white;
   padding: 20px 10px 30px 10px;
   width: 50%;
@@ -26,6 +29,7 @@
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   z-index: 2;
+  border: solid 2px #ffad4e
 }
 
 .modal__Scores {
@@ -33,9 +37,13 @@
 }
 
 .GameRecord__closeBtn {
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  font-size: 20px;
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 15px;
   height: 20px;
   width: 20px;
 }
@@ -89,4 +97,51 @@
   border: solid 2px #dddddd;
   text-align: center;
   font-size: 50px;
+}
+
+.modal__switch {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 7px 0px 7px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100px;
+  height: 20px;
+  background-color: rgb(240, 240, 240);
+  border-radius: 10px;
+  border: solid 1px #dddddd
+}
+
+.modal__switch_prefix {
+  position: absolute;
+  left: 7px;
+  transition: 0.5s;
+}
+
+.modal__switch_each {
+  position: absolute;
+  right: 7px;
+  transition: 0.5s;
+}
+
+.modal__switch_current {
+  position: absolute;
+  left: -1px;
+  bottom: -1px;
+  height: 20px;
+  width: 54px;
+  border-radius: 10px;  
+  background-color: #ffad4e;
+  transition: 0.5s;
+}
+
+.modal__switch_active {
+  left: 46px;
+  transition: 0.5s;
+}
+
+.modal__switch_stateActivated {
+  font-weight: bold;
+  transition: 0.5s;
 }
