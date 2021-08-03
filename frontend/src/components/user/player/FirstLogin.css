@@ -29,11 +29,7 @@
     text-align: start;
 }
 
-.location__data > div {
-    display: inline;
-}
-
-label {
+.fl__data label {
     font-size: 18px;
 }
 
@@ -104,7 +100,7 @@ label {
     color: white;
 }
 
-.location__box + button {
+.data__container > button {
     width: 60%;
     background-color: #ffad4e;
     border: none;
@@ -113,4 +109,24 @@ label {
     border-radius: 5px;
     font-size: 18px;
     cursor: pointer;
+}
+
+.location__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.location__container > div:nth-child(1) {
+    font-size: 18px;
+}
+
+.location__container > div:nth-child(2) {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.location__container > .location__data {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
