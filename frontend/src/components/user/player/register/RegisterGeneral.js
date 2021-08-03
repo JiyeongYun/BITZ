@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import RegisterGeneralValidation from "components/user/player/register/RegisterGeneralValidation.js" // 유효성 검사 함수
 import { dispatchSubmitContext } from "router/user/common/Register";
 import UserApi from 'api/UserApi'
+import { store } from 'store/store.js';
 
-function RegisterGeneral({history}) {
+function RegisterGeneral({history}) {  
   // Context-Reducer
   const dispatch = useContext(dispatchSubmitContext)
   // State ***************************************************************
@@ -156,11 +157,6 @@ function RegisterGeneral({history}) {
   // view ***************************************************************
   return(
     <div className="registerForm">
-      {/* 좌측 영역 */}
-      <div>
-        <img className="register__logo" src="/images/logo.png" alt="logo" />
-      </div>
-
       {/* 중앙 영역 */}
       <div className="registerForm__center">
         {/*  이메일 */}
@@ -253,17 +249,11 @@ function RegisterGeneral({history}) {
           className={isValidated ? "registerForm__button register__button": "disabled registerForm__button register__button"}>
             회원가입
         </button>
-        <div className="registerForm__snsLogin">
-          <button className="registerForm__button registerForm__snsLogin__button" onClick={onGoogleRegister}>
-            <img className="registerForm__snsLogin__logo" src="/images/google_logo.png" alt="sns_logo" />
-            구글 계정으로 회원가입
-          </button>
-        </div>
-        
+        <button className="googleLogin">
+          <img src="/images/google_logo.png" alt="sns_logo" id="google__logo" />
+          <span>구글 계정으로 회원가입</span>
+        </button>
       </div>
-
-      {/* 우측 영역 */}
-      <div></div>
     </div>
   )
 }

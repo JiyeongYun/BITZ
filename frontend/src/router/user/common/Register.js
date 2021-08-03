@@ -1,21 +1,37 @@
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useReducer, useState, useContext } from "react";
 import RegisterGeneral from "components/user/player/register/RegisterGeneral.js"
 import RegisterBusiness from "components/user/business/register/RegisterBusiness.js"
 import "./Register.css"
+import { store } from 'store/store.js';
 
 // Context-Reducer
 const reducerSubmit = (state, action) => {
   switch (action.type) {
     case "SUBMIT":
       return {state: true, email: action.value}
-    default:
-      throw new Error("회원가입 실패")
+    // default:
+    //   throw new Error("회원가입 실패")
   }
 }
 export const stateSubmitContext = createContext()
 export const dispatchSubmitContext = createContext()
 
 function Register(props) {
+  const globalState = useContext(store);
+  const dispatch_ = globalState.dispatch;
+  const { userKind } = globalState.value;
+
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    
+    if (name === 'userKind') {
+      // userKind 전역 상태 관리 (store)
+      dispatch_({ type: "SELECT_USER_KIND", value })
+    }
+  };
+
   // useReducer(reducer, initialState)
   const [stateSubmit, dispatch] = useReducer(reducerSubmit, {state: false, email: ""})
 
@@ -27,19 +43,37 @@ function Register(props) {
   return (
     <dispatchSubmitContext.Provider value={dispatch}>
       <stateSubmitContext.Provider value={stateSubmit}>
-        {isBusiness ? (
-          <div>
-            <RegisterBusiness history={props.history} />
+        <div className="register__container">
+          <p>농구에 <span>미칠 준비가 됐다면?</span></p>
+          <p><span>BITZ</span> 에 가입!</p>
+          <div className="register__userKind">
+            <label
+              className={
+                userKind === 'player' ? 'userKindRadio selected' : 'userKindRadio unselected'
+              }
+              >
+              <input type="radio" value="player" name="userKind" onClick={onChange} />
+              <span>플레이어</span>
+            </label>
+            <label
+              className={
+                userKind === 'business' ? 'userKindRadio selected' : 'userKindRadio unselected'
+              }
+              >
+              <input type="radio" value="business" name="userKind" onClick={onChange} />
+              <span>비즈니스</span>
+            </label>
           </div>
-          ):(
-          <div>
-            <RegisterGeneral history={props.history}/>
-            <div className="change_to_business">
-              <div>체육관 소유주이신가요?</div>
-              <button className="registerForm__button change_to_business__button" onClick={change_to_business}>비즈니스 계정 회원가입</button>
+          {userKind==='player' ? (
+            <div>
+              <RegisterGeneral history={props.history}/>
             </div>
-          </div>
-        )}
+            ):(
+              <div>
+                <RegisterBusiness history={props.history} />
+            </div>
+          )}
+        </div>
     </stateSubmitContext.Provider>
   </dispatchSubmitContext.Provider>
   )};

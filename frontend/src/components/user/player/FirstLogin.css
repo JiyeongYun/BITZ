@@ -1,47 +1,45 @@
 .fl {
-    margin: 50px 0 0;
     text-align: center;
 }
 
-
-
 .fl__text {
-    font-size: 24px;
+    font-size: var(--large-font-size);
 }
 
 .fl__text > div {
-    margin-top: 20px;
+    margin-top: var(--mid-margin-size);
 }
 
 .fl__data {
-    width: 600px;
-    margin: 70px auto 0;
+    width: 450px;
+    margin: var(--large-margin-size) auto 0;
     border: 1px solid #ffad4e;
-    border-radius: 10px;
+    border-radius: 5px;
 }
+
 .data__container {
-    margin: 50px auto;
+    margin: var(--mid-margin-size) auto;
     width: fit-content;
 }
 
 .data__container > div {
-    margin-bottom: 60px;
+    margin-bottom: var(--large-margin-size);
     text-align: start;
 }
 
 .fl__data label {
-    font-size: 18px;
+    font-size: var(--mid-font-size);
 }
 
 #height__input {
-    border: 1px solid #ffad4e;
+    border: 1px solid var(--main-color);
     border-radius: 5px;
-    background-color: #f8f8f8;
+    background-color: var(--grey-color);
     width: 100px;
-    height: 30px;
-    margin-top: 10px;
-    font-weight: bold;
+    height: var(--btn-height);
+    margin-top: var(--small-margin-size);
     text-align: right;
+    padding-right: var(--small-margin-size);
 }
 
 #height__input:focus {
@@ -49,16 +47,16 @@
 }
 
 .position__box span {
-    font-size: 12px;
+    font-size: var(--small-font-size);
 }
 
 .ps__checkbox {
-    margin-top: 20px;
+    margin-top: var(--main-margin-size);
 }
 .ab__checkbox {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: var(--main-margin-size);
 }
 
 .ps__checkbox > input {
@@ -70,44 +68,44 @@
 }
 
 .ps__checkbox > span {
-    font-size: 18px;
-    margin-right: 20px;
+    font-size: var(--main-font-size);
+    margin-right: var(--main-margin-size);
     display: inline-block;
-    border: 1px solid #ffad4e;
+    border: 1px solid var(--main-color);
     border-radius: 5px;
-    padding: 5px 20px;
-    background-color: #f8f8f8;
+    padding: 5px var(--mid-margin-size);
+    background-color: var(--grey-color);
 }
 
 .ab__checkbox > span {
-    font-size: 18px;
-    margin-right: 20px;
+    font-size: var(--main-font-size);
+    margin-right: var(--main-margin-size);
     display: inline-block;
-    border: 1px solid #ffad4e;
+    border: 1px solid var(--main-color);
     border-radius: 5px;
-    padding: 5px 20px;
-    background-color: #f8f8f8;
+    padding: 5px var(--mid-margin-size);
+    background-color: var(--grey-color);
     text-align: center;
 }
 
 .ab__checkbox:checked > span {
-    background-color: #ffad4e;
+    background-color: var(--main-color);
     color: white;
 }
 
 .checked {
-    background-color: #ffad4e !important;
+    background-color: var(--main-color) !important;
     color: white;
 }
 
 .data__container > button {
     width: 60%;
-    background-color: #ffad4e;
+    background-color: var(--main-color);
     border: none;
     color: white;
-    height: 40px;
+    height: var(--btn-height);
     border-radius: 5px;
-    font-size: 18px;
+    font-size: var(--main-font-size);
     cursor: pointer;
 }
 
@@ -117,16 +115,16 @@
 }
 
 .location__container > div:nth-child(1) {
-    font-size: 18px;
+    font-size: var(--mid-font-size);
 }
 
 .location__container > div:nth-child(2) {
-    font-size: 12px;
+    font-size: var(--small-font-size);
     margin-top: 5px;
 }
 
 .location__container > .location__data {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: var(--main-margin-size);
 }

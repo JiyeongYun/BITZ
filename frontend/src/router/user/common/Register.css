@@ -1,36 +1,49 @@
 /* Register */
-.registerForm {
-  margin: 5vw 5vw 2vw 5vw;
+.register__container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__container > p {
+  font-size: var(--large-font-size);
+  width: 340px;
+}
+
+.register__container > p:nth-child(2) >span {
+  font-size: var(--xlarge-font-size);
+  color: var(--dark-blue);
+  font-weight: bold;
+}
+
+.registerForm {
+  display: flex;
+  justify-content: center;
 }
 
 .registerForm__center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
 }
 
 .registerForm__component {
-  width: 285px;
-  margin: 10px 0px 10px 0px;
+  width: 340px;
+  margin-bottom: var(--main-margin-size);
+}
+
+.registerForm__component > label {
+  font-size: var(--mid-font-size);
 }
 
 .change_to_business {
   text-align: center;
 }
 
-.register__logo {
-  position: absolute;
-  left: 7vw;
-  width: 25vw;
-}
-
 .errorMessage {
-  font-size: small;
+  font-size: var(--small-font-size);
   color: red;
-  margin-bottom: 5px;
+  margin-bottom: var(--small-margin-size);
 }
 
 input:focus {
@@ -40,24 +53,13 @@ input:focus {
 .inputBox {
   display: block;
   position: relative;
-  width: 280px;
-  height: 29px;
+  width: 340px;
+  height: var(--btn-height);
   border: none;
   border-radius: 5px;
-  background: #f8f8f8;
-  font-size: 15px;
-  margin: 0px 1px 0px 1px;
-}
-
-.inputBox__businessRegistration {
-  display: inline-block;
-  margin-right: 5px;
-  width: 12vw;
-}
-
-.registerForm__snsLogin__logo {
-  width: 15px;
-  margin: 0px 10px;
+  background: var(--grey-color);
+  font-size: var(--main-font-size);
+  padding-left: var(--main-margin-size);
 }
 
 .register__birthForm {
@@ -68,109 +70,81 @@ input:focus {
 .register__birthYear {
   display: table-cell;
   width: 80px;
-  height: 29px;
+  height: var(--btn-height);
   margin-right: 5px;
   border: none;
-  background: #f8f8f8;
+  background: var(--grey-color);
   border-radius: 5px;
 }
 
 .register__birthMonth {
   display: table-cell;
   width: 80px;
-  height: 29px;
+  height: var(--btn-height);
   vertical-align: middle;
   margin-right: 5px;
   border: none;
-  background: #f8f8f8;
+  background: var(--grey-color);
   border-radius: 5px;
 }
 
 .register__birthDay {
   display: table-cell;
   width: 80px;
-  height: 29px;
+  height:  var(--btn-height);
   border: none;
-  background: #f8f8f8;
+  background: var(--grey-color);
   border-radius: 5px;
-}
-
-.registerForm__snsLogin__button {
-  background-color: rgb(255, 255, 255);
-  border: solid black;
-  color: black;
-  padding: 5px 15px 5px 0px;
 }
 
 .registerForm__button {
-  width: 20vw;
-  border-width: 1px;
-  border-radius: 12px;
-  margin: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: var(--main-font-size);
+  width: 100%;
+  color: white;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin: var(--large-margin-size) 0 var(--small-margin-size);
 }
 
 .register__button {
-  margin-top: 50px;
-  padding: 5px 0px 5px 0px;
-  background: #FFAD4E;
+  background: var(--main-color);
   border: none;
-  color: #ffffff;
+  color: white;
 }
 
 .duplicationCheck__button {
-  position: relative;
-  left: 167px;
   width: 100px;
-  background: #FFAD4E;
+  display: block;
+  background: var(--main-color);
   border: none;
   border-radius: 5px;
-  color: #ffffff;
-  font-size: small;
+  color: var(--grey-color);
+  font-size: var(--main-font-size);
   height: 20px;
-  margin: 0px 10px 0px 10px;
-}
-
-.register__businessRegistration {
-  margin-top: 50px;
-}
-
-.register__businessRegistration label {
-  font-weight: bold;
-}
-
-.businessRegistration__button {
-  display: inline-block;
-  left: 10vw;
-  width: 60px;
-  /* width: 3vw; */
-  margin: 1px 10px 1px 5px;
-  padding-top: 4.5px;
-  background: #FFAD4E;
-  border: none;
-  border-radius: 3px;
-  color: #ffffff;
-  font-size: small;
-  height: 27px;
+  margin: 0 0 0 auto;
 }
 
 .change_to_business div {
-  color: #0A1840;
+  color: black;
+  font-size: var(--mid-font-size);
+  margin: var(--large-margin-size) 0 var(--small-margin-size);
 }
 
 .change_to_business__button {
-  background: #0A1840;
-  color: #ffffff;
-  padding: 5px 0px 5px 0px;
+  background: var(--dark-blue);
+  color: white;
+  width: 340px;
+  height: var(--btn-height);
+  margin: 0;
 }
 
 .disabled {
-  background-color: rgb(184, 184, 184);
-  color: rgb(224, 224, 224);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
   pointer-events: none;
 }
 
@@ -201,3 +175,157 @@ input:focus {
 .registerComplete__excuse {
   font-size: small;
 }
+
+/* 애니메이션 관련 css 시작*/
+.register__userKind {
+  display: flex;
+  justify-content: space-around;
+  margin-top: var(--large-margin-size);
+  margin-bottom: var(--large-margin-size);
+  font-size: var(--mid-font-size);
+}
+
+.register__userKind > .userKindRadio > input {
+  display: none;
+}
+
+.register__userKind > label {
+  cursor: pointer;
+  position: relative;
+  width: 170px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.register__userKind > label:hover > span{
+  font-size: var(--large-font-size);
+  font-weight: bold;
+}
+
+.register__userKind > label > span{
+  transition: font-size .5s;
+}
+
+.register__userKind > .selected {
+  font-weight: bold;
+  font-size: var(--large-font-size);
+  color: var(--main-color);
+}
+
+.register__userKind > label:nth-child(1).selected::before {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-left: 2px solid var(--main-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: height .2s;
+  animation-fill-mode: forwards;
+}
+
+.register__userKind > label:nth-child(1).selected::after {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-top: 2px solid var(--main-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: width .2s .2s;
+  animation-fill-mode: backwards;
+}
+
+.register__userKind > label:nth-child(1).selected > span::after {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-right: 2px solid var(--main-color);
+  position: absolute;
+  top: 0;
+  right: 0;
+  animation: height .2s .4s;
+  animation-fill-mode: backwards;
+}
+
+.register__userKind > label:nth-child(2).unselected::before {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-bottom: 2px solid var(--main-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: width .2s .6s;
+  animation-fill-mode: backwards;
+}
+
+.register__userKind > label:nth-child(2).selected::before {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-right: 2px solid var(--main-color);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: height .2s;
+  animation-fill-mode: forwards;
+}
+
+.register__userKind > label:nth-child(2).selected::after {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-top: 2px solid var(--main-color);
+  position: absolute;
+  top: 0;
+  right: 0;
+  animation: width .2s .2s;
+  animation-fill-mode: backwards;
+}
+
+.register__userKind > label:nth-child(2).selected > span::after {
+  content:"";
+  width: 1px;
+  height: 100%;
+  border-left: 2px solid var(--main-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: height .2s .4s;
+  animation-fill-mode: backwards;
+}
+
+.register__userKind > label:nth-child(1).unselected::before {
+  content:"";
+  width: 100%;
+  height: 1px;
+  border-bottom: 2px solid var(--main-color);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: width .2s .6s;
+  animation-fill-mode: backwards;
+}
+
+
+
+@keyframes width {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes height {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+/* 애니메이션 관련 css 끝*/
