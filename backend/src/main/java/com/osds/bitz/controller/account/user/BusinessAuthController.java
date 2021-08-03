@@ -28,6 +28,7 @@ public class BusinessAuthController {
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
     public ResponseEntity<BusinessAuthResponse> createBusiness(@ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.createBusiness(businessAuthRequest));
+
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
 
