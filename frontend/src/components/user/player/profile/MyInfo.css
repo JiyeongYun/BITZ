@@ -62,19 +62,14 @@
   color: white;
 }
 
-.location__container {
+.location__box {
   display: flex;
   justify-content: space-between;
+  margin: 10px 0;
 }
 
-.location__box {
-  width: 100px;
-  height: 70px;
-  font-size: 18px;
-  margin: 10px;
-  border: 1px solid #ffad4e;
-  border-radius: 15px;
-  background-color: #f8f8f8;
+.location__box > select {
+  margin-right: 20px;
 }
 
 .location__box > span {

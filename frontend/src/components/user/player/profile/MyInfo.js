@@ -1,10 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './MyInfo.css';
+import Location from '../Location';
 
 const MyInfo = ({ userObj }) => {
   // 내 정보를 보여주는 컴포넌트 (신장, 포지션, 선호지역 )
   const [height, setHeight] = useState('');
   const [isClickPos, setIsClickPos] = useState(false)
+  const [locationUpdate, setLocationUpdate] = useState(true)
 
   // height 수정 하기 위한 변수
   const heightRef = useRef(null)
@@ -67,11 +69,6 @@ const MyInfo = ({ userObj }) => {
     }
   }
 
-  const onAddLocation = () => {
-    // 주소 묻는 창 필요
-    alert('선호하는 지역 등록');
-  };
-
   return (
     <div className="MyInfo">
       <h2>내 정보</h2>
@@ -111,18 +108,14 @@ const MyInfo = ({ userObj }) => {
       </div>
       <div className="location">
         <p>선호지역</p>
-        <div className="location__container">
-          <div className="location__box" onClick={onAddLocation}>
-            <span>+</span>
-          </div>
-          <div className="location__box" onClick={onAddLocation}>
-            <span>+</span>
-          </div>
-          <div className="location__box" onClick={onAddLocation}>
-            <span>+</span>
-          </div>
+        <div className="location__box">
+          <Location locationUpdate={locationUpdate} />
+          <Location locationUpdate={locationUpdate} />
+          <Location locationUpdate={locationUpdate} />
         </div>
-        <button className="btn__update">수정</button>
+        <button className="btn__update" onClick={() => {
+          setLocationUpdate(!locationUpdate)
+        }}>수정</button>
       </div>
     </div>
   );
