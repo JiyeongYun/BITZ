@@ -63,7 +63,7 @@ const GameDetail = () => {
       </div>
 
       <div className="detail__top">
-        {gameState===0?<GameInfo />:<GameInfo2 />}
+        {aboutGame.gameInfo.gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
           <img src={'/images/gym.jpg'} alt="gym" />
         </div>
@@ -98,28 +98,22 @@ const GameDetail = () => {
       </div>
       : ""
     }
-    {/* 게임 시작 1시간 전 팀 정보 페이지 */}
-    {
-      aboutGame.gameInfo.gameState===1?
-      <div>
-        게임 1시간 전 팀 정보
-      </div>
-      : ""
-    }
     {/* 게임 결과 페이지 */}
     {
       aboutGame.gameInfo.gameState>=3?
-      <div>
-        <GameResult />
-        <TeamInfo />
-      </div>
+      <GameResult />
       : ""
     }
     {/* 게임 중 기록 페이지 */}
     {
       aboutGame.gameInfo.gameState>=2?
+      <GameRecord />
+      : ""
+    }
+    {/* 게임 시작 1시간 전 팀 정보 페이지 */}
+    {
+      aboutGame.gameInfo.gameState>=1?
       <div>
-        <GameRecord />
         <TeamInfo />
       </div>
       : ""
