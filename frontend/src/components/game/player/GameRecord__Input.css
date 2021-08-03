@@ -70,6 +70,7 @@
   opacity: 0;
   content: "";
   background-color: #ffad4e;
+  border-radius: 4px;
 }
 
 .GameRecord__Input_Submit:hover:before {

@@ -1,21 +1,22 @@
 import React from 'react';
 import './GameRecord.css';
-import GameRecord__Table from './GameRecord__Table';
+import GameRecordTable from './GameRecord__Table';
 
-const GameRecord = ({ gameData, setGameData }) => {
-  const type = 3
-
+const GameRecord = ({ gameData, setGameData, gameState }) => {
   return (
     <div className="gameRecord">
-      { type === gameData.gameType ? (
+      <div>
+        경기 기록
+      </div>
+      { gameData.gameType === 2 ? (
       <div className="gameRecord__2">
-        <GameRecord__Table team1='A' team2='B' game='game1' gameData={gameData} setGameData={setGameData} />
+        <GameRecordTable team1='A' team2='B' game='game1' gameData={gameData} setGameData={setGameData} gameState={gameState} />
       </div>
       ):(
       <div className="gameRecord__3">
-        <GameRecord__Table team1='A' team2='B' game='game1' gameData={gameData} setGameData={setGameData} />
-        <GameRecord__Table team1='B' team2='C' game='game2' gameData={gameData} setGameData={setGameData} />
-        <GameRecord__Table team1='C' team2='A' game='game3' gameData={gameData} setGameData={setGameData} />
+        <GameRecordTable team1='A' team2='B' game='game1' gameData={gameData} setGameData={setGameData} gameState={gameState} />
+        <GameRecordTable team1='B' team2='C' game='game2' gameData={gameData} setGameData={setGameData} gameState={gameState} />
+        <GameRecordTable team1='C' team2='A' game='game3' gameData={gameData} setGameData={setGameData} gameState={gameState} />
       </div>
       )}
     </div>
