@@ -61,7 +61,6 @@ public class BusinessAuthService extends BaseAuthService {
                 InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
                 FileUtils.copyInputStreamToFile(fileStream, targetFile);
             } catch (IOException e) {
-            log.info("{}",e.getMessage());
         }
 
 
@@ -71,7 +70,6 @@ public class BusinessAuthService extends BaseAuthService {
                 .password(businessAuthRequest.getPassword())
                 .birth(businessAuthRequest.getBirth())
                 .build();
-        log.info("{}", businessAuth);
 
         BusinessProfile businessProfile = BusinessProfile.builder()
                 .name(businessAuthRequest.getName())
@@ -81,11 +79,9 @@ public class BusinessAuthService extends BaseAuthService {
                 .businessRegistration(businessAuthRequest.getBusinessRegistration().getBytes())
                 .businessAuth(businessAuth)
                 .build();
-        log.info("{}", businessProfile);
 
         BusinessAuth newBusinessAuth = this.businessAuthRepository.save(businessAuth);
         this.businessProfileRepository.save(businessProfile);
-
         return newBusinessAuth;
     }
 

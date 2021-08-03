@@ -1,5 +1,6 @@
 package com.osds.bitz.model.entity.gym;
 
+import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,8 +16,9 @@ public class Gym {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                    // 체육관ID
 
-    @Column(nullable = false)
-    private String businessId;          // 사업자ID
+    @OneToOne
+    @JoinColumn(name="business_id")
+    private BusinessAuth businessAuth;          // 사업자ID
 
     @Column(nullable = false)
     private String name;                // 체육관명

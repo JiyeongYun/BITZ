@@ -97,11 +97,33 @@
             <version>2.6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <!-- jackson 라이브러리 -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.codehaus.jackson</groupId>-->
+<!--            <artifactId>jackson-mapper-asl</artifactId>-->
+<!--            <version>1.9.13</version>-->
+<!--        </dependency>-->
+
+
+<!--        <dependency>-->
+<!--            <groupId>org.codehaus.jackson</groupId>-->
+<!--            <artifactId>jackson-core-asl</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
     </dependencies>
