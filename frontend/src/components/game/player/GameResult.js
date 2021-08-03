@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import GameReview from "./GameReview";
 import "./GameResult.css"
+import { gameStore } from 'store/gameStore';
 
-const GameResult = ({ gameData }) => {
-  const game1_team1_totlaScore = gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue))
-  const game1_team2_totlaScore = gameData.game1_team2_score.reduce((sum, currValue)=>(sum+currValue))
-  const game2_team1_totlaScore = gameData.game2_team1_score.reduce((sum, currValue)=>(sum+currValue))
-  const game2_team2_totlaScore = gameData.game2_team2_score.reduce((sum, currValue)=>(sum+currValue))
-  const game3_team1_totlaScore = gameData.game3_team1_score.reduce((sum, currValue)=>(sum+currValue))
-  const game3_team2_totlaScore = gameData.game3_team2_score.reduce((sum, currValue)=>(sum+currValue))
+const GameResult = () => {
+  const gameStoreData = useContext(gameStore);
+  const { aboutGame } = gameStoreData;
+  // 리뷰 등록 컴포넌트 display 여부
+  const [showReview, setShowReview] = useState(true)
 
+  // 점수 합산 => 누적합 계산
+  const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue))
+  const game1_team2_totlaScore = aboutGame.gameData.game1_team2_score.reduce((sum, currValue)=>(sum+currValue))
+  const game2_team1_totlaScore = aboutGame.gameData.game2_team1_score.reduce((sum, currValue)=>(sum+currValue))
+  const game2_team2_totlaScore = aboutGame.gameData.game2_team2_score.reduce((sum, currValue)=>(sum+currValue))
+  const game3_team1_totlaScore = aboutGame.gameData.game3_team1_score.reduce((sum, currValue)=>(sum+currValue))
+  const game3_team2_totlaScore = aboutGame.gameData.game3_team2_score.reduce((sum, currValue)=>(sum+currValue))
+
+  // 승패 계산
   const teamA_win = (game1_team1_totlaScore>game1_team2_totlaScore) + (game3_team2_totlaScore>game3_team1_totlaScore)
   const teamA_lose = (game1_team1_totlaScore<game1_team2_totlaScore) + (game3_team2_totlaScore<game3_team1_totlaScore)
   const teamB_win = (game1_team2_totlaScore>game1_team1_totlaScore) + (game2_team1_totlaScore>game2_team2_totlaScore)
@@ -18,12 +27,15 @@ const GameResult = ({ gameData }) => {
 
   return (
     <div>
+      { showReview ? (
+        <GameReview setShowReview={setShowReview} />
+        ) : ("")}
       <div>
         결과
       </div>
       <div className="gameResult__tables">
         <div className="gameResult__totalScore">
-          { gameData.gameType === 2 ? (
+          { aboutGame.gameData.gameType === 2 ? (
             <div className="gameResult__2">
             <table className="RecordTable">
               <th>A팀</th>
@@ -50,7 +62,7 @@ const GameResult = ({ gameData }) => {
           )}
         </div>
         <div className="gameResult__winORlose">
-          { gameData.gameType === 2 ? (
+          { aboutGame.gameData.gameType === 2 ? (
             <div className="gameResult__2">
             <table className="RecordTable">
               <th>A팀</th>
