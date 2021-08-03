@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
+import TeamInfo from 'components/game/TeamInfo';
 import GameInfo from 'components/game/GameInfo';
+import GameInfo2 from 'components/game/GameInfo2';
 import GameRecord from 'components/game/player/GameRecord';
 import GameResult from 'components/game/player/GameResult';
 import { gameStore } from 'store/gameStore';
@@ -61,7 +63,7 @@ const GameDetail = () => {
       </div>
 
       <div className="detail__top">
-        <GameInfo />
+        {gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
           <img src={'/images/gym.jpg'} alt="gym" />
         </div>
@@ -107,13 +109,19 @@ const GameDetail = () => {
     {/* 게임 결과 페이지 */}
     {
       aboutGame.gameInfo.gameState>=3?
-      <GameResult />
+      <div>
+        <GameResult />
+        <TeamInfo />
+      </div>
       : ""
     }
     {/* 게임 중 기록 페이지 */}
     {
       aboutGame.gameInfo.gameState>=2?
-      <GameRecord />
+      <div>
+        <GameRecord />
+        <TeamInfo />
+      </div>
       : ""
     }
       </div>

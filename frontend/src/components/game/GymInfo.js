@@ -82,6 +82,7 @@ const GymInfo = () => {
           </ul>
         </div>
       </div>
+      <button className="reservation__btn">예약하기</button>
     </div>
   );
 };
