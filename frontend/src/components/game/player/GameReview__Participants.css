@@ -1,0 +1,13 @@
+.Participants__selected {
+  position: absolute;
+  border-radius: 100px;
+  width: 10px;
+  height: 10px;
+  font-size: 0.5px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: #0a1840;
+  background-color: #0a1840;
+  /* display: flex; */
+}
