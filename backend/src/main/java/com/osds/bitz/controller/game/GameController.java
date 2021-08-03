@@ -26,8 +26,8 @@ public class GameController {
     @PostMapping("/creategame")
     @ApiOperation(value="게임 등록", notes="게임의 정보를 DB에 저장합니다.")
     public ResponseEntity<GameResponse> createGame(@RequestBody @ApiParam(value="게임 정보") GameRequest gameRequest) throws Exception{
-        //GameResponse response = new GameResponse(gameService.createGame(gameRequest));
-        return null;// ResponseEntity<GameResponse>(response, HttpStatus.OK);
+        GameResponse response = new GameResponse(gameService.createGame(gameRequest));
+        return new ResponseEntity<GameResponse>(response, HttpStatus.OK);
     }
 
 }

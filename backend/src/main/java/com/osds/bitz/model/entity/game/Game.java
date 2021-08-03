@@ -1,5 +1,6 @@
 package com.osds.bitz.model.entity.game;
 
+import com.osds.bitz.model.entity.gym.Gym;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +22,9 @@ public class Game {
     @Column(nullable = false)
     private Date date; // 날짜
 
-    @Column(nullable = false)
-    private Long gymId; // 체육관ID
+    @OneToOne
+    @JoinColumn(name="gym_id")
+    private Gym gym; // 체육관ID
 
     @Column(nullable = false)
     private Time startTime; // 시작시간
