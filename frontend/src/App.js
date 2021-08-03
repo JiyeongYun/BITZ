@@ -13,6 +13,7 @@ import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
 import { store } from 'store/store.js'; // store import (store)
+import { GameStateProvider } from 'store/gameStore.js';
 
 function App() {
   // 전역 상태 관리 (store)
@@ -66,7 +67,10 @@ function App() {
         <Route path="/registerGym" exact={true} component={RegisterGym} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
-        <Route path="/detail" exact={true} component={Detail} />
+        {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
+        <GameStateProvider>
+          <Route path="/detail" exact={true} component={Detail} />
+        </GameStateProvider>
         <Route path="/match/mygames" exact={true} component={MyGame} />
       </BrowserRouter>
     </div>

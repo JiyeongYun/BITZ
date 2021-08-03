@@ -1,0 +1,39 @@
+.gameReview {
+  color: #ffad4e;
+}
+
+.gameReview__input {
+  width: 80%;
+}
+
+.gameReview__MVP, .gameReview__manner, .gameReview__gym {
+  margin-top: 40px;
+  text-align: start;
+}
+
+.gameReview__basketballScore {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.gameReview__gym_itemName {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  padding-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #0a1840;
+}
+
+.gameReview__Facility {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gameReview__Kindness {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
