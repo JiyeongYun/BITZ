@@ -1,13 +1,18 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./GameReview.css"
+import GameReview__Participants from "./GameReview__Participants";
 
 const GameReview = ({ setShowReview }) => {
   // State
   const [tempScore, setTempScore] = useState({
+    mvp: "",
+    manner: [],
     facility: 0,
     kindness: 0
   })
   const [reviewScore, setReviewScore] = useState({
+    mvp: "",
+    manner: [],
     facility: 0,
     kindness: 0
   })
@@ -39,11 +44,21 @@ const GameReview = ({ setShowReview }) => {
     setReviewScore({...reviewScore, [name]: value})
   }
 
+  // PJW - MVP, Manner에 선택된 사람 표시
+  useEffect(()=>{
+    if (reviewScore.mvp) {
+      document.querySelector(`.mvp${reviewScore.mvp} .Participants__selected`).style.display = 'flex';
+    }
+    if (reviewScore.manner.length) {
+      reviewScore.manner.forEach(manner=>document.querySelector(`.manner${manner} .Participants__selected`).style.display = 'flex')
+    }
+  },[reviewScore])
+
   return (
-    <div className="gameReview modal">
+    <div className="modal">
       
       <div className="modal__overlay"></div> {/* 회색 배경 */}
-      <div className="modal__content"> {/* 모달 내부 */}
+      <div className="modal__content gameReview"> {/* 모달 내부 */}
         <div>
           <h4>기록하기</h4>
         </div>
@@ -53,7 +68,7 @@ const GameReview = ({ setShowReview }) => {
             <h2>최고의 MVP를 뽑아주세요!</h2>
             <span>* 한 명만 선택하실 수 있습니다.</span>
             <div>
-              사용자들 사진사진사진
+              <GameReview__Participants reviewType="mvp" setReviewScore={setReviewScore} reviewScore={reviewScore} />
             </div>
           </div>
           {/* Manner */}
@@ -61,7 +76,7 @@ const GameReview = ({ setShowReview }) => {
             <h2>다음에 또 같이 농구하고 싶은 사람은 누구인가요?</h2>
             <span>* 복수선택 가능</span>
             <div>
-              사용자들 사진사진사진
+              <GameReview__Participants reviewType="manner" setReviewScore={setReviewScore} reviewScore={reviewScore} />
             </div>
           </div>
           {/* Gym */}
@@ -90,7 +105,7 @@ const GameReview = ({ setShowReview }) => {
                     <img src={'/images/basketball_black.png'} alt="facility_score" className="gameReview__basketballScore" name="facility" value={3} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
                   )}
                   {tempScore.facility>=4?(
-                    <img src={'/images/basketball_purple.png'} alt="facility_score" className="gameReview__basketballScore" name="facility" value={3} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
+                    <img src={'/images/basketball_purple.png'} alt="facility_score" className="gameReview__basketballScore" name="facility" value={4} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
                     ):(
                     <img src={'/images/basketball_black.png'} alt="facility_score" className="gameReview__basketballScore" name="facility" value={4} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
                   )}
