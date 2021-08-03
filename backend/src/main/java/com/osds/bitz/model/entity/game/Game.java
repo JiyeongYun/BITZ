@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -38,8 +37,6 @@ public class Game {
     private int maxPeople; // 최대인원
 
     @Column(nullable = false)
-    private int participant; // 참가인원
-
-    private int quarter; // 쿼터
+    private int participationFee; // 참가비
 
 }
