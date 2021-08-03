@@ -17,9 +17,12 @@ body {
 :root {
     /* 색상 정보 */
     --main-color: #ffad4e;
+    --dark-orange: #f28a2e;
     --grey-color: #f8f8f8;
+    --dark-blue: #0a1840;
 
     /* 폰트 사이트 */
+    --small-font-size: 10px;
     --main-font-size: 12px;
     --mid-font-size: 14px;
     --large-font-size: 18px;

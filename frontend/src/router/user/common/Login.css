@@ -163,7 +163,7 @@
 
 .emailbox,
 .passwordbox {
-  margin: 20px 0 10px;
+  margin: var(--mid-margin-size) 0 var(--main-margin-size);
   font-size: var(--mid-font-size);
 }
 
@@ -201,18 +201,17 @@
   border: none;
   border-radius: 5px;
   height: 30px;
-  margin: var(--large-margin-size) 0 var(--xlarge-margin-size);
+  margin: var(--large-margin-size) 0 var(--small-margin-size);
 }
 
 .googleLogin {
-  font-weight: bold;
   font-size: var(--main-font-size);
   width: 100%;
   background-color: var(--grey-color);
   border: 1px solid var(--main-color);
   border-radius: 5px;
   height: var(--btn-height);
-  width: 348px;
+  width: 340px;
   line-height: var(--btn-height);
   display: flex;
   align-items: center;
