@@ -1,12 +1,14 @@
 package com.osds.bitz.jwt;
 
 
+import com.osds.bitz.model.entity.account.Token;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,32 +39,34 @@ public class SecurityController {
         return "Welcome to javatechie !!";
     }
 
-    @PostMapping("/authenticate")
-    public String generateToken(@RequestBody ReadAuthRequest readAuthRequest) throws Exception {
-        System.out.println(test.getUserAuthByEmail(readAuthRequest.getEmail()));
+    @PostMapping("/login")
+    public Token generateToken(@RequestBody ReadAuthRequest readAuthRequest) throws Exception {
         log.info("{}", "login Request : " + readAuthRequest);
         try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-            log.info("{}", "확인");
-            log.info("{}", "passwordEncoder : " + passwordEncoder.encode(readAuthRequest.getPassword()));
-//            byte[] passBytes = DatatypeConverter.parseBase64Binary(readAuthRequest.getPassword());
-//            String changePass = Base64.encode(passBytes);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(readAuthRequest.getEmail(),passwordEncoder.encode(readAuthRequest.getPassword()) );
+            // 유저 정보를 이용하여 인증용 객체(토큰)을 생성
+
             log.info("{}", "token : " + token);
+
             authenticationManager.authenticate(token);
+            // Spring Secuirty의 매니저에 위에서 생성한 객체를 권한을 준다.(등록한다.)
         } catch (Exception ex) {
             ex.printStackTrace();
-            log.info("{}", "에러 : " + ex.fillInStackTrace());
             throw new Exception("inavalid username/password");
         }
-        return securityService.createToken(readAuthRequest.getEmail(), 60 * 1000 * 5);
+
+        Token userToken = new Token();
+        userToken.setAccessToken(securityService.createToken(readAuthRequest.getEmail(), "access"));
+        userToken.setRefreshToken(securityService.createToken(readAuthRequest.getEmail(), "refresh"));
+
+        return userToken;
     }
 
 
     @GetMapping("/authenticate/create/token")
     public Map<String, Object> createToken(@RequestParam(value = "subject") String subject) {
-        String token = securityService.createToken(subject, (2 * 1000 * 60));
+        String token = securityService.createToken(subject, "access");
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("result", token);
 
@@ -74,6 +78,7 @@ public class SecurityController {
         String subject = securityService.getSubject(token);
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("result", subject);
+
 
         return map;
     }
