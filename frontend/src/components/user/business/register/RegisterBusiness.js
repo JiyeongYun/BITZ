@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import RegisterBusinessValidation from 'components/user/business/register/RegisterBusinessValidation';
 import './RegisterBusiness.css';
-import { dispatchSubmitContext } from 'router/user/common/Register';
 import UserApi from 'api/UserApi';
 
 function RegisterBusiness({history}) {
-  // Context-Reducer
-  const dispatch = useContext(dispatchSubmitContext);
   // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
@@ -369,7 +366,7 @@ function RegisterBusiness({history}) {
       >
         회원가입
       </button>
-      <button className="googleLogin">
+      <button className="googleLogin" onClick={onGoogleRegister}>
         <img src="/images/google_logo.png" alt="sns_logo" id="google__logo" />
         <span>구글 계정으로 회원가입</span>
       </button>

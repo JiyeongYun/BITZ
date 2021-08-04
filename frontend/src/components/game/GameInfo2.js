@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './GameInfo.css';
-import Participant from './Participant';
 
 const GameInfo = () => {
   // 픽업게임에 대한 정보를 보여주는 컴포넌트

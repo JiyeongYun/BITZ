@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useState, useContext } from "react";
+import React, { createContext, useReducer, useContext } from "react";
 import RegisterGeneral from "components/user/player/register/RegisterGeneral.js"
 import RegisterBusiness from "components/user/business/register/RegisterBusiness.js"
 import "./Register.css"
@@ -9,8 +9,8 @@ const reducerSubmit = (state, action) => {
   switch (action.type) {
     case "SUBMIT":
       return {state: true, email: action.value}
-    // default:
-    //   throw new Error("회원가입 실패")
+    default:
+      throw new Error("회원가입 실패")
   }
 }
 export const stateSubmitContext = createContext()
@@ -34,11 +34,6 @@ function Register(props) {
 
   // useReducer(reducer, initialState)
   const [stateSubmit, dispatch] = useReducer(reducerSubmit, {state: false, email: ""})
-
-  const [isBusiness, setIsBusiness] = useState(false)
-  const change_to_business = () => {
-    setIsBusiness(true)
-  }
 
   return (
     <dispatchSubmitContext.Provider value={dispatch}>
