@@ -36,7 +36,7 @@ function Main__Player_Common() {
         console.log(err)
       }
     )
-  },[])
+  },[globalState.value.isLogin, dispatch])
 
   const firstLoginData = function () {
     setIsFirstLogin(false)

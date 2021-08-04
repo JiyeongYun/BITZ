@@ -1,7 +1,12 @@
 const gameDataDummy = {
   // 체육관 정보
   gymInfo: {
-    null: null
+    is_parking: true,
+    is_shower: false,
+    is_airconditional: false,
+    is_water: true,
+    is_basketball: true,
+    is_scoreboard: true,
   },
   // 경기 정보
   gameInfo: {

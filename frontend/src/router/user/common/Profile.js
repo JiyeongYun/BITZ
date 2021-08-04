@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import MyInfo from '../../../components/user/player/profile/MyInfo';
 import Score from '../../../components/user/player/profile/Score';
 import MyGym from '../../../components/user/business/profile/MyGym';
@@ -8,10 +8,7 @@ import { store } from 'store/store.js'; // store import (store)
 const Profile = () => {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
-  const { userKind } = globalState.value; // 플레이어, 비즈니스 구분용 전역 State
-
-  const [userObj, setUserObj] = useState(null); // 로그인한 유저객체
-  // const [isPlayer, setIsPlayer] = useState(true); // 플레이어, 비즈니스 구분용 임시 state
+  const { userKind, userObj } = globalState.value; // 플레이어, 비즈니스 구분용 전역 State
 
   const onLogout = () => {
     alert('로그아웃');
