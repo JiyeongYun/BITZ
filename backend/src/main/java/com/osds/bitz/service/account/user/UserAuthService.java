@@ -3,6 +3,7 @@ package com.osds.bitz.service.account.user;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
+import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
@@ -15,6 +16,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
 
 @Service
 @Slf4j
@@ -70,13 +72,40 @@ public class UserAuthService extends BaseAuthService {
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
 
         // 이메일로 객체 찾아오기
-        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
+        UserAuth userAuth = getUserAuthByEmail(readAuthRequest.getEmail());
 
         if (userAuth == null) return null;
 
         if (!passwordEncoder.matches(readAuthRequest.getPassword(), userAuth.getPassword())) return null;
 
         return userAuth;
+    }
+
+    /**
+     * 이메일로 UserAuth 가져오기
+     */
+    public UserAuth getUserAuthByEmail(String email){
+        return this.userAuthRepository.getUserAuthByEmail(email);
+    }
+
+    /**
+     * Token 생성
+     */
+    public String createToken(UserAuth userAuth) {
+
+        // accessToken, refreshToken 생성
+        String accessToken = securityService.createToken(userAuth, "access");
+        String refreshToken = securityService.createToken(userAuth, "refresh");
+
+        RefreshToken token = RefreshToken.builder()
+                .userEmail(userAuth.getEmail())
+                .value(refreshToken)
+                .isGeneral(true)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        this.refreshTokenRepository.save(token);
+        return accessToken;
     }
 
     /**

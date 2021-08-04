@@ -27,7 +27,6 @@ public class SecurityService implements InitializingBean {
 
     public String createToken(UserAuth userAuth, String kind) { // 로그인 서비스 때 같이 사용
 
-
         int expTime = kind.equals("access") ? 30 * 1000 : 6 * 1000 * 24 * 14;
 
         if (kind.equals("access")) { // 엑세스 토큰 반환

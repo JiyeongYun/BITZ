@@ -1,5 +1,8 @@
 package com.osds.bitz.service.account;
 
+import com.osds.bitz.jwt.SecurityService;
+import com.osds.bitz.model.entity.token.RefreshToken;
+import com.osds.bitz.repository.account.RefreshTokenRepository;
 import com.osds.bitz.repository.log.LoginLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +16,13 @@ import java.util.Random;
 public class BaseAuthService {
 
     @Autowired
+    public SecurityService securityService;
+
+    @Autowired
     public LoginLogRepository loginLogRepository;
+
+    @Autowired
+    public RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
     public JavaMailSender mailSender;
@@ -71,6 +80,13 @@ public class BaseAuthService {
             result = result + String.valueOf(new Random().nextInt(9) + 1);
         }
         return result;
+    }
+
+    /**
+     * 이메일로 RefreshToken 가져오기
+     */
+    public RefreshToken getRefreshTokenByEmail(String email){
+        return this.refreshTokenRepository.findRefreshTokenByUserEmail(email);
     }
 
     /**

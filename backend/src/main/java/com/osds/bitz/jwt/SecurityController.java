@@ -29,9 +29,6 @@ public class SecurityController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @GetMapping("/test")
     public String welcome() {
         return "Welcome to javatechie !!";
@@ -41,9 +38,8 @@ public class SecurityController {
     public Token generateToken(@RequestBody ReadAuthRequest readAuthRequest) throws Exception {
         try {
 
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(readAuthRequest.getEmail(), readAuthRequest.getPassword());
             // 유저 정보를 이용하여 인증용 객체(토큰)을 생성
-
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(readAuthRequest.getEmail(), readAuthRequest.getPassword());
 
             // Spring Secuirty의 매니저에 위에서 생성한 객체를 권한을 준다.(등록한다.)
             authenticationManager.authenticate(token);
