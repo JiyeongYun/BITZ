@@ -16,8 +16,17 @@ import { store } from 'store/store.js'; // store import (store)
 import { GameStateProvider } from 'store/gameStore.js';
 
 function App() {
+  
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
+
+  // 로그인 정보 확인
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
+    if (currentUser) {
+      dispatch({type: "LOGIN", value:currentUser.email})
+    }
+  }, [])
 
   const [offcanvas, setOffcanvas] = useState(false);
   const toggleCanvas = () => {
