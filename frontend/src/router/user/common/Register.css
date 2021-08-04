@@ -6,15 +6,30 @@
 }
 
 .register__container > p {
-  font-size: var(--large-font-size);
-  width: 340px;
+  font-size: var(--xlarge-font-size);
+  font-style: italic;
+  width: 450px;
+  text-align: center;
+  letter-spacing: 7px;
 }
 
-.register__container > p:nth-child(2) >span {
-  font-size: var(--xlarge-font-size);
-  color: var(--dark-blue);
+.register__container > p:nth-child(1) {
   font-weight: bold;
+  font-size: 28px;
+  transform: translate(15px, 0);
 }
+
+.register__container > p > span {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: var(--xxlarge-font-size);
+}
+
+.register__container > p > img {
+  width: 150px;
+  transform: translate(0, 20px);
+}
+
 
 .registerForm {
   display: flex;
@@ -60,10 +75,12 @@ input:focus {
   background: var(--grey-color);
   font-size: var(--main-font-size);
   padding-left: var(--main-margin-size);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .register__birthForm {
-  display: table;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 
