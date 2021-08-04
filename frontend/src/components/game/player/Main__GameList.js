@@ -31,7 +31,7 @@ export default function Main__GameList() {
                   {game.City + " " + game.Area + " | 코트 규격: " + game.court_length + " * " + game.court_width}
                 </div>
                 <div className="gameList__game__personnel">
-                  {"최소인원: " + game.min_people + " | 최대인원: " + game.max_people}
+                  {"인원모집: " + game.min_people + " ~ " + game.max_people + " 명"}
                 </div>
               </div>
 
@@ -48,7 +48,7 @@ export default function Main__GameList() {
                 <button className="gameList__state__button">참여하기</button>
               </div>
             </div>
-            <hr></hr>
+            <hr/>
           </div>
         ))}
       </div>

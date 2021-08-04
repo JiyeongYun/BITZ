@@ -1,10 +1,10 @@
 .mygame {
-    margin: 50px auto;
+    margin: 0px auto;
     width: 60vw;
-    min-height: 70vh;
 }
 
 .mygame > h3 {
+    font-size: var(--large-font-size);
     text-align: end;
 }
 
@@ -13,27 +13,36 @@
 }
 
 .mygame > h2 {
-    margin: 30px 0;
-    color: #ffad4e;
+    margin: var(--large-margin-size) 0;
+    color: var(--main-color);
 }
 
 .nogame {
+    position: relative;
+    font-size: var(--large-font-size);
+    text-align: center;
+    background-color: var(--grey-color);
+    width: 100vw;
+    transform: translate( -20%, 0);
+    height: 200px;
+}
+.content {
     position: absolute;
     top: 50%;
     left: 50%;
-    text-align: center;
-    transform: translate( -50%, 0);
+    transform: translate( -50%, -50%);
 }
 
-.nogame > h2 {
-    color: #ffad4e;
-    margin-bottom: 70px;
+.nogame > .content > h2 {
+    color: var(--main-color);
+    margin-bottom: var(--xlarge-margin-size)
 }
 
-.nogame > a {
+.nogame > .content > a {
     color: white;
-    background-color: #ffad4e;
+    background-color: var(--main-color);
     padding: 10px;
     border-radius: 5px;
-    transition: all 0.5s;
+    font-size: var(--main-font-size);
+    height: var(--btn-height);
 }
