@@ -36,9 +36,9 @@ function Main__Player_Common() {
         (err) => {
           console.log(err)
         }
-        )
-      }
-  },[dispatch, value.isLogin])
+      )
+    }
+  },[value.isLogin, dispatch])
 
   const firstLoginData = function () {
     setIsFirstLogin(false)

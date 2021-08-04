@@ -57,7 +57,7 @@ function Login() {
           // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          dispatch({ type: "LOGIN", value: data.email });
+          dispatch({ type: "LOGIN", value: data.email })
         },
         (error) => {
           alert(error);
