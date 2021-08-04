@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './GymInfo.css';
+import { gameStore } from 'store/gameStore';
 
 const GymInfo = () => {
+  const gameStoreData = useContext(gameStore);
+  const { aboutGame } = gameStoreData;
+  const { is_parking, is_shower, is_airconditional, is_water, is_basketball, is_scoreboard } = aboutGame.gymInfo
+
   // 픽업게임 상세보기에서 체육관 정보를 보여주는 컴포넌트
 
-  const [water, setWater] = useState(true);
-  const [shower, setShower] = useState(false);
-  const [scoreboard, setScoreboard] = useState(true);
-  const [parking, setParking] = useState(true);
-  const [basketball, setBasketball] = useState(true);
-  const [airconditioner, setAirconditioner] = useState(false);
-
   useEffect(() => {
-    if (!water) {
+    if (!is_water) {
       document.querySelector('#water').classList.add('no')
     }
-    if (!shower) {
+    if (!is_shower) {
       document.querySelector('#shower').classList.add('no');
     }
-    if (!scoreboard) {
+    if (!is_scoreboard) {
       document.querySelector('#scoreboard').classList.add('no');
     }
-    if (!parking) {
+    if (!is_parking) {
       document.querySelector('#parking').classList.add('no');
     }
-    if (!basketball) {
+    if (!is_basketball) {
       document.querySelector('#basketball').classList.add('no');
     }
-    if (!airconditioner) {
+    if (!is_airconditional) {
       document.querySelector('#airconditioner').classList.add('no');
     }
   });
