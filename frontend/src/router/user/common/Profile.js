@@ -5,7 +5,6 @@ import MyGym from '../../../components/user/business/profile/MyGym';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
-
 const Profile = () => {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);

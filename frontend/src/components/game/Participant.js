@@ -6,7 +6,7 @@ const Participant = (props) => {
   // 참가자의 포지션 표시
   useEffect(() => {
     const position = props.user.position
-    position.map(pos => {
+    position.forEach(pos => {
       let select = document.querySelector(`.user${props.idx} #${pos}`)
       select.className = "istrue"
     })
@@ -32,13 +32,14 @@ const Participant = (props) => {
     <div className="participant">
       <img
         id={props.idx}
-        src={"/images/"+props.user.initial+".png"}
+        src={"/images/"+props.user.id+".png"}
         onMouseOver={over}
         onMouseOut={out}
+        alt="participants"
       />
       <div className={'user' + props.idx + ' userinfo'}>
         <div className="about__user">
-          <img src={"/images/"+props.user.initial+".png"} />
+          <img src={"/images/"+props.user.id+".png"} alt="prticipants" />
           <div>
             <p>{props.user.name}</p>
             <p>{props.user.height}cm</p>

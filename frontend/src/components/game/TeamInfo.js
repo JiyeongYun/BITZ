@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import './TeamInfo.css'
+import React, { useEffect, useContext } from 'react';
+import './TeamInfo.css';
+import { gameStore } from 'store/gameStore';
 
 const TeamInfo = () => {
+  const gameStoreData = useContext(gameStore);
+  const { aboutGame } = gameStoreData;
+  const members = aboutGame.gameParticipants
 
     // 참가자의 포지션 표시
     useEffect(() => {
-      members.map((member,idx) => {
+      members.forEach((member,idx) => {
         const position = member.position
-        position.map(pos => {
+        position.forEach(pos => {
           let select = document.querySelector(`.user${idx} #${pos}`)
           select.className = "istrue"
         })
@@ -30,65 +34,6 @@ const TeamInfo = () => {
       document.querySelector(`.user${id}`).style.display = 'none';
     };
 
-  const [members, setMembers] = useState([
-    {
-      initial: 'KOW',
-      name: '권오우',
-      height: 176,
-      position: [
-        'guard',
-        'forward'
-      ],
-      manner: 97,
-      skill: false,
-      photoUrl: '',
-    },
-    {
-      initial: 'PJW',
-      name: '박정웅',
-      height: 187,
-      position: [
-        'center'
-      ],
-      manner: 100,
-      skill: 100,
-      photoUrl: '',
-    },
-    {
-      initial: 'YJY',
-      name: '윤지영',
-      height: 170,
-      position: [
-        'guard'
-      ],
-      manner: 99,
-      skill: 99,
-      photoUrl: '',
-    },
-    {
-      initial: 'LSE',
-      name: '이소은',
-      height: 173,
-      position: [
-        'guard'
-      ],
-      manner: 98,
-      skill: 98,
-      photoUrl: '',
-    },
-    {
-      initial: 'JHW',
-      name: '장현웅',
-      height: 184,
-      position: [
-        'forward'
-      ],
-      manner: 97,
-      skill: 97,
-      photoUrl: '',
-    },
-  ]);
-
   return (
     <div className="teaminfo">
       <p>팀 정보</p>
@@ -97,12 +42,12 @@ const TeamInfo = () => {
           <p>A팀</p>
           <div className="members">
             {members.map((member, idx) => {
-              return (
+              return member.team === 0? (
                 <div className="member">
-                  <img id={idx} src={'/images/'+ member.initial +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
-                      <img src={"/images/"+member.initial+".png"} />
+                      <img src={"/images/"+member.id+".png"} alt="member" />
                       <div>
                         <p>{member.name}</p>
                         <p>{member.height}cm</p>
@@ -125,7 +70,7 @@ const TeamInfo = () => {
                     </div>
                   </div>
                 </div>
-              )
+              ):("")
             })}
           </div>
           <p>A팀 평균 점수는 <span>40</span> 점 이에요!</p>
@@ -134,12 +79,12 @@ const TeamInfo = () => {
           <p>B팀</p>
           <div className="members">
             {members.map((member, idx) => {
-              return (
+              return member.team === 1? (
                 <div className="member">
-                  <img id={idx} src={'/images/'+ member.initial +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
-                      <img src={"/images/"+member.initial+".png"} />
+                      <img src={"/images/"+member.id+".png"} alt="member" />
                       <div>
                         <p>{member.name}</p>
                         <p>{member.height}cm</p>
@@ -162,7 +107,7 @@ const TeamInfo = () => {
                     </div>
                   </div>
                 </div>
-              )
+              ):("")
             })}
           </div>
           <p>A팀 평균 점수는 <span>40</span> 점 이에요!</p>
@@ -171,12 +116,12 @@ const TeamInfo = () => {
           <p>C팀</p>
           <div className="members">
             {members.map((member, idx) => {
-              return (
+              return member.team === 2? (
                 <div className="member">
-                  <img id={idx} src={'/images/'+ member.initial +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
-                      <img src={"/images/"+member.initial+".png"} />
+                      <img src={"/images/"+member.id+".png"} alt="member" />
                       <div>
                         <p>{member.name}</p>
                         <p>{member.height}cm</p>
@@ -199,7 +144,7 @@ const TeamInfo = () => {
                     </div>
                   </div>
                 </div>
-              )
+              ):("")
             })}
           </div>
           <p>A팀 평균 점수는 <span>40</span> 점 이에요!</p>
