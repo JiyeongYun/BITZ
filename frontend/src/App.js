@@ -1,6 +1,6 @@
 import Header from './components/header/Header';
 import OffCanvas from './components/header/OffCanvas';
-import { BrowserRouter, Redirect, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
@@ -16,12 +16,21 @@ import { store } from 'store/store.js'; // store import (store)
 import { GameStateProvider } from 'store/gameStore.js';
 
 function App() {
+  
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
 
+  // 로그인 정보 확인
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
+    if (currentUser) {
+      dispatch({type: "LOGIN", value:currentUser.email})
+    }
+  }, [])
+
   const [offcanvas, setOffcanvas] = useState(false);
-  const history = useHistory();
+  // const history = useHistory();
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
   };
@@ -32,13 +41,7 @@ function App() {
     // 로그인 시 email 전역 상태에 저장 (store)
     await dispatch({ type: "LOGIN", value: data.email })
     // await setUserObj(data);
-    console.log('히스토리 : ' + history);
   };
-
-  useEffect(() => {
-    // if (userObj) {
-    // }
-  });
 
   return (
     <div className="App">

@@ -34,7 +34,6 @@ const StateProvider = ({children}) => {
       // Player, Business 계정 선택 action type
       case 'SELECT_USER_KIND':
         const userKind = action.value
-        console.log(action.value)
         return {...state, userKind};
       default:
         throw new Error();
