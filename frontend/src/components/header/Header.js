@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
@@ -14,7 +14,7 @@ function Header(props) {
   // }
   // <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
   
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (!window.scrollY && !isScrollTop) {
       setIsScrollTop(true);
       return;
@@ -23,14 +23,14 @@ function Header(props) {
       setIsScrollTop(false);
       return;
     }
-  };
+  },[isScrollTop])
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll());
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll());
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [isScrollTop]);
+  }, [isScrollTop, handleScroll]);
 
   return (
     <div className={isScrollTop ? "header__container" : "header__container header__shadow"}>

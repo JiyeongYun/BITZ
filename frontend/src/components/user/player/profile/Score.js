@@ -10,11 +10,11 @@ const Score = ({ userObj }) => {
           <p>매너 점수</p>
           <p>4.5</p>
           <div className="manner__score">
-            <img src="/images/basketball_purple.png" />
-            <img src="/images/basketball_purple.png" />
-            <img src="/images/basketball_purple.png" />
-            <img src="/images/basketball_purple.png" />
-            <img src="/images/basketball_black.png" />
+            <img src="/images/basketball_purple.png" alt="manner" />
+            <img src="/images/basketball_purple.png" alt="manner" />
+            <img src="/images/basketball_purple.png" alt="manner" />
+            <img src="/images/basketball_purple.png" alt="manner" />
+            <img src="/images/basketball_black.png" alt="manner" />
           </div>
         </div>
         <div className="skill">

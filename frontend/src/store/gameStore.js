@@ -4,7 +4,12 @@ import React, {createContext, useReducer} from "react";
 const initialState = {
   // 체육관 정보
   gymInfo: {
-    null: null
+    is_parking: true,
+    is_shower: true,
+    is_airconditional: true,
+    is_water: true,
+    is_basketball: true,
+    is_scoreboard: true,
   },
   // 경기 정보
   gameInfo: {

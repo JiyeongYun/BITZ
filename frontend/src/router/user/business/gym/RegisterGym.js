@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import './RegisterGym.css';
 
-const RegisterGym = () => {
+const RegisterGym = ({pageState}) => {
   // 비즈니스 유저가 체육관 등록하는 페이지
 
-  const [pageState, setPageState] = useState('regist');
   const [gymName, setGymName] = useState('');
   const [gymPhotoUrl, setGymPhotoUrl] = useState(null);
   const [gymDesc, setGymDesc] = useState('');
   const [courtLength, setCourtLength] = useState('');
   const [courtWidth, setCourtWidth] = useState('');
 
-  const onFileChange = (event) => {
-    alert('파일등록');
-  };
   const onAddGymPhoto = (event) => {
     event.preventDefault();
     alert('시설사진 등록');
+    setGymPhotoUrl(true) // 추후 수정 필요
   };
 
   const onSubmit = (event) => {

@@ -17,7 +17,7 @@ const GameDetail = () => {
   useEffect(()=>{
     gameDispatch({ type: "FETCH_GAME_DATA", value: gameDataDummy })
     gameDispatch({ type: "UPDATE_GAME_STATE" })
-  },[])
+  },[gameDispatch])
   // 픽업 게임 상세 내역 보여주는 컴포넌트
 
 
