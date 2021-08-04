@@ -54,7 +54,7 @@
   display: inline-block;
   width: 100px;
   height: var(--btn-height);
-  line-height: var(--btn-height);
+  line-height: calc(var(--btn-height) - 4px);
   border: 2px solid var(--main-color);
   border-radius: 15px;
   text-align: center;
@@ -62,6 +62,7 @@
   font-size: var(--main-font-size);
   color: var(--dark-orange);
   cursor: pointer;
+  background-color: var(--grey-color);
   box-shadow: 3px 3px 0 0 rgba(5, 5, 5, .2);
 }
 
