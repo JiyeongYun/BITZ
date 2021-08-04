@@ -1,6 +1,6 @@
 .match__container {
   text-align: center;
-  border-right: 1px dashed black;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .score__box {

@@ -3,9 +3,9 @@
   align-items: center;
   width: 70vw;
   overflow: hidden;
-  margin-left: 10px;
-  margin-right: 10px;
-  height: 10vw;
+  margin-left: var(--small-margin-size);
+  margin-right: var(--small-margin-size);
+  height: 100px;
   position: relative;
 }
 
@@ -13,14 +13,14 @@
   position: relative;
   text-align: center;
   padding: 4vw;
-  font-weight: 600;
-  font-size: 1vw;
+  font-weight: bold;
+  font-size: var(--mid-font-size);
   transition: 0.5s;
 }
 
 .main__dateCarousel__element:hover {
   cursor: pointer;
-  background-color: #F8F8F8;
+  background-color: var(--grey-color);
   transition: 0.5s;
 }
 
@@ -41,8 +41,8 @@
 }
 
 .day_today {
-  color: #FFAD4E;
-  font-weight: 900;
+  color: var(--main-color);
+  transform: scale(1.5);
 }
 
 .carouselArrow {
