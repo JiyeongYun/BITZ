@@ -1,7 +1,7 @@
 import Header from './components/header/Header';
 import OffCanvas from './components/header/OffCanvas';
-import { BrowserRouter, Redirect, Route, useHistory } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
@@ -18,27 +18,11 @@ import { GameStateProvider } from 'store/gameStore.js';
 function App() {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
-  const { dispatch } = globalState;
 
   const [offcanvas, setOffcanvas] = useState(false);
-  const history = useHistory();
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
   };
-
-  // const [userObj, setUserObj] = useState(null);
-
-  const changeUserObj = async (data) => {
-    // 로그인 시 email 전역 상태에 저장 (store)
-    await dispatch({ type: "LOGIN", value: data.email })
-    // await setUserObj(data);
-    console.log('히스토리 : ' + history);
-  };
-
-  useEffect(() => {
-    // if (userObj) {
-    // }
-  });
 
   return (
     <div className="App">
@@ -57,8 +41,7 @@ function App() {
           <Redirect to="/" />
         ) : (
           <Route exact path="/accounts/login">
-            {/* <Login changeUserObj={changeUserObj} userObj={userObj} /> */}
-            <Login changeUserObj={changeUserObj} />
+            <Login />
           </Route>
         )}
 
