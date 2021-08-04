@@ -47,15 +47,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/**")
+                .antMatchers("/account/readuserauth")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .exceptionHandling()
                 .and()
+                .formLogin()
+                .loginPage("/accounts/login")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        // TODO : access 토큰 권한이 없을 경우에 로그인으로 보내기
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.cors();

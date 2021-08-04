@@ -1,6 +1,6 @@
 package com.osds.bitz.service.account;
 
-import com.osds.bitz.jwt.SecurityService;
+import com.osds.bitz.jwt.JwtUtil;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.repository.account.RefreshTokenRepository;
 import com.osds.bitz.repository.log.LoginLogRepository;
@@ -16,7 +16,7 @@ import java.util.Random;
 public class BaseAuthService {
 
     @Autowired
-    public SecurityService securityService;
+    public JwtUtil jwtUtil;
 
     @Autowired
     public LoginLogRepository loginLogRepository;

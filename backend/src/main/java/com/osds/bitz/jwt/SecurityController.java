@@ -4,13 +4,11 @@ package com.osds.bitz.jwt;
 import com.osds.bitz.model.entity.token.Token;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
-import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.service.account.user.UserAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
@@ -21,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/")
 public class SecurityController {
     @Autowired
-    private SecurityService securityService;
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserAuthService userAuthService;
@@ -52,15 +50,15 @@ public class SecurityController {
         UserAuth userAuth = this.userAuthService.readUser(readAuthRequest);
 
         Token userToken = new Token();
-        userToken.setAccessToken(securityService.createToken(userAuth, "access"));
-        userToken.setRefreshToken(securityService.createToken(userAuth, "refresh"));
+        userToken.setAccessToken(jwtUtil.createToken(userAuth, "access"));
+        userToken.setRefreshToken(jwtUtil.createToken(userAuth, "refresh"));
 
         return userToken;
     }
 
     @GetMapping("/get/subject")
     public Map<String, Object> getSubject(@RequestParam(value = "token") String token) {
-        String subject = securityService.getSubject(token);
+        String subject = jwtUtil.getSubject(token);
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("result", subject);
 

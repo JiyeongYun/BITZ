@@ -94,8 +94,8 @@ public class UserAuthService extends BaseAuthService {
     public String createToken(UserAuth userAuth) {
 
         // accessToken, refreshToken 생성
-        String accessToken = securityService.createToken(userAuth, "access");
-        String refreshToken = securityService.createToken(userAuth, "refresh");
+        String accessToken = jwtUtil.createToken(userAuth, "access");
+        String refreshToken = jwtUtil.createToken(userAuth, "refresh");
 
         RefreshToken token = RefreshToken.builder()
                 .userEmail(userAuth.getEmail())
