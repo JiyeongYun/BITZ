@@ -1,30 +1,31 @@
 .MyInfo {
   text-align: center;
+  width: 500px;
 }
 
 .MyInfo > h2 {
-  font-size: 30px;
-  margin: 30px 0 0;
+  font-size: var(--xlarge-font-size);
+  margin: var(--mid-margin-size) 0;
 }
 
 .height > p,
 .position > p,
 .location > p {
   font-weight: bold;
-  margin: 30px 0 0;
+  margin: var(--large-margin-size) 0 0;
 }
 
 .heightForm > input {
   border: none;
   border-radius: 5px;
-  background-color: #f8f8f8;
+  background-color: var(--grey-color);
   width: 100px;
-  height: 30px;
-  margin-top: 10px;
+  height: var(--btn-height);
+  margin-top: var(--main-font-size);
 }
 
 .heightForm > input:disabled {
-  background-color: #ccc;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .heightForm > span {
@@ -33,11 +34,11 @@
 }
 
 .btn__update {
-  margin: 10px 0;
+  margin: var(--small-margin-size) 0;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 17px;
   width: 50px;
-  height: 25px;
+  height: 20px;
   background-color: white;
   color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -48,28 +49,28 @@
 }
 
 .positionForm > span {
-  font-size: 18px;
-  margin: 10px;
+  font-size: var(--main-font-size);
+  margin:  var(--main-margin-size) var(--main-margin-size) 0;
   display: inline-block;
-  border: 1px solid #ffad4e;
+  border: 1px solid var(--main-color);
   border-radius: 5px;
   padding: 5px 20px;
-  background-color: #f8f8f8;
+  background-color: var(--grey-color);
 }
 
 .positionForm > .checked {
-  background-color: #ffad4e;
+  background-color: var(--main-color);
   color: white;
 }
 
 .location__box {
   display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
+  justify-content: center;
+  margin: var(--small-margin-size) 0 0;
 }
 
 .location__box > select {
-  margin-right: 20px;
+  margin-right: var(--mid-margin-size);
 }
 
 .location__box > span {
@@ -81,7 +82,7 @@
 }
 
 .noclick::after {
-  content: "안녕";
+  content: "";
   display: none;
   background-color: black;
 }
