@@ -1,7 +1,9 @@
 .main__preferredArea {
   display: flex;
+  width: 70vw;
+  justify-content: space-around;
 }
 
 .preferredArea__area {
-  margin: 10px;
+  margin: var(--main-margin-size);
 }
