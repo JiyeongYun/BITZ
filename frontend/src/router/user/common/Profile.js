@@ -21,17 +21,16 @@ const Profile = () => {
   return (
     <div className="profile__div">
       <div className="user__profile">
-        <img src="/images/symbol.png" alt="profile" />
+        <img src="/images/KOW.png" alt="profile" />
         <p id="nickname">덩크하는 물소</p>
         <p id="email">{globalState.value.isLogin}</p>
       </div>
       {/* 유저가 플레이어일 경우 */}
       {userKind==='player' && (
-        <>
+        <div className="left_right_profile">
           <Score userObj={userObj} />
-          <hr/>
           <MyInfo userObj={userObj} />
-        </>
+        </div>
       )}
       {/* 유저가 비즈니스일 경우 */}
       {userKind==="business" && (
@@ -45,13 +44,11 @@ const Profile = () => {
           <MyGym />
         </>
       )}
-      <button className="save__btn">저장</button>
-      <hr/>
+      {/* <hr/> */}
       <div className="accountSetting">
         <h2>계정 관리</h2>
         <Link to="/accounts/change_password">비밀번호 변경</Link>
         <span onClick={onLogout}>로그아웃</span>
-        <br/><br/><br/><br/><br/><br/>
       </div>
     </div>
   );

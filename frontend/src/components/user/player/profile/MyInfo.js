@@ -117,6 +117,7 @@ const MyInfo = ({ userObj }) => {
           setLocationUpdate(!locationUpdate)
         }}>수정</button>
       </div>
+      <button className="save__btn">저장</button>
     </div>
   );
 };
