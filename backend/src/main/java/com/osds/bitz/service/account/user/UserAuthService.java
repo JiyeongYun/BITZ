@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -34,6 +35,9 @@ public class UserAuthService extends BaseAuthService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     // 회원가입
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
         // 이메일이 중복되었는지 확인
@@ -42,6 +46,10 @@ public class UserAuthService extends BaseAuthService {
 
         // userID로 설정할 랜덤 값 생성
         String userAuthId = generateRandomNumber(true);
+
+        // password 암호화
+        String encodedPassword = passwordEncoder.encode(userAuthRequest.getPassword());
+
         // userID 중복 체크
         UserAuth duplicationUserAuth = this.userAuthRepository.getById(userAuthId);
         while(userAuthId.equals(duplicationUserAuth.getId())){
@@ -52,7 +60,7 @@ public class UserAuthService extends BaseAuthService {
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
-                .password(userAuthRequest.getPassword())
+                .password(encodedPassword)
                 .id(userAuthId)
                 .build();
 
@@ -71,8 +79,13 @@ public class UserAuthService extends BaseAuthService {
 
     // 로그인
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
-        // 이메일과 비밀번호로 객체 찾아오기
-        return this.userAuthRepository.findUserAuthByEmailAndPassword(readAuthRequest.getEmail(), readAuthRequest.getPassword());
+        // 이메일로 객체 찾아오기
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
+
+        if(userAuth == null) return null;
+        if(!passwordEncoder.matches(readAuthRequest.getPassword(), userAuth.getPassword())) return null;
+
+        return userAuth;
     }
 
     // 첫 로그인인지 확인하기
