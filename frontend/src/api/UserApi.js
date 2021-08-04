@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://127.0.0.1:8080'
 
-// JHW - 로그인 axios 요청
+// JHW - 플레이어 로그인 axios 요청
 const requestLogin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
@@ -12,6 +12,17 @@ const requestLogin = (data, callback, errorCallback) => {
     .then(callback)
     .catch(errorCallback);
 }; // requestLogin End
+
+// PJW - 비즈니스 로그인 axios 요청
+const requestBusinessLogin = (data, callback, errorCallback) => {
+  axios({
+    method: 'post',
+    url: BASE_URL + '/accountbusiness/readbusinessauth',
+    data: data,
+  })
+    .then(callback)
+    .catch(errorCallback);
+}; // requestBusinessLogin End
 
 // KOW - 플레이어 회원가입 axios 요청
 const requestJoin = (data, callback, errorCallback) => {
@@ -75,6 +86,7 @@ const UserApi = {
   findPwd: (data, callback, errorCallback) => findPwd(data, callback, errorCallback),
   firstLogin: (data, callback, errorCallback) => firstLogin(data, callback, errorCallback),
   requestBusinessJoin: (data, headers, callback, errorCallback) => requestBusinessJoin(data, headers, callback, errorCallback),
+  requestBusinessLogin: (data, headers, callback, errorCallback) => requestBusinessLogin(data, headers, callback, errorCallback),
 };
 
 export default UserApi;

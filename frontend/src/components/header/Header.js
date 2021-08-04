@@ -13,14 +13,7 @@ function Header(props) {
   //   setOffcanvas(!offcanvas)
   // }
   // <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isScrollTop]);
-
+  
   const handleScroll = () => {
     if (!window.scrollY && !isScrollTop) {
       setIsScrollTop(true);
@@ -32,6 +25,13 @@ function Header(props) {
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll());
+    return () => {
+      window.removeEventListener('scroll', handleScroll());
+    };
+  }, [isScrollTop]);
+
   return (
     <div className={isScrollTop ? "header__container" : "header__container header__shadow"}>
       <div className="header">
@@ -41,7 +41,7 @@ function Header(props) {
         <div className="header__icons">
           {globalState.value.isLogin ? (
             <Link to={`/accounts/profile/${globalState.value.isLogin}`}>
-              <img src={process.env.PUBLIC_URL + `/images/profile.png`} width="20px" />
+              <img src={process.env.PUBLIC_URL + `/images/profile.png`} width="20px" alt="my_profile" />
             </Link>
           ) : (
             <Link to="/accounts/login">

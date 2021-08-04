@@ -4,7 +4,7 @@ function GameReview__Participants_miniInfo ({ idx, member, reviewType }) {
   return (
     <div className={reviewType+'user' + idx + ' userinfo'}>
       <div className="about__user">
-        <img src={"/images/"+member.id+".png"} />
+        <img src={"/images/"+member.id+".png"} alt="member" />
         <div>
           <p>{member.name}</p>
           <p>{member.height}cm</p>

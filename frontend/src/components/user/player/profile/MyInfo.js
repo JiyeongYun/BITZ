@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './MyInfo.css';
 import Location from '../Location';
 
@@ -75,7 +75,7 @@ const MyInfo = ({ userObj }) => {
       <div className="height">
         <p>신장</p>
         <form className="heightForm" onSubmit={onSubmit} name="heightForm">
-          <input ref={heightRef} type="text" name="height" disabled onChange={onChange} /><span>cm</span><br/>
+          <input ref={heightRef} type="text" name="height" disabled onChange={onChange} value={height} /><span>cm</span><br/>
           <button className="btn__update">수정</button>
         </form>
       </div>

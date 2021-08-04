@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import RegisterGeneralValidation from "components/user/player/register/RegisterGeneralValidation.js" // 유효성 검사 함수
 import { dispatchSubmitContext } from "router/user/common/Register";
 import UserApi from 'api/UserApi'
-import { store } from 'store/store.js';
 
 function RegisterGeneral({history}) {  
   // Context-Reducer
@@ -249,7 +248,7 @@ function RegisterGeneral({history}) {
           className={isValidated ? "registerForm__button register__button": "disabled registerForm__button register__button"}>
             회원가입
         </button>
-        <button className="googleLogin">
+        <button className="googleLogin" onClick={onGoogleRegister}>
           <img src="/images/google_logo.png" alt="sns_logo" id="google__logo" />
           <span>구글 계정으로 회원가입</span>
         </button>

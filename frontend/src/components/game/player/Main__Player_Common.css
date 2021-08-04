@@ -1,0 +1,6 @@
+.main__player_common {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

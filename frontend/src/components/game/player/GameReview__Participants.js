@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { gameStore } from 'store/gameStore';
-import GameReview__Participants_miniInfo from './GameReview__participants_miniInfo';
+import GameReviewParticipantsMiniInfo from './GameReview__participants_miniInfo';
 import "./GameReview__Participants.css"
 
 const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) => {
@@ -10,14 +10,14 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
 
   // 참가자의 포지션 표시
   useEffect(() => {
-    members.map((member,idx) => {
+    members.forEach((member,idx) => {
       const position = member.position
-      position.map(pos => {
+      position.forEach(pos => {
         let select = document.querySelector(`.${reviewType}user${idx} #${pos}`)
         select.className = "istrue"
       })
     })
-  }, [])
+  })
 
   // 선택되지 않은 참가자 제거 (정확히는 모든 참가자의 선택사항 display를 none으로 초기화)
   useEffect(() => {
@@ -25,7 +25,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
       document.querySelector(`.mvp${idx} .Participants__selected`).style.display = 'none';
       document.querySelector(`.manner${idx} .Participants__selected`).style.display = 'none';
     }
-  }, [reviewScore])
+  }, [reviewScore, members.length])
 
   // 커서 올라가면 참가자 정보 표시
   const over = (event) => {
@@ -54,7 +54,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
     } else if (reviewType==="manner") {
       let value = reviewScore.manner
       if (value.includes(event.target.id)) {
-        value = value.filter(element=>element!=event.target.id)
+        value = value.filter(element=>element!==event.target.id)
       } else {
         value.push(event.target.id)
       }
@@ -74,7 +74,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
                 <div className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">O</div>
                   <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>      
-                  <GameReview__Participants_miniInfo idx={idx} member={member} reviewType={reviewType} />
+                  <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
             })}
@@ -88,7 +88,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
                 <div className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">O</div>
                   <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>
-                  <GameReview__Participants_miniInfo idx={idx} member={member} reviewType={reviewType} />
+                  <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
             })}
@@ -102,7 +102,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
                 <div className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">O</div>
                   <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>
-                  <GameReview__Participants_miniInfo idx={idx} member={member} reviewType={reviewType} />
+                  <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
             })}
