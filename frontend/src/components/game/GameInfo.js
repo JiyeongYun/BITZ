@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './GameInfo.css';
 import Participant from './Participant';
+import { gameStore } from 'store/gameStore';
 
 const GameInfo = () => {
+  const gameStoreData = useContext(gameStore);
+  const { aboutGame } = gameStoreData;
+  const users = aboutGame.gameParticipants
   // 픽업게임에 대한 정보를 보여주는 컴포넌트
 
   // 체육관 정보
@@ -21,65 +25,6 @@ const GameInfo = () => {
     document.body.removeChild(textarea)
     alert("주소가 복사되었습니다.")
   }
-
-  const [users, setUsers] = useState([
-    {
-      initial: 'KOW',
-      name: '권오우',
-      height: 176,
-      position: [
-        'guard',
-        'forward'
-      ],
-      manner: 97,
-      skill: false,
-      photoUrl: '',
-    },
-    {
-      initial: 'PJW',
-      name: '박정웅',
-      height: 187,
-      position: [
-        'center'
-      ],
-      manner: 100,
-      skill: 100,
-      photoUrl: '',
-    },
-    {
-      initial: 'YJY',
-      name: '윤지영',
-      height: 170,
-      position: [
-        'guard'
-      ],
-      manner: 99,
-      skill: 99,
-      photoUrl: '',
-    },
-    {
-      initial: 'LSE',
-      name: '이소은',
-      height: 173,
-      position: [
-        'guard'
-      ],
-      manner: 98,
-      skill: 98,
-      photoUrl: '',
-    },
-    {
-      initial: 'JHW',
-      name: '장현웅',
-      height: 184,
-      position: [
-        'forward'
-      ],
-      manner: 97,
-      skill: 97,
-      photoUrl: '',
-    },
-  ]);
 
   return (
     <div className="gameInfo">

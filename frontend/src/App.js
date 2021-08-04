@@ -63,7 +63,7 @@ function App() {
         )}
 
         <Route path="/accounts/register" exact={true} component={Register}></Route>
-        <Route path="/accounts/profile" exact={true} component={Profile} />
+        <Route path="/accounts/profile/:cryptojs" exact={true} component={Profile} /> {/* cryptojs를 사용한 암호화 */}
         <Route path="/registerGym" exact={true} component={RegisterGym} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />

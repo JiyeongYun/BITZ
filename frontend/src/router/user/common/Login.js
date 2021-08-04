@@ -50,6 +50,20 @@ function Login({ history, changeUserObj }) {
           alert('아이디나 비밀번호를 확인해주세요.');
         }
       );
+    } else if (userKind === 'business') {
+      UserApi.requestBusinessLogin(
+        data,
+        (res) => {
+          // alert(res);
+          const { data } = res; // 유저 정보
+          localStorage.setItem('currentUser', JSON.stringify(data));
+          changeUserObj(data);
+        },
+        (error) => {
+          alert(error);
+          alert('아이디나 비밀번호를 확인해주세요.');
+        }
+      );
     }
   };
 
@@ -96,7 +110,7 @@ function Login({ history, changeUserObj }) {
         </div>
         <button type="sumbit">로그인</button>
       </form>
-      <button className="googleLogin">
+      <button className="googleLogin" onClick={onGoogleLogin}>
         <img src="/images/google_logo.png" alt="sns_logo" id="google__logo" />
         <span>구글 계정으로 로그인</span>
       </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "./GameReview.css"
-import GameReview__Participants from "./GameReview__Participants";
+import GameReviewParticipants from "./GameReview__Participants";
 
 const GameReview = ({ setShowReview }) => {
   // State
@@ -68,7 +68,7 @@ const GameReview = ({ setShowReview }) => {
             <h2>최고의 MVP를 뽑아주세요!</h2>
             <span>* 한 명만 선택하실 수 있습니다.</span>
             <div>
-              <GameReview__Participants reviewType="mvp" setReviewScore={setReviewScore} reviewScore={reviewScore} />
+              <GameReviewParticipants reviewType="mvp" setReviewScore={setReviewScore} reviewScore={reviewScore} />
             </div>
           </div>
           {/* Manner */}
@@ -76,7 +76,7 @@ const GameReview = ({ setShowReview }) => {
             <h2>다음에 또 같이 농구하고 싶은 사람은 누구인가요?</h2>
             <span>* 복수선택 가능</span>
             <div>
-              <GameReview__Participants reviewType="manner" setReviewScore={setReviewScore} reviewScore={reviewScore} />
+              <GameReviewParticipants reviewType="manner" setReviewScore={setReviewScore} reviewScore={reviewScore} />
             </div>
           </div>
           {/* Gym */}
