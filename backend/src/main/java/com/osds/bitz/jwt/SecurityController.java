@@ -31,7 +31,7 @@ public class SecurityController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public String welcome() {
         return "Welcome to javatechie !!";
     }
