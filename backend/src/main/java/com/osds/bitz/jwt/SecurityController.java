@@ -1,7 +1,8 @@
 package com.osds.bitz.jwt;
 
 
-import com.osds.bitz.model.entity.account.Token;
+import com.osds.bitz.model.entity.token.Token;
+import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,14 +21,15 @@ import java.util.Map;
 public class SecurityController {
     @Autowired
     private SecurityService securityService;
-    @Autowired
-    private UserAuthRepository test;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserAuthRepository userAuthRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String welcome() {
@@ -52,22 +54,24 @@ public class SecurityController {
             throw new Exception("inavalid username/password");
         }
 
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
+
         Token userToken = new Token();
-        userToken.setAccessToken(securityService.createToken(readAuthRequest.getEmail(), "access"));
-        userToken.setRefreshToken(securityService.createToken(readAuthRequest.getEmail(), "refresh"));
+        userToken.setAccessToken(securityService.createToken(userAuth, "access"));
+        userToken.setRefreshToken(securityService.createToken(userAuth, "refresh"));
 
         return userToken;
     }
 
 
-    @GetMapping("/authenticate/create/token")
-    public Map<String, Object> createToken(@RequestParam(value = "subject") String subject) {
-        String token = securityService.createToken(subject, "access");
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put("result", token);
-
-        return map;
-    }
+//    @GetMapping("/authenticate/create/token")
+//    public Map<String, Object> createToken(@RequestParam(value = "subject") String subject) {
+//        String token = securityService.createToken(subject, "access");
+//        Map<String, Object> map = new LinkedHashMap<>();
+//        map.put("result", token);
+//
+//        return map;
+//    }
 
     @GetMapping("/get/subject")
     public Map<String, Object> getSubject(@RequestParam(value = "token") String token) {

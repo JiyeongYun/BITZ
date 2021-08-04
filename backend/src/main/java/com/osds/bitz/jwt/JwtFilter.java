@@ -36,8 +36,10 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
             try {
+                System.out.println("error1");
                 userEmail = securityService.getSubject(token); // 토큰이 만료되면 받아올 수가 없음. 에러 던진다.
             } catch(Exception e) {
+                System.out.println("error2");
                 e.printStackTrace();
             }
         }
