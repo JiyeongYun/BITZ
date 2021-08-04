@@ -1,5 +1,6 @@
 package com.osds.bitz.jwt;
 
+import com.osds.bitz.model.entity.account.user.UserAuth;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -7,9 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -19,26 +23,38 @@ public class SecurityService implements InitializingBean {
 
     private Key signingKey;
 
-    public String createToken(String subject, String kind) { // 로그인 서비스 때 같이 사용
+    private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    public String createToken(UserAuth userAuth, String kind) { // 로그인 서비스 때 같이 사용
+
+
         int expTime = kind.equals("access") ? 6 * 1000 * 10 : 6 * 1000 * 24 * 14;
 
         if (kind.equals("access")) { // 엑세스 토큰 반환
             return Jwts.builder()
-                    .setSubject(subject)
+                    .setSubject(userAuth.getEmail())
+                    .setHeader(createHeader())
+                    .claim("id", userAuth.getId()).claim("email", userAuth.getEmail())
                     .signWith(signingKey, signatureAlgorithm)
                     .setExpiration(new Date(System.currentTimeMillis() + expTime))
                     .compact();
         } else if (kind.equals("refresh")) { // 리프레시 토큰 반환
             return Jwts.builder()
-                    .setSubject(subject)
+                    .setSubject(userAuth.getEmail())
+                    .setHeader(createHeader())
                     .signWith(signingKey, signatureAlgorithm)
                     .setExpiration(new Date(System.currentTimeMillis() + expTime))
                     .compact();
         }
-
         return null;
+    }
+
+    private Map<String, Object> createHeader() {
+        Map<String, Object> header = new HashMap<>();
+        header.put("typ", "JWT");
+        header.put("alg", "HS256"); // 해시 256 사용하여 암호화
+        header.put("regDate", System.currentTimeMillis());
+        return header;
     }
 
     public boolean validateToken(String token) {
@@ -70,8 +86,11 @@ public class SecurityService implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+//        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+//        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+
+        byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
+        this.signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
 
     }
 }

@@ -1,4 +1,4 @@
-package com.osds.bitz.model.entity.account;
+package com.osds.bitz.model.entity.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
