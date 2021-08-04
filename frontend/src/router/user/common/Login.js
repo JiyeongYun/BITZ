@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
 import { store } from 'store/store.js'; // store import (store)
 
-function Login({ history, changeUserObj }) {
+function Login() {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
@@ -43,7 +43,7 @@ function Login({ history, changeUserObj }) {
           // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          changeUserObj(data);
+          dispatch({ type: "LOGIN", value: data.email })
         },
         (error) => {
           alert(error);
@@ -57,7 +57,7 @@ function Login({ history, changeUserObj }) {
           // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          changeUserObj(data);
+          dispatch({ type: "LOGIN", value: data.email });
         },
         (error) => {
           alert(error);

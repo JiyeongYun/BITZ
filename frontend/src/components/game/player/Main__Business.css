@@ -1,0 +1,23 @@
+.MainBusiness {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.MainBusiness > div {
+  width: 70vw;
+}
+
+.MainBusiness__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MainBusiness__top_links {
+  display: flex;
+}
+
+.MainBusiness__top_links div {
+  margin: 0px 5px 0px 5px;
+}
