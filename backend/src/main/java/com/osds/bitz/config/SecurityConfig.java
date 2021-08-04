@@ -45,15 +45,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
-                    .disable()
+                .disable()
                 .authorizeRequests()
-                    .antMatchers("/**")
-                    .permitAll()
+                .antMatchers("/**")
+                .permitAll()
                 .anyRequest()
-                    .authenticated()
-                    .and()
+                .authenticated()
+                .and()
                 .exceptionHandling()
-                    .and()
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
