@@ -14,7 +14,7 @@ function Main__Player_Common() {
   // (1) store에서 가져온 store Context를 globalState 변수에 집어넣음
   const globalState = useContext(store);
   // (2) globalState에서 전역 변수 value를 업데이트하는 dispatch만 가져오기
-  const { dispatch } = globalState;
+  const { value, dispatch } = globalState;
 
   useEffect(()=>{
     // (3) 위에서 가져온 dipatch를 이용해서 reducer 실행 => 전역 변수 value 업데이트
@@ -25,18 +25,20 @@ function Main__Player_Common() {
     dispatch({ type: 'TEST' })
     dispatch({ type: 'GET_GAME_LIST', value: gameListDummy })
     const data = {
-      email : globalState.value.isLogin,
+      email : value.isLogin,
       password : null,
     }
-    UserApi.firstLogin(data,
-      () => {
-        setIsFirstLogin(true)
-      },
-      (err) => {
-        console.log(err)
+    if (value.isLogin) {
+      UserApi.firstLogin(data,
+        () => {
+          setIsFirstLogin(true)
+        },
+        (err) => {
+          console.log(err)
+        }
+        )
       }
-    )
-  },[globalState.value.isLogin, dispatch])
+  },[dispatch, value.isLogin])
 
   const firstLoginData = function () {
     setIsFirstLogin(false)
