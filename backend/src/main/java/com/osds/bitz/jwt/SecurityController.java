@@ -1,7 +1,7 @@
 package com.osds.bitz.jwt;
 
 
-import com.osds.bitz.model.entity.account.Token;
+import com.osds.bitz.model.entity.token.Token;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
