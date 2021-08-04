@@ -8,13 +8,10 @@ import com.osds.bitz.model.network.request.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.UserAuthRequest;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.account.user.UserProfileRepository;
-import com.osds.bitz.repository.log.LoginLogRepository;
 import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -29,30 +26,20 @@ public class UserAuthService extends BaseAuthService {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-    @Autowired
-    private LoginLogRepository loginLogRepository;
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    // 회원가입
+    /**
+     * 회원가입
+     */
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
-        // 이메일이 중복되었는지 확인
-        if(this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail()) != null)
+        // 이메일 중복체크
+        if (this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail()) != null)
             return null;
 
         // userID로 설정할 랜덤 값 생성
         String userAuthId = generateRandomNumber(true);
 
-        // password 암호화
-        String encodedPassword = passwordEncoder.encode(userAuthRequest.getPassword());
-
         // userID 중복 체크
         UserAuth duplicationUserAuth = this.userAuthRepository.getById(userAuthId);
-        while(userAuthId.equals(duplicationUserAuth.getId())){
+        while (userAuthId.equals(duplicationUserAuth.getId())) {
             userAuthId = generateRandomNumber(true);
         }
 
@@ -60,7 +47,7 @@ public class UserAuthService extends BaseAuthService {
         UserAuth userAuth = UserAuth.builder()
                 .email(userAuthRequest.getEmail())
                 .birth(userAuthRequest.getBirth())
-                .password(encodedPassword)
+                .password(encodingPassword(userAuthRequest.getPassword()))
                 .id(userAuthId)
                 .build();
 
@@ -77,24 +64,30 @@ public class UserAuthService extends BaseAuthService {
         return newUserAuth;
     }
 
-    // 로그인
+    /**
+     * 로그인
+     */
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
+
         // 이메일로 객체 찾아오기
         UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
 
-        if(userAuth == null) return null;
-        if(!passwordEncoder.matches(readAuthRequest.getPassword(), userAuth.getPassword())) return null;
+        if (userAuth == null) return null;
+
+        if (!passwordEncoder.matches(readAuthRequest.getPassword(), userAuth.getPassword())) return null;
 
         return userAuth;
     }
 
-    // 첫 로그인인지 확인하기
-    public UserAuth readFirstUserAuthRequest(ReadAuthRequest readAuthRequest){
+    /**
+     * 최초 로그인 확인
+     */
+    public UserAuth readFirstUserAuthRequest(ReadAuthRequest readAuthRequest) {
 
         // 이메일로 로그인 로그 객체 찾아오기
         LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), true);
 
-        if(loginLog == null){               // 최초 로그인시
+        if (loginLog == null) {               // 최초 로그인시
             loginLog = LoginLog.builder()
                     .userEmail(readAuthRequest.getEmail())
                     .isGeneral(true)
@@ -105,31 +98,35 @@ public class UserAuthService extends BaseAuthService {
         return null;
     }
 
-    // 비밀번호 변경
+    /**
+     * 비밀번호 변경
+     */
     public UserAuth updatePassword(UpdatePasswordRequest updatePasswordRequest) {
-        // 전달된 비밀번호가 기존 DB의 비밀번호와 일치하는지 체크
-        if(this.userAuthRepository.getUserAuthByPasswordAndEmail(updatePasswordRequest.getPassword(), updatePasswordRequest.getEmail())==null)
-            return null;
 
-        // 이메일로 해당 객체 찾아오기
-        UserAuth newUserAuth = new UserAuth();
-        newUserAuth = this.userAuthRepository.getUserAuthByEmail(updatePasswordRequest.getEmail());
+        // 이메일로 객체 찾아오기
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(updatePasswordRequest.getEmail());
+
+        // 전달된 비밀번호가 기존 DB의 비밀번호와 일치하는지 체크
+        if (!passwordEncoder.matches(updatePasswordRequest.getPassword(), userAuth.getPassword())) return null;
 
         // 변경할 비밀번호 설정하기
-        newUserAuth.setPassword(updatePasswordRequest.getNewPassword());
-        return this.userAuthRepository.save(newUserAuth);
+        userAuth.setPassword(encodingPassword(updatePasswordRequest.getNewPassword()));
+        return this.userAuthRepository.save(userAuth);
     }
 
-    // 비밀번호 찾기
+    /**
+     * 비밀번호 찾기
+     */
     public UserAuth readPassword(UserAuthRequest userAuthRequest) {
+
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail());
 
         // 임시 비밀번호 생성 및 메일 전송
-        String code = "";
+        String tempPassword = "";
         try {
-            code = generateRandomNumber();
-            String msg = "<p><b> " + newUserAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + code + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
+            tempPassword = generateRandomNumber();
+            String msg = "<p><b> " + newUserAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + tempPassword + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("OSDS"); // 보내는 사람
@@ -143,12 +140,14 @@ public class UserAuthService extends BaseAuthService {
         }
 
         // 임시 비밀번호로 비밀번호 변경하기
-        newUserAuth.setPassword(code);
+        newUserAuth.setPassword(encodingPassword(tempPassword));
         return this.userAuthRepository.save(newUserAuth);
     }
 
-    // 회원탈퇴
-    public void deleteUserAuth(ReadAuthRequest readAuthRequest){
+    /**
+     * 회원탈퇴
+     */
+    public void deleteUserAuth(ReadAuthRequest readAuthRequest) {
         UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
         UserProfile userProfile = this.userProfileRepository.getUserProfileByUserAuth(userAuth);
 
