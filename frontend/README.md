@@ -1,4 +1,4 @@
-# Frontend README
+# Frontend
 
 ## Frontend 개발 방향성
 <u>서비스가 기존방식 대비 전방위에 걸쳐 비교우위를 가져야 함</u>
