@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8080'
+const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
 
 // JHW - 플레이어 로그인 axios 요청
 const requestLogin = (data, callback, errorCallback) => {
