@@ -1,7 +1,7 @@
 import Header from './components/header/Header';
 import OffCanvas from './components/header/OffCanvas';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
@@ -13,6 +13,7 @@ import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
 import { GameStateProvider } from 'store/gameStore.js';
+import { store } from 'store/store';
 
 function App() {
   
@@ -22,12 +23,20 @@ function App() {
 
   // 로그인 정보 확인
   useEffect(() => {
+    // 플레이어 로그인
     const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
     if (currentUser) {
       dispatch({type: "LOGIN", value:currentUser.email})
     }
+    // 비즈니스 로그인
+    const currentUserbusiness = JSON.parse(localStorage.getItem('currentUserbusiness')) ?? null
+    if (currentUserbusiness) {
+      dispatch({ type: "SELECT_USER_KIND", value: "business" })
+      dispatch({type: "LOGIN", value:currentUserbusiness.email})
+    }
   }, [dispatch])
 
+  // offcanvas
   const [offcanvas, setOffcanvas] = useState(false);
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
