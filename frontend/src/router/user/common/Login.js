@@ -42,22 +42,22 @@ function Login({ history }) {
         (res) => {
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          dispatch({ type: "LOGIN", value })
-          history.push("/")
+          dispatch({ type: "LOGIN", value: data.email })
+          history.push('/')
         },
         (error) => {
           alert(error);
           alert('아이디나 비밀번호를 확인해주세요.');
         }
-        );
-      } else if (userKind === 'business') {
-        console.log('비즈니스!')
-        UserApi.requestBusinessLogin(
-          data,
-          (res) => {
-            const { data } = res; // 유저 정보
-            localStorage.setItem('currentUser', JSON.stringify(data));
-            history.push("/")
+      );
+    } else if (userKind === 'business') {
+      UserApi.requestBusinessLogin(
+        data,
+        (res) => {
+          const { data } = res; // 유저 정보
+          localStorage.setItem('currentUserbusiness', JSON.stringify(data));
+          dispatch({ type: "LOGIN", value: data.email })
+          history.push('/')
         },
         (error) => {
           alert(error);
