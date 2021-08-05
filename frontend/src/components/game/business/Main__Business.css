@@ -1,0 +1,66 @@
+.MainBusiness {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.MainBusiness > div {
+  width: 70vw;
+}
+
+.MainBusiness__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MainBusiness__top_links {
+  display: flex;
+}
+
+.MainBusiness__top_links div {
+  margin: 0px 5px 0px 5px;
+}
+
+.MainBusiness__DateName {
+  position: relative;
+  padding-top: 8px;
+  height: 40px;
+  background-color: #ffad4e;
+  color: white;
+  text-align: center;
+}
+
+.MainBusiness__DateName_Today {
+  background-color: #0A1840;
+}
+
+.MainBusiness__Today {
+  position: absolute;
+  left: 10px;
+  top: 25%;
+  font-size: 15px;
+}
+
+.MainBusiness__allGameList {
+  margin-top: 50px;
+}
+
+.MainBusiness__DailyGame {
+  height: 120px;
+}
+
+.MainBusiness__game__participants {
+  display: inline-block;
+  width: 400px;
+  height: var(--btn-height);
+  line-height: var(--btn-height);
+  text-align: center;
+  text-decoration: none;
+  font-size: var(--main-font-size);
+  cursor: pointer;
+}
+
+.gameList__state__button_Complete {
+  background-color: #0A1840;
+}

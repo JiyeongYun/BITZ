@@ -1,7 +1,7 @@
 import React, { useContext } from "react"; // useContext import
 import "./MainPage.css";
 import MainPlayerCommon from "components/game/player/Main__Player_Common";
-import MainBusiness from "components/game/player/Main__Business";
+import MainBusiness from "components/game/business/Main__Business";
 import { store } from 'store/store.js';
 
 function MainPage() {

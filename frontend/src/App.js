@@ -12,8 +12,8 @@ import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
-import { store } from 'store/store.js'; // store import (store)
 import { GameStateProvider } from 'store/gameStore.js';
+import { store } from 'store/store';
 
 function App() {
   
@@ -23,12 +23,20 @@ function App() {
 
   // 로그인 정보 확인
   useEffect(() => {
+    // 플레이어 로그인
     const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
     if (currentUser) {
       dispatch({type: "LOGIN", value:currentUser.email})
     }
+    // 비즈니스 로그인
+    const currentUserbusiness = JSON.parse(localStorage.getItem('currentUserbusiness')) ?? null
+    if (currentUserbusiness) {
+      dispatch({ type: "SELECT_USER_KIND", value: "business" })
+      dispatch({type: "LOGIN", value:currentUserbusiness.email})
+    }
   }, [dispatch])
 
+  // offcanvas
   const [offcanvas, setOffcanvas] = useState(false);
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
@@ -46,11 +54,9 @@ function App() {
         <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
           <OffCanvas />
         </div>
-        <Route path="/" exact={true} component={MainPage}></Route>
+        <Route path="/" exact={true} component={MainPage} />
         <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
-        <Route exact path="/accounts/login">
-            <Login changeUserObj={changeUserObj} />
-        </Route>
+        <Route path="/accounts/login" exact={true} component={Login} />
         <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/accounts/profile/:cryptojs" exact={true} component={Profile} /> {/* cryptojs를 사용한 암호화 */}
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
