@@ -16,7 +16,7 @@ public class Gym {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                    // 체육관ID
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="business_id")
     private BusinessAuth businessAuth;          // 사업자ID
 

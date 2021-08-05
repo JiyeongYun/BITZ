@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.response;
+package com.osds.bitz.model.network.response.game;
 
 import com.osds.bitz.model.entity.game.Game;
 import lombok.AllArgsConstructor;

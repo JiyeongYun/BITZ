@@ -1,9 +1,12 @@
 package com.osds.bitz.controller.account.user;
 
-import com.osds.bitz.model.network.request.BusinessAuthRequest;
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
+import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.response.BusinessAuthResponse;
+import com.osds.bitz.model.network.request.account.business.BusinessProfileRequest;
+import com.osds.bitz.model.network.response.account.business.BusinessAuthResponse;
+import com.osds.bitz.model.network.response.account.business.BusinessProfileResponse;
 import com.osds.bitz.service.account.business.BusinessAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -59,15 +62,23 @@ public class BusinessAuthController {
 
     @PutMapping("/readpassword")
     @ApiOperation(value = "비밀번호 찾기", notes = "회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
-    public ResponseEntity<BusinessAuthResponse> readPassword(@RequestBody @ApiParam(value = " 비밀번호 찾기") BusinessAuthRequest businessAuthRequest) throws Exception {
+    public ResponseEntity<BusinessAuthResponse> readPassword(@RequestBody @ApiParam(value = " 회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.readPassword(businessAuthRequest));
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/deletebusinessauth")
+    @DeleteMapping("/deletebusinessauth")
     @ApiOperation(value = "회원탈퇴", notes = "회원의 계정을 DB에서 삭제합니다.")
-    public void deleteBusinessAuth(@RequestBody @ApiParam(value = "회원탈퇴") ReadAuthRequest readAuthRequest) throws Exception {
+    public ResponseEntity deleteBusinessAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
         businessAuthService.deleteBusinessAuth(readAuthRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/readbusinessauth")
+    @ApiOperation(value="회원 프로필 출력", notes ="회원의 계정을 DB에서 찾아서 프로필을 출력합니다.")
+    public ResponseEntity<BusinessProfileResponse> readBusinessAuth(@RequestBody @ApiParam(value = " 회원 정보") BusinessProfileRequest businessProfileRequest) throws Exception{
+        BusinessProfileResponse response = new BusinessProfileResponse(businessAuthService.readBusinessProfile(businessProfileRequest));
+        return new ResponseEntity<BusinessProfileResponse> (response, HttpStatus,OK);
     }
 
 }
