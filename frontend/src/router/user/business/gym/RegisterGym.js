@@ -16,11 +16,6 @@ const RegisterGym = ({pageState}) => {
   const [basketball, setBasketball] = useState(false)
   const [airconditioner, setAirconditioner] = useState(false)
   
-  const onAddGymPhoto = (event) => {
-    event.preventDefault();
-    alert('시설사진 등록');
-  };
-
   // 체육관 시설 클릭 시 css를 변경해주는 함수
   const onClickFacilities = (event) => {
     const { target : { parentElement : { parentElement : { classList : { length }}}} } = event;
@@ -51,12 +46,7 @@ const RegisterGym = ({pageState}) => {
       setAirconditioner(value)
     }
   }
-
-  const onSearchAddress = (event) => {
-    event.preventDefault();
-    alert('주소검색');
-  };
-
+  
   // 체육관 정보를 입력하면 State 값을 입력값으로 바꿔준다
   const onChange = (event) => {
     const {
@@ -117,7 +107,7 @@ const RegisterGym = ({pageState}) => {
           <div className="gymaddress__box">
             <h4>위치</h4>
             <input type="text" name="address" onChange={onChange} />
-            <button onClick={onSearchAddress}>주소 검색</button>
+            {/* <button onClick={onSearchAddress}>주소 검색</button> */}
           </div>
           <div className="gymfacilities__box">
             <h4>편의 시설</h4>
@@ -160,14 +150,14 @@ const RegisterGym = ({pageState}) => {
               </div>
             </div>
           </div>
-          <div className="gympicture__box">
+          {/* <div className="gympicture__box">
             <h4>체육관 사진</h4>
             <div className="gympictures">
               <div className="gympicture">
                 <p>+</p>
               </div>
             </div>
-          </div>
+          </div> */}
           <button className="registergym__btn" onClick={registerGym}>체육관 등록</button>
         </div>
       </div>
