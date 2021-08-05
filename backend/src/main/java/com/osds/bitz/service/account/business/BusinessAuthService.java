@@ -3,10 +3,9 @@ package com.osds.bitz.service.account.business;
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
-import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.account.business.BusinessProfileRequest;
+import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.service.account.BaseAuthService;
@@ -170,15 +169,15 @@ public class BusinessAuthService extends BaseAuthService {
     }
 
 
-    public BusinessProfile readBusinessProfile(BusinessProfileRequest businessProfileRequest) {
-        // 이메일로 businessprofile 테이블에서 객체 가져오기
-        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByEmail(businessProfileRequest.getEmail());
-
-        // 이메일로 businessaauth 테이플에서 객체 가져오기
-        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessProfileRequest.getEmail());
-
-        //
-
-        return null;
-    }
+//    public BusinessProfile readBusinessProfile(BusinessProfileRequest businessProfileRequest) {
+//        // 이메일로 businessprofile 테이블에서 객체 가져오기
+//        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByEmail(businessProfileRequest.getEmail());
+//
+//        // 이메일로 businessaauth 테이플에서 객체 가져오기
+//        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessProfileRequest.getEmail());
+//
+//        //
+//
+//        return null;
+//    }
 }

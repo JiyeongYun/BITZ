@@ -1,12 +1,9 @@
 package com.osds.bitz.controller.account.user;
 
-import com.osds.bitz.model.entity.account.business.BusinessProfile;
-import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.account.business.BusinessProfileRequest;
+import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.model.network.response.account.business.BusinessAuthResponse;
-import com.osds.bitz.model.network.response.account.business.BusinessProfileResponse;
 import com.osds.bitz.service.account.business.BusinessAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,11 +71,11 @@ public class BusinessAuthController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/readbusinessauth")
-    @ApiOperation(value="회원 프로필 출력", notes ="회원의 계정을 DB에서 찾아서 프로필을 출력합니다.")
-    public ResponseEntity<BusinessProfileResponse> readBusinessAuth(@RequestBody @ApiParam(value = " 회원 정보") BusinessProfileRequest businessProfileRequest) throws Exception{
-        BusinessProfileResponse response = new BusinessProfileResponse(businessAuthService.readBusinessProfile(businessProfileRequest));
-        return new ResponseEntity<BusinessProfileResponse> (response, HttpStatus,OK);
-    }
+//    @PostMapping("/readbusinessauth")
+//    @ApiOperation(value="회원 프로필 출력", notes ="회원의 계정을 DB에서 찾아서 프로필을 출력합니다.")
+//    public ResponseEntity<BusinessProfileResponse> readBusinessAuth(@RequestBody @ApiParam(value = " 회원 정보") BusinessProfileRequest businessProfileRequest) throws Exception{
+//        BusinessProfileResponse response = new BusinessProfileResponse(businessAuthService.readBusinessProfile(businessProfileRequest));
+//        return new ResponseEntity<BusinessProfileResponse> (response, HttpStatus,OK);
+//    }
 
 }
