@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
 import { store } from 'store/store.js'; // store import (store)
 
-function Login() {
+function Login({history, changeUserObj}) {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
@@ -43,21 +43,23 @@ function Login() {
           // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          dispatch({ type: "LOGIN", value: data.email })
+          changeUserObj(data);
+          // history.push("/")
         },
         (error) => {
           alert(error);
           alert('아이디나 비밀번호를 확인해주세요.');
         }
-      );
-    } else if (userKind === 'business') {
-      UserApi.requestBusinessLogin(
-        data,
-        (res) => {
-          // alert(res);
-          const { data } = res; // 유저 정보
-          localStorage.setItem('currentUser', JSON.stringify(data));
-          dispatch({ type: "LOGIN", value: data.email })
+        );
+      } else if (userKind === 'business') {
+        UserApi.requestBusinessLogin(
+          data,
+          (res) => {
+            // alert(res);
+            const { data } = res; // 유저 정보
+            localStorage.setItem('currentUser', JSON.stringify(data));
+            changeUserObj(data);
+            // history.push("/")
         },
         (error) => {
           alert(error);
