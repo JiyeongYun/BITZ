@@ -1,4 +1,4 @@
-package com.osds.bitz.service.account.user;
+package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.account.user.FavoriteLocation;
 import com.osds.bitz.model.entity.account.user.Position;
@@ -6,16 +6,15 @@ import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.entity.token.RefreshToken;
-import com.osds.bitz.model.network.request.ReadAuthRequest;
-import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.UserAuthRequest;
-import com.osds.bitz.model.network.request.UserRequest;
-import com.osds.bitz.model.network.response.UserResponse;
+import com.osds.bitz.model.network.request.account.ReadAuthRequest;
+import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
+import com.osds.bitz.model.network.request.account.UserAuthRequest;
+import com.osds.bitz.model.network.request.account.UserRequest;
+import com.osds.bitz.model.network.response.account.UserResponse;
 import com.osds.bitz.repository.account.user.FavoriteLocationRepository;
 import com.osds.bitz.repository.account.user.PositionRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.account.user.UserProfileRepository;
-import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -26,7 +25,7 @@ import java.time.LocalDateTime;
 
 @Service
 @Slf4j
-public class UserAuthService extends BaseAuthService {
+public class UserService extends BaseAuthService {
 
     @Autowired
     private UserAuthRepository userAuthRepository;

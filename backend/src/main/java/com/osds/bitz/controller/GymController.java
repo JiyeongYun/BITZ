@@ -1,8 +1,8 @@
-package com.osds.bitz.controller.gym;
+package com.osds.bitz.controller;
 
 import com.osds.bitz.model.network.request.gym.GymRequest;
 import com.osds.bitz.model.network.response.gym.GymResponse;
-import com.osds.bitz.service.gym.GymService;
+import com.osds.bitz.service.GymService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

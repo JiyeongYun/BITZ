@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.response;
+package com.osds.bitz.model.network.request.account;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserResponse {
+public class UserRequest {
 
     private String email;
     private String password;
+    private String birth;
     private String name;
     private String nickname;
     private String phone;
-    private String birth;
     private int height;
     private boolean guard;
     private boolean forward;

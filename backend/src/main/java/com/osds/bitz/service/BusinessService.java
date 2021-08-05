@@ -1,14 +1,13 @@
-package com.osds.bitz.service.account.business;
+package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
-import com.osds.bitz.model.network.request.ReadAuthRequest;
-import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
+import com.osds.bitz.model.network.request.account.ReadAuthRequest;
+import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
+import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
-import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.io.InputStream;
 
 @Service
 @Slf4j
-public class BusinessAuthService extends BaseAuthService {
+public class BusinessService extends BaseAuthService {
 
     @Autowired
     private BusinessAuthRepository businessAuthRepository;

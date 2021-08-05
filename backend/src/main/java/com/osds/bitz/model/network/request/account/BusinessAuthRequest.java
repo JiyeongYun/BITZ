@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.request.account.business;
+package com.osds.bitz.model.network.request.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

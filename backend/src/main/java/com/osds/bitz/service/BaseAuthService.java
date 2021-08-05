@@ -1,4 +1,4 @@
-package com.osds.bitz.service.account;
+package com.osds.bitz.service;
 
 import com.osds.bitz.jwt.JwtUtil;
 import com.osds.bitz.model.entity.token.RefreshToken;

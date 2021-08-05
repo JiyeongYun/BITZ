@@ -1,4 +1,4 @@
-package com.osds.bitz.service.gym;
+package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.gym.Gym;
