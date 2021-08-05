@@ -1,7 +1,7 @@
 package com.osds.bitz.controller.gym;
 
-import com.osds.bitz.model.network.request.GymRequest;
-import com.osds.bitz.model.network.response.GymResponse;
+import com.osds.bitz.model.network.request.gym.GymRequest;
+import com.osds.bitz.model.network.response.gym.GymResponse;
 import com.osds.bitz.service.gym.GymService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @AllArgsConstructor
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/gym")
 @Api("Gym 컨트롤러 API V1")
 @Slf4j
 public class GymController {

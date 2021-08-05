@@ -2,9 +2,8 @@ package com.osds.bitz.repository.account;
 
 import com.osds.bitz.model.entity.token.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, String> {
-    Optional<RefreshToken> findRefreshTokenByKey(String key);
+    RefreshToken findRefreshTokenByUserEmail(String email);
 }

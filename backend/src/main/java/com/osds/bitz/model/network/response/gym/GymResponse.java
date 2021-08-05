@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.response;
+package com.osds.bitz.model.network.response.gym;
 
 import com.osds.bitz.model.entity.gym.Gym;
 

@@ -39,6 +39,8 @@ public class UserAuthController {
         UserAuthResponse response = new UserAuthResponse(userAuthService.readUser(readAuthRequest));
         if (response == null) // 일치하는 회원 정보 없음
             return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
+        String accessToken = userAuthService.createToken(userAuthService.getUserAuthByEmail(readAuthRequest.getEmail()));
+        response.setAccesstoken(accessToken);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
@@ -69,9 +71,9 @@ public class UserAuthController {
 
     @PostMapping("/deleteuserauth")
     @ApiOperation(value = "회원탈퇴", notes = "회원의 계정을 DB에서 삭제합니다.")
-    public void deleteUserAuth(@RequestBody @ApiParam(value = "회원탈퇴") ReadAuthRequest readAuthRequest) throws Exception {
+    public ResponseEntity deleteUserAuth(@RequestBody @ApiParam(value = "회원탈퇴") ReadAuthRequest readAuthRequest) throws Exception {
         userAuthService.deleteUserAuth(readAuthRequest);
+        return new ResponseEntity(HttpStatus.OK);
     }
-
 
 }
