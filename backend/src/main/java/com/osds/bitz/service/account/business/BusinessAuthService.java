@@ -98,15 +98,15 @@ public class BusinessAuthService extends BaseAuthService {
     public BusinessAuth readFirstBusinessAuthRequest(ReadAuthRequest readAuthRequest) {
 
         // 이메일로 로그인 로그 객체 찾아오기
-        LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), false);
+        LoginLog loginLog = this.loginLogRepository.getLoginLogByEmailAndIsGeneral(readAuthRequest.getEmail(), false);
 
         if (loginLog == null) {               // 최초 로그인시
             loginLog = LoginLog.builder()
-                    .userEmail(readAuthRequest.getEmail())
+                    .email(readAuthRequest.getEmail())
                     .isGeneral(false)
                     .build();
             this.loginLogRepository.save(loginLog);
-            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getUserEmail());
+            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getEmail());
         }
         return null;
     }
