@@ -1,7 +1,7 @@
 import Header from './components/header/Header';
 import OffCanvas from './components/header/OffCanvas';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
@@ -12,7 +12,6 @@ import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
-import { store } from 'store/store.js'; // store import (store)
 import { GameStateProvider } from 'store/gameStore.js';
 
 function App() {
@@ -46,11 +45,9 @@ function App() {
         <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
           <OffCanvas />
         </div>
-        <Route path="/" exact={true} component={MainPage}></Route>
+        <Route path="/" exact={true} component={MainPage} />
         <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
-        <Route exact path="/accounts/login">
-            <Login changeUserObj={changeUserObj} />
-        </Route>
+        <Route path="/accounts/login" exact={true} component={Login} />
         <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/accounts/profile/:cryptojs" exact={true} component={Profile} /> {/* cryptojs를 사용한 암호화 */}
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />

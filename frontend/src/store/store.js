@@ -8,6 +8,9 @@ const initialState = {
   userKind: 'player',
   myGameList: [],
   userObj: null, // Profile에 있던 건데, 메인 페이지에서 실력점수 기반으로 추천을 하려면 전역에서도 필요할 것 같아 여기로 가져옴
+  businessData: {
+    gameManagementList: [],
+  },
 };
 // Store - (2) 초기값을 넣은 Context 생성 *****
 const store = createContext(initialState);
@@ -35,6 +38,11 @@ const StateProvider = ({children}) => {
       case 'SELECT_USER_KIND':
         const userKind = action.value
         return {...state, userKind};
+      // Business Main Page의 경기 관리용 데이터 저장
+      case 'FETCH_GAME_MANAGEMENT_LIST':
+        const gameManagementList = action.value
+        gameManagementList.sort((a,b)=>(a.date-b.date))
+        return {...state, businessData:{...state.businessData, gameManagementList}};
       default:
         throw new Error();
     };
