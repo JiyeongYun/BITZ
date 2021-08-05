@@ -7,7 +7,6 @@ import { store } from 'store/store.js';
 function MainPage() {
   const globalState = useContext(store);
   const { value } = globalState;
-  console.log(value.isLogin, value.userKind)
 
   return(
     <div className="main">
