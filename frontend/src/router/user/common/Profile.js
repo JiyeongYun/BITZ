@@ -5,13 +5,17 @@ import MyGym from '../../../components/user/business/profile/MyGym';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
-const Profile = () => {
+const Profile = ({ history }) => {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
-  const { userKind, userObj } = globalState.value; // 플레이어, 비즈니스 구분용 전역 State
+  const { value, dispatch } = globalState;
+  const { userKind, userObj } = value; // 플레이어, 비즈니스 구분용 전역 State
 
   const onLogout = () => {
-    alert('로그아웃');
+    localStorage.removeItem("currentUser")
+    localStorage.removeItem("currentUserbusiness")
+    dispatch({ type: "LOGIN", value: "" })
+    history.push('/')
   };
 
   return (

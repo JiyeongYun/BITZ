@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
 import { store } from 'store/store.js'; // store import (store)
 
-function Login() {
+function Login({ history }) {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
@@ -40,10 +40,10 @@ function Login() {
       UserApi.requestLogin(
         data,
         (res) => {
-          // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
           dispatch({ type: "LOGIN", value: data.email })
+          history.push('/')
         },
         (error) => {
           alert(error);
@@ -54,10 +54,10 @@ function Login() {
       UserApi.requestBusinessLogin(
         data,
         (res) => {
-          // alert(res);
           const { data } = res; // 유저 정보
-          localStorage.setItem('currentUser', JSON.stringify(data));
+          localStorage.setItem('currentUserbusiness', JSON.stringify(data));
           dispatch({ type: "LOGIN", value: data.email })
+          history.push('/')
         },
         (error) => {
           alert(error);

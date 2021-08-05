@@ -1,9 +1,11 @@
 package com.osds.bitz.controller;
 
-import com.osds.bitz.model.network.request.account.*;
+import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
+import com.osds.bitz.model.network.request.account.BusinessRequest;
+import com.osds.bitz.model.network.request.account.ReadAuthRequest;
+import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
 import com.osds.bitz.model.network.response.account.BusinessAuthResponse;
 import com.osds.bitz.model.network.response.account.BusinessResponse;
-import com.osds.bitz.model.network.response.account.UserAuthResponse;
 import com.osds.bitz.model.network.response.account.UserResponse;
 import com.osds.bitz.service.BusinessService;
 import io.swagger.annotations.Api;
@@ -35,8 +37,9 @@ public class BusinessController {
 
     @PostMapping("/businessauth/email")
     @ApiOperation(value = "이메일 중복체크", notes = "이메일 중복체크를 시행합니다.")
+
     public ResponseEntity<BusinessAuthResponse> isDuplicatedEmail(@RequestBody @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
-        if(businessService.isDuplicatedEmail(businessAuthRequest.getEmail()))
+        if (businessService.isDuplicatedEmail(businessAuthRequest.getEmail()))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -74,7 +77,7 @@ public class BusinessController {
 
     @PutMapping("/businessprofile")
     @ApiOperation(value = "마이페이지 정보 수정", notes = "회원의 마이페이지 정보를 수정합니다.")
-    public ResponseEntity<UserResponse> updateProfile(@RequestBody @ApiParam(value = "회원 정보") BusinessRequest businessRequest) throws Exception {
+    public ResponseEntity<BusinessResponse> updateProfile(@RequestBody @ApiParam(value = "회원 정보") BusinessRequest businessRequest) throws Exception {
         businessService.updateProfile(businessRequest);
         return new ResponseEntity(HttpStatus.OK);
     }

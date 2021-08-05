@@ -1,10 +1,18 @@
 import React, { useContext } from "react";
 import "./Main__GameList.css"
 import { store } from 'store/store.js';
+import { useHistory  } from 'react-router-dom';
 
 export default function Main__GameList() {
   const globalState = useContext(store);
   const gameData = globalState.value.gameList
+
+  // PJW - 참여하기 버튼 클릭 시 게임 상세 페이지로 이동
+  // history가 실행 X??
+  const history = useHistory();
+  const participateGame = () => {
+    history.push('/detail')
+  }
 
   return(
     <div className="main__gameList">
@@ -45,7 +53,7 @@ export default function Main__GameList() {
               </div>
 
               <div className="gameList__game__state">
-                <button className="gameList__state__button">참여하기</button>
+                <button className="gameList__state__button" onClick={participateGame}>참여하기</button>
               </div>
             </div>
             <hr/>
