@@ -1,5 +1,6 @@
 package com.osds.bitz.model.entity.game;
 
+import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.enumclass.UserState;
 import lombok.*;
 
@@ -19,8 +20,9 @@ public class GameParticipant {
     @Column(nullable = false)
     private Long gameId;            // 게임ID
 
-    @Column(nullable = false)
-    private String userId;          // 사용자ID
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private UserAuth userId;          // 사용자
 
     @Enumerated(EnumType.STRING)
     private UserState state;        // 상태

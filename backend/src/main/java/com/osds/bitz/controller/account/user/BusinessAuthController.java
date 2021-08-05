@@ -1,12 +1,9 @@
 package com.osds.bitz.controller.account.user;
 
-import com.osds.bitz.model.entity.account.business.BusinessProfile;
-import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.ReadAuthRequest;
 import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.account.business.BusinessProfileRequest;
+import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
 import com.osds.bitz.model.network.response.account.business.BusinessAuthResponse;
-import com.osds.bitz.model.network.response.account.business.BusinessProfileResponse;
 import com.osds.bitz.service.account.business.BusinessAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,14 +32,14 @@ public class BusinessAuthController {
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/readbusinessauth")
+    /*@PostMapping("/readbusinessauth")
     @ApiOperation(value = "로그인", notes = "회원의 정보를 통해 로그인 처리를 합니다.")
     public ResponseEntity<BusinessAuthResponse> readBusinessAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessAuthService.readBusiness(readAuthRequest));
         if (response == null)
             return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
-    }
+    }*/
 
     @PostMapping("/readfirstuserauth")
     @ApiOperation(value = "첫 로그인인지 확인", notes = "회원이 처음으로 로그인했는지 DB에서 확인합니다.")
@@ -74,11 +71,11 @@ public class BusinessAuthController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/readbusinessauth")
+   /*@PostMapping("/readbusinessauth")
     @ApiOperation(value="회원 프로필 출력", notes ="회원의 계정을 DB에서 찾아서 프로필을 출력합니다.")
     public ResponseEntity<BusinessProfileResponse> readBusinessAuth(@RequestBody @ApiParam(value = " 회원 정보") BusinessProfileRequest businessProfileRequest) throws Exception{
         BusinessProfileResponse response = new BusinessProfileResponse(businessAuthService.readBusinessProfile(businessProfileRequest));
         return new ResponseEntity<BusinessProfileResponse> (response, HttpStatus,OK);
-    }
+    }*/
 
 }

@@ -170,7 +170,7 @@ public class BusinessAuthService extends BaseAuthService {
     }
 
 
-    public BusinessProfile readBusinessProfile(BusinessProfileRequest businessProfileRequest) {
+    /*public BusinessProfile readBusinessProfile(BusinessProfileRequest businessProfileRequest) {
         // 이메일로 businessprofile 테이블에서 객체 가져오기
         BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByEmail(businessProfileRequest.getEmail());
 
@@ -180,5 +180,5 @@ public class BusinessAuthService extends BaseAuthService {
         //
 
         return null;
-    }
+    }*/
 }
