@@ -1,4 +1,4 @@
-BITZ - Basketball In The Zone
+# BITZ - Basketball In The Zone
 
 > 농구에 미쳐라! - 농구 픽업 게임 예약/매칭 애플리케이션
 
