@@ -13,10 +13,10 @@ public class LoginLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;            // 접속자ID
+    private Long id;            // 로그인로그 id
 
     @Column(nullable = false)
-    private String userEmail;   // 사용자 이메일
+    private String email;   // 사용자 이메일
 
     @Column(nullable = false)
     private boolean isGeneral;  // 일반사용자여부

@@ -1,4 +1,4 @@
-package com.osds.bitz.service.game;
+package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;
@@ -12,6 +12,7 @@ import com.osds.bitz.repository.gym.GymRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Array;
 import java.sql.Date;
@@ -56,6 +57,23 @@ public class GameService {
     public void deleteGame(long gameId){
         gameParticipantRepository.deleteAllByGameId(gameId);
         gameRepository.deleteAllById(gameId);
+    }
+
+    // 게임 수정
+    public Game updateGame(GameRequest gameRequest) {
+        Gym gym = this.gymRepository.getGymByName(gameRequest.getGymName());
+        Game game = this.gameRepository.getGameByGym(gym);
+
+        Game gameUpdate = this.gameRepository.getGameById(game.getId());
+        gameUpdate.setDate(gameRequest.getDate());
+        gameUpdate.setStartTime(gameRequest.getStartTime());
+        gameUpdate.setEndTime(gameRequest.getEndTime());
+        gameUpdate.setMaxPeople(gameRequest.getMaxPeople());
+        gameUpdate.setMinPeople(gameRequest.getMinPeople());
+        gameUpdate.setParticipationFee(gameRequest.getParticipationFee());
+        gameUpdate.setGym(gym);
+
+        return this.gameRepository.save(gameUpdate);
     }
 
     // 게임 상세보기

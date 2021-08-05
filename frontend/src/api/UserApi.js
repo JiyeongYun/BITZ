@@ -1,12 +1,16 @@
 import axios from 'axios';
 
+// Local 에서 돌릴 때는 이 주석 풀고
 const BASE_URL = 'http://127.0.0.1:8080'
+
+// EC@ 에서 돌릴 떄는 이 주석 풀기
+// const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
 
 // JHW - 플레이어 로그인 axios 요청
 const requestLogin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/account/readuserauth',
+    url: BASE_URL + '/account/user/userauth/login',
     data: data,
   })
     .then(callback)
@@ -17,7 +21,7 @@ const requestLogin = (data, callback, errorCallback) => {
 const requestBusinessLogin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/accountbusiness/readbusinessauth',
+    url: BASE_URL + '/account/business/businessauth/login',
     data: data,
   })
     .then(callback)
@@ -28,7 +32,7 @@ const requestBusinessLogin = (data, callback, errorCallback) => {
 const requestJoin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/account/createuser',
+    url: BASE_URL + '/account/user/userauth',
     data: data,
   })
     .then(callback)
@@ -39,7 +43,7 @@ const requestJoin = (data, callback, errorCallback) => {
 const requestBusinessJoin = (data, headers, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/accountbusiness/createbusiness',
+    url: BASE_URL + '/account/business/businessauth',
     data: data,
     headers: headers,
   })
@@ -51,7 +55,7 @@ const requestBusinessJoin = (data, headers, callback, errorCallback) => {
 const changePassword = (data, callback, errorCallback) => {
   axios({
     method: 'put',
-    url: BASE_URL + '/account/updatepassword',
+    url: BASE_URL + '/account/user/userauth/password/change',
     data: data,
   })
     .then(callback)
@@ -62,7 +66,7 @@ const changePassword = (data, callback, errorCallback) => {
 const findPwd = (data, callback, errorCallback) => {
   axios({
     method: 'PUT',
-    url: BASE_URL + '/account/readpassword',
+    url: BASE_URL + '/account/user/userauth/password/reset',
     data: data,
   })
     .then(callback)
@@ -72,7 +76,7 @@ const findPwd = (data, callback, errorCallback) => {
 const firstLogin = (data, callback, errorCallback) => {
   axios({
     method: 'POST',
-    url: BASE_URL + '/account/readfirstuserauth',
+    url: BASE_URL + '/account/user/userauth',
     data: data,
   })
     .then(callback)

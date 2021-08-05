@@ -15,8 +15,9 @@ public class FavoriteLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;        // 선호지역ID
 
-    @Column(nullable = false)
-    private String userId;  // 유저ID
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserAuth userAuth;  // 유저ID
 
     private String sido1;   // 관심지역 시/도 - 1
 

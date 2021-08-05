@@ -1,15 +1,13 @@
-package com.osds.bitz.service.account.business;
+package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
-import com.osds.bitz.model.network.request.account.business.BusinessAuthRequest;
-import com.osds.bitz.model.network.request.ReadAuthRequest;
-import com.osds.bitz.model.network.request.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.account.business.BusinessProfileRequest;
+import com.osds.bitz.model.network.request.account.*;
+import com.osds.bitz.model.network.response.account.BusinessResponse;
+import com.osds.bitz.model.network.response.account.UserResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
-import com.osds.bitz.service.account.BaseAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ import java.io.InputStream;
 
 @Service
 @Slf4j
-public class BusinessAuthService extends BaseAuthService {
+public class BusinessService extends BaseAuthService {
 
     @Autowired
     private BusinessAuthRepository businessAuthRepository;
@@ -80,6 +78,17 @@ public class BusinessAuthService extends BaseAuthService {
     }
 
     /**
+     * 이메일 중복체크
+     */
+    public boolean isDuplicatedEmail(String email) {
+        // 중복된 이메일이 없는 경우 false
+        if (this.businessAuthRepository.getBusinessAuthByEmail(email) == null)
+            return false;
+        // 중복된 이메일이 있는 경우 true
+        return true;
+    }
+
+    /**
      * 로그인
      */
     public BusinessAuth readBusiness(ReadAuthRequest readAuthRequest) {
@@ -99,17 +108,38 @@ public class BusinessAuthService extends BaseAuthService {
     public BusinessAuth readFirstBusinessAuthRequest(ReadAuthRequest readAuthRequest) {
 
         // 이메일로 로그인 로그 객체 찾아오기
-        LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), false);
+        LoginLog loginLog = this.loginLogRepository.getLoginLogByEmailAndIsGeneral(readAuthRequest.getEmail(), false);
 
         if (loginLog == null) {               // 최초 로그인시
             loginLog = LoginLog.builder()
-                    .userEmail(readAuthRequest.getEmail())
+                    .email(readAuthRequest.getEmail())
                     .isGeneral(false)
                     .build();
             this.loginLogRepository.save(loginLog);
-            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getUserEmail());
+            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getEmail());
         }
         return null;
+    }
+
+    /**
+     * 마이페이지 정보 저장
+     */
+    public void createProfile(BusinessAuthRequest businessAuthRequest) {
+
+    }
+
+    /**
+     * 마이페이지 정보 조회
+     */
+    public BusinessResponse readProfile(String email) {
+        return null;
+    }
+
+    /**
+     * 마이페이지 정보 수정
+     */
+    public void updateProfile(BusinessRequest businessRequest) {
+
     }
 
     /**
@@ -168,17 +198,4 @@ public class BusinessAuthService extends BaseAuthService {
         this.businessProfileRepository.delete(businessProfile);
         this.businessAuthRepository.delete(businessAuth);
     }
-
-
-    /*public BusinessProfile readBusinessProfile(BusinessProfileRequest businessProfileRequest) {
-        // 이메일로 businessprofile 테이블에서 객체 가져오기
-        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByEmail(businessProfileRequest.getEmail());
-
-        // 이메일로 businessaauth 테이플에서 객체 가져오기
-        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessProfileRequest.getEmail());
-
-        //
-
-        return null;
-    }*/
 }

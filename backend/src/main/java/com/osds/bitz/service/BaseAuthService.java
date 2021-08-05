@@ -1,4 +1,4 @@
-package com.osds.bitz.service.account;
+package com.osds.bitz.service;
 
 import com.osds.bitz.jwt.JwtUtil;
 import com.osds.bitz.model.entity.token.RefreshToken;
@@ -85,7 +85,7 @@ public class BaseAuthService {
     /**
      * 이메일로 RefreshToken 가져오기
      */
-    public RefreshToken getRefreshTokenByEmail(String email){
+    public RefreshToken getRefreshTokenByEmail(String email) {
         return this.refreshTokenRepository.findRefreshTokenByUserEmail(email);
     }
 

@@ -3,8 +3,8 @@ package com.osds.bitz.jwt;
 
 import com.osds.bitz.model.entity.token.Token;
 import com.osds.bitz.model.entity.account.user.UserAuth;
-import com.osds.bitz.model.network.request.ReadAuthRequest;
-import com.osds.bitz.service.account.user.UserAuthService;
+import com.osds.bitz.model.network.request.account.ReadAuthRequest;
+import com.osds.bitz.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +22,7 @@ public class SecurityController {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserAuthService userAuthService;
+    private UserService userService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -47,7 +47,7 @@ public class SecurityController {
             throw new Exception("inavalid username/password");
         }
 
-        UserAuth userAuth = this.userAuthService.readUser(readAuthRequest);
+        UserAuth userAuth = this.userService.readUser(readAuthRequest);
 
         Token userToken = new Token();
         userToken.setAccessToken(jwtUtil.createToken(userAuth, "access"));
