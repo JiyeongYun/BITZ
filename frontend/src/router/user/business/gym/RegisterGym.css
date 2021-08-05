@@ -1,12 +1,190 @@
 .registerGym__div {
-  text-align: center;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 5%;
-  width: 800px;
+  width: 100%;
+  margin: 0;
+  background-color: var(--grey-color);
+  padding-top: var(--mid-margin-size);
 }
 
-.registerGym__div button {
+.registerGym__div > .gym__container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  margin: var(--mid-margin-size) auto;
+  border-radius: 5px;
+  width: 600px;
+  background-color: white;
+}
+
+.registerGym__div > .gym__container > h1 {
+  margin: var(--large-margin-size) 0;
+  font-size: var(--large-font-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div {
+  margin: var(--mid-margin-size) 0;
+  font-size: var(--main-font-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div > h4 {
+  font-size: var(--mid-font-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(1) > p,
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(3) > p {
+  margin-bottom: var(--main-margin-size);
+}
+
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > h4,
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > h4,
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(5) > h4,
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(6) > h4 {
+  margin-bottom: var(--main-margin-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div > p {
+  font-size: var(--small-font-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div > input,
+.registerGym__div > .gym__container > .registerGymForm__div > div > textarea {
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+  height: var(--btn-height);
+  padding: 0 var(--main-margin-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(1) > input {
+  width: 200px;
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > textarea {
+  width: 400px;
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > textarea:focus {
+  outline: none;
+  border: 2px solid var(--main-color);
+  border-radius: 5px;
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(3) > input {
+  width: 100px;
+  margin-right: var(--main-margin-size);
+  text-align: end;
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(3) > span {
+  margin: 0 var(--main-margin-size);
+  font-weight: bold;
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > input {
+  width: 300px;
+  margin-right: var(--main-margin-size);
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > div > button {
+  width: 100px;
+  height: var(--btn-height);
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: var(--main-font-size);
+  cursor: pointer;
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility {
+  width: 100px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--main-color);
+}
+
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .clicked {
+  background-color: var(--main-color);
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility:nth-child(1) {
+  border-radius: 5px 0 0 0;
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility:nth-child(3) {
+  border-radius: 0 5px 0 0;
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility:nth-child(4) {
+  border-radius: 0 0 0 5px;
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility:nth-child(6) {
+  border-radius: 0 0 5px 0;
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility > .img_box {
+  border: 1px solid var(--main-color);
+  border-radius: 35px;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFD3B5;
+  margin-bottom: var(--main-margin-size);
+}
+
+.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.gym__container > .registerGymForm__div > .gympicture__box > .gympictures {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  gap: var(--main-margin-size);
+}
+
+.gym__container > .registerGymForm__div > .gympicture__box > .gympictures > .gympicture {
+  width: 100px;
+  height: 70px;
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--grey-color);
+}
+
+.gym__container > .registerGymForm__div > button {
+  display: block;
+  width: 200px;
+  height: var(--btn-height);
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: var(--large-margin-size) auto;
+  cursor: pointer;
+}
+
+  /* .registerGym__div button {
   cursor: pointer;
 }
 
@@ -62,11 +240,11 @@
   border: 1px solid #ebebeb;
   border-bottom-color: #e2e2e2;
   border-radius: 0.25em;
-} /* named upload */
+}
 
 .filebox .upload-name {
   display: inline-block;
-  padding: 0.5em 0.75em; /* label의 패딩값과 일치 */
+  padding: 0.5em 0.75em;
   font-size: inherit;
   font-family: inherit;
   line-height: normal;
@@ -75,7 +253,7 @@
   border: 1px solid hsl(0, 0%, 92%);
   border-bottom-color: #e2e2e2;
   border-radius: 0.25em;
-  -webkit-appearance: none; /* 네이티브 외형 감추기 */
+  -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
@@ -104,7 +282,6 @@
   margin-right: auto;
   border: 2px solid #ffad4e;
   border-collapse: collapse;
-  /* border-radius: 10%; */
 }
 
 .facilities__table td {
@@ -137,4 +314,4 @@
 
 #airconditioner {
   background-image: url('../../../../components/images/airconditioner.png');
-}
+} */

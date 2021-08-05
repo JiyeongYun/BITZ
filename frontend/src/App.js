@@ -1,6 +1,6 @@
 import Header from './components/header/Header';
 import OffCanvas from './components/header/OffCanvas';
-import { BrowserRouter, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
@@ -27,7 +27,7 @@ function App() {
     if (currentUser) {
       dispatch({type: "LOGIN", value:currentUser.email})
     }
-  }, [])
+  }, [dispatch])
 
   const [offcanvas, setOffcanvas] = useState(false);
   // const history = useHistory();
@@ -56,18 +56,12 @@ function App() {
           <OffCanvas />
         </div>
         <Route path="/" exact={true} component={MainPage}></Route>
-        {globalState.value.isLogin ? (
-          <Redirect to="/" />
-        ) : (
-          <Route exact path="/accounts/login">
-            {/* <Login changeUserObj={changeUserObj} userObj={userObj} /> */}
+        <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
+        <Route exact path="/accounts/login">
             <Login changeUserObj={changeUserObj} />
-          </Route>
-        )}
-
+        </Route>
         <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/accounts/profile/:cryptojs" exact={true} component={Profile} /> {/* cryptojs를 사용한 암호화 */}
-        <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
         {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
