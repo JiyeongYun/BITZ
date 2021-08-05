@@ -1,7 +1,7 @@
 import Header from './components/header/Header';
 import OffCanvas from './components/header/OffCanvas';
-import { BrowserRouter, Redirect, Route } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
 import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
@@ -12,14 +12,9 @@ import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
-import { store } from 'store/store.js'; // store import (store)
 import { GameStateProvider } from 'store/gameStore.js';
 
 function App() {
-  
-  // 전역 상태 관리 (store)
-  const globalState = useContext(store);
-
   const [offcanvas, setOffcanvas] = useState(false);
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
@@ -37,14 +32,9 @@ function App() {
         <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
           <OffCanvas />
         </div>
-        <Route path="/" exact={true} component={MainPage}></Route>
-        {globalState.value.isLogin ? (
-          <Redirect to="/" />
-        ) : (
-          <Route exact path="/accounts/login">
-            <Login />
-          </Route>
-        )}
+        <Route path="/" exact={true} component={MainPage} />
+        <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
+        <Route path="/accounts/login" exact={true} component={Login} />
         <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/accounts/profile/:email" exact={true} component={Profile} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
