@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
 import { store } from 'store/store.js'; // store import (store)
 
-function Login({history, changeUserObj}) {
+function Login({ history }) {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
@@ -40,11 +40,10 @@ function Login({history, changeUserObj}) {
       UserApi.requestLogin(
         data,
         (res) => {
-          // alert(res);
           const { data } = res; // 유저 정보
           localStorage.setItem('currentUser', JSON.stringify(data));
-          changeUserObj(data);
-          // history.push("/")
+          dispatch({ type: "LOGIN", value })
+          history.push("/")
         },
         (error) => {
           alert(error);
@@ -52,14 +51,13 @@ function Login({history, changeUserObj}) {
         }
         );
       } else if (userKind === 'business') {
+        console.log('비즈니스!')
         UserApi.requestBusinessLogin(
           data,
           (res) => {
-            // alert(res);
             const { data } = res; // 유저 정보
             localStorage.setItem('currentUser', JSON.stringify(data));
-            changeUserObj(data);
-            // history.push("/")
+            history.push("/")
         },
         (error) => {
           alert(error);
