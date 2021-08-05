@@ -30,7 +30,7 @@ public class GymService {
                 .businessAuth(businessAuth)
                 .name(gymRequest.getName())
                 .address(gymRequest.getAddress())
-                .courtLength(gymRequest.getCourtLenth())
+                .courtLength(gymRequest.getCourtLength())
                 .courtWidth(gymRequest.getCourtWidth())
                 .isParking(gymRequest.isParking()?true:false)
                 .isShower(gymRequest.isShower()?true:false)

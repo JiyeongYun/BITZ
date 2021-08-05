@@ -27,6 +27,12 @@ public class Gym {
     private String address;             // 체육관 주소
 
     @Column(nullable = false)
+    private String sido;                // 시도
+
+    @Column(nullable = false)
+    private String gugun;               // 구군
+
+    @Column(nullable = false)
     private int courtWidth;             // 농구장 가로
 
     @Column(nullable = false)
@@ -49,5 +55,9 @@ public class Gym {
 
     @Column(nullable = false)
     private boolean isScoreboard;       // 점수판(휘슬)여부
+
+    private String intro;      // 체육관 소개글
+
+    private String notice;     //체육관 주의사항
 
 }
