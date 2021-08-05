@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/account/readuserauth")
+                .antMatchers("/**") // TODO : 임시로 모든 경로 허용
                 .permitAll()
                 .anyRequest()
                 .authenticated()
