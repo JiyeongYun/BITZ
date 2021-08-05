@@ -76,6 +76,24 @@ const RegisterGym = ({pageState}) => {
     }
   };
 
+  // '체육관 등록' 버튼을 누르면 체육관 정보를 백엔드로 보내는 함수
+  const registerGym = () => {
+    const data = {
+      name: gymName,
+      address: address,
+      desc: desc,
+      courtLenth,
+      courtWidth,
+      is_parking: parking,
+      is_shower: shower,
+      is_airconditional: airconditioner,
+      is_water: water,
+      is_basketball: basketball,
+      is_scoreboard: scoreboard
+    }
+    console.log(data)
+  }
+
   return (
     <div className="registerGym__div">
       <div className="gym__container">
@@ -150,7 +168,7 @@ const RegisterGym = ({pageState}) => {
               </div>
             </div>
           </div>
-          <button className="registergym__btn">체육관 등록</button>
+          <button className="registergym__btn" onClick={registerGym}>체육관 등록</button>
         </div>
       </div>
     </div>
