@@ -24,10 +24,10 @@ public class GymService {
 
     // 체육관 등록
     public Gym createGym(GymRequest gymRequest) {
-
+        // TODO : DB에 잘 들어가고 서버 콘솔에 warn만 찍히나, 프론트에 406에러 발생
         // 관리자 이메일을 통해 businessAuth 객체를 받아온다.
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(gymRequest.getBusinessEmail());
-
+        log.info("{}","businessAuth : " + businessAuth);
         // gym테이블 내용 설정하기
         Gym gym = Gym.builder()
                 .businessAuth(businessAuth)
@@ -44,6 +44,7 @@ public class GymService {
                 .isBasketball(gymRequest.isBasketball() ? true : false)
                 .isScoreboard(gymRequest.isScoreboard() ? true : false)
                 .build();
+        log.info("{}", "추가할 gym : " + gym);
         return this.gymRepository.save(gym);
     }
 
