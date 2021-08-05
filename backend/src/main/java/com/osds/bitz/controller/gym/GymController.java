@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @AllArgsConstructor
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/gym")
 @Api("Gym 컨트롤러 API V1")
 @Slf4j
 public class GymController {
