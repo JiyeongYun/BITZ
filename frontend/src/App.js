@@ -30,17 +30,8 @@ function App() {
   }, [dispatch])
 
   const [offcanvas, setOffcanvas] = useState(false);
-  // const history = useHistory();
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
-  };
-
-  // const [userObj, setUserObj] = useState(null);
-
-  const changeUserObj = async (data) => {
-    // 로그인 시 email 전역 상태에 저장 (store)
-    await dispatch({ type: "LOGIN", value: data.email })
-    // await setUserObj(data);
   };
 
   return (
