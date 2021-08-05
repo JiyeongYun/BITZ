@@ -16,7 +16,7 @@ public class Gym {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;                    // 체육관ID
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="business_id")
     private BusinessAuth businessAuth;          // 사업자ID
 
@@ -25,6 +25,12 @@ public class Gym {
 
     @Column(nullable = false)
     private String address;             // 체육관 주소
+
+    @Column(nullable = false)
+    private String sido;                // 시도
+
+    @Column(nullable = false)
+    private String gugun;               // 구군
 
     @Column(nullable = false)
     private int courtWidth;             // 농구장 가로
@@ -49,5 +55,9 @@ public class Gym {
 
     @Column(nullable = false)
     private boolean isScoreboard;       // 점수판(휘슬)여부
+
+    private String intro;      // 체육관 소개글
+
+    private String notice;     //체육관 주의사항
 
 }

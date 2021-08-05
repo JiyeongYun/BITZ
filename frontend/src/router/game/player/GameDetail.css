@@ -12,11 +12,11 @@
   flex: 1;
 }
 
-.gympicture {
+.detail__top > .gympicture {
   flex: 2;
 }
 
-.gympicture > img {
+.detail__top > .gympicture > img {
   max-width: 600px;
   max-height: 400px;
   width: 100%;

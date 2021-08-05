@@ -15,6 +15,19 @@ import MyGame from './router/game/player/MyGame';
 import { GameStateProvider } from 'store/gameStore.js';
 
 function App() {
+  
+  // 전역 상태 관리 (store)
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  // 로그인 정보 확인
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
+    if (currentUser) {
+      dispatch({type: "LOGIN", value:currentUser.email})
+    }
+  }, [dispatch])
+
   const [offcanvas, setOffcanvas] = useState(false);
   const toggleCanvas = () => {
     setOffcanvas(!offcanvas);
@@ -36,7 +49,7 @@ function App() {
         <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
         <Route path="/accounts/login" exact={true} component={Login} />
         <Route path="/accounts/register" exact={true} component={Register}></Route>
-        <Route path="/accounts/profile/:email" exact={true} component={Profile} />
+        <Route path="/accounts/profile/:cryptojs" exact={true} component={Profile} /> {/* cryptojs를 사용한 암호화 */}
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
         {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}

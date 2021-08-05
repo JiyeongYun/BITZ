@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.request;
+package com.osds.bitz.model.network.request.gym;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

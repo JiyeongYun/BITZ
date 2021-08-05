@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.request;
+package com.osds.bitz.model.network.request.gym;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ public class GymRequest {
     private String name;
     private String address;
     private int courtWidth;
-    private int courtLenth;
+    private int courtLength;
     private boolean isParking;
     private boolean isShower;
     private boolean isAirconditional;
