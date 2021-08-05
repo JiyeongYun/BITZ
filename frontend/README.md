@@ -1,11 +1,9 @@
 # Frontend README
-
 `농구 픽업게임 예약 플랫폼 BITZ`
 
 ## 개요
 
 ### Frontend 개발 방향성
-
 <u>서비스가 기존방식 대비 전방위에 걸쳐 비교우위를 가져야 함</u>
 
 - **보다 편리한 예약 시스템**
@@ -20,16 +18,10 @@
 
   => `선호 지역 경기 우선 제공, 지역/날짜 필터링, 일방적인 게임을 막기 위한 실력 별 팀 매칭 알고리즘`
 
-
-
 ## 사용 기술
-
 React JS
 
-
-
 ## 폴더 구조
-
 - public - images : 이미지 저장소
 - src
   - api : 백엔드 통신
@@ -44,10 +36,7 @@ React JS
     - game : 경기 관련 페이지
     - error : 에러 페이지
 
-
-
 ## Frontend URI
-
 | path                          | 페이지           | 비고                                                         |
 | ----------------------------- | ---------------- | ------------------------------------------------------------ |
 | /                             | 메인             | 유저, 관리자 로그인, 첫 로그인 시 첫 로그인 전용 화면으로 이동 |
@@ -64,10 +53,7 @@ React JS
 | /match/register               | 경기 등록        | 관리자 전용                                                  |
 | /match/:match-id/update       | 경기 수정        | 관리자 전용                                                  |
 
-
-
 ## Backend 통신 API (RESTful API)
-
 | Category            | Summary                              | Method | RequestMapping (package에 해당) | URI                            | Request Header | Params         | Request Body                                                 | Success Code | Response Header | ResponseBody                                                 |
 | ------------------- | ------------------------------------ | ------ | ------------------------------- | ------------------------------ | -------------- | -------------- | ------------------------------------------------------------ | ------------ | --------------- | ------------------------------------------------------------ |
 | **일반 사용자**     | 회원가입                             | POST   | `/account/user`                 | `/userauth`                    | X              | X              | email : String, password : String, name : String, nickname : String phone : String      birth : String | 200          | X               | X                                                            |
@@ -100,14 +86,9 @@ React JS
 |                     | 게임 점수 기록                       | POST   | 위와 동일                       | `/gamerecord`                  | accesstoken    | X              | team : int quarter : int score : int email : String game_id : long | 200          | accesstoken     | gamerecord                                                   |
 |                     | 경기 리뷰 저장                       | POST   | 위와 동일                       | `/review`                      | accesstoken    | X              | email: String game_id : long mvp : String manner : String [] gym { kindness : int ficility : int } | 200          | accesstoken     | gymreview { }  manner { }                                    |
 
-
-
 ## 개발 특이사항
-
 ### 2021-07-23
-
 #### RegisterGeneral/Business
-
 [담당자]
 
 : 박정웅
@@ -125,11 +106,8 @@ https://skm1104.tistory.com/4
 https://webdir.tistory.com/435
 
 
-
 ### 2021-07-27
-
 #### Frontend 전체
-
 [작성자]
 
 : 박정웅
@@ -141,9 +119,7 @@ https://webdir.tistory.com/435
 
 
 ### 2021-07-28
-
 #### Frontend 전체
-
 [담당자]
 
 : 박정웅
@@ -155,9 +131,7 @@ https://webdir.tistory.com/435
 
 
 ### 2021-07-29
-
 #### RegisterBusiness
-
 [담당자]
 
 : 장현웅
@@ -169,9 +143,7 @@ https://webdir.tistory.com/435
 
 
 ### 2021-08-02
-
 #### Frontend 전체
-
 [담당자]
 
 : 권오우
@@ -183,9 +155,7 @@ https://webdir.tistory.com/435
 
 
 ### 2021-08-05
-
 #### 프로젝트 전체
-
 [담당자]
 
 : 이소은
