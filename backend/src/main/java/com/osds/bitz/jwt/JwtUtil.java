@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class SecurityService implements InitializingBean {
+public class JwtUtil implements InitializingBean {
 
     private static final String SECRET_KEY = "asdfqwersadgklwehjsfghkasdbvfhcvsxkvdsafhjwlkjdsag"; // 일단 하드코딩
 
@@ -27,8 +27,7 @@ public class SecurityService implements InitializingBean {
 
     public String createToken(UserAuth userAuth, String kind) { // 로그인 서비스 때 같이 사용
 
-
-        int expTime = kind.equals("access") ? 6 * 1000 * 10 : 6 * 1000 * 24 * 14;
+        int expTime = kind.equals("access") ? 6 * 1000 * 30 : 6 * 1000 * 24 * 14;
 
         if (kind.equals("access")) { // 엑세스 토큰 반환
             return Jwts.builder()
@@ -53,7 +52,6 @@ public class SecurityService implements InitializingBean {
         Map<String, Object> header = new HashMap<>();
         header.put("typ", "JWT");
         header.put("alg", "HS256"); // 해시 256 사용하여 암호화
-        header.put("regDate", System.currentTimeMillis());
         return header;
     }
 
@@ -63,14 +61,17 @@ public class SecurityService implements InitializingBean {
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("잘못된 JWT 서명입니다.");
+            throw e;
         } catch (ExpiredJwtException e) {
             log.info("만료된 JWT 토큰입니다.");
+            throw e;
         } catch (UnsupportedJwtException e) {
             log.info("지원되지 않는 JWT 토큰입니다.");
+            throw e;
         } catch (IllegalArgumentException e) {
             log.info("JWT 토큰이 잘못되었습니다.");
+            throw e;
         }
-        return false;
     }
 
     public String getSubject(String token) { // 토큰 내의 정보 확인 -> 토큰을 검증하는 메서드를 만들어서 boolean으로 리턴해서 실제 토큰을 검증해보면 된다
