@@ -12,6 +12,8 @@ public class GymRequest {
     private String businessEmail;
     private String name;
     private String address;
+    private String sido;
+    private String gugun;
     private int courtWidth;
     private int courtLength;
     private boolean isParking;

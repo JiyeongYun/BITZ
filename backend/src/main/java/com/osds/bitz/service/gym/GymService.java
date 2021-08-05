@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class GymService {
@@ -30,6 +32,8 @@ public class GymService {
                 .businessAuth(businessAuth)
                 .name(gymRequest.getName())
                 .address(gymRequest.getAddress())
+                .sido(gymRequest.getSido())
+                .gugun(gymRequest.getGugun())
                 .courtLength(gymRequest.getCourtLength())
                 .courtWidth(gymRequest.getCourtWidth())
                 .isParking(gymRequest.isParking()?true:false)
@@ -40,6 +44,20 @@ public class GymService {
                 .isScoreboard(gymRequest.isScoreboard()?true:false)
                 .build();
         return this.gymRepository.save(gym);
+    }
+
+    // 체육관 목록
+    public List<Gym> getGymList(String businessId) {
+
+        BusinessAuth businessAuth = businessAuthRepository.getBusinessAuthById(businessId);
+        List<Gym> result = gymRepository.getGymsByBusinessAuth(businessAuth);
+
+        return result;
+    }
+
+    public Gym getGymById(Long gymId) {
+        Gym result = gymRepository.getGymById(gymId);
+        return result;
     }
 
 }
