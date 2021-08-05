@@ -3,9 +3,9 @@ package com.osds.bitz.service;
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.log.LoginLog;
-import com.osds.bitz.model.network.request.account.ReadAuthRequest;
-import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
-import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
+import com.osds.bitz.model.network.request.account.*;
+import com.osds.bitz.model.network.response.account.BusinessResponse;
+import com.osds.bitz.model.network.response.account.UserResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -78,6 +78,17 @@ public class BusinessService extends BaseAuthService {
     }
 
     /**
+     * 이메일 중복체크
+     */
+    public boolean isDuplicatedEmail(String email) {
+        // 중복된 이메일이 없는 경우 false
+        if (this.businessAuthRepository.getBusinessAuthByEmail(email) == null)
+            return false;
+        // 중복된 이메일이 있는 경우 true
+        return true;
+    }
+
+    /**
      * 로그인
      */
     public BusinessAuth readBusiness(ReadAuthRequest readAuthRequest) {
@@ -108,6 +119,27 @@ public class BusinessService extends BaseAuthService {
             return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getEmail());
         }
         return null;
+    }
+
+    /**
+     * 마이페이지 정보 저장
+     */
+    public void createProfile(BusinessAuthRequest businessAuthRequest) {
+
+    }
+
+    /**
+     * 마이페이지 정보 조회
+     */
+    public BusinessResponse readProfile(String email) {
+        return null;
+    }
+
+    /**
+     * 마이페이지 정보 수정
+     */
+    public void updateProfile(BusinessRequest businessRequest) {
+
     }
 
     /**
