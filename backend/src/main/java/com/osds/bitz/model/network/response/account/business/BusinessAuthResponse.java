@@ -1,4 +1,4 @@
-package com.osds.bitz.model.network.response;
+package com.osds.bitz.model.network.response.account.business;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import lombok.AllArgsConstructor;

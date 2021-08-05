@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BusinessProfileRepository extends JpaRepository<BusinessProfile, Long> {
     BusinessProfile getBusinessProfileByBusinessAuth(BusinessAuth businessAuth);
+    BusinessProfile getBusinessProfileByEmail(String email);
 }

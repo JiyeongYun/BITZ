@@ -2,7 +2,7 @@ package com.osds.bitz.service.game;
 
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.gym.Gym;
-import com.osds.bitz.model.network.request.GameRequest;
+import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import lombok.extern.slf4j.Slf4j;
