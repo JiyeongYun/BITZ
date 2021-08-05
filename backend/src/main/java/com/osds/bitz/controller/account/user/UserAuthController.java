@@ -28,8 +28,6 @@ public class UserAuthController {
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
     public ResponseEntity<UserAuthResponse> createUser(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.createUser(userAuthRequest));
-        if (response == null) // 이미 존재하는 이메일
-            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
@@ -50,7 +48,8 @@ public class UserAuthController {
     public ResponseEntity<UserAuthResponse> readUser(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
         UserAuthResponse response = new UserAuthResponse(userAuthService.readUser(readAuthRequest));
         if (response == null) // 일치하는 회원 정보 없음
-            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+//            return new ResponseEntity<UserAuthResponse>(response, HttpStatus.BAD_REQUEST);
         String accessToken = userAuthService.createToken(userAuthService.getUserAuthByEmail(readAuthRequest.getEmail()));
         response.setAccesstoken(accessToken);
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
@@ -92,14 +91,14 @@ public class UserAuthController {
     @PutMapping("/userauth/password/reset")
     @ApiOperation(value = "비밀번호 찾기", notes = "회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
     public ResponseEntity<UserAuthResponse> resetPassword(@RequestBody @ApiParam(value = "비밀번호 찾기") UserAuthRequest userAuthRequest) throws Exception {
-        UserAuthResponse response = new UserAuthResponse(userAuthService.readPassword(userAuthRequest));
+        UserAuthResponse response = new UserAuthResponse(userAuthService.resetPassword(userAuthRequest));
         return new ResponseEntity<UserAuthResponse>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/userauth")
     @ApiOperation(value = "회원탈퇴", notes = "회원의 계정을 DB에서 삭제합니다.")
     public ResponseEntity deleteUser(@RequestBody @ApiParam(value = "회원탈퇴") ReadAuthRequest readAuthRequest) throws Exception {
-        userAuthService.deleteUserAuth(readAuthRequest);
+        userAuthService.deleteUser(readAuthRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
 

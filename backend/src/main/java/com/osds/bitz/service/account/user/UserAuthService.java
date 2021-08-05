@@ -32,9 +32,6 @@ public class UserAuthService extends BaseAuthService {
      * 회원가입
      */
     public UserAuth createUser(UserAuthRequest userAuthRequest) {
-        // 이메일 중복체크
-        if (this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail()) != null)
-            return null;
 
         // userID로 설정할 랜덤 값 생성
         String userAuthId = generateRandomNumber(true);
@@ -67,6 +64,28 @@ public class UserAuthService extends BaseAuthService {
     }
 
     /**
+     * 이메일 중복체크
+     */
+    public UserAuth checkDuplicatedEmail(String email){
+        // 해당 이메일이 이미 존재하는 경우 false
+        if (this.userAuthRepository.getUserAuthByEmail(email) != null)
+            return null;
+        // TODO: 해당 이메일이 없는 경우 true
+        return null;
+    }
+
+    /**
+     * 닉네임 중복체크
+     */
+    public UserAuth checkDuplicatedNickname(String nickname){
+        // 해당 닉네임이 이미 존재하는 경우 false
+        if (this.userProfileRepository.getUserProfileByNickname(nickname) != null)
+            return null;
+        // TODO: 해당 닉네임이 없는 경우 true
+        return null;
+    }
+
+    /**
      * 로그인
      */
     public UserAuth readUser(ReadAuthRequest readAuthRequest) {
@@ -80,14 +99,6 @@ public class UserAuthService extends BaseAuthService {
 
         return userAuth;
     }
-
-    /**
-     * 이메일로 UserAuth 가져오기
-     */
-    public UserAuth getUserAuthByEmail(String email){
-        return this.userAuthRepository.getUserAuthByEmail(email);
-    }
-
     /**
      * Token 생성
      */
@@ -111,7 +122,7 @@ public class UserAuthService extends BaseAuthService {
     /**
      * 최초 로그인 확인
      */
-    public UserAuth readFirstUserAuthRequest(ReadAuthRequest readAuthRequest) {
+    public UserAuth readLoginLog(ReadAuthRequest readAuthRequest) {
 
         // 이메일로 로그인 로그 객체 찾아오기
         LoginLog loginLog = this.loginLogRepository.getLoginLogByUserEmailAndIsGeneral(readAuthRequest.getEmail(), true);
@@ -124,6 +135,30 @@ public class UserAuthService extends BaseAuthService {
             this.loginLogRepository.save(loginLog);
             return this.userAuthRepository.getUserAuthByEmail(loginLog.getUserEmail());
         }
+        return null;
+    }
+
+    /**
+     * 마이페이지 정보 저장
+     */
+    public UserAuth createProfile(UserAuth userAuth){
+        // TODO: 구현하기
+        return null;
+    }
+
+    /**
+     * 마이페이지 정보 조회
+     */
+    public UserAuth readProfile(UserAuth userAuth){
+        // TODO: 구현하기
+        return null;
+    }
+
+    /**
+     * 마이페이지 정보 수정
+     */
+    public UserAuth updateProfile(UserAuth userAuth){
+        // TODO: 구현하기
         return null;
     }
 
@@ -146,7 +181,7 @@ public class UserAuthService extends BaseAuthService {
     /**
      * 비밀번호 찾기
      */
-    public UserAuth readPassword(UserAuthRequest userAuthRequest) {
+    public UserAuth resetPassword(UserAuthRequest userAuthRequest) {
 
         // 이메일로 해당 객체 찾아오기
         UserAuth newUserAuth = this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail());
@@ -176,12 +211,20 @@ public class UserAuthService extends BaseAuthService {
     /**
      * 회원탈퇴
      */
-    public void deleteUserAuth(ReadAuthRequest readAuthRequest) {
+    public void deleteUser(ReadAuthRequest readAuthRequest) {
         UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
         UserProfile userProfile = this.userProfileRepository.getUserProfileByUserAuth(userAuth);
 
         this.userProfileRepository.delete(userProfile);
         this.userAuthRepository.delete(userAuth);
     }
+
+    /**
+     * 이메일로 UserAuth 가져오기
+     */
+    public UserAuth getUserAuthByEmail(String email){
+        return this.userAuthRepository.getUserAuthByEmail(email);
+    }
+
 
 }
