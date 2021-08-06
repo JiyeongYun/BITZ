@@ -11,15 +11,15 @@
   - http://i5a504.p.ssafy.io/
 
 ## 업데이트 내역
-:white_check_mark: ver_0.1 _ 2021.07.30
+:white_check_mark: ver_0.1_2021.07.30
   - 개발문서 및 발표자료 배포
   - BITZ 자유시연 (로컬 ver) - 회원가입, 로그인, 비밀번호 찾기, 비밀번호 변경, 회원탈퇴
 
-:white_check_mark: ver_0.2 _ 2021.08.06 **(현재 배포 버전)**
+:white_check_mark: ver_0.2_2021.08.06 **(현재 배포 버전)**
   - AWS EC2를 통해 DB, Frontend, Backend 배포
   - BITZ 배포 (클라우드 서버 ver) - 경기장 등록, 픽업 게임 등록, 일반 사용자/비즈니스 사용자 프로필 출력(백엔드)
 
-:white_large_square: ver_0.3 _ 2021.08.13 예정
+:white_large_square: ver_0.3_2021.08.13 예정
   - CI/CD
   - Google SNS 로그인
   - 매칭 알고리즘 
