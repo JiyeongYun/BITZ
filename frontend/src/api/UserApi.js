@@ -6,7 +6,7 @@ const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
 const requestLogin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/account/readuserauth',
+    url: BASE_URL + '/account/user/userauth/login',
     data: data,
   })
     .then(callback)
@@ -17,7 +17,7 @@ const requestLogin = (data, callback, errorCallback) => {
 const requestBusinessLogin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/accountbusiness/readbusinessauth',
+    url: BASE_URL + '/account/business/businessauth/login',
     data: data,
   })
     .then(callback)
@@ -28,7 +28,7 @@ const requestBusinessLogin = (data, callback, errorCallback) => {
 const requestJoin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/account/createuser',
+    url: BASE_URL + '/account/user/userauth',
     data: data,
   })
     .then(callback)
@@ -39,7 +39,7 @@ const requestJoin = (data, callback, errorCallback) => {
 const requestBusinessJoin = (data, headers, callback, errorCallback) => {
   axios({
     method: 'post',
-    url: BASE_URL + '/accountbusiness/createbusiness',
+    url: BASE_URL + '/account/business/businessauth',
     data: data,
     headers: headers,
   })
@@ -51,7 +51,7 @@ const requestBusinessJoin = (data, headers, callback, errorCallback) => {
 const changePassword = (data, callback, errorCallback) => {
   axios({
     method: 'put',
-    url: BASE_URL + '/account/updatepassword',
+    url: BASE_URL + '/account/user/userauth/password/change',
     data: data,
   })
     .then(callback)
@@ -62,7 +62,7 @@ const changePassword = (data, callback, errorCallback) => {
 const findPwd = (data, callback, errorCallback) => {
   axios({
     method: 'PUT',
-    url: BASE_URL + '/account/readpassword',
+    url: BASE_URL + '/account/user/userauth/password/reset',
     data: data,
   })
     .then(callback)
@@ -72,7 +72,7 @@ const findPwd = (data, callback, errorCallback) => {
 const firstLogin = (data, callback, errorCallback) => {
   axios({
     method: 'POST',
-    url: BASE_URL + '/account/readfirstuserauth',
+    url: BASE_URL + '/account/user/loginlog',
     data: data,
   })
     .then(callback)

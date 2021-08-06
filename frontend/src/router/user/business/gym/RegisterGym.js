@@ -1,8 +1,12 @@
+import GymApi from 'api/GymApi';
 import React, { useState } from 'react';
 import './RegisterGym.css';
+import { useHistory  } from 'react-router-dom';
 
 //  비즈니스 유저가 체육관 등록하는 페이지
-const RegisterGym = ({pageState}) => {
+const RegisterGym = () => {
+  const history = useHistory();
+  
   // 체육관 등록 시 필요 데이터 정의
   const [gymName, setGymName] = useState(null)
   const [desc, setDesc] = useState(null)
@@ -15,10 +19,11 @@ const RegisterGym = ({pageState}) => {
   const [parking, setParking] = useState(false)
   const [basketball, setBasketball] = useState(false)
   const [airconditioner, setAirconditioner] = useState(false)
+  const [pictures, setPictures] = useState([])
   
   const onAddGymPhoto = (event) => {
-    event.preventDefault();
-    alert('시설사진 등록');
+    const newPictures = pictures;
+    setPictures(newPictures.push(event.target.files[0]));
   };
 
   // 체육관 시설 클릭 시 css를 변경해주는 함수
@@ -78,20 +83,35 @@ const RegisterGym = ({pageState}) => {
 
   // '체육관 등록' 버튼을 누르면 체육관 정보를 백엔드로 보내는 함수
   const registerGym = () => {
-    const data = {
-      name: gymName,
-      address: address,
-      desc: desc,
-      courtLenth,
-      courtWidth,
-      is_parking: parking,
-      is_shower: shower,
-      is_airconditional: airconditioner,
-      is_water: water,
-      is_basketball: basketball,
-      is_scoreboard: scoreboard
-    }
-    console.log(data)
+    const formData = new FormData();
+    formData.append('address', address);
+    formData.append('airconditional', airconditioner);
+    formData.append('basketball', basketball);
+    formData.append('courtLenth', courtLenth);
+    formData.append('courtWidth', courtWidth);
+    formData.append('gugun', "마포구");
+    formData.append('name', gymName);
+    formData.append('desc', desc);
+    formData.append('parking', parking);
+    formData.append('scoreboard', scoreboard);
+    formData.append('shower', shower);
+    formData.append('sido', "서울시");
+    formData.append('water', water);
+    
+    GymApi.requestGymRegister(
+      formData,
+      {
+        'content-type': 'multipart/form-data',
+      }, 
+      res => {
+        console.log(res)
+        alert("체육관이 등록되었습니다!")
+        history.push("/")
+      },
+      err => {
+        console.log(err)
+      }
+    );    
   }
 
   return (
@@ -163,8 +183,14 @@ const RegisterGym = ({pageState}) => {
           <div className="gympicture__box">
             <h4>체육관 사진</h4>
             <div className="gympictures">
-              <div className="gympicture">
-                <p>+</p>
+              <div className="gympicture" >
+                <label
+                  className="gympictures__button"
+                  htmlFor="real-upload"
+                >
+                  <p>+</p>
+                </label>
+                <input type="file" id="real-upload" className="upload-hidden" accept="image/*" onChange={onAddGymPhoto} />
               </div>
             </div>
           </div>

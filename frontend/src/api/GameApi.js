@@ -1,4 +1,6 @@
 import axios from "axios";
+
+const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
  
 // PJW - Game Data 요청
 const requsetGameList = (data,callback,errorCallback) => {
@@ -9,7 +11,7 @@ const requsetGameList = (data,callback,errorCallback) => {
   } else {
     axios({
       method: "post",
-      url: "http://127.0.0.1:8080/account/signup",
+      url: BASE_URL + "/account/signup",
       data: data
     })
     .then(callback)
