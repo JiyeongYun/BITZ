@@ -1,5 +1,6 @@
 package com.osds.bitz.controller;
 
+import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.account.BusinessRequest;
 import com.osds.bitz.model.network.request.account.ReadAuthRequest;
@@ -30,14 +31,12 @@ public class BusinessController {
     @PostMapping("/businessauth")
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
     public ResponseEntity<BusinessAuthResponse> createBusiness(@ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
-        BusinessAuthResponse response = new BusinessAuthResponse(businessService.createBusiness(businessAuthRequest));
-
-        return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
+        businessService.createBusiness(businessAuthRequest);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/businessauth/email")
     @ApiOperation(value = "이메일 중복체크", notes = "이메일 중복체크를 시행합니다.")
-
     public ResponseEntity<BusinessAuthResponse> isDuplicatedEmail(@RequestBody @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
         if (businessService.isDuplicatedEmail(businessAuthRequest.getEmail()))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -46,7 +45,7 @@ public class BusinessController {
 
     @PostMapping("/businessauth/login")
     @ApiOperation(value = "로그인", notes = "회원의 정보를 통해 로그인 처리를 합니다.")
-    public ResponseEntity<BusinessAuthResponse> readBusinessAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
+    public ResponseEntity<BusinessAuthResponse> readBusiness(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
         BusinessAuthResponse response = new BusinessAuthResponse(businessService.readBusiness(readAuthRequest));
         if (response == null)
             return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.BAD_REQUEST);
@@ -55,17 +54,16 @@ public class BusinessController {
 
     @PostMapping("/loginlog")
     @ApiOperation(value = "첫 로그인인지 확인", notes = "회원이 처음으로 로그인했는지 DB에서 확인합니다.")
-    public ResponseEntity<BusinessAuthResponse> readFirstUserBusiness(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readUAuthRequest) throws Exception {
-        BusinessAuthResponse response = new BusinessAuthResponse(businessService.readFirstBusinessAuthRequest(readUAuthRequest));
-        if (response == null) //최초 로그인이 아닙니다.
-            return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
+    public ResponseEntity<BusinessAuthResponse> readLoginLog(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
+        if(!businessService.readLoginLog(readAuthRequest.getEmail()))  // 최초로그인이 아닌 경우
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.OK);                       // 최초로그인인 경우
     }
 
     @PostMapping("/businessprofile")
     @ApiOperation(value = "마이페이지 정보 저장", notes = "회원의 마이페이지 정보를 저장합니다.")
-    public ResponseEntity<BusinessAuthResponse> createProfile(@RequestBody @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
-        businessService.createProfile(businessAuthRequest);
+    public ResponseEntity<BusinessAuthResponse> createProfile(@RequestBody @ApiParam(value = "회원 정보") BusinessRequest businessRequest) throws Exception {
+        businessService.createProfile(businessRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -85,21 +83,30 @@ public class BusinessController {
     @PutMapping("/businessauth/password/change")
     @ApiOperation(value = "비밀번호 변경", notes = "회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<BusinessAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
+        BusinessAuth businessAuth = businessService.updatePassword(updatePasswordRequest);
+
+        if(businessAuth == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
         BusinessAuthResponse response = new BusinessAuthResponse(businessService.updatePassword(updatePasswordRequest));
-        return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/businessauth/password/reset")
     @ApiOperation(value = "비밀번호 찾기", notes = "회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
-    public ResponseEntity<BusinessAuthResponse> readPassword(@RequestBody @ApiParam(value = " 회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
-        BusinessAuthResponse response = new BusinessAuthResponse(businessService.readPassword(businessAuthRequest));
-        return new ResponseEntity<BusinessAuthResponse>(response, HttpStatus.OK);
+    public ResponseEntity<BusinessAuthResponse> resetPassword(@RequestBody @ApiParam(value = " 회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
+        BusinessAuth businessAuth = businessService.resetPassword(businessAuthRequest);
+        if(businessAuth == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        BusinessAuthResponse response = new BusinessAuthResponse(businessService.resetPassword(businessAuthRequest));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/businessauth")
     @ApiOperation(value = "회원탈퇴", notes = "회원의 계정을 DB에서 삭제합니다.")
-    public ResponseEntity deleteBusinessAuth(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
-        businessService.deleteBusinessAuth(readAuthRequest);
+    public ResponseEntity deleteBusiness(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
+        businessService.deleteBusiness(readAuthRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
 
