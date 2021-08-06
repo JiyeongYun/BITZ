@@ -83,9 +83,11 @@ Spring boot, MySQL
 |  | Gym | 장현웅 | 체육관 CRUD 기능 |  |
 |  | Game | 장현웅 | 게임(경기) CRUD 기능 |  |
 |  | 배포 | 이소은 | Spring 내장 톰캣을 통한 BackeEnd 배포(.jar) | ver_0.1 |
-|  | 배포 | 이소은 | Nginx를 통한 FrontEnd 배포(build) | ver_0.1 |
-| 2021.08.06 | 배포 | 이소은 | Spring 내장 톰캣을 통한 BackeEnd 배포(.jar) | ver_0.2 |
-| 2021.08.06 | 배포 | 이소은 | Nginx를 통한 FrontEnd 배포(build) | ver_0.2 |
+|  | 배포 | 이소은 | Nginx를 통한 FrontEnd 배포(build) |  |
+| 2021.08.06 | BusinessAuth | 윤지영 | 일반 사용자 프로필 출력 |
+|  | BusinessAuth | 윤지영 | 사업자 사용자 프로필 출력 |  |
+|  | 배포 | 이소은 | Spring 내장 톰캣을 통한 BackeEnd 배포(.jar) | ver_0.2 |
+|  | 배포 | 이소은 | Nginx를 통한 FrontEnd 배포(build) | ver_0.2 |
 
 
 ------
