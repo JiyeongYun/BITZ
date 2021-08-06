@@ -343,7 +343,6 @@ function RegisterBusiness({history}) {
           className="inputBox inputBox__businessRegistration"
           value={values.businessRegistration}
           disabled="disabled"
-          accept=".pdf, .jpg, .png .jpeg"
         ></input>
         <label
           className="businessRegistration__button"
@@ -351,7 +350,7 @@ function RegisterBusiness({history}) {
         >
           업로드
         </label>
-        <input type="file" id="real-upload" className="upload-hidden" onChange={fileUploaded} />
+        <input type="file" id="real-upload" className="upload-hidden" accept=".pdf, image/*" onChange={fileUploaded} />
         <div className="errorMessage">{errors.businessRegistration}</div>
       </div>
 

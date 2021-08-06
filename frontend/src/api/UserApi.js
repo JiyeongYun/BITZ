@@ -76,7 +76,7 @@ const findPwd = (data, callback, errorCallback) => {
 const firstLogin = (data, callback, errorCallback) => {
   axios({
     method: 'POST',
-    url: BASE_URL + '/account/user/userauth',
+    url: BASE_URL + '/account/user/loginlog',
     data: data,
   })
     .then(callback)
