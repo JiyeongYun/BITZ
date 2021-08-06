@@ -20,7 +20,7 @@
   - 경기장 등록
   - 픽업 게임 등록
 
-:white_check_square: 0.3 _ 2021.08.13 예정
+:white_large_square: 0.3 _ 2021.08.13 예정
   - CI/CD
   - Google SNS 로그인
   - 매칭 알고리즘 
