@@ -56,12 +56,7 @@ const RegisterGym = () => {
       setAirconditioner(value)
     }
   }
-
-  const onSearchAddress = (event) => {
-    event.preventDefault();
-    alert('주소검색');
-  };
-
+  
   // 체육관 정보를 입력하면 State 값을 입력값으로 바꿔준다
   const onChange = (event) => {
     const {
@@ -137,7 +132,7 @@ const RegisterGym = () => {
           <div className="gymaddress__box">
             <h4>위치</h4>
             <input type="text" name="address" onChange={onChange} />
-            <button onClick={onSearchAddress}>주소 검색</button>
+            {/* <button onClick={onSearchAddress}>주소 검색</button> */}
           </div>
           <div className="gymfacilities__box">
             <h4>편의 시설</h4>

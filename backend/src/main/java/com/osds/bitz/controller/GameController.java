@@ -1,11 +1,11 @@
-package com.osds.bitz.controller.game;
+package com.osds.bitz.controller;
 
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
 import com.osds.bitz.model.network.response.game.GameResponse;
-import com.osds.bitz.service.game.GameService;
+import com.osds.bitz.service.GameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

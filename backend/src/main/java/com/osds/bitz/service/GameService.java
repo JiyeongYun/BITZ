@@ -1,4 +1,4 @@
-package com.osds.bitz.service.game;
+package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;

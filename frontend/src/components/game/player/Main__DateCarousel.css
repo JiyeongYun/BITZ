@@ -40,7 +40,7 @@
   color: blue;
 }
 
-.day_today {
+.day_select {
   color: var(--main-color);
   transform: scale(1.5);
 }

@@ -1,24 +1,21 @@
 import axios from "axios";
 
-const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
+// Local 에서 돌릴 때는 이 주석 풀고
+const BASE_URL = 'http://127.0.0.1:8080'
+
+// EC@ 에서 돌릴 떄는 이 주석 풀기
+// const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
  
 // PJW - Game Data 요청
 const requsetGameList = (data,callback,errorCallback) => {
-
-  const isTest = true
-  if (isTest) {
-    callback()
-  } else {
     axios({
-      method: "post",
-      url: BASE_URL + "/account/signup",
+      method: "get",
+      url: BASE_URL + "/game/gamelist",
       data: data
     })
     .then(callback)
     .catch(errorCallback)
-  }
- 
-} // requestJoin End
+}
  
 const GameApi = {
   requsetGameList:(data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),

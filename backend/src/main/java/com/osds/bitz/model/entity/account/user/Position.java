@@ -22,6 +22,7 @@ public class Position {
 
     private boolean forward;    // 포워드
 
-    @Column(nullable = false)
-    private String userId; // 유저 ID
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserAuth userAuth;  // 유저ID
 }
