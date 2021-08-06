@@ -30,10 +30,11 @@ public class BaseAuthService {
     @Autowired
     public PasswordEncoder passwordEncoder;
 
-    public JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+    public JavaMailSenderImpl javaMailSender;
 
     @Bean
     public JavaMailSenderImpl mailSender() {
+        javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setProtocol("smtp");
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);

@@ -287,9 +287,8 @@ public class UserService extends BaseAuthService {
         if (userAuth == null) return null;
 
         // 임시 비밀번호 생성 및 메일 전송
-        String tempPassword = "";
+        String tempPassword = generateRandomNumber();
         try {
-            tempPassword = generateRandomNumber();
             String msg = "<p><b> " + userAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + tempPassword + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -298,6 +297,9 @@ public class UserService extends BaseAuthService {
             helper.setText(msg);
             message.setContent(msg, "text/html; charset=UTF-8");
             helper.setSubject("[OSDS] 비밀번호 찾기 요청에 대한 임시 비밀번호를 보내드립니다.");
+            log.info("msg:{}", msg);
+            log.info("helper:{}", helper);
+            log.info("message:{}", message);
             mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
