@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // Local 에서 돌릴 때는 이 주석 풀고
-const BASE_URL = 'http://127.0.0.1:8080'
+// const BASE_URL = 'http://127.0.0.1:8080'
 
 // EC@ 에서 돌릴 떄는 이 주석 풀기
-// const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
+const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
 
 // JHW - 플레이어 로그인 axios 요청
 const requestLogin = (data, callback, errorCallback) => {
