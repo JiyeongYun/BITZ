@@ -85,7 +85,7 @@ public class UserController {
 
     @GetMapping("/userprofile")
     @ApiOperation(value = "마이페이지 정보 조회", notes = "회원의 마이페이지 정보를 조회합니다.")
-    public ResponseEntity<UserResponse> readProfile(@RequestBody @ApiParam(value = "회원 정보") @RequestParam String email) throws Exception {
+    public ResponseEntity<UserResponse> readProfile(@ApiParam(value = "회원 정보") @RequestParam(value="email") String email) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(userService.readProfile(email));
     }
 
