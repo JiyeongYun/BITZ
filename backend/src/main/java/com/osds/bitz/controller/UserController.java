@@ -115,8 +115,7 @@ public class UserController {
 
         if (userAuth == null) // 이메일이 존재하지 않는 경우
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        UserAuthResponse response = new UserAuthResponse(userAuth);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/userauth")
