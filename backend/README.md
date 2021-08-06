@@ -1,13 +1,10 @@
-# Backend README
-
-백엔드
+# Backend
+윤지영, 이소은, 장현웅
 
 ## 사용 기술
-
 Spring boot, MySQL
 
 ## 폴더 구조
-
 - config : Config 파일이 위치하는 곳
 - controller : 사용자 요청을 주고받는 Controller 파일이 위치하는 곳
      - account (user, business) :  유저 관련
@@ -27,8 +24,7 @@ Spring boot, MySQL
      - gym : 체육관 관련
 
 
-
-## URI 정리 (RESTful API)
+## Frontend 통신 URI (RESTful API)
 
 | Category            | Summary                              | Method | RequestMapping (package에 해당) | URI                            | Request Header | Params         | Request Body                                                 | Success Code | Response Header | ResponseBody                                                 |
 | ------------------- | ------------------------------------ | ------ | ------------------------------- | ------------------------------ | -------------- | -------------- | ------------------------------------------------------------ | ------------ | --------------- | ------------------------------------------------------------ |
@@ -63,9 +59,31 @@ Spring boot, MySQL
 |                     | 경기 리뷰 저장                       | POST   | 위와 동일                       | `/review`                      | accesstoken    | X              | email: String game_id : long mvp : String manner : String [] gym { kindness : int ficility : int } | 200          | accesstoken     | gymreview { }  manner { }                                    |
 
 
+## 개발 특이사항
+| Date | Feature | 담당자 | 특이사항 | 참고 자료 |
+| ---- | ------- | ------- | -------- | ---------- |
+| 2021.07.20 | DB | 장현웅 | 테이블 구성 |  |
+| | 와이어프레임 | 윤지영 | 와이어프레임 작성 |  | 
+|  | 피그마 | 윤지영 & 박정웅 | 피그마 작성 |  |
+|  | 스토리보드 | 이소은 | 스토리보드 작성 |  |
+| 2021.07.27 | UserAuth | 이소은 | 일반 사용자 비밀번호 찾기 |  |
+|  | UserAuth | 이소은 | 일반 사용자 로그인 |  |
+|  | UserAuth | 이소은 | 일반 사용자 비밀번호 변경 |  |
+| 2021.07.28 | Swagger | 이소은 | Swagger ui 작성 |  |
+| 2021.07.29 | 아키텍처 | 윤지영 | 아키텍처 작성 |  |
+|  | PPT | 이소은 | SUB2 발표용 PPT 작성 |  |
+|  | 개발문서 | 이소은 | SUB2 개발 문서 작성 |  |
+| 2021.08.02 | DB | 윤지영 | FK테이블 관련 CASCADE 수정 |  |
+|  | DB | 이소은 | EC2에 DB 배포 |  |
+| 2021.08.05 | JWT | 윤지영 & 장현웅 | JWT 구현 |  |
+|  | 배포 | 이소은 | Nginx를 통한 FrontEnd 배포(build) |  |
+|  | 배포 | 이소은 | Spring 내장 톰캣을 통한 BackeEnd 배포(.jar) |  |
 
 
-2021-08-06
-[작성자]
+------
 
-: 장현웅
+**Version** : 0.2
+
+**Date** : 21.08.06 (금)
+
+**Author** : 이소은
