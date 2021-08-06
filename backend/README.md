@@ -69,7 +69,11 @@ Spring boot, MySQL
 | 2021.07.27 | UserAuth | 이소은 | 일반 사용자 비밀번호 찾기 |  |
 |  | UserAuth | 이소은 | 일반 사용자 로그인 |  |
 |  | UserAuth | 이소은 | 일반 사용자 비밀번호 변경 |  |
+|  | BusinessAuth | 윤지영 | 사업자 사용자 로그인 |  |
+|  | BusinessAuth | 윤지영 | 사업자 사용자 비밀번호 변경 |  |
 | 2021.07.28 | Swagger | 이소은 | Swagger ui 작성 |  |
+|  | UserAuth | 이소은 | 일반 사용자 회원가입 |  |
+|  | BusinessAuth | 윤지영 | 사업자 사용자 회원가입 |  |
 | 2021.07.29 | 아키텍처 | 윤지영 | 아키텍처 작성 |  |
 |  | PPT | 이소은 | SUB2 발표용 PPT 작성 |  |
 |  | 개발문서 | 이소은 | SUB2 개발 문서 작성 |  |
