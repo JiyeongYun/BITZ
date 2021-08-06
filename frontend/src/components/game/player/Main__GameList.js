@@ -11,7 +11,7 @@ export default function Main__GameList() {
   // history가 실행 X??
   const history = useHistory();
   const participateGame = () => {
-    history.push('/detail')
+    history.push('/detail', {})
   }
 
   return(
