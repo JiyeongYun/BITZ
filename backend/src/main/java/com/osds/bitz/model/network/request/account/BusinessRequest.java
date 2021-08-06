@@ -23,4 +23,17 @@ public class BusinessRequest {
     private String account;
     private MultipartFile businessRegistration;
 
+    private String address;
+    private String intro;
+    private String notice;
+    private int courtWidth;
+    private int courtLength;
+    private boolean isParking;
+    private boolean isShower;
+    private boolean isAirconditional;
+    private boolean isWater;
+    private boolean isBasketball;
+    private boolean isScoreboard;
+
+
 }
