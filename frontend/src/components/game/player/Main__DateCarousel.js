@@ -78,17 +78,23 @@ export default function Main__DateCarousel() {
   }
 
   
-  // 게임 데이터 받아오기
-  const data = {
-    date: Date.parse(selectedDay),
-    sido: '서울'
-  }
-  console.log(data)
-  GameApi.requsetGameList(
-    data,
-    res => console.log(res),
-    err => console.log(err)
-  )
+  // 게임 리스트 받아오기
+  useEffect(() => {
+    const data = {
+      date: selectedDay,
+      sido: '서울'
+    }
+
+    GameApi.requsetGameList(
+      data,
+      res => {
+        // 해당 날짜에 게임 리스트를 data에 담음
+        const {data} = res
+        console.log(data)
+      },
+      err => console.log(err)
+    )
+  },[selectedDay])
   
   
   // PJW - Rendering
