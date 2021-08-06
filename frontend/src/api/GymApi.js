@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
-const BASE_URL = 'http://127.0.0.1:8080'
+const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
+// const BASE_URL = 'http://127.0.0.1:8080'
  
 // PJW - 체육관 등록
 const requestGymRegister = (data, callback, errorCallback) => {
