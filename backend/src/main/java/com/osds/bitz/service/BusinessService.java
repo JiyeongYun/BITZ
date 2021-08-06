@@ -41,6 +41,9 @@ public class BusinessService extends BaseAuthService {
     @Autowired
     private GymRepository gymRepository;
 
+    @Autowired
+    private GymService gymService;
+
     /**
      * 회원가입
      */
@@ -140,35 +143,6 @@ public class BusinessService extends BaseAuthService {
     }
 
     /**
-     * 마이페이지 정보 저장
-     */
-    public void createProfile(BusinessRequest businessRequest) {
-        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
-
-        // gym
-        Gym gym = Gym.builder()
-                .businessAuth(businessAuth)
-                .name(businessRequest.getName())
-                .sido("서울특별시")
-                .gugun("강남구")
-                .address(businessRequest.getAddress())
-                .intro(businessRequest.getIntro())
-                .notice(businessRequest.getNotice())
-                .courtLength(businessRequest.getCourtLength())
-                .courtWidth(businessRequest.getCourtWidth())
-                .isParking(businessRequest.isParking())
-                .isShower(businessRequest.isShower())
-                .isAirconditional(businessRequest.isAirconditional())
-                .isWater(businessRequest.isWater())
-                .isBasketball(businessRequest.isBasketball())
-                .isScoreboard(businessRequest.isScoreboard())
-                .build();
-        this.gymRepository.save(gym);
-
-
-    }
-
-    /**
      * 마이페이지 정보 조회
      */
     public BusinessResponse readProfile(String email) {
@@ -195,9 +169,6 @@ public class BusinessService extends BaseAuthService {
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
         BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
 
-        // TODO: gym List로 처리하기
-        Gym gym = this.gymRepository.getGymByBusinessAuth(businessAuth);
-
         // BusinessAuth
         businessAuth.builder()
                 .email(businessRequest.getEmail())
@@ -214,22 +185,6 @@ public class BusinessService extends BaseAuthService {
                 .businessRegistration(businessRequest.getBusinessRegistration().getBytes())
                 .build();
         businessProfileRepository.save(businessProfile);
-
-        // Gym
-        gym.builder()
-                .address(gym.getAddress())
-                .intro(gym.getIntro())
-                .notice(gym.getNotice())
-                .courtWidth(gym.getCourtWidth())
-                .courtLength(gym.getCourtLength())
-                .isParking(gym.isParking())
-                .isShower(gym.isShower())
-                .isAirconditional(gym.isAirconditional())
-                .isWater(gym.isWater())
-                .isBasketball(gym.isBasketball())
-                .isScoreboard(gym.isScoreboard())
-                .build();
-        gymRepository.save(gym);
     }
 
     /**
