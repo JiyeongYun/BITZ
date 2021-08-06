@@ -5,23 +5,16 @@
 Spring boot, MySQL
 
 ## 폴더 구조
-- config : Config 파일이 위치하는 곳
+- config : 설정 관련 파일 위치
 - controller : 사용자 요청을 주고받는 Controller 파일이 위치하는 곳
-     - account (user, business) :  유저 관련
-     - game : 게임 관련
-     - gym : 체육관 관련
 - jwt : JsonWebToken 관련 파일 위치
 - model : 서비스에 필요한 각종 객체들
     - entity : DB에 존재하는 테이블과 맵핑되는 객체
     - network : 프론트엔드에서 백엔드로 요청하고 응답할 때 필요한 객체
+    - enumclass : enum 클래스
 - service : Controller와 Repository 사이에서 로직을 전담
-     - account (user, business) :  유저 관련
-     - game : 게임 관련
-     - gym : 체육관 관련
 - repository : DB를 사용하여 데이터의 조회 및 조작 기능 전담
-     - account (user, business) :  유저 관련
-     - game : 게임 관련
-     - gym : 체육관 관련
+
 
 
 ## Frontend 통신 URI (RESTful API)
