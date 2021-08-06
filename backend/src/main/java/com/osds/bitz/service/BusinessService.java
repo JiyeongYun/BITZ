@@ -14,6 +14,7 @@ import com.osds.bitz.model.network.response.account.BusinessResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.gym.GymRepository;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,6 +164,8 @@ public class BusinessService extends BaseAuthService {
                 .isScoreboard(businessRequest.isScoreboard())
                 .build();
         this.gymRepository.save(gym);
+
+
     }
 
     /**
@@ -188,8 +191,45 @@ public class BusinessService extends BaseAuthService {
     /**
      * 마이페이지 정보 수정
      */
-    public void updateProfile(BusinessRequest businessRequest) {
+    public void updateProfile(BusinessRequest businessRequest) throws IOException {
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
+        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
 
+        // TODO: gym List로 처리하기
+        Gym gym = this.gymRepository.getGymByBusinessAuth(businessAuth);
+
+        // BusinessAuth
+        businessAuth.builder()
+                .email(businessRequest.getEmail())
+                .birth(businessRequest.getBirth())
+                .build();
+        businessAuthRepository.save(businessAuth);
+
+        // BusinessProfile
+        businessProfile.builder()
+                .name(businessRequest.getName())
+                .phone(businessRequest.getPhone())
+                .bank(businessRequest.getBank())
+                .account(businessRequest.getAccount())
+                .businessRegistration(businessRequest.getBusinessRegistration().getBytes())
+                .build();
+        businessProfileRepository.save(businessProfile);
+
+        // Gym
+        gym.builder()
+                .address(gym.getAddress())
+                .intro(gym.getIntro())
+                .notice(gym.getNotice())
+                .courtWidth(gym.getCourtWidth())
+                .courtLength(gym.getCourtLength())
+                .isParking(gym.isParking())
+                .isShower(gym.isShower())
+                .isAirconditional(gym.isAirconditional())
+                .isWater(gym.isWater())
+                .isBasketball(gym.isBasketball())
+                .isScoreboard(gym.isScoreboard())
+                .build();
+        gymRepository.save(gym);
     }
 
     /**
