@@ -10,6 +10,8 @@ function FirstLogin(props) {
   const [midChecked, setMidChecked] = useState(false)
   const [topChecked, setTopChecked] = useState(false)
 
+  const [height, setHeight] = useState("")
+
   function setAbility(e) {
     if (e.target.id === 'low' && lowChecked === false) {
       setLowChecked(true)
@@ -30,6 +32,15 @@ function FirstLogin(props) {
     }
   }
 
+  // const [gugun1, setGugun1] = useState("")
+  // const [gugun2, setGugun2] = useState("")
+  // const [gugun3, setGugun3] = useState("")
+
+
+  function onChange(event) {
+    setHeight(event.target.value)
+  }
+
   return (
     <div className="fl">
       <div className="fl__text">
@@ -40,7 +51,7 @@ function FirstLogin(props) {
         <div className="data__container">
           <div className="height__box">
             <label htmlFor="height">키가 어떻게 되시나요?<br/>
-              <input type="text" name="height" id="height__input"/>  cm
+              <input type="text" name="height" id="height__input" onChange={onChange} />  cm
             </label>
           </div>
           <div className="position__box">

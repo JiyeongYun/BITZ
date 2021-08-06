@@ -30,8 +30,11 @@ function Main__Player_Common() {
     }
     if (value.isLogin) {
       UserApi.firstLogin(data,
-        () => {
-          setIsFirstLogin(true)
+        (res) => {
+          console.log(res.status)
+          if (res.status===200){
+            setIsFirstLogin(true)
+          }
         },
         (err) => {
           console.log(err)
