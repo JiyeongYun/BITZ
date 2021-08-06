@@ -1,16 +1,19 @@
 import GymApi from 'api/GymApi';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './RegisterGym.css';
 import { useHistory  } from 'react-router-dom';
+import { store } from 'store/store.js';
 
 //  비즈니스 유저가 체육관 등록하는 페이지
 const RegisterGym = () => {
   const history = useHistory();
+  const globalState = useContext(store);
+  const { value } = globalState;
   
   // 체육관 등록 시 필요 데이터 정의
   const [gymName, setGymName] = useState(null)
   const [desc, setDesc] = useState(null)
-  const [courtLenth, setCourtLenth] = useState(28)
+  const [courtLength, setcourtLength] = useState(28)
   const [courtWidth, setCourtWidth] = useState(15)
   const [address, setAddress] = useState(null)
   const [water, setWater] = useState(false)
@@ -67,8 +70,8 @@ const RegisterGym = () => {
       setGymName(value);
     } else if (name === 'desc') {
       setDesc(value);
-    } else if (name === 'courtLenth') {
-      setCourtLenth(value);
+    } else if (name === 'courtLength') {
+      setcourtLength(value);
     } else if (name === 'courtWidth') {
       setCourtWidth(value);
     } else if (name === "address") {
@@ -78,20 +81,38 @@ const RegisterGym = () => {
 
   // '체육관 등록' 버튼을 누르면 체육관 정보를 백엔드로 보내는 함수
   const registerGym = () => {
-    const formData = new FormData();
-    formData.append('address', address);
-    formData.append('airconditional', airconditioner);
-    formData.append('basketball', basketball);
-    formData.append('courtLenth', courtLenth);
-    formData.append('courtWidth', courtWidth);
-    formData.append('gugun', "마포구");
-    formData.append('name', gymName);
-    formData.append('desc', desc);
-    formData.append('parking', parking);
-    formData.append('scoreboard', scoreboard);
-    formData.append('shower', shower);
-    formData.append('sido', "서울시");
-    formData.append('water', water);
+    // // 파일 데이터 보낼 때 다시 생각하기
+    // const formData = new FormData();
+    // formData.append('address', address);
+    // formData.append('airconditional', airconditioner);
+    // formData.append('businessEmail', value.isLogin);
+    // formData.append('basketball', basketball);
+    // formData.append('courtLength', courtLength);
+    // formData.append('courtWidth', courtWidth);
+    // formData.append('gugun', "마포구");
+    // formData.append('name', gymName);
+    // // formData.append('desc', desc);
+    // formData.append('parking', parking);
+    // formData.append('scoreboard', scoreboard);
+    // formData.append('shower', shower);
+    // formData.append('sido', "서울시");
+    // formData.append('water', water);
+    
+    const formData = {
+      address,
+      airconditional : airconditioner,
+      businessEmail : value.isLogin,
+      basketball,
+      courtLength,
+      courtWidth,
+      gugun: "마포구",
+      name: gymName,
+      parking,
+      scoreboard,
+      sido: "서울시",
+      shower,
+      water,
+    }
     
     GymApi.requestGymRegister(
       formData,
@@ -126,7 +147,7 @@ const RegisterGym = () => {
           <div className="courtsize__box">
             <h4>코트 규격</h4>
             <p>정규 코트 : 28m X 15m</p>
-            <input type="number" name="courtLenth" onChange={onChange} />m<span>X</span>
+            <input type="number" name="courtLength" onChange={onChange} />m<span>X</span>
             <input type="number" name="courtWidth" onChange={onChange} />m
           </div>
           <div className="gymaddress__box">

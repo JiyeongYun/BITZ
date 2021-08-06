@@ -1,7 +1,10 @@
 import React from 'react';
 import './MyGym.css';
+import { useHistory  } from 'react-router-dom';
 
 const MyGym = () => {
+  const history = useHistory();
+
   // 내 체육관 관리하기
   const gym = [
     { name: '싸피체육관', address: '서울시 강남구', width: 15, height: 28 },
@@ -9,7 +12,7 @@ const MyGym = () => {
   ];
 
   const onAddGym = () => {
-    alert('체육관 등록');
+    history.push('/registergym')
   };
 
   return (
