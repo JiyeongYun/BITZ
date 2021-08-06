@@ -103,18 +103,15 @@ public class UserService extends BaseAuthService {
         UserAuth userAuth = getUserAuthByEmail(readAuthRequest.getEmail());
 
         if (userAuth == null) {
-            System.out.println("이메일이 없을 때");
             return null;
         }
 
         if (!passwordEncoder.matches(readAuthRequest.getPassword(), userAuth.getPassword())) {
-            System.out.println("비밀번호가 틀릴 때");
             return null;
         }
 
         return userAuth;
     }
-
     /**
      * Token 생성
      */
@@ -267,11 +264,6 @@ public class UserService extends BaseAuthService {
 
         // 이메일로 객체 찾아오기
         UserAuth userAuth = getUserAuthByEmail(updatePasswordRequest.getEmail());
-
-        // 객체가 없는 경우 null로 return
-        if (userAuth == null) {
-            return null;
-        }
 
         // 전달된 비밀번호가 기존 DB의 비밀번호와 일치하는지 체크
         if (!passwordEncoder.matches(updatePasswordRequest.getPassword(), userAuth.getPassword())) {

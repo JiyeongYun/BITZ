@@ -2,12 +2,18 @@ package com.osds.bitz.service;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
+import com.osds.bitz.model.entity.account.user.UserAuth;
+import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.log.LoginLog;
-import com.osds.bitz.model.network.request.account.*;
+import com.osds.bitz.model.entity.token.RefreshToken;
+import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
+import com.osds.bitz.model.network.request.account.BusinessRequest;
+import com.osds.bitz.model.network.request.account.ReadAuthRequest;
+import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
 import com.osds.bitz.model.network.response.account.BusinessResponse;
-import com.osds.bitz.model.network.response.account.UserResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
+import com.osds.bitz.repository.gym.GymRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 @Slf4j
@@ -29,14 +37,13 @@ public class BusinessService extends BaseAuthService {
     @Autowired
     private BusinessProfileRepository businessProfileRepository;
 
+    @Autowired
+    private GymRepository gymRepository;
+
     /**
      * 회원가입
      */
-    public BusinessAuth createBusiness(BusinessAuthRequest businessAuthRequest) throws IOException {
-
-        // 이메일 중복체크
-        if (this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail()) != null)
-            return null;
+    public void createBusiness(BusinessAuthRequest businessAuthRequest) throws IOException {
 
         // businessId로 설정할 랜덤 값 생성
         String businessAuthId = generateRandomNumber(false);
@@ -73,8 +80,6 @@ public class BusinessService extends BaseAuthService {
 
         BusinessAuth newBusinessAuth = this.businessAuthRepository.save(businessAuth);
         this.businessProfileRepository.save(businessProfile);
-
-        return newBusinessAuth;
     }
 
     /**
@@ -101,38 +106,83 @@ public class BusinessService extends BaseAuthService {
 
         return businessAuth;
     }
+    /**
+     * Token 생성
+     */
+    public String createToken(UserAuth userAuth) {
+
+        // accessToken, refreshToken 생성
+        String accessToken = jwtUtil.createToken(userAuth, "access");
+        String refreshToken = jwtUtil.createToken(userAuth, "refresh");
+
+        RefreshToken token = RefreshToken.builder()
+                .userEmail(userAuth.getEmail())
+                .value(refreshToken)
+                .isGeneral(true)
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        this.refreshTokenRepository.save(token);
+        return accessToken;
+    }
 
     /**
      * 최초 로그인 확인
      */
-    public BusinessAuth readFirstBusinessAuthRequest(ReadAuthRequest readAuthRequest) {
-
-        // 이메일로 로그인 로그 객체 찾아오기
-        LoginLog loginLog = this.loginLogRepository.getLoginLogByEmailAndIsGeneral(readAuthRequest.getEmail(), false);
-
-        if (loginLog == null) {               // 최초 로그인시
-            loginLog = LoginLog.builder()
-                    .email(readAuthRequest.getEmail())
-                    .isGeneral(false)
-                    .build();
-            this.loginLogRepository.save(loginLog);
-            return this.businessAuthRepository.getBusinessAuthByEmail(loginLog.getEmail());
+    public boolean readLoginLog(String email) {
+        // 로그인 로그에 있는 경우 false (최초로그인 X)
+        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, false) != null){
+            return false;
         }
-        return null;
+        // 최초 로그인인 경우
+        return true;
     }
 
     /**
      * 마이페이지 정보 저장
      */
-    public void createProfile(BusinessAuthRequest businessAuthRequest) {
+    public void createProfile(BusinessRequest businessRequest) {
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
 
+        // gym
+        Gym gym = Gym.builder()
+                .businessAuth(businessAuth)
+                .name(businessRequest.getName())
+                .sido("서울특별시")
+                .gugun("강남구")
+                .address(businessRequest.getAddress())
+                .intro(businessRequest.getIntro())
+                .notice(businessRequest.getNotice())
+                .courtLength(businessRequest.getCourtLength())
+                .courtWidth(businessRequest.getCourtWidth())
+                .isParking(businessRequest.isParking())
+                .isShower(businessRequest.isShower())
+                .isAirconditional(businessRequest.isAirconditional())
+                .isWater(businessRequest.isWater())
+                .isBasketball(businessRequest.isBasketball())
+                .isScoreboard(businessRequest.isScoreboard())
+                .build();
+        this.gymRepository.save(gym);
     }
 
     /**
      * 마이페이지 정보 조회
      */
     public BusinessResponse readProfile(String email) {
-        return null;
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(email);
+        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
+        ArrayList<Gym> gymArrayList = this.gymRepository.getGymsByBusinessAuth(businessAuth);
+
+        BusinessResponse businessResponse = BusinessResponse.builder()
+                .email(businessAuth.getEmail())
+                .birth(businessAuth.getBirth())
+                .name(businessProfile.getName())
+                .bank(businessProfile.getBank())
+                .account(businessProfile.getAccount())
+                .gymProfile(gymArrayList)
+                .build();
+
+        return businessResponse;
     }
 
     /**
@@ -151,7 +201,8 @@ public class BusinessService extends BaseAuthService {
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(updatePasswordRequest.getEmail());
 
         // 전달된 비밀번호가 기존 DB의 비밀번호와 일치하는지 체크
-        if (!passwordEncoder.matches(updatePasswordRequest.getPassword(), businessAuth.getPassword())) return null;
+        if (!passwordEncoder.matches(updatePasswordRequest.getPassword(), businessAuth.getPassword()))
+            return null;
 
         // 변경할 비밀번호 설정하기
         businessAuth.setPassword(encodingPassword(updatePasswordRequest.getNewPassword()));
@@ -161,7 +212,7 @@ public class BusinessService extends BaseAuthService {
     /**
      * 비밀번호 찾기
      */
-    public BusinessAuth readPassword(BusinessAuthRequest businessAuthRequest) {
+    public BusinessAuth resetPassword(BusinessAuthRequest businessAuthRequest) {
 
         // 이메일로 객체 찾아오기
         BusinessAuth newBusinessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
@@ -191,9 +242,11 @@ public class BusinessService extends BaseAuthService {
     /**
      * 회원탈퇴
      */
-    public void deleteBusinessAuth(ReadAuthRequest readAuthRequest) {
+    public void deleteBusiness(ReadAuthRequest readAuthRequest) {
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(readAuthRequest.getEmail());
         BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
+
+        // TODO" LoginLog, Gym, GymReview, .. 등등 BusinessAuth의 id가 속한 모든 table 데이터 지우기
 
         this.businessProfileRepository.delete(businessProfile);
         this.businessAuthRepository.delete(businessAuth);

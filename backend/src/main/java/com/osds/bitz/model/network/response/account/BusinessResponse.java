@@ -1,7 +1,7 @@
 package com.osds.bitz.model.network.response.account;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.osds.bitz.model.GymProfile;
+import com.osds.bitz.model.entity.gym.Gym;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class BusinessResponse {
     private String name;
     private String bank;
     private String account;
-    private ArrayList<GymProfile> gymProfile;
+    private ArrayList<Gym> gymProfile;
 }
