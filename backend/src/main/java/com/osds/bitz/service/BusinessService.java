@@ -14,6 +14,7 @@ import com.osds.bitz.model.network.response.account.BusinessResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.gym.GymRepository;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class BusinessService extends BaseAuthService {
 
     @Autowired
     private GymRepository gymRepository;
+
+    @Autowired
+    private GymService gymService;
 
     /**
      * 회원가입
@@ -139,33 +143,6 @@ public class BusinessService extends BaseAuthService {
     }
 
     /**
-     * 마이페이지 정보 저장
-     */
-    public void createProfile(BusinessRequest businessRequest) {
-        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
-
-        // gym
-        Gym gym = Gym.builder()
-                .businessAuth(businessAuth)
-                .name(businessRequest.getName())
-                .sido("서울특별시")
-                .gugun("강남구")
-                .address(businessRequest.getAddress())
-                .intro(businessRequest.getIntro())
-                .notice(businessRequest.getNotice())
-                .courtLength(businessRequest.getCourtLength())
-                .courtWidth(businessRequest.getCourtWidth())
-                .isParking(businessRequest.isParking())
-                .isShower(businessRequest.isShower())
-                .isAirconditional(businessRequest.isAirconditional())
-                .isWater(businessRequest.isWater())
-                .isBasketball(businessRequest.isBasketball())
-                .isScoreboard(businessRequest.isScoreboard())
-                .build();
-        this.gymRepository.save(gym);
-    }
-
-    /**
      * 마이페이지 정보 조회
      */
     public BusinessResponse readProfile(String email) {
@@ -188,8 +165,26 @@ public class BusinessService extends BaseAuthService {
     /**
      * 마이페이지 정보 수정
      */
-    public void updateProfile(BusinessRequest businessRequest) {
+    public void updateProfile(BusinessRequest businessRequest) throws IOException {
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
+        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
 
+        // BusinessAuth
+        businessAuth.builder()
+                .email(businessRequest.getEmail())
+                .birth(businessRequest.getBirth())
+                .build();
+        businessAuthRepository.save(businessAuth);
+
+        // BusinessProfile
+        businessProfile.builder()
+                .name(businessRequest.getName())
+                .phone(businessRequest.getPhone())
+                .bank(businessRequest.getBank())
+                .account(businessRequest.getAccount())
+                .businessRegistration(businessRequest.getBusinessRegistration().getBytes())
+                .build();
+        businessProfileRepository.save(businessProfile);
     }
 
     /**

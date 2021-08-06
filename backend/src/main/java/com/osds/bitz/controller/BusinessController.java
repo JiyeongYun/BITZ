@@ -1,6 +1,7 @@
 package com.osds.bitz.controller;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.account.BusinessRequest;
 import com.osds.bitz.model.network.request.account.ReadAuthRequest;
@@ -60,17 +61,13 @@ public class BusinessController {
         return new ResponseEntity(HttpStatus.OK);                       // 최초로그인인 경우
     }
 
-    @PostMapping("/businessprofile")
-    @ApiOperation(value = "마이페이지 정보 저장", notes = "회원의 마이페이지 정보를 저장합니다.")
-    public ResponseEntity<BusinessAuthResponse> createProfile(@RequestBody @ApiParam(value = "회원 정보") BusinessRequest businessRequest) throws Exception {
-        businessService.createProfile(businessRequest);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
-
     @GetMapping("/businessprofile")
     @ApiOperation(value = "마이페이지 정보 조회", notes = "회원의 마이페이지 정보를 조회합니다.")
-    public ResponseEntity<BusinessResponse> readProfile(@RequestBody @ApiParam(value = "회원 정보") @RequestParam String email) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(businessService.readProfile(email));
+    public ResponseEntity<BusinessResponse> readProfile(@ApiParam(value = "회원 정보") @RequestParam(value="email") String email) throws Exception {
+        BusinessResponse businessResponse = businessService.readProfile(email);
+        if(businessResponse == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.OK).body(businessResponse);
     }
 
     @PutMapping("/businessprofile")
