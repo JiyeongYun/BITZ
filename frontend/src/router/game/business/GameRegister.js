@@ -63,9 +63,7 @@ const GameRegister = () => {
       minPeople: Number(minPeople),
       participationFee: Number(fee),
     }
-
-    console.log(data)
-
+    
     GameApi.registerGame(
       data,
       res => {
