@@ -1,13 +1,17 @@
 import GameApi from 'api/GameApi'
-import React, {useState} from 'react'
+import GymApi from 'api/GymApi'
+import React, {useEffect, useState} from 'react'
 import './GameRegister.css'
 
 const GameRegister = () => {
+  // 오늘 날짜
+  const today = new Date()
+
   // 경기 등록 시 필요 데이터
   const [gymName, setGymName] = useState(null)
-  const [year, setYear] = useState(null)
-  const [month, setMonth] = useState(null)
-  const [date, setDate] = useState(null)
+  const [year, setYear] = useState(today.getFullYear())
+  const [month, setMonth] = useState(today.getMonth()+1)
+  const [date, setDate] = useState(today.getDate())
   const [startHour, setStartHour] = useState(null)
   const [startMinute, setStartMinute] = useState(null)
   const [finishHour, setFinishHour] = useState(null)
@@ -16,7 +20,26 @@ const GameRegister = () => {
   const [minPeople, setMinPeople] = useState(null)
   const [fee, setFee] = useState(null)
 
-  
+  // 체육관 목록
+  const [gymList, setGymList] = useState([])
+
+
+  // 로그인 한 비즈니스 유저의 체육관 표시
+  useEffect(() => {
+    const businessId = JSON.parse(localStorage.getItem('currentUserbusiness')).id
+
+    const data = {businessId,}
+    GymApi.myGymList(
+      data,
+      res => {
+        const {data} = res
+        setGymList(data)
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }, [])
 
   // 입력 데이터 업데이트
   const onChange = (e) => {
@@ -67,7 +90,10 @@ const GameRegister = () => {
     GameApi.registerGame(
       data,
       res => {
-        console.log(res)
+        alert("날짜 : " + year + "." + month_ + "." + date_ +"\n" +
+          "시간 : " + startHour_ + ":" + startMinute_ + " ~ " + finishHour_ + ":" + finishMinute_ + "\n" + 
+          "픽업 게임이 생성되었습니다!"
+        )
       },
       err => {
         console.log(err)
@@ -84,18 +110,20 @@ const GameRegister = () => {
         <div className="gym_select_box">
           <h4>체육관을 선택해주세요</h4>
           <select id="gymName" onChange={onChange}>
-            <option>체육관을 선택해주세요</option>
-            <option>오마이걸 체육관</option>
-            <option>싸피 체육관</option>
+            {gymList.map(gym => {
+              return (
+                <option key={gym.id}>{gym.name}</option>
+              )
+            })}
           </select>
         </div>
         <div className="date_select_box">
           <h4>날짜를 입력해주세요</h4>
-          <input type="text" id="year" onChange={onChange} />
+          <input type="text" id="year" value={year} onChange={onChange} />
           <span>년</span>
-          <input type="text" id="month" onChange={onChange} />
+          <input type="text" id="month" value={month} onChange={onChange} />
           <span>월</span>
-          <input type="text" id="date" onChange={onChange} />
+          <input type="text" id="date" value={date} onChange={onChange} />
           <span>일</span>
         </div>
         <div className="time_select_box">

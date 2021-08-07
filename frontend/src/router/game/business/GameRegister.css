@@ -29,6 +29,8 @@
     border: 1px solid var(--main-color);
     border-radius: 5px;
     background-color: var(--grey-color);
+    text-align: end;
+    padding-right: var(--small-margin-size);
 }
 
 .game__container > div input ~ span {
@@ -37,6 +39,12 @@
 
 .game__container > .gym_select_box > select {
     width: 200px;
+}
+
+.game__container > .gym_select_box > select:focus {
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
 }
 
 .game__container > .time_select_box > .time_container,
@@ -66,4 +74,5 @@
     background-color: var(--main-color);
     color: white;
     margin: 0 auto;
+    cursor: pointer;
 }
