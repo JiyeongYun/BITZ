@@ -12,6 +12,7 @@ import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
+import GameRegister from './router/game/business/GameRegister';
 import { GameStateProvider } from 'store/gameStore.js';
 import { store } from 'store/store';
 
@@ -66,6 +67,7 @@ function App() {
           <Route path="/detail" exact={true} component={Detail} />
         </GameStateProvider>
         <Route path="/match/mygames" exact={true} component={MyGame} />
+        <Route path="/match/register" exact={true} component={GameRegister} />
       </BrowserRouter>
     </div>
   );
