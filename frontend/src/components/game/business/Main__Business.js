@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react"
 import "./Main__Business.css"
 import { store } from 'store/store.js'
 import gameManageListDummy from "store/gameManageListDummy";
+import {Link} from 'react-router-dom'
 
-function Main__Business () {
+function Main__Business ({history}) {
   // Global State Managemnet
   const globalState = useContext(store);
   const { value, dispatch } = globalState;
@@ -37,6 +38,9 @@ function Main__Business () {
     setProcessedData(dataBox)
   },[gameManagementList])
 
+  // 게임 등록 페이지 이동
+  console.log("1", history)
+
   return (
     <div className="MainBusiness">
       <div>
@@ -50,7 +54,7 @@ function Main__Business () {
               |
             </div>
             <div>
-              게임 추가하기
+              <Link to="/match/register">픽업 게임 등록하기</Link>
             </div>
           </div>
         </div>
