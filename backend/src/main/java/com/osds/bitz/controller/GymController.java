@@ -2,6 +2,7 @@ package com.osds.bitz.controller;
 
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.network.request.gym.GymRequest;
+import com.osds.bitz.model.network.request.gym.GymUpdateRequest;
 import com.osds.bitz.model.network.response.gym.GymResponse;
 import com.osds.bitz.service.GymService;
 import io.swagger.annotations.Api;
@@ -36,14 +37,10 @@ public class GymController {
 
     @DeleteMapping("/gym")
     @ApiOperation(value = "체육관 삭제", notes = "체육관을 DB에서 삭제합니다.")
-    public ResponseEntity deleteGym(@RequestBody Map<String,String> body) {
-        try {
-            String businessId = body.get("businessId");
-            Long gymId = Long.parseLong(body.get("gymId"));
-            gymService.deleteGym(gymId, businessId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity deleteGym(@RequestBody Map<String, String> body) {
+        String businessId = body.get("businessId");
+        Long gymId = Long.parseLong(body.get("gymId"));
+        gymService.deleteGym(gymId, businessId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -64,9 +61,9 @@ public class GymController {
     @Transactional(readOnly = true)
     @PutMapping("/gym")
     @ApiOperation(value = "체육관 업데이트", notes = "체육관을 DB에 업데이트합니다.")
-    public ResponseEntity<Gym> updateGym(@RequestBody GymRequest gymRequest) {
-        Gym gym = gymService.updateGym(gymRequest);
-        return new ResponseEntity<Gym>(gym,HttpStatus.OK);
+    public ResponseEntity<Gym> updateGym(@RequestBody GymUpdateRequest gymUpdateRequest) {
+        Gym gym = gymService.updateGym(gymUpdateRequest);
+        return new ResponseEntity<Gym>(gym, HttpStatus.OK);
     }
 
 }

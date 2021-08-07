@@ -1,7 +1,10 @@
 package com.osds.bitz.model.entity.gym;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
