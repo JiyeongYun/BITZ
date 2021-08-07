@@ -16,6 +16,8 @@ const GameRegister = () => {
   const [minPeople, setMinPeople] = useState(null)
   const [fee, setFee] = useState(null)
 
+  
+
   // 입력 데이터 업데이트
   const onChange = (e) => {
     const {target:{value, id}} = e
@@ -46,8 +48,8 @@ const GameRegister = () => {
 
   // 픽업 게임 백엔드 등록
   const registerGame = () => {
-    const month_ = month < 10 ? "0"+String(month) : month
-    const date_ = date < 10 ? "0"+String(date) : date
+    const month_ = String(month).length < 2 ? "0"+String(month) : month
+    const date_ = String(date).length < 2 ? "0"+String(date) : date
     const startHour_ = String(startHour).length < 2 ? "0"+String(startHour) : String(startHour)
     const startMinute_ = String(startMinute).length < 2 ? "0"+String(startMinute) : String(startMinute)
     const finishHour_ = String(finishHour).length < 2 ? "0"+String(finishHour) : String(finishHour)
@@ -59,8 +61,10 @@ const GameRegister = () => {
       endTime: finishHour_ + ":" + finishMinute_ + ":00",
       maxPeople: Number(maxPeople),
       minPeople: Number(minPeople),
-      participationFee: Number(fee)
+      participationFee: Number(fee),
     }
+
+    console.log(data)
 
     GameApi.registerGame(
       data,
