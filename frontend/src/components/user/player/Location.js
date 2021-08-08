@@ -31,7 +31,7 @@ const Location = (props) => {
       selects.forEach(select => select.disabled = false)
     }
   })
-
+  
   return (
     <div>
       <select className="sido_select" onChange={onChangeSido}>

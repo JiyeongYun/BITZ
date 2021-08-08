@@ -22,10 +22,14 @@
   font-weight: bold;
 }
 
-.user__profile > #email {
-  margin-bottom: var(--main-margin-size);;
+.user__profile > #email,
+.user__profile > #birth {
   font-size: var(--mid-font-size);
   color: var(--main-color);
+}
+
+.user__profile > #birth {
+  margin-bottom: var(--main-margin-size);;
 }
 
 .left_right_profile {
