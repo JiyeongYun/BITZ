@@ -9,15 +9,20 @@ function FirstLogin(props) {
   const globalState = useContext(store)
   const { value: { isLogin}} = globalState
 
-
+  // State 값
   const [guardChecked, setGuardChecked] = useState(false)
   const [forwardChecked, setForwardChecked] = useState(false)
   const [centerChecked, setCenterChecked] = useState(false)
   const [lowChecked, setLowChecked] = useState(false)
   const [midChecked, setMidChecked] = useState(false)
   const [topChecked, setTopChecked] = useState(false)
-
   const [height, setHeight] = useState("")
+  const [sido1, setSido1] = useState(null)
+  const [sido2, setSido2] = useState(null)
+  const [sido3, setSido3] = useState(null)
+  const [gugun1, setGugun1] = useState(null)
+  const [gugun2, setGugun2] = useState(null)
+  const [gugun3, setGugun3] = useState(null)
 
   function setAbility(e) {
     if (e.target.id === 'low' && lowChecked === false) {
@@ -56,6 +61,12 @@ function FirstLogin(props) {
       forward: forwardChecked,
       center: centerChecked,
       email: isLogin,
+      sido1,
+      sido2,
+      sido3,
+      gugun1,
+      gugun2,
+      gugun3,
     }
     UserApi.firstLoginData(
       data,
@@ -64,7 +75,7 @@ function FirstLogin(props) {
         props.firstLoginData()
       },
       err => {
-        alert("키와 포지션을 입력해주세요!")
+        alert("키와 포지션은 필수값입니다!")
       }
     )
   }
@@ -106,9 +117,18 @@ function FirstLogin(props) {
             <div>선호 지역이 있으신가요?</div>
             <div>최대 3개 선택 가능</div>
             <div className="location__data">
-              <Location/>
-              <Location/>
-              <Location/>
+              <div>
+                <span>1 지망</span>
+                <Location setSido={setSido1} setGugun={setGugun1}/>
+              </div>
+              <div>
+                <span>2 지망</span>
+                <Location setSido={setSido2} setGugun={setGugun2}/>
+              </div>
+              <div>
+                <span>3 지망</span>
+                <Location setSido={setSido3} setGugun={setGugun3}/>
+              </div>
             </div>
           </div>
           <button onClick={requestFirstLogin}>픽업 게임 하러가기</button>
