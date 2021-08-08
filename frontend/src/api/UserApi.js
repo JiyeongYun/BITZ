@@ -83,6 +83,17 @@ const firstLogin = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// KOW - 신장, 포지션, 실력, 선호 지역 데이터 저장
+const firstLoginData = (data, callback, errorCallback) => {
+  axios({
+    method: 'POST',
+    url: BASE_URL + '/account/user/userprofile',
+    data: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -91,6 +102,7 @@ const UserApi = {
   firstLogin: (data, callback, errorCallback) => firstLogin(data, callback, errorCallback),
   requestBusinessJoin: (data, headers, callback, errorCallback) => requestBusinessJoin(data, headers, callback, errorCallback),
   requestBusinessLogin: (data, headers, callback, errorCallback) => requestBusinessLogin(data, headers, callback, errorCallback),
+  firstLoginData: (data, headers, callback, errorCallback) => firstLoginData(data, headers, callback, errorCallback),
 };
 
 export default UserApi;

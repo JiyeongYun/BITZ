@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import UserApi from 'api/UserApi'
+import React, { useContext, useState } from 'react'
 import './FirstLogin.css'
 import Location from "./Location"
+import { store } from "store/store.js"
 
 function FirstLogin(props) {
+  // 전역 변수
+  const globalState = useContext(store)
+  const { value: { isLogin}} = globalState
+
+
   const [guardChecked, setGuardChecked] = useState(false)
   const [forwardChecked, setForwardChecked] = useState(false)
   const [centerChecked, setCenterChecked] = useState(false)
@@ -39,6 +46,27 @@ function FirstLogin(props) {
 
   function onChange(event) {
     setHeight(event.target.value)
+  }
+
+  // 백엔드와 연결
+  const requestFirstLogin = () => {
+    const data = {
+      height,
+      guard: guardChecked,
+      forward: forwardChecked,
+      center: centerChecked,
+      email: isLogin,
+    }
+    UserApi.firstLoginData(
+      data,
+      res => {
+        alert("BITZ와 함께 농구에 미쳐보세요!")
+        props.firstLoginData()
+      },
+      err => {
+        alert("키와 포지션을 입력해주세요!")
+      }
+    )
   }
 
   return (
@@ -83,7 +111,7 @@ function FirstLogin(props) {
               <Location/>
             </div>
           </div>
-          <button onClick={props.firstLoginData}>픽업 게임 하러가기</button>
+          <button onClick={requestFirstLogin}>픽업 게임 하러가기</button>
         </div>
       </div>
     </div>
