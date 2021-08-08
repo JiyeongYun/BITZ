@@ -44,7 +44,7 @@ const Location = (props) => {
       </select>
       <select onChange={onChangeGugun}>
         <option>세부 지역</option>
-        {location.gugun.[sido] ? location.gugun[sido].map((t,idx) => {
+        {location.gugun[sido] ? location.gugun[sido].map((t,idx) => {
           return (
             <option key={idx+100}>{t}</option>
           )
