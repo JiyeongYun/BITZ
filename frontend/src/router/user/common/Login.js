@@ -46,7 +46,6 @@ function Login({ history }) {
           history.push('/')
         },
         (error) => {
-          alert(error);
           alert('아이디나 비밀번호를 확인해주세요.');
         }
       );
@@ -60,7 +59,6 @@ function Login({ history }) {
           history.push('/')
         },
         (error) => {
-          alert(error);
           alert('아이디나 비밀번호를 확인해주세요.');
         }
       );

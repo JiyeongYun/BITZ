@@ -5,3 +5,7 @@ select {
     border-radius: 5px;
     background-color: var(--grey-color);
 }
+
+.sido_select {
+    margin: 0 var(--main-margin-size);
+}
