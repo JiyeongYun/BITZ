@@ -1,123 +1,142 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './MyInfo.css';
 import Location from '../Location';
+import UserApi from 'api/UserApi';
 
-const MyInfo = ({ userObj }) => {
-  // 내 정보를 보여주는 컴포넌트 (신장, 포지션, 선호지역 )
-  const [height, setHeight] = useState('');
-  const [isClickPos, setIsClickPos] = useState(false)
-  const [locationUpdate, setLocationUpdate] = useState(true)
+const MyInfo = ({ userObj, userData, setUserData }) => {
+  const [isUpdate, setIsUpdate] = useState(false);
 
-  // height 수정 하기 위한 변수
-  const heightRef = useRef(null)
-  const selectedPosition = ['guard'];
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    const {
-      target: { name },
-    } = event;
-    if (name === 'heightForm') {
-      // 신장 수정 후 submit
-      heightRef.current.disabled = !heightRef.current.disabled
+  // 포지션 클릭 시 값 변경
+  const onClick = (e) => {
+    const {target: {id}} = e
+    if (id === 'guard') {
+      setUserData({...userData, guard:!userData.guard})
+    } else if (id === 'forward') {
+      setUserData({...userData, forward:!userData.forward})
+    } else if (id === 'center') {
+      setUserData({...userData, center:!userData.center})
     }
-    if (name === 'positionForm') {
-      setIsClickPos(!isClickPos)
-      // 포지션 수정 후 submit
-      // selectedPosition.map((object) => {
-      //   alert(object);
-      // });
-    }
-  };
-
-  const onChange = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-
-    if (name === 'height') {
-      // 신장 input 변화 시
-      setHeight(value);
-    }
-    if (name === 'position') {
-      // 포지션 check 변화 시
-      if (event.target.checked) {
-        selectedPosition.push(value);
-      } else {
-        const idx = selectedPosition.indexOf(value);
-        selectedPosition.splice(idx, idx + 1);
-      }
-    }
-  };
-
-  const addPosition = (e) => {
-    if (selectedPosition.includes(e.target.id)) {
-      const idx = selectedPosition.indexOf(e.target.id)
-      selectedPosition.splice(idx, 1)
-    } else {
-      selectedPosition.push(e.target.id)
-    }
-    checked(e)
   }
 
-  const checked = (t) => {
-    if (t.target.className) {
-      t.target.className = ""
-    } else {
-      t.target.className ="checked"
+  // 버튼 클릭 시
+  const onClickBtn = () => {
+    if (isUpdate) {
+      // 수정된 값으로 DB 변경
+      UserApi.UpdateMyProfile(
+        userData,
+        res => {alert("수정되었습니다.")},
+        err => {console.log(err)}
+      )
     }
+    setIsUpdate(!isUpdate)
+  }
+
+  // 번호 및 신장 정보 변경
+  const onChange = (e) => {
+    if (e.target.name === 'height'){
+      setUserData({...userData, height:e.target.value})
+    } else if (e.target.name === 'phone') {
+      setUserData({...userData, phone:e.target.value})
+    }
+  }
+
+  // 선호 지역 변경
+  const setSido1 = (value) => {
+    setUserData({...userData, sido1:value})
+  }
+  const setSido2 = (value) => {
+    setUserData({...userData, sido2:value})
+  }
+  const setSido3 = (value) => {
+    setUserData({...userData, sido3:value})
+  }
+  const setGugun1 = (value) => {
+    setUserData({...userData, gugun1:value})
+  }
+  const setGugun2 = (value) => {
+    setUserData({...userData, gugun2:value})
+  }
+  const setGugun3 = (value) => {
+    setUserData({...userData, gugun3:value})
   }
 
   return (
     <div className="MyInfo">
       <h2>내 정보</h2>
+      <div className="phone">
+        <p>핸드폰 번호</p>
+        <form className="phoneForm" name="phoneForm">
+          <input type="text" name="phone" disabled={isUpdate?false:true} onChange={onChange} value={userData.phone?userData.phone : ""} />
+        </form>
+      </div>
       <div className="height">
         <p>신장</p>
-        <form className="heightForm" onSubmit={onSubmit} name="heightForm">
-          <input ref={heightRef} type="text" name="height" disabled onChange={onChange} value={height} /><span>cm</span><br/>
-          <button className="btn__update">수정</button>
+        <form className="heightForm" name="heightForm">
+          <input type="text" name="height" disabled={isUpdate?false:true} onChange={onChange} value={userData.height?userData.height : ""} /><span>cm</span>
         </form>
       </div>
       <div className="position">
         <p>포지션</p>
-        <form className="positionForm" onSubmit={onSubmit} name="positionForm">
-          <input
-            type="checkbox"
-            name="position"
-            value="foward"
-            className="position__check"
-          />
-          <span id="guard" className={isClickPos ? 'checked' : 'checked noclick'} onClick={addPosition}>가드</span>
-          <input
-            type="checkbox"
-            name="position"
-            value="center"
-            className="position__check"
-          />
-          <span id="forward" className={isClickPos ? null : 'noclick'} onClick={addPosition}>포워드</span>
+        <form className="positionForm" name="positionForm">
           <input
             type="checkbox"
             name="position"
             value="guard"
             className="position__check"
           />
-          <span id="center" className={isClickPos ? null : 'noclick'} onClick={addPosition}>센터</span><br/>
-          <button className="btn__update">수정</button>
+          <span id="guard" onClick={isUpdate? onClick: undefined} className={userData.guard ? 'checked' : ''} >가드</span>
+          <input
+            type="checkbox"
+            name="position"
+            value="forward"
+            className="position__check"
+          />
+          <span id="forward" onClick={isUpdate? onClick: undefined} className={userData.forward ? 'checked' : ''} >포워드</span>
+          <input
+            type="checkbox"
+            name="position"
+            value="center"
+            className="position__check"
+          />
+          <span id="center" onClick={isUpdate? onClick: undefined} className={userData.center ? 'checked' : ''} >센터</span>
         </form>
       </div>
       <div className="location">
         <p>선호지역</p>
         <div className="location__box">
-          <Location locationUpdate={locationUpdate} />
-          <Location locationUpdate={locationUpdate} />
-          <Location locationUpdate={locationUpdate} />
+          <div>
+            <p>1 지망</p>
+            {isUpdate? 
+              <Location setSido={setSido1} setGugun={setGugun1}/> :
+              <div>
+                <p>{userData.sido1}</p>
+                <p>{userData.gugun1}</p>
+              </div>
+            }
+          </div>
+          <div>
+            <p>2 지망</p>
+            {isUpdate? 
+              <Location setSido={setSido2} setGugun={setGugun2}/> :
+              <div>
+                <p>{userData.sido2}</p>
+                <p>{userData.gugun2}</p>
+              </div>
+            }
+          </div>
+          <div>
+            <p>3 지망</p>
+            {isUpdate? 
+              <Location setSido={setSido3} setGugun={setGugun3}/> :
+              <div>
+                <p>{userData.sido3}</p>
+                <p>{userData.gugun3}</p>
+              </div>
+            }
+          </div>
         </div>
-        <button className="btn__update" onClick={() => {
-          setLocationUpdate(!locationUpdate)
-        }}>수정</button>
       </div>
-      <button className="save__btn">저장</button>
+      <button className="save__btn" onClick={onClickBtn}>{isUpdate? '저장':'수정'}</button>
     </div>
   );
 };

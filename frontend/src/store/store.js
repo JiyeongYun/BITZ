@@ -17,6 +17,13 @@ const store = createContext(initialState);
 // Store - (3) 위의 Context와 관련된 Provider 생성 : Index.js 용도 (모든 컴포넌트에서 Store 접근 가능하게 만드는 역할)
 const {Provider} = store;
 
+// LocalStorage 에서 로그인 정보 가져오기
+const player = localStorage.getItem('currentUser')
+const business = localStorage.getItem('currentUserbusiness')
+if (player) {initialState.isLogin = JSON.parse(player).email}
+else if (business) {initialState.isLogin = JSON.parse(business).email}
+
+
 // Store - (4) 위에서 만든 Provider를 Return하는 React Component : React 관련 내용물은 항상 React Component 형식이 필요
 const StateProvider = ({children}) => {
   // Store - (5) useReducer를 사용해 value와 value를 업데이트하는 dispatch 생성 *****

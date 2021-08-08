@@ -94,6 +94,28 @@ const firstLoginData = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// KOW - 마이 페이지 정보 조회
+const myprofile = (data, callback, errorCallback) => {
+  axios({
+    method: 'get',
+    url: BASE_URL + '/account/user/userprofile',
+    params: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
+// KOW - 마이 페이지 정보 수정
+const UpdateMyProfile = (data, callback, errorCallback) => {
+  axios({
+    method: 'PUT',
+    url: BASE_URL + '/account/user/userprofile',
+    data: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -103,6 +125,8 @@ const UserApi = {
   requestBusinessJoin: (data, headers, callback, errorCallback) => requestBusinessJoin(data, headers, callback, errorCallback),
   requestBusinessLogin: (data, headers, callback, errorCallback) => requestBusinessLogin(data, headers, callback, errorCallback),
   firstLoginData: (data, headers, callback, errorCallback) => firstLoginData(data, headers, callback, errorCallback),
+  myprofile: (data, headers, callback, errorCallback) => myprofile(data, headers, callback, errorCallback),
+  UpdateMyProfile: (data, headers, callback, errorCallback) => UpdateMyProfile(data, headers, callback, errorCallback),
 };
 
 export default UserApi;
