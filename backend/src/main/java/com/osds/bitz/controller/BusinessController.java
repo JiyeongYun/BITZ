@@ -82,7 +82,7 @@ public class BusinessController {
     public ResponseEntity<BusinessAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
         BusinessAuth businessAuth = businessService.updatePassword(updatePasswordRequest);
         if(businessAuth == null)
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
         return new ResponseEntity(HttpStatus.OK);
     }
 

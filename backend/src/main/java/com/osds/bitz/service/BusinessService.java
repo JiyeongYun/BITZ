@@ -4,7 +4,6 @@ import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.gym.Gym;
-import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.account.BusinessRequest;
@@ -14,7 +13,6 @@ import com.osds.bitz.model.network.response.account.BusinessResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.gym.GymRepository;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +38,6 @@ public class BusinessService extends BaseAuthService {
 
     @Autowired
     private GymRepository gymRepository;
-
-    @Autowired
-    private GymService gymService;
 
     /**
      * 회원가입
@@ -110,6 +105,7 @@ public class BusinessService extends BaseAuthService {
 
         return businessAuth;
     }
+
     /**
      * Token 생성
      */
@@ -135,13 +131,13 @@ public class BusinessService extends BaseAuthService {
      */
     public boolean readLoginLog(String email) {
         // 로그인 로그에 있는 경우 false (최초로그인 X)
-        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, false) != null){
+        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, false) != null) {
             return false;
         }
         // 최초 로그인인 경우
         return true;
     }
-  
+
 
     /**
      * 마이페이지 정보 조회
@@ -213,8 +209,9 @@ public class BusinessService extends BaseAuthService {
         // 이메일로 객체 찾아오기
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
 
-        if(businessAuth == null) return null;
-        log.info("{}",businessAuth);
+        if (businessAuth == null)
+            return null;
+
         // 임시 비밀번호 생성 및 메일 전송
         String tempPassword = generateRandomNumber();
         try {
