@@ -26,17 +26,30 @@ const Profile = ({ history }) => {
 
   // 유저 정보를 DB에서 가져오기
   useEffect(() => {
-    const params = {email:value.isLogin}
-    UserApi.myprofile(
-      params,
-      res => {
-        setUserData(res.data)
-      },
-      err => {
-        console.log(err)
-      }
-    )
-  }, [value.isLogin])
+    if (userKind === 'player') {
+      const params = {email:value.isLogin}
+      UserApi.myprofile(
+        params,
+        res => {
+          setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    } else if (userKind === 'business') {
+      const params = {email:value.isLogin}
+      UserApi.BusMyProfile(
+        params,
+        res => {
+          setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+  }, [value.isLogin, userKind])
 
   return (
     <div className="profile__div">
@@ -57,12 +70,10 @@ const Profile = ({ history }) => {
       {userKind==="business" && (
         <>
           <div className="businessAccount">
-            계좌번호 : 국민은행
-            <br />
-            계좌번호 : 349401-04-269363
-            <br />
+            <p>은행 : {userData.bank}</p>
+            <p>계좌 번호 : {userData.account}</p>
           </div>
-          <MyGym />
+          <MyGym gyminfo={userData.gymProfile}/>
         </>
       )}
       {/* <hr/> */}
