@@ -13,6 +13,8 @@ public interface GameParticipantRepository extends JpaRepository<GameParticipant
 
     ArrayList<GameParticipant> getGameParticipantsByGameId(long gameId); // gameID로 참가자들 목록 받아내기
 
+    ArrayList<GameParticipant> getGameParticipantsByGameIdAndTeam(long gameId, int team);
+
     GameParticipant getGameParticipantByUserId(UserAuth userAuth);
 
     @Transactional
