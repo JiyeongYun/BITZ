@@ -73,18 +73,20 @@ public class GameController {
     @PostMapping("/game/reserve")
     @ApiOperation(value = "게임 예약", notes = "사용자가 픽업게임을 예약합니다")
     public ResponseEntity reserveGame(@RequestBody Map<String, String> requestBody) {
-        String userId = requestBody.get("userId");
+        String userId = requestBody.get("userEmail");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
         gameService.reserveGame(userId, gameId);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/game/reserve")
     @ApiOperation(value = "입금 완료 요청", notes = "사용자의 픽업게임 예약상태를 입금으로 변경합니다.")
     public ResponseEntity payGame(@RequestBody Map<String, String> requestBody) {
-        String userId = requestBody.get("userId");
+        String userId = requestBody.get("userEmail");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
         gameService.payGame(userId, gameId);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 
