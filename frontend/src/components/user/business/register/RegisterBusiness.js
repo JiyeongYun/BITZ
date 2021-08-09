@@ -149,8 +149,27 @@ function RegisterBusiness({history}) {
 
   // PJW - 이메일 중복 체크
   const onEmailCheck = () => {
-    alert('이메일 중복 확인');
-    setDuplicationCheck({ ...duplicationCheck, emailCheck: true });
+    const data = {
+      email: values.email,
+      account: "",
+      bank: "",
+      birth: "",
+      name: "",
+      password: "",
+      phone: "",
+    }
+    UserApi.BusEmailCheck(
+      data,
+      res => {
+        alert('사용 가능한 이메일 입니다.');
+        setDuplicationCheck({ ...duplicationCheck, emailCheck: true });
+      },
+      err => {
+        if (err.response.status === 404 ) {
+          alert('이미 사용 중인 이메일입니다.')
+        } else console.log(err)
+      }
+    )
   }; // onEmailCheck End
 
   // PJW - 파일 업로드

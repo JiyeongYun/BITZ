@@ -149,6 +149,17 @@ const NicknameCheck = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// KOW - 이메일 중복 체크
+const BusEmailCheck = (data, callback, errorCallback) => {
+  axios({
+    method: 'POST',
+    url: BASE_URL + '/account/business/businessauth/email',
+    data: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -163,6 +174,7 @@ const UserApi = {
   busFirstLogin: (data, headers, callback, errorCallback) => busFirstLogin(data, headers, callback, errorCallback),
   EmailCheck: (data, callback, errorCallback) => EmailCheck(data, callback, errorCallback),
   NicknameCheck: (data, callback, errorCallback) => NicknameCheck(data, callback, errorCallback),
+  BusEmailCheck: (data, callback, errorCallback) => BusEmailCheck(data, callback, errorCallback),
 };
 
 export default UserApi;
