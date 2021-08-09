@@ -66,3 +66,24 @@
   position: absolute;
   left: 68.5vw;
 }
+
+@media screen and (max-width:1024px) {
+  .main__dateCarousel__Carousel {
+    width: 80vw;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .main__dateCarousel__element {
+    font-size: var(--small-font-size);
+  }
+
+  .carouselArrow__left {
+    left: 0;
+  }
+  
+  .carouselArrow__right {
+    left: 78.5vw;
+  }
+  
+}

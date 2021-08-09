@@ -1,7 +1,7 @@
 import React from 'react'
 import './OffCanvas.css'
 
-function OffCanvas(){
+function OffCanvas({toggleCanvas}){
     return (
     <div>
       <img className="offcanvas__logo" src="/images/logo.png" alt="symbol" />
@@ -13,6 +13,8 @@ function OffCanvas(){
         <p>문의 사항</p>
         <div className="line"></div>
         <p>자유 게시판</p>
+        <div className="line"></div>
+        <p onClick={toggleCanvas}>닫기</p>
       </div>
     </div>
     )

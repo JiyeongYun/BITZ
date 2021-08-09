@@ -7,12 +7,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70vw;
+  width: 100%;
   position: relative;
 }
 
 .gameList__game {
-  width: 70vw;
+  width: 100%;
 }
 
 .gameList__content {
@@ -21,14 +21,17 @@
   align-items: center;
   height: 100px
 }
-
 .gameList__game__Time {
   font-size: var(--mid-font-size);
   padding: var(--main-margin-size);
 }
 
-.gameList__end {
-  margin-left: var(--mid-margin-size);
+.gameList__game__Time > .gameList__start {
+  text-align: center;
+}
+
+.gameList__game__Time > .gameList__end {
+  text-align: end;
 }
 
 .gameList__game__name {
@@ -70,7 +73,6 @@
   display: inline-block;
   width: 10vw;
   height: var(--btn-height);
-  height: var(--btn-height);
   margin-right: var(--main-margin-size);
   padding: 5px 0;
   border: none;
@@ -81,4 +83,45 @@
   background: var(--main-color);
   color: white;
   cursor: pointer;
+}
+
+@media screen and (max-width:1024px) {
+  .main__gameList {
+    width: 80vw;
+  }
+  
+  .gameList__content {
+    height: 70px
+  }
+  
+  .gameList__game__Time {
+    font-size: var(--small-font-size);
+  }
+  
+  .gameList__game__info {
+    font-size: var(--small-font-size);
+  }
+  
+  .gameList__game__name {
+    font-size: var(--main-font-size);
+    font-weight: bold;
+    margin-bottom: var(--small-margin-size);
+  }
+  
+  .gameList__game__info > .gameList__game__location > span {
+    display: none;
+  }
+  
+  .gameList__game__facilities {
+    display: none;
+  }
+  
+  .gameList__state__button {
+    display: inline-block;
+    width: 30px;
+    height: 60px;
+    line-height: 25px;
+    padding: 0 1px;
+    font-size: var(--small-font-size);
+  }
 }
