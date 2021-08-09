@@ -8,6 +8,7 @@ import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.game.GameRecord;
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.gym.GymReview;
+import com.osds.bitz.model.enumclass.UserState;
 import com.osds.bitz.model.network.request.RecordRequest;
 import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
@@ -139,15 +140,15 @@ public class GameService {
     /**
      * 게임 예약
      */
-    public void reserveGame(String userId, Long gameId) {
-        UserAuth userAuth = userAuthRepository.getById(userId);
+    public void reserveGame(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
         GameParticipant newGameParticipant =
                 new GameParticipant().builder()
                         .userId(userAuth)
                         .gameId(gameId)
                         .team(0)
-//                        .state() // 대기중 상태
+                        .state(UserState.ON_DEPOSIT)
                         .build();
 
         gameParticipantRepository.save(newGameParticipant);
@@ -156,14 +157,17 @@ public class GameService {
     /**
      * 입금 완료 요청
      */
-    public void payGame(String userId, Long gameId) {
-        UserAuth userAuth = userAuthRepository.getById(userId);
-        GameParticipant gameParticipant = gameParticipantRepository.getGameParticipantByUserId(userAuth);
+    public void payGame(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
-        GameParticipant updateGameParticipant = gameParticipantRepository.getById(gameParticipant.getId());
+        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserIdAndGameId(userAuth, gameId);
 
-        updateGameParticipant.builder()
-//                .state()  // 입금 상태
+        updateGameParticipant = updateGameParticipant.builder()
+                .id(updateGameParticipant.getId())
+                .gameId(gameId)
+                .userId(userAuth)
+                .state(UserState.WAITING)
+                .team(updateGameParticipant.getTeam())
                 .build();
 
         gameParticipantRepository.save(updateGameParticipant);
@@ -205,7 +209,7 @@ public class GameService {
 
     // 한 게임에서 한 팀의 인원들 반환
     public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId,team);
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, team);
         return result;
     }
 
