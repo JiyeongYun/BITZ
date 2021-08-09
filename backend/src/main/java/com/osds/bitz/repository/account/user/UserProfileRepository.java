@@ -5,6 +5,7 @@ import com.osds.bitz.model.entity.account.user.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
+    UserProfile getUserProfileById(Long id);
     UserProfile getUserProfileByNickname(String nickname);
     UserProfile getUserProfileByUserAuth(UserAuth userAuth);
 }
