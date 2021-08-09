@@ -80,7 +80,7 @@ public class GameController {
     }
 
     @PutMapping("/game/reserve")
-    @ApiOperation(value = "게임 입금", notes = "사용자의 픽업게임 예약상태를 입금으로 변경합니다.")
+    @ApiOperation(value = "입금 완료 요청", notes = "사용자의 픽업게임 예약상태를 입금으로 변경합니다.")
     public ResponseEntity payGame(@RequestBody Map<String, String> requestBody) {
         String userId = requestBody.get("userId");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
@@ -89,8 +89,8 @@ public class GameController {
     }
 
     @PostMapping("/gamerecord")
-    @ApiOperation(value = "경기 기록 저장", notes = "경기 기록을 저장합니다.")
-    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "리뷰 정보") RecordRequest recordRequest) throws Exception {
+    @ApiOperation(value = "게임 점수 기록", notes = "경기 기록을 저장합니다.")
+    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "기록 정보") RecordRequest recordRequest) throws Exception {
         gameService.createRecord(recordRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
