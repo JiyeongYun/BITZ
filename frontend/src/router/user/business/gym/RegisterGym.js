@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import './RegisterGym.css';
 import { useHistory  } from 'react-router-dom';
 import { store } from 'store/store.js';
+import { locations } from 'store/location.js'
 
 //  비즈니스 유저가 체육관 등록하는 페이지
 const RegisterGym = () => {
@@ -10,9 +11,13 @@ const RegisterGym = () => {
   const globalState = useContext(store);
   const { value } = globalState;
   
+  // 지역 정보
+  const location = useContext(locations)
+  
   // 체육관 등록 시 필요 데이터 정의
   const [gymName, setGymName] = useState(null)
-  const [desc, setDesc] = useState(null)
+  const [intro, setIntro] = useState(null)
+  const [notice, setNotice] = useState(null)
   const [courtLength, setcourtLength] = useState(28)
   const [courtWidth, setCourtWidth] = useState(15)
   const [address, setAddress] = useState(null)
@@ -23,6 +28,8 @@ const RegisterGym = () => {
   const [basketball, setBasketball] = useState(false)
   const [airconditioner, setAirconditioner] = useState(false)
   const [pictures, setPictures] = useState([])
+  const [sido, setSido] = useState('서울')
+  const [gugun, setGugun] = useState(null)
   
   const onAddGymPhoto = (event) => {
     const newPictures = pictures;
@@ -68,14 +75,20 @@ const RegisterGym = () => {
 
     if (name === 'name') {
       setGymName(value);
-    } else if (name === 'desc') {
-      setDesc(value);
+    } else if (name === 'intro') {
+      setIntro(value);
+    } else if (name === 'notice') {
+      setNotice(value);
     } else if (name === 'courtLength') {
       setcourtLength(value);
     } else if (name === 'courtWidth') {
       setCourtWidth(value);
     } else if (name === "address") {
       setAddress(value)
+    } else if (name === "sido") {
+      setSido(value)
+    } else if (name === "gugun") {
+      setGugun(value)
     }
   };
 
@@ -105,14 +118,17 @@ const RegisterGym = () => {
       basketball,
       courtLength,
       courtWidth,
-      gugun: "마포구",
+      gugun,
       name: gymName,
       parking,
       scoreboard,
-      sido: "서울시",
+      sido,
       shower,
       water,
+      intro,
+      notice,
     }
+    console.log('register')
     
     GymApi.requestGymRegister(
       formData,
@@ -120,12 +136,11 @@ const RegisterGym = () => {
         'content-type': 'multipart/form-data',
       }, 
       res => {
-        console.log(res)
         alert("체육관이 등록되었습니다!")
         history.push("/")
       },
       err => {
-        console.log(err)
+        console.log('에러발생', err)
       }
     );    
   }
@@ -141,8 +156,12 @@ const RegisterGym = () => {
             <input type="text" name="name" onChange={onChange} />
           </div>
           <div className="gymIntro__box">
-            <h4>체육관 소개 및 유의 사항</h4>
-            <textarea name="desc" onChange={onChange} />
+            <h4>체육관 소개</h4>
+            <textarea name="intro" onChange={onChange} />
+          </div>
+          <div className="gymNotice__box">
+            <h4>주의 사항</h4>
+            <textarea name="notice" onChange={onChange} />
           </div>
           <div className="courtsize__box">
             <h4>코트 규격</h4>
@@ -152,8 +171,30 @@ const RegisterGym = () => {
           </div>
           <div className="gymaddress__box">
             <h4>위치</h4>
-            <input type="text" name="address" onChange={onChange} />
-            {/* <button onClick={onSearchAddress}>주소 검색</button> */}
+            <div className="gymaddress">
+              <div>
+                <p>지역</p>
+                <select name="sido" onChange={onChange} className="gym__sido">
+                  {location.sido.map((t,idx) => {
+                    return (
+                      <option key={idx}>{t}</option>
+                    )
+                  })}
+                </select>
+              </div>
+              <div>
+                <p>상세 지역</p>
+                <select name="gugun" onChange={onChange} className="gym__gugun">
+                  {location.gugun[sido] ? location.gugun[sido].map((gu, idx) => {
+                    return <option key={idx+100}>{gu}</option>
+                  }) : <option>상세 지역</option>}
+                </select>
+              </div>
+              <div>
+                <p>상세 주소</p>
+                <input type="text" name="address" onChange={onChange} />
+              </div>
+            </div>
           </div>
           <div className="gymfacilities__box">
             <h4>편의 시설</h4>

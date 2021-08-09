@@ -83,6 +83,17 @@ const firstLogin = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// 비즈니스 첫 로그인
+const busFirstLogin = (data, callback, errorCallback) => {
+  axios({
+    method: 'POST',
+    url: BASE_URL + '/account/business/loginlog',
+    data: data,
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 // KOW - 신장, 포지션, 실력, 선호 지역 데이터 저장
 const firstLoginData = (data, callback, errorCallback) => {
   axios({
@@ -127,6 +138,7 @@ const UserApi = {
   firstLoginData: (data, headers, callback, errorCallback) => firstLoginData(data, headers, callback, errorCallback),
   myprofile: (data, headers, callback, errorCallback) => myprofile(data, headers, callback, errorCallback),
   UpdateMyProfile: (data, headers, callback, errorCallback) => UpdateMyProfile(data, headers, callback, errorCallback),
+  busFirstLogin: (data, headers, callback, errorCallback) => busFirstLogin(data, headers, callback, errorCallback),
 };
 
 export default UserApi;
