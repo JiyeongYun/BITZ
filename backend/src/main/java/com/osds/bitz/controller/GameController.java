@@ -1,8 +1,9 @@
 package com.osds.bitz.controller;
 
 import com.osds.bitz.model.entity.game.Game;
+import com.osds.bitz.model.network.request.RecordRequest;
+import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
-import com.osds.bitz.model.network.response.account.BusinessAuthResponse;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
 import com.osds.bitz.model.network.response.game.GameResponse;
@@ -16,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +88,19 @@ public class GameController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/gamerecord")
+    @ApiOperation(value = "경기 기록 저장", notes = "경기 기록을 저장합니다.")
+    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "리뷰 정보") RecordRequest recordRequest) throws Exception {
+        gameService.createRecord(recordRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/review")
+    @ApiOperation(value = "경기 리뷰 저장", notes = "경기 리뷰를 저장합니다.")
+    public ResponseEntity createReview(@RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) throws Exception {
+        gameService.createReview(reviewRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 
 }

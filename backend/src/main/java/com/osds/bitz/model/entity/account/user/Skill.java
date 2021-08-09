@@ -15,16 +15,13 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 기술점수ID
 
-    @Column(nullable = false)
-    private String userId;      // 사용자ID
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserAuth userAuth;  // 사용자ID
 
-    @Column(nullable = false)
     private int winCnt;         // 이긴 횟수
 
-    @Column(nullable = false)
     private int loseCnt;        // 진 횟수
 
-    @Column(nullable = false)
-    private int score;          // 점수
-
+    private int mvpCnt;         // mvp 횟수
 }

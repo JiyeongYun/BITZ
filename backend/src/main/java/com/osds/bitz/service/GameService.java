@@ -1,26 +1,31 @@
 package com.osds.bitz.service;
 
+import com.osds.bitz.model.entity.account.user.Manner;
+import com.osds.bitz.model.entity.account.user.Skill;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.gym.Gym;
-import com.osds.bitz.model.enumclass.UserState;
+import com.osds.bitz.model.entity.gym.GymReview;
+import com.osds.bitz.model.network.request.RecordRequest;
+import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.repository.account.user.MannerRepository;
+import com.osds.bitz.repository.account.user.SkillRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.game.GameParticipantRepository;
 import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
+import com.osds.bitz.repository.gym.GymReviewRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
 import java.sql.Date;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 @Slf4j
@@ -38,6 +43,14 @@ public class GameService {
     @Autowired
     private GymRepository gymRepository;
 
+    @Autowired
+    private GymReviewRepository gymReviewRepository;
+
+    @Autowired
+    private MannerRepository mannerRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     // 게임 등록
     public Game createGame(GameRequest gameRequest) {
@@ -143,6 +156,70 @@ public class GameService {
     public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
         ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
         return result;
+    }
+
+    /**
+     * 게임 점수 기록
+     */
+    public void createRecord(RecordRequest recordRequest) {
+
+
+        // 점수 기록자의 매너 점수도 0.2점 올리기
+
+
+    }
+
+    /**
+     * 리뷰 저장
+     */
+    public void createReview(ReviewRequest reviewRequest) {
+
+        // 1. 체육관 리뷰 저장
+        GymReview gymReview = GymReview.builder()
+                .gymId(reviewRequest.getGymId())        // 체육관 ID
+                .userId(reviewRequest.getEmail())       // 유저 ID
+                .rate(reviewRequest.getRate())          // 평점
+                .date(LocalDateTime.now())              // 현재시간
+                .build();
+        this.gymReviewRepository.save(gymReview);
+
+        // 2. 사용자 리뷰 저장
+        // 2-1. MVP
+        UserAuth mvpUser = this.userAuthRepository.getUserAuthByEmail(reviewRequest.getMvp());
+        Skill skill = this.skillRepository.getSkillByUserAuth(mvpUser);
+        int mvpCnt = this.skillRepository.getSkillById(skill.getId()).getMvpCnt();
+
+        // Update MVP Count
+        skill = Skill.builder()
+                .mvpCnt(mvpCnt + 1)
+                .build();
+        this.skillRepository.save(skill);
+
+        // 2-2. Manner
+        // 2-2-1. Good
+        for (String userEmail : reviewRequest.getGoodPeople()) {
+            UserAuth user = this.userAuthRepository.getUserAuthByEmail(userEmail);
+            Manner manner = Manner.builder()
+                    .userAuth(user)
+                    .score(1)
+                    .date(LocalDateTime.now())
+                    .build();
+            this.mannerRepository.save(manner);
+        }
+
+        // 2-2-2. Bad
+        for (String userEmail : reviewRequest.getBadPeople()) {
+            UserAuth user = this.userAuthRepository.getUserAuthByEmail(userEmail);
+
+            Manner manner = Manner.builder()
+                    .userAuth(user)
+                    .score(-1)
+                    .date(LocalDateTime.now())
+                    .build();
+            this.mannerRepository.save(manner);
+        }
+
+
     }
 
 }
