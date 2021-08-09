@@ -160,6 +160,17 @@ const BusEmailCheck = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// KOW - 비즈니스 마이 페이지 조회
+const BusMyProfile = (data, callback, errorCallback) => {
+  axios({
+    method: 'GET',
+    url: BASE_URL + '/account/business/businessprofile',
+    params: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -175,6 +186,7 @@ const UserApi = {
   EmailCheck: (data, callback, errorCallback) => EmailCheck(data, callback, errorCallback),
   NicknameCheck: (data, callback, errorCallback) => NicknameCheck(data, callback, errorCallback),
   BusEmailCheck: (data, callback, errorCallback) => BusEmailCheck(data, callback, errorCallback),
+  BusMyProfile: (data, callback, errorCallback) => BusMyProfile(data, callback, errorCallback),
 };
 
 export default UserApi;

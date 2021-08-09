@@ -10,12 +10,12 @@ const GameResult = () => {
   const [showReview, setShowReview] = useState(true)
 
   // 점수 합산 => 누적합 계산
-  const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue))
-  const game1_team2_totlaScore = aboutGame.gameData.game1_team2_score.reduce((sum, currValue)=>(sum+currValue))
-  const game2_team1_totlaScore = aboutGame.gameData.game2_team1_score.reduce((sum, currValue)=>(sum+currValue))
-  const game2_team2_totlaScore = aboutGame.gameData.game2_team2_score.reduce((sum, currValue)=>(sum+currValue))
-  const game3_team1_totlaScore = aboutGame.gameData.game3_team1_score.reduce((sum, currValue)=>(sum+currValue))
-  const game3_team2_totlaScore = aboutGame.gameData.game3_team2_score.reduce((sum, currValue)=>(sum+currValue))
+  const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
+  const game1_team2_totlaScore = aboutGame.gameData.game1_team2_score.reduce((sum, currValue)=>(sum+currValue), 0)
+  const game2_team1_totlaScore = aboutGame.gameData.game2_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
+  const game2_team2_totlaScore = aboutGame.gameData.game2_team2_score.reduce((sum, currValue)=>(sum+currValue), 0)
+  const game3_team1_totlaScore = aboutGame.gameData.game3_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
+  const game3_team2_totlaScore = aboutGame.gameData.game3_team2_score.reduce((sum, currValue)=>(sum+currValue), 0)
 
   // 승패 계산
   const teamA_win = (game1_team1_totlaScore>game1_team2_totlaScore) + (game3_team2_totlaScore>game3_team1_totlaScore)

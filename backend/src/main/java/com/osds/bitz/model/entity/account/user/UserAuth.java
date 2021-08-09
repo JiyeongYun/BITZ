@@ -6,6 +6,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +16,6 @@ import javax.persistence.*;
 public class UserAuth {
 
     @Id
-    @OnDelete(action= OnDeleteAction.CASCADE)
     private String id;          // 유저ID
 
     @Column(nullable = false)

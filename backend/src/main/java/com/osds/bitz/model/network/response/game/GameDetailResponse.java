@@ -1,5 +1,6 @@
 package com.osds.bitz.model.network.response.game;
 
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.gym.Gym;
@@ -18,4 +19,5 @@ public class GameDetailResponse { // 게임상세 페이지 보여주기 객체
 
     Game gameInfo; // 게임정보
 
+    BusinessProfile businessProfile; // 체육관 관장 정보
 }

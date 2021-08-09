@@ -110,14 +110,18 @@ function RegisterBusiness({history}) {
   // JHW - 회원가입 버튼 클릭
   const onRegister = () => {
     const formData = new FormData();
+    
+    if (values.birthDay.length === 1) {
+      formData.append('birth', values.birthYear + values.birthMonth + "0" + values.birthDay);
+    } else { formData.append('birth', values.birthYear + values.birthMonth + values.birthDay); }
     formData.append('email', values.email);
     formData.append('name', values.name);
     formData.append('password', values.password);
     formData.append('phone', values.phoneNumber);
-    formData.append('birth', values.birthYear + values.birthMonth + values.birthDay);
     formData.append('businessRegistration', values.file);
     formData.append('bank', values.bank);
     formData.append('account', values.account);
+
 
     UserApi.requestBusinessJoin(
       formData,
@@ -125,7 +129,6 @@ function RegisterBusiness({history}) {
         'content-type': 'multipart/form-data',
       }, 
       res => {
-        console.log(res)
         alert("회원가입이 완료되었습니다!")
         history.push("/accounts/login")
       },
@@ -257,7 +260,7 @@ function RegisterBusiness({history}) {
       </div>
       {/* 핸드폰 번호 */}
       <div className="register__phoneNumber registerForm__component">
-        <label>핸드폰 번호</label>
+        <label>핸드폰 번호( '-'를 제외하고 입력 : 01012345678 )</label>
         <br />
         <input
           className="inputBox"
@@ -339,7 +342,7 @@ function RegisterBusiness({history}) {
       </div>
       {/* 계좌 번호 */}
       <div className="register__account registerForm__component">
-        <label>계좌 번호</label>
+        <label>계좌 번호( 숫자만 입력 )</label>
         <br />
         <input
           className="inputBox"

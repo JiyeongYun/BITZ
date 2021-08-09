@@ -5,7 +5,7 @@ const initialState = {
   a: "초기화", 
   gameList: [], 
   isLogin: '',
-  userKind: 'player',
+  userKind: '',
   myGameList: [],
   userObj: null, // Profile에 있던 건데, 메인 페이지에서 실력점수 기반으로 추천을 하려면 전역에서도 필요할 것 같아 여기로 가져옴
   businessData: {

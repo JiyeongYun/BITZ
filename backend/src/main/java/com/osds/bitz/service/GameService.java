@@ -1,5 +1,6 @@
 package com.osds.bitz.service;
 
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.Manner;
 import com.osds.bitz.model.entity.account.user.Skill;
 import com.osds.bitz.model.entity.account.user.UserAuth;
@@ -8,11 +9,13 @@ import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.game.GameRecord;
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.gym.GymReview;
+import com.osds.bitz.model.enumclass.UserState;
 import com.osds.bitz.model.network.request.RecordRequest;
 import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.account.user.MannerRepository;
 import com.osds.bitz.repository.account.user.SkillRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
@@ -57,6 +60,9 @@ public class GameService {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    private BusinessProfileRepository businessProfileRepository;
+
     /**
      * 게임 등록
      */
@@ -85,8 +91,15 @@ public class GameService {
     public GameDetailResponse getGameDetail(long gameId) {
         Game game = this.gameRepository.getGameById(gameId);
         ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
+        BusinessProfile businessProfile = businessProfileRepository.getBusinessProfileByBusinessAuth(game.getGym().getBusinessAuth());
 
-        return new GameDetailResponse(gameParticipantList, game);
+        businessProfile.setBusinessRegistration(null);
+        businessProfile.setBusinessAuth(null);
+
+        for(int i=0; i<gameParticipantList.size(); i++) // 중요 정보 제거
+            gameParticipantList.get(i).getUserId().setPassword(null);
+
+        return new GameDetailResponse(gameParticipantList, game, businessProfile);
     }
 
     /**
@@ -139,15 +152,15 @@ public class GameService {
     /**
      * 게임 예약
      */
-    public void reserveGame(String userId, Long gameId) {
-        UserAuth userAuth = userAuthRepository.getById(userId);
+    public void reserveGame(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
         GameParticipant newGameParticipant =
                 new GameParticipant().builder()
                         .userId(userAuth)
                         .gameId(gameId)
                         .team(0)
-//                        .state() // 대기중 상태
+                        .state(UserState.ON_DEPOSIT)
                         .build();
 
         gameParticipantRepository.save(newGameParticipant);
@@ -156,23 +169,48 @@ public class GameService {
     /**
      * 입금 완료 요청
      */
-    public void payGame(String userId, Long gameId) {
-        UserAuth userAuth = userAuthRepository.getById(userId);
-        GameParticipant gameParticipant = gameParticipantRepository.getGameParticipantByUserId(userAuth);
+    public void payGame(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
-        GameParticipant updateGameParticipant = gameParticipantRepository.getById(gameParticipant.getId());
+        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserIdAndGameId(userAuth, gameId);
 
-        updateGameParticipant.builder()
-//                .state()  // 입금 상태
+        updateGameParticipant = updateGameParticipant.builder()
+                .id(updateGameParticipant.getId())
+                .gameId(gameId)
+                .userId(userAuth)
+                .state(UserState.WAITING)
+                .team(updateGameParticipant.getTeam())
                 .build();
 
         gameParticipantRepository.save(updateGameParticipant);
     }
 
-    // 게임 참여자 목록 반환
-    public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
-        return result;
+    /**
+     * 사용자 확정
+     **/
+    public void confirmGame(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
+
+        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserIdAndGameId(userAuth, gameId);
+
+        updateGameParticipant = updateGameParticipant.builder()
+                .id(updateGameParticipant.getId())
+                .gameId(gameId)
+                .userId(userAuth)
+                .state(UserState.COMPLETE)
+                .team(updateGameParticipant.getTeam())
+                .build();
+
+        gameParticipantRepository.save(updateGameParticipant);
+    }
+
+    /**
+     * 참가자 삭제
+     */
+    public void deleteGameParticipant(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
+
+        gameParticipantRepository.deleteGameParticipantByUserIdAndGameId(userAuth, gameId);
     }
 
     /**
@@ -197,17 +235,6 @@ public class GameService {
         mannerRepository.save(manner);
     }
 
-    // 한 게임에 대한 게임 기록들 반환
-    public ArrayList<GameRecord> getGameRecordList(Long gameId) {
-        ArrayList<GameRecord> result = gameRecordRepository.getGameRecordsByGameId(gameId);
-        return result;
-    }
-
-    // 한 게임에서 한 팀의 인원들 반환
-    public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId,team);
-        return result;
-    }
 
     /**
      * 경기 리뷰 저장
@@ -259,6 +286,27 @@ public class GameService {
             this.mannerRepository.save(manner);
         }
 
+    }
+
+
+    // 게임 참여자 목록 반환
+    public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
+        return result;
+    }
+
+
+    // 한 게임에 대한 게임 기록들 반환
+    public ArrayList<GameRecord> getGameRecordList(Long gameId) {
+        ArrayList<GameRecord> result = gameRecordRepository.getGameRecordsByGameId(gameId);
+        return result;
+    }
+
+
+    // 한 게임에서 한 팀의 인원들 반환
+    public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, team);
+        return result;
     }
 
 }

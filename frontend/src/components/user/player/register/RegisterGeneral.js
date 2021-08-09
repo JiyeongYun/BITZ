@@ -118,17 +118,18 @@ function RegisterGeneral({history}) {
       password: values.password,
       phone: values.phoneNumber,
     }
+    
     UserApi.requestJoin(
       data,
       res => {
         alert("회원가입이 완료되었습니다!")
+        dispatch({type: "SUBMIT", value: values.email})
         history.push("/accounts/login")
       },
       err => {
         console.log(err)
       }
     )
-    dispatch({type: "SUBMIT", value: values.email})
   } // onRegister End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
@@ -226,7 +227,7 @@ function RegisterGeneral({history}) {
         </div>
         {/* 핸드폰 번호 */}
         <div className="register__phoneNumber registerForm__component">
-          <label>핸드폰 번호 ex)010-0000-0000</label>
+          <label>핸드폰 번호( '-'를 제외하고 입력 : 01012345678 )</label>
           <br />
           <input className="inputBox" type="tel" name="phoneNumber" value={values.phoneNumber} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.phoneNumber}</div>

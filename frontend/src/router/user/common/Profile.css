@@ -65,3 +65,9 @@
   height: var(--btn-height);
   margin: var(--main-margin-size) 0;
 }
+
+.profile__div > .businessAccount {
+  margin: var(--small-margin-size) 0;
+  font-size: var(--mid-font-size);
+  text-align: center;
+}

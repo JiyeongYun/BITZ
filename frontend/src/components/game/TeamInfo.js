@@ -5,18 +5,28 @@ import { gameStore } from 'store/gameStore';
 const TeamInfo = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
-  const members = aboutGame.gameParticipants
-
-    // 참가자의 포지션 표시
-    useEffect(() => {
-      members.forEach((member,idx) => {
-        const position = member.position
-        position.forEach(pos => {
-          let select = document.querySelector(`.user${idx} #${pos}`)
-          select.className = "istrue"
-        })
-      })
+    
+  const members = aboutGame.gameParticipantDetails
+  console.log(members)
+  
+  // 참가자의 포지션 표시
+  useEffect(() => {
+    members.forEach((member,idx) => {
+      if (member.center) {
+        let select = document.querySelector(`.user${idx} #center`)
+        select.className = "istrue"
+      }
+      if (member.forward) {
+        let select = document.querySelector(`.user${idx} #forward`)
+        select.className = "istrue"
+      }
+      if (member.guard) {
+        let select = document.querySelector(`.user${idx} #guard`)
+        select.className = "istrue"
+      }
     })
+  }, [aboutGame.gameParticipantDetails])
+
 
     // 커서 올라가면 참가자 정보 표시
     const over = (event) => {

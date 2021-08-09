@@ -6,7 +6,7 @@ import { gameStore } from 'store/gameStore';
 const GameInfo = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
-  const users = aboutGame.gameParticipants
+  const users = aboutGame.gameParticipantList
   // 픽업게임에 대한 정보를 보여주는 컴포넌트
 
   // 체육관 정보

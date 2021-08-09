@@ -2,36 +2,18 @@ import React, {createContext, useReducer} from "react";
 // GameDetail에서 사용하는 전역 데이터
 
 const initialState = {
-  // 체육관 정보
-  gymInfo: {
-    is_parking: true,
-    is_shower: true,
-    is_airconditional: true,
-    is_water: true,
-    is_basketball: true,
-    is_scoreboard: true,
-  },
   // 경기 정보
   gameInfo: {
-    startTime: {
-      year: 0,
-      month: 0,
-      date: 0,
-      hour: 0,
-      minute: 0
-    },
-    endTime: {
-      year: 0,
-      month: 0,
-      date: 0,
-      hour: 0,
-      minute: 0
-    },
+    startTime: "00:00:00",
+    endTime: "00:00:00",
     // 0: 예약 페이지, 1: 게임 1시간 전 팀 정보 페이지, 2: 게임 시작 중, 3: 게임 종료(1시간 동안 기록 가능), 4: 게임 종료(Data Fix)
-    gameState: 0
+    gym: {},
+    date: 0,
   },
+  gameState: 0,
   // 참가자
-  gameParticipants: [],
+  gameParticipantList: [],
+  gameParticipantDetails: [],
   // 경기 기록
   gameData: {
     gameType: 2, // 2: 2팀, 3: 3팀
@@ -56,18 +38,14 @@ const GameStateProvider = ({children}) => {
       case 'FETCH_GAME_DATA':
         const gameData = action.value
         return {...state, ...gameData};
-      // Test용 게임 시간 변경
-      case 'TEST_CHANGE_TIME':
-        const { name, value } = action.value
-        const name1 = name.split('.')[0]
-        const name2 = name.split('.')[1]
-        return {...state, gameInfo: {...state.gameInfo, [name1]: {...state.gameInfo[name1], [name2]: parseInt(value)}}};
       // 시간에 따른 게임 State 변경
       case 'UPDATE_GAME_STATE':
         let gameState = 0
         const current_time = new Date().getTime();
-        const start_time = new Date(state.gameInfo.startTime.year, state.gameInfo.startTime.month-1, state.gameInfo.startTime.date, state.gameInfo.startTime.hour, state.gameInfo.startTime.minute).getTime();
-        const end_time = new Date(state.gameInfo.endTime.year, state.gameInfo.endTime.month-1, state.gameInfo.endTime.date, state.gameInfo.endTime.hour, state.gameInfo.endTime.minute).getTime();
+        const time = new Date()
+        time.setTime(state.gameInfo.date)
+        const start_time = new Date(time.getFullYear(), time.getMonth(), time.getDate() , state.gameInfo.startTime.substr(0,2), parseInt(state.gameInfo.startTime.substr(3,2))).getTime();
+        const end_time = new Date(time.getFullYear(), time.getMonth(), time.getDate() , state.gameInfo.endTime.substr(0,2), state.gameInfo.endTime.substr(3,2)).getTime();
         // 게임 준비
         if (current_time>=start_time-3600000) {
           gameState = 1
@@ -84,7 +62,7 @@ const GameStateProvider = ({children}) => {
         if (current_time>=end_time+3600000) {
           gameState = 4
         }
-        return {...state, gameInfo: {...state.gameInfo, gameState}}
+        return {...state, gameState}
       // 쿼터별 점수 등록
       case 'UPADTE_GAME_SCORE':
         if (action.value.unKnown_bugFix === state.gameData[action.value.recorder].length) { // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
@@ -106,6 +84,10 @@ const GameStateProvider = ({children}) => {
           }
         }
         return state
+      // 경기 참여자 상세 정보 받기
+      case 'FETCH_PARTICIPANTS_DETAIL':
+        const gameParticipantDetails = action.value
+        return {...state, gameParticipantDetails}
         
       default:
         throw new Error();

@@ -24,6 +24,7 @@ public class GameParticipant {
     @JoinColumn(name="user_id")
     private UserAuth userId;          // 사용자
 
+    //@Convert(converter = UserStateConverter.class)
     @Enumerated(EnumType.STRING)
     private UserState state;        // 상태
 

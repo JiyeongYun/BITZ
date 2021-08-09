@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
@@ -12,6 +12,10 @@ function Login({ history }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    dispatch({ type: "SELECT_USER_KIND", value:"player"})
+  }, [])
 
   const onChange = (event) => {
     const {
@@ -59,6 +63,7 @@ function Login({ history }) {
           history.push('/')
         },
         (error) => {
+          console.log(error);
           alert('아이디나 비밀번호를 확인해주세요.');
         }
       );

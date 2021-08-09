@@ -73,18 +73,38 @@ public class GameController {
     @PostMapping("/game/reserve")
     @ApiOperation(value = "게임 예약", notes = "사용자가 픽업게임을 예약합니다")
     public ResponseEntity reserveGame(@RequestBody Map<String, String> requestBody) {
-        String userId = requestBody.get("userId");
+        String userEmail = requestBody.get("userEmail");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
-        gameService.reserveGame(userId, gameId);
+        gameService.reserveGame(userEmail, gameId);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/game/reserve")
     @ApiOperation(value = "입금 완료 요청", notes = "사용자의 픽업게임 예약상태를 입금으로 변경합니다.")
     public ResponseEntity payGame(@RequestBody Map<String, String> requestBody) {
-        String userId = requestBody.get("userId");
+        String userEmail = requestBody.get("userEmail");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
-        gameService.payGame(userId, gameId);
+        gameService.payGame(userEmail, gameId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/gameparticipant")
+    @ApiOperation(value = "사용자 확정", notes = "사업자가 사용자를 픽업게임 확정짓습니다.")
+    public ResponseEntity confirmGame(@RequestBody Map<String, String> requestBody) {
+        String userEmail = requestBody.get("userEmail");
+        Long gameId = Long.parseLong(requestBody.get("gameId"));
+        gameService.confirmGame(userEmail, gameId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/gameparticipant")
+    @ApiOperation(value="참가자 삭제", notes="사업자가 사용자를 픽업게임 참가자 리스트에서 삭제합니다.")
+    public ResponseEntity deleteGameParticipant(@RequestBody Map<String,String> requestBody) {
+        String userEmail = requestBody.get("userEmail");
+        Long gameId = Long.parseLong(requestBody.get("gameId"));
+        gameService.deleteGameParticipant(userEmail, gameId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
