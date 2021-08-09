@@ -128,7 +128,6 @@ const RegisterGym = () => {
       intro,
       notice,
     }
-    console.log('register')
     
     GymApi.requestGymRegister(
       formData,

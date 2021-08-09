@@ -5,7 +5,6 @@ const BASE_URL = 'http://127.0.0.1:8080'
  
 // PJW - 체육관 등록
 const requestGymRegister = (data, callback, errorCallback) => {
-  console.log(data)
   axios({
     method: 'post',
     url: BASE_URL + '/gym/gym',
