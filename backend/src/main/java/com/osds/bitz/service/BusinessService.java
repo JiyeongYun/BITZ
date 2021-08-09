@@ -211,17 +211,18 @@ public class BusinessService extends BaseAuthService {
     public BusinessAuth resetPassword(BusinessAuthRequest businessAuthRequest) {
 
         // 이메일로 객체 찾아오기
-        BusinessAuth newBusinessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
 
+        if(businessAuth == null) return null;
+        log.info("{}",businessAuth);
         // 임시 비밀번호 생성 및 메일 전송
-        String tempPassword = "";
+        String tempPassword = generateRandomNumber();
         try {
-            tempPassword = generateRandomNumber();
-            String msg = "<p><b> " + newBusinessAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + tempPassword + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
+            String msg = "<p><b> " + businessAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + tempPassword + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("OSDS"); // 보내는 사람
-            helper.setTo(newBusinessAuth.getEmail());
+            helper.setTo(businessAuth.getEmail());
             helper.setText(msg);
             message.setContent(msg, "text/html; charset=UTF-8");
             helper.setSubject("[OSDS] 비밀번호 찾기 요청에 대한 임시 비밀번호를 보내드립니다.");
@@ -231,8 +232,8 @@ public class BusinessService extends BaseAuthService {
         }
 
         // 임시 비밀번호로 비밀번호 변경하기
-        newBusinessAuth.setPassword(encodingPassword(tempPassword));
-        return this.businessAuthRepository.save(newBusinessAuth);
+        businessAuth.setPassword(encodingPassword(tempPassword));
+        return this.businessAuthRepository.save(businessAuth);
     }
 
     /**

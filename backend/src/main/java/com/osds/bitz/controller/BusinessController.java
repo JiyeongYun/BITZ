@@ -81,13 +81,9 @@ public class BusinessController {
     @ApiOperation(value = "비밀번호 변경", notes = "회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<BusinessAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
         BusinessAuth businessAuth = businessService.updatePassword(updatePasswordRequest);
-
-        if(businessAuth == null){
+        if(businessAuth == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        BusinessAuthResponse response = new BusinessAuthResponse(businessService.updatePassword(updatePasswordRequest));
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/businessauth/password/reset")
@@ -96,8 +92,7 @@ public class BusinessController {
         BusinessAuth businessAuth = businessService.resetPassword(businessAuthRequest);
         if(businessAuth == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        BusinessAuthResponse response = new BusinessAuthResponse(businessService.resetPassword(businessAuthRequest));
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/businessauth")

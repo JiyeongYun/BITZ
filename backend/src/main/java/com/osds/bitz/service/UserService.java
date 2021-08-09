@@ -299,9 +299,6 @@ public class UserService extends BaseAuthService {
             helper.setText(msg);
             message.setContent(msg, "text/html; charset=UTF-8");
             helper.setSubject("[OSDS] 비밀번호 찾기 요청에 대한 임시 비밀번호를 보내드립니다.");
-            log.info("msg:{}", msg);
-            log.info("helper:{}", helper);
-            log.info("message:{}", message);
             mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
