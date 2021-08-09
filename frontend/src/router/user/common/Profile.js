@@ -42,7 +42,6 @@ const Profile = ({ history }) => {
       UserApi.BusMyProfile(
         params,
         res => {
-          console.log(res)
           setUserData(res.data)
         },
         err => {
@@ -58,7 +57,7 @@ const Profile = ({ history }) => {
         <img src="/images/KOW.png" alt="profile" />
         <p id="nickname">덩크하는 물소</p>
         <p id="email">{userData.email}</p>
-        <p id="birth">{userData.birth ?? userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
+        <p id="birth">{userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
       </div>
       {/* 유저가 플레이어일 경우 */}
       {userKind==='player' && (
@@ -71,9 +70,10 @@ const Profile = ({ history }) => {
       {userKind==="business" && (
         <>
           <div className="businessAccount">
-            <p>입금 계좌 : {userData.bank} {userData.account}</p>
+            <p>은행 : {userData.bank}</p>
+            <p>계좌 번호 : {userData.account}</p>
           </div>
-          <MyGym />
+          <MyGym gyminfo={userData.gymProfile}/>
         </>
       )}
       {/* <hr/> */}

@@ -2,14 +2,9 @@ import React from 'react';
 import './MyGym.css';
 import { useHistory  } from 'react-router-dom';
 
-const MyGym = () => {
+const MyGym = ({gyminfo}) => {
   const history = useHistory();
-
-  // 내 체육관 관리하기
-  const gym = [
-    { name: '싸피체육관', address: '서울시 강남구', width: 15, height: 28 },
-    { name: '멀티캠퍼스', address: '서울시 강남구', width: 15, height: 28 },
-  ];
+  console.log(gyminfo)
 
   const onAddGym = () => {
     history.push('/registergym')
@@ -17,18 +12,25 @@ const MyGym = () => {
 
   return (
     <div className="mygym">
-      <div>
-        <span className="mygym__span">
-          <span className="mygym__title">내 체육관</span>
-          <button onClick={onAddGym}>+</button>
-        </span>
-
-        {gym.length > 0 &&
-          gym.map((object, idx) => (
-            <li key={idx}>
-              {object.name} {object.address} {object.height} x {object.width} m
-            </li>
-          ))}
+      <div className="mygym__container">
+        <h3>내 체육관</h3>
+        <button onClick={onAddGym}>+</button>
+      </div>
+      <div className="mygym__list">
+        <div className="list__title">
+          <p>체육관명</p>
+          <p>위치</p>
+          <p>코트 규격</p>
+        </div>
+        {gyminfo ? gyminfo.map(gym => {
+          return (
+            <div className="gym__info">
+              <p>{gym.name}</p>
+              <p>{gym.sido} {gym.gugun} {gym.address}</p>
+              <p>{gym.courtLength}m X {gym.courtWidth}m</p>
+            </div>
+          )
+        }): null}
       </div>
     </div>
   );
