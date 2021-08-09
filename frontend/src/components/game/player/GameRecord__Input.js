@@ -1,10 +1,14 @@
 import React, { useContext, useState } from 'react';
 import './GameRecord__Input.css';
 import { gameStore } from 'store/gameStore';
+import { store } from 'store/store';
 
 const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame, gameDispatch } = gameStoreData;
+
+  const globalState = useContext(store);
+  const { value } = globalState;
   // 이 컴포넌트가 어떤 게임의 입력창인지 지정
   const team1_score = game+'_team1_score'
   const team2_score = game+'_team2_score'
@@ -27,11 +31,11 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
     if (window.confirm('경기 기록은 수정할 수 없습니다. 기록하시겠습니까?')) {
       gameDispatch({ type: "UPADTE_GAME_SCORE", value: {
         team1: team1_score,
-        team1_score: (modalSwitch? parseInt(scores.team1_score)-aboutGame.gameData[team1_score].reduce((sum, currValue)=>(sum+currValue)) : parseInt(scores.team1_score)),
+        team1_score: (modalSwitch? parseInt(scores.team1_score)-aboutGame.gameData[team1_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team1_score)),
         team2: team2_score,
-        team2_score: (modalSwitch? parseInt(scores.team2_score)-aboutGame.gameData[team2_score].reduce((sum, currValue)=>(sum+currValue)) : parseInt(scores.team2_score)),
+        team2_score: (modalSwitch? parseInt(scores.team2_score)-aboutGame.gameData[team2_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team2_score)),
         recorder: recorder,
-        current_recorder: "TEST",
+        current_recorder: value.isLogin,
         unKnown_bugFix: aboutGame.gameData[recorder].length // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
       }})
       setShowInput(false)

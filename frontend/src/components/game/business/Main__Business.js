@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import "./Main__Business.css"
 import { store } from 'store/store.js'
 import gameManageListDummy from "store/gameManageListDummy";
+import GameApi from "api/GameApi";
 
 function Main__Business () {
   // Global State Managemnet
@@ -36,6 +37,17 @@ function Main__Business () {
     })
     setProcessedData(dataBox)
   },[gameManagementList])
+
+  useEffect(()=>{
+    console.log('hi')
+    GameApi.requsetGameList(res => {
+        console.log(res.data)
+      },
+        err => {
+        console.log(err)
+      }
+    )
+  })
 
   return (
     <div className="MainBusiness">
