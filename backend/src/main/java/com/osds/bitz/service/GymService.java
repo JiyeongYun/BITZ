@@ -33,12 +33,12 @@ public class GymService {
     /**
      * 체육관 등록
      */
-    public Gym createGym(GymRequest gymRequest) {
+    public void createGym(GymRequest gymRequest) {
         // TODO : DB에 잘 들어가고 서버 콘솔에 warn만 찍히나, 프론트에 406에러 발생
+
         // 관리자 이메일을 통해 businessAuth 객체를 받아온다.
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(gymRequest.getBusinessEmail());
-        log.info("{}", "businessAuth : " + businessAuth);
-        // gym테이블 내용 설정하기
+
         Gym gym = Gym.builder()
                 .businessAuth(businessAuth)
                 .name(gymRequest.getName())
@@ -53,13 +53,14 @@ public class GymService {
                 .isWater(gymRequest.isWater())
                 .isBasketball(gymRequest.isBasketball())
                 .isScoreboard(gymRequest.isScoreboard())
+                .intro(gymRequest.getIntro())
+                .notice(gymRequest.getNotice())
                 .build();
-        log.info("{}", "추가할 gym : " + gym);
 
         if (businessService.readLoginLog(businessAuth.getEmail()))
             createLoginlog(businessAuth.getEmail());
 
-        return this.gymRepository.save(gym);
+        this.gymRepository.save(gym);
     }
 
     /**
@@ -107,39 +108,29 @@ public class GymService {
     /**
      * 체육관 업데이트
      */
-    public Gym updateGym(GymUpdateRequest gymUpdateRequest) {
-        Long gymId = gymUpdateRequest.getGym().getId();
+    public void updateGym(GymUpdateRequest gymUpdateRequest) {
+
         String businessEmail = gymUpdateRequest.getBusinessEmail();
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessEmail);
 
-
-        Gym gymUpdate = gymRepository.getById(gymId);
-        log.info("{}", "요청한 정보 : " + gymUpdateRequest);
-        if (gymUpdate.getBusinessAuth().getEmail().equals(businessEmail)) {
-
-            gymUpdate = Gym.builder()
-                    .businessAuth(businessAuth)
-                    .id(gymId)
-                    .name(gymUpdateRequest.getGym().getName())
-                    .address(gymUpdateRequest.getGym().getAddress())
-                    .sido(gymUpdateRequest.getGym().getSido())
-                    .gugun(gymUpdateRequest.getGym().getGugun())
-                    .courtLength(gymUpdateRequest.getGym().getCourtLength())
-                    .courtWidth(gymUpdateRequest.getGym().getCourtWidth())
-                    .isAirconditional(gymUpdateRequest.getGym().isAirconditional())
-                    .isWater(gymUpdateRequest.getGym().isWater())
-                    .isParking(gymUpdateRequest.getGym().isParking())
-                    .isShower(gymUpdateRequest.getGym().isShower())
-                    .isBasketball(gymUpdateRequest.getGym().isBasketball())
-                    .isScoreboard(gymUpdateRequest.getGym().isScoreboard())
-                    .build();
-
-        } else
-            gymUpdate = null;
-
-        log.info("{}", "업데이트 완료 : " + gymUpdate);
-
-        return gymRepository.save(gymUpdate);
+        Long gymId = gymUpdateRequest.getGym().getId();
+        Gym gymUpdate = gymRepository.getGymById(gymId);
+        gymUpdate.setBusinessAuth(businessAuth);
+        gymUpdate.setName(gymUpdateRequest.getGym().getName());
+        gymUpdate.setAddress(gymUpdateRequest.getGym().getAddress());
+        gymUpdate.setSido(gymUpdateRequest.getGym().getSido());
+        gymUpdate.setGugun(gymUpdateRequest.getGym().getGugun());
+        gymUpdate.setCourtLength(gymUpdateRequest.getGym().getCourtLength());
+        gymUpdate.setCourtWidth(gymUpdateRequest.getGym().getCourtWidth());
+        gymUpdate.setAirconditional(gymUpdateRequest.getGym().isAirconditional());
+        gymUpdate.setWater(gymUpdateRequest.getGym().isWater());
+        gymUpdate.setParking(gymUpdateRequest.getGym().isParking());
+        gymUpdate.setShower(gymUpdateRequest.getGym().isShower());
+        gymUpdate.setBasketball(gymUpdateRequest.getGym().isBasketball());
+        gymUpdate.setScoreboard(gymUpdateRequest.getGym().isScoreboard());
+        gymUpdate.setIntro(gymUpdateRequest.getGym().getIntro());
+        gymUpdate.setNotice(gymUpdateRequest.getGym().getNotice());
+        gymRepository.save(gymUpdate);
     }
 
 }
