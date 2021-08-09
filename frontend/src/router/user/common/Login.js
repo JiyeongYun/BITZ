@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi.js';
@@ -12,6 +12,10 @@ function Login({ history }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    dispatch({ type: "SELECT_USER_KIND", value:"player"})
+  }, [])
 
   const onChange = (event) => {
     const {
