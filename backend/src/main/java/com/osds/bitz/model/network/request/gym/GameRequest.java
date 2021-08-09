@@ -12,6 +12,7 @@ import java.sql.Time;
 @AllArgsConstructor
 public class GameRequest {
 
+    private long gameId;
     private String gymName;
     private Date date;
     private Time startTime;
