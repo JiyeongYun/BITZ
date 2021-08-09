@@ -59,7 +59,6 @@ function Main__Business ({history}) {
   }, [value.isLogin, history])
   
   useEffect(()=>{
-    console.log('hi')
     GameApi.requsetGameList(res => {
         console.log(res.data)
       },
