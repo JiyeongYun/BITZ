@@ -141,6 +141,7 @@ public class BusinessService extends BaseAuthService {
         // 최초 로그인인 경우
         return true;
     }
+  
 
     /**
      * 마이페이지 정보 조회

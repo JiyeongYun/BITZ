@@ -55,15 +55,16 @@ public class UserService extends BaseAuthService {
 
         // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
-                .email(userAuthRequest.getEmail())
-                .birth(userAuthRequest.getBirth())
-                .password(encodingPassword(userAuthRequest.getPassword()))
                 .id(userAuthId)
+                .email(userAuthRequest.getEmail())
+                .password(encodingPassword(userAuthRequest.getPassword()))
+                .birth(userAuthRequest.getBirth())
                 .build();
 
         // userauth테이블에서 값 가져와서 userprofile값 설정하기
         UserProfile userProfile = UserProfile.builder()
                 .name(userAuthRequest.getName())
+                .nickname(userAuthRequest.getNickname())
                 .phone(userAuthRequest.getPhone())
                 .userAuth(userAuth)
                 .build();
@@ -172,6 +173,7 @@ public class UserService extends BaseAuthService {
                 .sido2(userRequest.getSido2())
                 .gugun2(userRequest.getGugun2())
                 .sido3(userRequest.getSido3())
+                .gugun3(userRequest.getGugun3())
                 .build();
         this.favoriteLocationRepository.save(favoriteLocation);
 
