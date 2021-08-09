@@ -3,6 +3,8 @@ package com.osds.bitz.model.enumclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 @AllArgsConstructor
 public enum UserState {
@@ -14,4 +16,5 @@ public enum UserState {
 
     private Integer id;
     private String status;
+
 }
