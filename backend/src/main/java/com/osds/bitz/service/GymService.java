@@ -82,7 +82,7 @@ public class GymService {
         log.info("{}", "요청한 정보 : " + gymUpdateRequest);
         if (gymUpdate.getBusinessAuth().getEmail().equals(businessEmail)) {
 
-            gymUpdate = gymUpdate.builder()
+            gymUpdate = Gym.builder()
                     .businessAuth(businessAuth)
                     .id(gymId)
                     .name(gymUpdateRequest.getGym().getName())
