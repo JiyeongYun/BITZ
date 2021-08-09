@@ -55,7 +55,7 @@ function App() {
           onClick={toggleCanvas}
         ></div>
         <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
-          <OffCanvas />
+          <OffCanvas toggleCanvas={toggleCanvas}/>
         </div>
         <Route path="/" exact={true} component={MainPage} />
         <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
