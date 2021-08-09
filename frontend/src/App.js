@@ -15,6 +15,7 @@ import MyGame from './router/game/player/MyGame';
 import GameRegister from './router/game/business/GameRegister';
 import { GameStateProvider } from 'store/gameStore.js';
 import { store } from 'store/store';
+import GameReservation from 'router/game/player/GameReservation';
 
 function App() {
   
@@ -60,12 +61,13 @@ function App() {
         <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
         <Route path="/accounts/login" exact={true} component={Login} />
         <Route path="/accounts/register" exact={true} component={Register}></Route>
-        <Route path="/accounts/profile/:cryptojs" exact={true} component={Profile} /> {/* cryptojs를 사용한 암호화 */}
+        <Route path="/accounts/profile/:email" exact={true} component={Profile} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
         {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
         <GameStateProvider>
-          <Route path="/detail" exact={true} component={Detail} />
+          <Route path="/detail/:gameId" exact={true} component={Detail} />
+          <Route path="/detail/:gameId/reservation" exact={true} component={GameReservation} />
         </GameStateProvider>
         <Route path="/match/mygames" exact={true} component={MyGame} />
         <Route path="/match/register" exact={true} component={GameRegister} />

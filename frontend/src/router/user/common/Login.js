@@ -63,6 +63,7 @@ function Login({ history }) {
           history.push('/')
         },
         (error) => {
+          console.log(error);
           alert('아이디나 비밀번호를 확인해주세요.');
         }
       );

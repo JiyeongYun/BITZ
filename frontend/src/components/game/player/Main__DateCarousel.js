@@ -1,9 +1,13 @@
 import GameApi from "api/GameApi";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Main__DateCarousel.css"
+import { store } from 'store/store.js';
 
 
 export default function Main__DateCarousel() {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
   // State
   // PJW - getDay()로 얻어지는 index별 요일과 색상 
   const day = [
@@ -84,13 +88,11 @@ export default function Main__DateCarousel() {
       date: selectedDay,
       sido: '서울'
     }
-
     GameApi.requsetGameList(
       data,
       res => {
         // 해당 날짜에 게임 리스트를 data에 담음
-        const {data} = res
-        console.log(data)
+        dispatch({ type: 'GET_GAME_LIST', value: res.data })
       },
       err => console.log(err)
     )

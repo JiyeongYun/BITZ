@@ -1,34 +1,40 @@
 import React, { useContext, useEffect } from 'react';
 import './GymInfo.css';
 import { gameStore } from 'store/gameStore';
+import { useHistory  } from 'react-router-dom';
 
 const GymInfo = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
-  const { is_parking, is_shower, is_airconditional, is_water, is_basketball, is_scoreboard } = aboutGame.gymInfo
+  const { parking, shower, airconditional, water, basketball, scoreboard } = aboutGame.gameInfo.gym
+  const history = useHistory();
 
   // 픽업게임 상세보기에서 체육관 정보를 보여주는 컴포넌트
 
   useEffect(() => {
-    if (!is_water) {
+    if (!water) {
       document.querySelector('#water').classList.add('no')
     }
-    if (!is_shower) {
+    if (!shower) {
       document.querySelector('#shower').classList.add('no');
     }
-    if (!is_scoreboard) {
+    if (!scoreboard) {
       document.querySelector('#scoreboard').classList.add('no');
     }
-    if (!is_parking) {
+    if (!parking) {
       document.querySelector('#parking').classList.add('no');
     }
-    if (!is_basketball) {
+    if (!basketball) {
       document.querySelector('#basketball').classList.add('no');
     }
-    if (!is_airconditional) {
+    if (!airconditional) {
       document.querySelector('#airconditioner').classList.add('no');
     }
   });
+
+  const reserveGame = () => {
+    history.push(`/detail/${aboutGame.gameInfo.id}/reservation`)
+  }
 
   return (
     <div className="gymInfo">
@@ -80,7 +86,7 @@ const GymInfo = () => {
           </ul>
         </div>
       </div>
-      <button className="reservation__btn">예약하기</button>
+      <button className="reservation__btn" onClick={reserveGame}>예약하기</button>
     </div>
   );
 };

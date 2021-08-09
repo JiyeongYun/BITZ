@@ -4,6 +4,7 @@ import { store } from 'store/store.js'
 import gameManageListDummy from "store/gameManageListDummy";
 import {Link} from 'react-router-dom'
 import UserApi from "api/UserApi";
+import GameApi from "api/GameApi";
 
 function Main__Business ({history}) {
   // Global State Managemnet
@@ -56,6 +57,17 @@ function Main__Business ({history}) {
       err => console.log(err)
     )
   }, [value.isLogin, history])
+  
+  useEffect(()=>{
+    console.log('hi')
+    GameApi.requsetGameList(res => {
+        console.log(res.data)
+      },
+        err => {
+        console.log(err)
+      }
+    )
+  })
 
   return (
     <div className="MainBusiness">

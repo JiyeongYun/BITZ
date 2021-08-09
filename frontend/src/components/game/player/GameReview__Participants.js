@@ -2,22 +2,49 @@ import React, { useEffect, useContext } from 'react'
 import { gameStore } from 'store/gameStore';
 import GameReviewParticipantsMiniInfo from './GameReview__participants_miniInfo';
 import "./GameReview__Participants.css"
+import UserApi from 'api/UserApi';
 
 const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) => {
   const gameStoreData = useContext(gameStore);
-  const { aboutGame } = gameStoreData;
-  const members = aboutGame.gameParticipants
+  const { aboutGame, gameDispatch } = gameStoreData;
+  
+  useEffect(()=>{
+    const newData = []
 
+    aboutGame.gameParticipantList.forEach((member)=>{
+
+      UserApi.myprofile({email: member.userId.email},
+        (res) => {
+          newData.push(res.data)
+        },
+        (error) => {
+          console.log(error)
+        }
+        )
+      })
+
+      gameDispatch({ type: 'FETCH_PARTICIPANTS_DETAIL', value: newData })
+    },[aboutGame.gameParticipantList])
+    
+  const members = aboutGame.gameParticipantDetails
+  
   // 참가자의 포지션 표시
   useEffect(() => {
     members.forEach((member,idx) => {
-      const position = member.position
-      position.forEach(pos => {
-        let select = document.querySelector(`.${reviewType}user${idx} #${pos}`)
+      if (member.center) {
+        let select = document.querySelector(`.${reviewType}user${idx} #center`)
         select.className = "istrue"
-      })
+      }
+      if (member.forward) {
+        let select = document.querySelector(`.${reviewType}user${idx} #forward`)
+        select.className = "istrue"
+      }
+      if (member.guard) {
+        let select = document.querySelector(`.${reviewType}user${idx} #guard`)
+        select.className = "istrue"
+      }
     })
-  })
+  }, [aboutGame.gameParticipantDetails])
 
   // 선택되지 않은 참가자 제거 (정확히는 모든 참가자의 선택사항 display를 none으로 초기화)
   useEffect(() => {
