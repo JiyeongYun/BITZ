@@ -3,6 +3,7 @@ import "./Main__Business.css"
 import { store } from 'store/store.js'
 import gameManageListDummy from "store/gameManageListDummy";
 import {Link} from 'react-router-dom'
+import UserApi from "api/UserApi";
 
 function Main__Business ({history}) {
   // Global State Managemnet
@@ -38,8 +39,23 @@ function Main__Business ({history}) {
     setProcessedData(dataBox)
   },[gameManagementList])
 
-  // 게임 등록 페이지 이동
-  console.log("1", history)
+  // 체육관 등록이 안되어 있으면 체육관 등록 페이지 이동
+  useEffect(() => {
+    const data = {
+      email: value.isLogin,
+      password: null,
+    }
+
+    UserApi.busFirstLogin(
+      data,
+      res => {
+        if(res.status === 200) {
+          history.push('/registergym')
+        }
+      },
+      err => console.log(err)
+    )
+  }, [value.isLogin, history])
 
   return (
     <div className="MainBusiness">
