@@ -34,6 +34,7 @@ const GameRegister = () => {
       res => {
         const {data} = res
         setGymList(data)
+        setGymName(data[0].name)
       },
       err => {
         console.log(err)
