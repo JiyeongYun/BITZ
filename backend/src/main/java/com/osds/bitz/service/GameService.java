@@ -1,5 +1,6 @@
 package com.osds.bitz.service;
 
+import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.Manner;
 import com.osds.bitz.model.entity.account.user.Skill;
 import com.osds.bitz.model.entity.account.user.UserAuth;
@@ -14,6 +15,7 @@ import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.account.user.MannerRepository;
 import com.osds.bitz.repository.account.user.SkillRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
@@ -58,6 +60,9 @@ public class GameService {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    private BusinessProfileRepository businessProfileRepository;
+
     /**
      * 게임 등록
      */
@@ -86,8 +91,15 @@ public class GameService {
     public GameDetailResponse getGameDetail(long gameId) {
         Game game = this.gameRepository.getGameById(gameId);
         ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
+        BusinessProfile businessProfile = businessProfileRepository.getBusinessProfileByBusinessAuth(game.getGym().getBusinessAuth());
 
-        return new GameDetailResponse(gameParticipantList, game);
+        businessProfile.setBusinessRegistration(null);
+        businessProfile.setBusinessAuth(null);
+
+        for(int i=0; i<gameParticipantList.size(); i++) // 중요 정보 제거
+            gameParticipantList.get(i).getUserId().setPassword(null);
+
+        return new GameDetailResponse(gameParticipantList, game, businessProfile);
     }
 
     /**
