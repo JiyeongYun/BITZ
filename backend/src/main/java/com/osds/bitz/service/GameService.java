@@ -5,6 +5,7 @@ import com.osds.bitz.model.entity.account.user.Skill;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;
+import com.osds.bitz.model.entity.game.GameRecord;
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.gym.GymReview;
 import com.osds.bitz.model.network.request.RecordRequest;
@@ -16,6 +17,7 @@ import com.osds.bitz.repository.account.user.MannerRepository;
 import com.osds.bitz.repository.account.user.SkillRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.game.GameParticipantRepository;
+import com.osds.bitz.repository.game.GameRecordRepository;
 import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import com.osds.bitz.repository.gym.GymReviewRepository;
@@ -30,6 +32,9 @@ import java.util.ArrayList;
 @Service
 @Slf4j
 public class GameService {
+
+    @Autowired
+    private GameRecordRepository gameRecordRepository;
 
     @Autowired
     private GameRepository gameRepository;
@@ -158,15 +163,38 @@ public class GameService {
         return result;
     }
 
-    /**
-     * 게임 점수 기록
-     */
+    // 게임 점수 기록
     public void createRecord(RecordRequest recordRequest) {
 
+        GameRecord gameRecord = GameRecord.builder()
+                .team(recordRequest.getTeam())
+                .quarter(recordRequest.getQuarter())
+                .score(recordRequest.getScore())
+                .userId(recordRequest.getUserId())
+                .gameId(recordRequest.getGameId())
+                .build();
 
-        // 점수 기록자의 매너 점수도 0.2점 올리기
+        UserAuth userAuth = userAuthRepository.getById(gameRecord.getUserId()); // 기록자 정보 얻어오기
 
+        // 점수 기록자의 매너 점수도 0.2점 올리기 (한 쿼터에 2개의 로그가 등록되므로 0.1점 씩)
+        Manner manner = Manner.builder()
+                .userAuth(userAuth)
+                .score(1)
+                .build();
 
+        gameRecordRepository.save(gameRecord);
+    }
+
+    // 한 게임에 대한 게임 기록들 반환
+    public ArrayList<GameRecord> getGameRecordList(Long gameId) {
+        ArrayList<GameRecord> result = gameRecordRepository.getGameRecordsByGameId(gameId);
+        return result;
+    }
+
+    // 한 게임에서 한 팀의 인원들 반환
+    public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId,team);
+        return result;
     }
 
     /**
@@ -201,7 +229,7 @@ public class GameService {
             UserAuth user = this.userAuthRepository.getUserAuthByEmail(userEmail);
             Manner manner = Manner.builder()
                     .userAuth(user)
-                    .score(1)
+                    .score(10)
                     .date(LocalDateTime.now())
                     .build();
             this.mannerRepository.save(manner);
@@ -213,12 +241,11 @@ public class GameService {
 
             Manner manner = Manner.builder()
                     .userAuth(user)
-                    .score(-1)
+                    .score(-10)
                     .date(LocalDateTime.now())
                     .build();
             this.mannerRepository.save(manner);
         }
-
 
     }
 

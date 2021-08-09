@@ -61,7 +61,7 @@ public class GameController {
         return new ResponseEntity<Game>(HttpStatus.OK);
     }
 
-    @GetMapping("/gamelist")
+    @GetMapping("/game/list")
     @ApiOperation(value = "게임 목록", notes = "날짜와 지역정보로 게임리스트를 조회합니다.")
     public ResponseEntity<List<GameListResponse>> getGameList(@RequestParam(value = "date") Date date, @RequestParam(value = "sido") String sido) {
         List<GameListResponse> result = gameService.getGameList(date, sido);
