@@ -27,6 +27,7 @@ function App() {
     // 플레이어 로그인
     const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
     if (currentUser) {
+      dispatch({ type: "SELECT_USER_KIND", value: "player" })
       dispatch({type: "LOGIN", value:currentUser.email})
     }
     // 비즈니스 로그인
