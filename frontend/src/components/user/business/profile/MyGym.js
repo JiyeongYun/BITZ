@@ -24,8 +24,8 @@ const MyGym = () => {
         </span>
 
         {gym.length > 0 &&
-          gym.map((object) => (
-            <li>
+          gym.map((object, idx) => (
+            <li key={idx}>
               {object.name} {object.address} {object.height} x {object.width} m
             </li>
           ))}

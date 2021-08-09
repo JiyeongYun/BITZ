@@ -26,17 +26,31 @@ const Profile = ({ history }) => {
 
   // 유저 정보를 DB에서 가져오기
   useEffect(() => {
-    const params = {email:value.isLogin}
-    UserApi.myprofile(
-      params,
-      res => {
-        setUserData(res.data)
-      },
-      err => {
-        console.log(err)
-      }
-    )
-  }, [value.isLogin])
+    if (userKind === 'player') {
+      const params = {email:value.isLogin}
+      UserApi.myprofile(
+        params,
+        res => {
+          setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    } else if (userKind === 'business') {
+      const params = {email:value.isLogin}
+      UserApi.BusMyProfile(
+        params,
+        res => {
+          console.log(res)
+          setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+  }, [value.isLogin, userKind])
 
   return (
     <div className="profile__div">
@@ -44,7 +58,7 @@ const Profile = ({ history }) => {
         <img src="/images/KOW.png" alt="profile" />
         <p id="nickname">덩크하는 물소</p>
         <p id="email">{userData.email}</p>
-        <p id="birth">{userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
+        <p id="birth">{userData.birth ?? userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
       </div>
       {/* 유저가 플레이어일 경우 */}
       {userKind==='player' && (
@@ -57,10 +71,7 @@ const Profile = ({ history }) => {
       {userKind==="business" && (
         <>
           <div className="businessAccount">
-            계좌번호 : 국민은행
-            <br />
-            계좌번호 : 349401-04-269363
-            <br />
+            <p>입금 계좌 : {userData.bank} {userData.account}</p>
           </div>
           <MyGym />
         </>
