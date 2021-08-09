@@ -117,6 +117,7 @@ function RegisterGeneral({history}) {
       name: values.name,
       password: values.password,
       phone: values.phoneNumber,
+      nickname: values.nickname,
     }
     
     UserApi.requestJoin(

@@ -51,7 +51,7 @@ function Main__Player_Common() {
       {isFirstLogin ? <FirstLogin isFirstLogin={isFirstLogin} firstLoginData={firstLoginData} /> :
         <div>
           <div className="main__dates"><DateCarousel /></div>
-          <div className="main__areas"><PreferredArea /></div>
+          {/* <div className="main__areas"><PreferredArea /></div> */}
           <div className="main__games"><GameList /></div>
         </div>
       }
