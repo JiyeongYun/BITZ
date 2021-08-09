@@ -34,13 +34,10 @@ import java.util.ArrayList;
 public class GameService {
 
     @Autowired
-    private GameRecordRepository gameRecordRepository;
-
-    @Autowired
     private GameRepository gameRepository;
 
     @Autowired
-    private UserAuthRepository userAuthRepository;
+    private GameRecordRepository gameRecordRepository;
 
     @Autowired
     private GameParticipantRepository gameParticipantRepository;
@@ -52,15 +49,20 @@ public class GameService {
     private GymReviewRepository gymReviewRepository;
 
     @Autowired
+    private UserAuthRepository userAuthRepository;
+
+    @Autowired
     private MannerRepository mannerRepository;
 
     @Autowired
     private SkillRepository skillRepository;
 
-    // 게임 등록
+    /**
+     * 게임 등록
+     */
     public Game createGame(GameRequest gameRequest) {
 
-        // 체육관 이름을 통해 Gym객체를 받아온다.
+        // 체육관 이름으로 Gym객체를 받아오기
         Gym gym = this.gymRepository.getGymByName(gameRequest.getGymName());
 
         // game테이블 내용 설정하기
@@ -77,13 +79,27 @@ public class GameService {
         return this.gameRepository.save(game); // 작업중
     }
 
-    // 게임 삭제
+    /**
+     * 게임 상세
+     */
+    public GameDetailResponse getGameDetail(long gameId) {
+        Game game = this.gameRepository.getGameById(gameId);
+        ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
+
+        return new GameDetailResponse(gameParticipantList, game);
+    }
+
+    /**
+     * 게임 삭제
+     */
     public void deleteGame(long gameId) {
         gameParticipantRepository.deleteAllByGameId(gameId);
         gameRepository.deleteAllById(gameId);
     }
 
-    // 게임 수정
+    /**
+     * 게임 수정
+     */
     public Game updateGame(GameRequest gameRequest) {
         Game updateGame = gameRepository.getGameById(gameRequest.getGameId());
         Gym gym = updateGame.getGym();
@@ -102,15 +118,9 @@ public class GameService {
         return this.gameRepository.save(updateGame);
     }
 
-    // 게임 상세보기
-    public GameDetailResponse getGameDetail(long gameId) {
-        Game game = this.gameRepository.getGameById(gameId);
-        ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
-
-        return new GameDetailResponse(gameParticipantList, game);
-    }
-
-    // 게임 목록
+    /**
+     * 게임 목록
+     */
     public ArrayList<GameListResponse> getGameList(Date date, String sido) {
         ArrayList<Game> gameList = this.gameRepository.getGamesByDate(date); // 해당 날짜의 게임
 
@@ -123,12 +133,12 @@ public class GameService {
                 result.add(new GameListResponse(game, gym));
             }
         }
-
-
         return result;
     }
 
-    // 게임 예약
+    /**
+     * 게임 예약
+     */
     public void reserveGame(String userId, Long gameId) {
         UserAuth userAuth = userAuthRepository.getById(userId);
 
@@ -143,7 +153,9 @@ public class GameService {
         gameParticipantRepository.save(newGameParticipant);
     }
 
-    // 입금 완료
+    /**
+     * 입금 완료 요청
+     */
     public void payGame(String userId, Long gameId) {
         UserAuth userAuth = userAuthRepository.getById(userId);
         GameParticipant gameParticipant = gameParticipantRepository.getGameParticipantByUserId(userAuth);
@@ -163,9 +175,10 @@ public class GameService {
         return result;
     }
 
-    // 게임 점수 기록
+    /**
+     * 게임 점수 기록
+     */
     public void createRecord(RecordRequest recordRequest) {
-
         GameRecord gameRecord = GameRecord.builder()
                 .team(recordRequest.getTeam())
                 .quarter(recordRequest.getQuarter())
@@ -173,16 +186,15 @@ public class GameService {
                 .userId(recordRequest.getUserId())
                 .gameId(recordRequest.getGameId())
                 .build();
-
-        UserAuth userAuth = userAuthRepository.getById(gameRecord.getUserId()); // 기록자 정보 얻어오기
+        gameRecordRepository.save(gameRecord);
 
         // 점수 기록자의 매너 점수도 0.2점 올리기 (한 쿼터에 2개의 로그가 등록되므로 0.1점 씩)
+        UserAuth userAuth = userAuthRepository.getById(gameRecord.getUserId()); // 기록자 정보 얻어오기
         Manner manner = Manner.builder()
                 .userAuth(userAuth)
                 .score(1)
                 .build();
-
-        gameRecordRepository.save(gameRecord);
+        mannerRepository.save(manner);
     }
 
     // 한 게임에 대한 게임 기록들 반환
@@ -198,7 +210,7 @@ public class GameService {
     }
 
     /**
-     * 리뷰 저장
+     * 경기 리뷰 저장
      */
     public void createReview(ReviewRequest reviewRequest) {
 
