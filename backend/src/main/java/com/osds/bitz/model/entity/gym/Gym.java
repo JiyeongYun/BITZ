@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="gym")
+@Entity(name = "gym")
 @Builder
 public class Gym {
 
@@ -20,7 +20,7 @@ public class Gym {
     private Long id;                    // 체육관ID
 
     @ManyToOne
-    @JoinColumn(name="business_id")
+    @JoinColumn(name = "business_id")
     private BusinessAuth businessAuth;          // 사업자ID
 
     @Column(nullable = false)
