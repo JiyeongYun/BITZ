@@ -173,10 +173,32 @@ public class GameService {
         gameParticipantRepository.save(updateGameParticipant);
     }
 
-    // 게임 참여자 목록 반환
-    public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
-        return result;
+    /**
+     * 사용자 확정
+     **/
+    public void confirmGame(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
+
+        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserIdAndGameId(userAuth, gameId);
+
+        updateGameParticipant = updateGameParticipant.builder()
+                .id(updateGameParticipant.getId())
+                .gameId(gameId)
+                .userId(userAuth)
+                .state(UserState.COMPLETE)
+                .team(updateGameParticipant.getTeam())
+                .build();
+
+        gameParticipantRepository.save(updateGameParticipant);
+    }
+
+    /**
+     * 참가자 삭제
+     */
+    public void deleteGameParticipant(String userEmail, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
+
+        gameParticipantRepository.deleteGameParticipantByUserIdAndGameId(userAuth, gameId);
     }
 
     /**
@@ -201,17 +223,6 @@ public class GameService {
         mannerRepository.save(manner);
     }
 
-    // 한 게임에 대한 게임 기록들 반환
-    public ArrayList<GameRecord> getGameRecordList(Long gameId) {
-        ArrayList<GameRecord> result = gameRecordRepository.getGameRecordsByGameId(gameId);
-        return result;
-    }
-
-    // 한 게임에서 한 팀의 인원들 반환
-    public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, team);
-        return result;
-    }
 
     /**
      * 경기 리뷰 저장
@@ -263,6 +274,27 @@ public class GameService {
             this.mannerRepository.save(manner);
         }
 
+    }
+
+
+    // 게임 참여자 목록 반환
+    public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
+        return result;
+    }
+
+
+    // 한 게임에 대한 게임 기록들 반환
+    public ArrayList<GameRecord> getGameRecordList(Long gameId) {
+        ArrayList<GameRecord> result = gameRecordRepository.getGameRecordsByGameId(gameId);
+        return result;
+    }
+
+
+    // 한 게임에서 한 팀의 인원들 반환
+    public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, team);
+        return result;
     }
 
 }
