@@ -1,7 +1,11 @@
 package com.osds.bitz.controller;
 
 import com.osds.bitz.model.entity.game.Game;
+import com.osds.bitz.model.network.request.RecordRequest;
+import com.osds.bitz.model.network.request.ReviewRequest;
+import com.osds.bitz.model.network.request.account.UserAuthRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
+import com.osds.bitz.model.network.response.account.UserAuthResponse;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
 import com.osds.bitz.model.network.response.game.GameResponse;
@@ -63,6 +67,20 @@ public class GameController {
         response = new ResponseEntity<>(gameService.getGameList(date, sido), HttpStatus.OK);
 
         return response;
+    }
+
+    @PostMapping("/gamerecord")
+    @ApiOperation(value = "경기 기록 저장", notes = "경기 기록을 저장합니다.")
+    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "리뷰 정보") RecordRequest recordRequest) throws Exception {
+        gameService.createRecord(recordRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/review")
+    @ApiOperation(value = "경기 리뷰 저장", notes = "경기 리뷰를 저장합니다.")
+    public ResponseEntity createReview(@RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) throws Exception {
+        gameService.createReview(reviewRequest);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
