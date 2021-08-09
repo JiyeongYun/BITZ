@@ -1,15 +1,19 @@
 package com.osds.bitz.service;
 
+import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.gym.Gym;
+import com.osds.bitz.model.enumclass.UserState;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.game.GameParticipantRepository;
 import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +28,9 @@ public class GameService {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private UserAuthRepository userAuthRepository;
 
     @Autowired
     private GameParticipantRepository gameParticipantRepository;
@@ -50,30 +57,31 @@ public class GameService {
                 .build();
 
         return this.gameRepository.save(game); // 작업중
-
     }
 
     // 게임 삭제
-    public void deleteGame(long gameId){
+    public void deleteGame(long gameId) {
         gameParticipantRepository.deleteAllByGameId(gameId);
         gameRepository.deleteAllById(gameId);
     }
 
     // 게임 수정
     public Game updateGame(GameRequest gameRequest) {
-        Gym gym = this.gymRepository.getGymByName(gameRequest.getGymName());
-        Game game = this.gameRepository.getGameByGym(gym);
+        Game updateGame = gameRepository.getGameById(gameRequest.getGameId());
+        Gym gym = updateGame.getGym();
 
-        Game gameUpdate = this.gameRepository.getGameById(game.getId());
-        gameUpdate.setDate(gameRequest.getDate());
-        gameUpdate.setStartTime(gameRequest.getStartTime());
-        gameUpdate.setEndTime(gameRequest.getEndTime());
-        gameUpdate.setMaxPeople(gameRequest.getMaxPeople());
-        gameUpdate.setMinPeople(gameRequest.getMinPeople());
-        gameUpdate.setParticipationFee(gameRequest.getParticipationFee());
-        gameUpdate.setGym(gym);
+        updateGame.builder()
+                .id(gameRequest.getGameId())
+                .gym(gym)
+                .date(gameRequest.getDate())
+                .startTime(gameRequest.getStartTime())
+                .endTime(gameRequest.getEndTime())
+                .minPeople(gameRequest.getMinPeople())
+                .maxPeople(gameRequest.getMaxPeople())
+                .participationFee(gameRequest.getParticipationFee())
+                .build();
 
-        return this.gameRepository.save(gameUpdate);
+        return this.gameRepository.save(updateGame);
     }
 
     // 게임 상세보기
@@ -81,12 +89,7 @@ public class GameService {
         Game game = this.gameRepository.getGameById(gameId);
         ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
 
-        for (int i = 0; i < gameParticipantList.size(); i++)
-            System.out.println(gameParticipantList.get(i));
-
-        GameDetailResponse result = new GameDetailResponse(gameParticipantList, game);
-
-        return result;
+        return new GameDetailResponse(gameParticipantList, game);
     }
 
     // 게임 목록
@@ -103,9 +106,42 @@ public class GameService {
             }
         }
 
-        System.out.println(result.get(0));
 
+        return result;
+    }
 
+    // 게임 예약
+    public void reserveGame(String userId, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getById(userId);
+
+        GameParticipant newGameParticipant =
+                new GameParticipant().builder()
+                        .userId(userAuth)
+                        .gameId(gameId)
+                        .team(0)
+//                        .state() // 대기중 상태
+                        .build();
+
+        gameParticipantRepository.save(newGameParticipant);
+    }
+
+    // 입금 완료
+    public void payGame(String userId, Long gameId) {
+        UserAuth userAuth = userAuthRepository.getById(userId);
+        GameParticipant gameParticipant = gameParticipantRepository.getGameParticipantByUserId(userAuth);
+
+        GameParticipant updateGameParticipant = gameParticipantRepository.getById(gameParticipant.getId());
+
+        updateGameParticipant.builder()
+//                .state()  // 입금 상태
+                .build();
+
+        gameParticipantRepository.save(updateGameParticipant);
+    }
+
+    // 게임 참여자 목록 반환
+    public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
+        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
         return result;
     }
 
