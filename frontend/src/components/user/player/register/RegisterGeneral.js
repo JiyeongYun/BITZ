@@ -121,7 +121,6 @@ function RegisterGeneral({history}) {
     UserApi.requestJoin(
       data,
       res => {
-        console.log(res)
         alert("회원가입이 완료되었습니다!")
         history.push("/accounts/login")
       },
@@ -142,14 +141,34 @@ function RegisterGeneral({history}) {
 
   // PJW - 이메일 중복 체크
   const onEmailCheck = () => {
-    alert('이메일 중복 확인')
-    setDuplicationCheck({...duplicationCheck, emailCheck: true})
+    UserApi.EmailCheck(
+      values,
+      res => {
+        alert('사용 가능한 이메일입니다.')
+        setDuplicationCheck({...duplicationCheck, emailCheck: true})
+      },
+      err => {
+        if (err.response.status === 404) {
+          alert('이미 사용 중인 이메일입니다.')
+        } else console.log(err.response)
+      }
+    )
   } // onEmailCheck End
 
   // PJW - 닉네임 중복 체크
   const onNicknameCheck = () => {
-    alert('닉네임 중복 확인')
-    setDuplicationCheck({...duplicationCheck, nicknameCheck: true})
+    UserApi.NicknameCheck(
+      values,
+      res => {
+        alert('사용 가능한 닉네임입니다.')
+        setDuplicationCheck({...duplicationCheck, nicknameCheck: true})
+      },
+      err => {
+        if (err.response.status === 404) {
+          alert('이미 사용 중인 닉네임입니다.')
+        } else console.log(err.response)
+      }
+    )
   } // onNicknameCheck End
   
   
@@ -207,7 +226,7 @@ function RegisterGeneral({history}) {
         </div>
         {/* 핸드폰 번호 */}
         <div className="register__phoneNumber registerForm__component">
-          <label>핸드폰 번호</label>
+          <label>핸드폰 번호 ex)010-0000-0000</label>
           <br />
           <input className="inputBox" type="tel" name="phoneNumber" value={values.phoneNumber} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.phoneNumber}</div>
