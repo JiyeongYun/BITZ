@@ -172,6 +172,7 @@ public class UserService extends BaseAuthService {
                 .sido2(userRequest.getSido2())
                 .gugun2(userRequest.getGugun2())
                 .sido3(userRequest.getSido3())
+                .gugun3(userRequest.getGugun3())
                 .build();
         this.favoriteLocationRepository.save(favoriteLocation);
 
