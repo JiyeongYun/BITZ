@@ -23,5 +23,8 @@ public interface GameParticipantRepository extends JpaRepository<GameParticipant
     void deleteGameParticipantByUserAuthAndGameId(UserAuth userAuth, Long gameId);
 
     @Transactional
+    void deleteAllByUserAuth(UserAuth userAuth);
+
+    @Transactional
     void deleteAllByGameId(long gameId);
 }
