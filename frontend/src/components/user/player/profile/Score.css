@@ -83,3 +83,59 @@
   font-size: var(--xlarge-font-size);
   margin: var(--mid-margin-size) 0;
 }
+
+@media screen and (max-width: 1024px) {
+  .match__container {
+    width: 100vw;
+    text-align: center;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .score__box {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100vw;
+    margin-top: var(--mid-margin-size);
+  }
+
+  .score__box > div > p:nth-child(1) {
+    margin-bottom: 2px;
+  }
+  
+  .score__box > .manner > .manner__score > img {
+    width: 20px;
+  }
+  
+  .score__box > .skill > .skill__score {
+    width: 100vw;
+  }
+  
+  .score__box > .skill > .skill__score > .scorebox:nth-child(1)::before {
+    content:"";
+    position: absolute;
+    height: 28px;
+    width:20px;
+    left: calc((100vw - 200px)/2);
+    bottom: 0;
+    transform: translate( -2px, -40%);
+    background: url('../../../images/shooting.png') no-repeat center / contain;
+  }
+  
+  .score__box > .skill > .skill__score > .scorebox:nth-child(4)::before {
+    content:"";
+    position: absolute;
+    height: 28px;
+    width:20px;
+    right: calc((100vw - 200px)/2);
+    bottom: 0;
+    transform: translate( -2px, -40%);
+    background: url('../../../images/basketball_board.png') no-repeat center / contain;
+  }
+  
+  .match__result > h2 {
+    font-size: var(--large-font-size);
+    margin: var(--mid-margin-size) 0;
+  }
+}

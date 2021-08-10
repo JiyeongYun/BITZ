@@ -92,7 +92,7 @@ const Profile = ({ history }) => {
     <div className="profile__div">
       <div className="user__profile">
         <img src="/images/KOW.png" alt="profile" />
-        <p id="nickname">덩크하는 물소</p>
+        <p id="nickname">{userData.nickname}</p>
         <p id="email">{userData.email}</p>
         <p id="birth">{userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
       </div>

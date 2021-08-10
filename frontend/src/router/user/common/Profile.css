@@ -43,6 +43,7 @@
   width: 100%;
   text-align: center;
   margin-top: var(--main-margin-size);
+  padding-bottom: var(--main-margin-size);
 }
 
 .accountSetting > h2{
@@ -75,4 +76,58 @@
 .quit__btn {
   color: rgba(0,0,0,0.7);
   font-size: var(--mid-font-size);
+}
+
+@media screen and (max-width: 1024px) {
+  .profile__div {
+    width: 100vw;
+  }
+  
+  .user__profile > img {
+    width: 70px
+  }
+  
+  .user__profile > #nickname {
+    font-size: var(--mid-font-size);
+  }
+  
+  .user__profile > #email,
+  .user__profile > #birth {
+    font-size: var(--main-font-size);
+  }
+  
+  .left_right_profile {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: var(--small-margin-size);
+  }
+  .accountSetting {
+    font-size: var(--small-font-size);
+  }
+  
+  .accountSetting > h2{
+    margin: var(--main-margin-size) 0;
+  }
+  
+  .accountSetting span {
+    margin: 0 var(--main-margin-size);
+  }
+  
+  .profile__div > .businessAccount {
+    margin: var(--small-margin-size) 0;
+    font-size: var(--mid-font-size);
+    text-align: center;
+  }
+  
+  .quit__btn {
+    font-size: var(--small-font-size);
+  }
+
+  .save__btn {
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    height: var(--btn-height);
+    margin: var(--mid-margin-size);
+  }
 }
