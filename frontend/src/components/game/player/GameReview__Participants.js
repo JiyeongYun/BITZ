@@ -6,16 +6,8 @@ import "./GameReview__Participants.css"
 const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
-      
-  const [members, setMembers] = useState([])
-  useEffect(()=>{
-    setMembers(aboutGame.gameParticipantDetails)
-    console.log('hoi', aboutGame.gameParticipantDetails, aboutGame.gameParticipantDetails.length , aboutGame.gameParticipantDetails[0])
-  }, [aboutGame, aboutGame.gameParticipantDetails])
 
-  useEffect(()=>{
-    console.log('gou', members, members.length ,members[0])
-  }, [members])
+  const members = aboutGame.gameParticipantDetails      
   
   // 참가자의 포지션 표시
   useEffect(() => {

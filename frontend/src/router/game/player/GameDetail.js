@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
 import TeamInfo from 'components/game/TeamInfo';
@@ -26,22 +26,18 @@ const GameDetail = ({ match }) => {
       )
     },[gameDispatch])
     // 픽업 게임 상세 내역 보여주는 컴포넌트
-
+    
   useEffect(()=>{
-    const newData = []
 
-    aboutGame.gameParticipantList.forEach((member)=>{
-      
+    aboutGame.gameParticipantList.forEach((member, idx)=>{
       UserApi.myprofile({email: member.userId.email},
         (res) => {
-          newData.push({...res.data, team: member.team})
+          gameDispatch({ type: 'FETCH_PARTICIPANTS_DETAIL', value: {...res.data, idx, team: member.team} })
         },
         (error) => {
           console.log(error)
         })
       })
-
-      gameDispatch({ type: 'FETCH_PARTICIPANTS_DETAIL', value: newData })
     },[aboutGame.gameParticipantList])
 
   useEffect(()=>{
