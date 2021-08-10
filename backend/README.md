@@ -81,7 +81,8 @@ Spring boot, MySQL
 |  | BusinessAuth | 윤지영 | 사업자 사용자 프로필 출력 |  |
 |  | 배포 | 이소은 | Spring 내장 톰캣을 통한 BackeEnd 배포(.jar) | ver_0.2 |
 |  | 배포 | 이소은 | Nginx를 통한 FrontEnd 배포(build) | ver_0.2 |
-
+| 2021.08.09 | 작성 예정 |  |  |
+| 2021.08.10 | S3 환경 구축 | 이소은 | 예정 |
 
 ------
 
