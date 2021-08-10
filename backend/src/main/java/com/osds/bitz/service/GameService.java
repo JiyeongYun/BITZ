@@ -193,7 +193,7 @@ public class GameService {
     public void payGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
-        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserIdAndGameId(userAuth, gameId);
+        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
 
         updateGameParticipant = updateGameParticipant.builder()
                 .id(updateGameParticipant.getId())
@@ -212,7 +212,7 @@ public class GameService {
     public void confirmGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
-        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserIdAndGameId(userAuth, gameId);
+        GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
 
         updateGameParticipant = updateGameParticipant.builder()
                 .id(updateGameParticipant.getId())
@@ -231,7 +231,7 @@ public class GameService {
     public void deleteGameParticipant(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
-        gameParticipantRepository.deleteGameParticipantByUserIdAndGameId(userAuth, gameId);
+        gameParticipantRepository.deleteGameParticipantByUserAuthAndGameId(userAuth, gameId);
     }
 
     /**
