@@ -31,7 +31,7 @@
   border: none;
   border-radius: 5px;
   background-color: var(--grey-color);
-  width: 100px;
+  width: 120px;
   height: var(--btn-height);
   margin-top: var(--main-font-size);
   text-align: end;
@@ -41,17 +41,6 @@
 .heightForm > span {
   position: absolute;
   transform: translate(20%, 70%);
-}
-
-.btn__update {
-  margin: var(--small-margin-size) 0;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 17px;
-  width: 50px;
-  height: 20px;
-  background-color: white;
-  color: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
 }
 
 .positionForm > input {
@@ -64,7 +53,9 @@
   display: inline-block;
   border: 1px solid var(--main-color);
   border-radius: 5px;
-  padding: 5px 20px;
+  width: 70px;
+  height: var(--btn-height);
+  line-height: var(--btn-height);
   background-color: var(--grey-color);
 }
 
@@ -75,10 +66,6 @@
 
 .location__box {
   margin: var(--small-margin-size) 0 0;
-}
-
-.location__box > select {
-  margin-right: var(--mid-margin-size);
 }
 
 .location__box > span {
@@ -109,4 +96,51 @@
   width: 70px;
   margin: 0 var(--main-margin-size);
   background-color: var(--grey-color);
+}
+
+@media screen and (max-width: 1024px) {
+  .MyInfo {
+    width: 100vw;
+  }
+  
+  .MyInfo > h2 {
+    font-size: var(--large-font-size);
+    margin: var(--mid-margin-size) 0;
+  }
+  
+  .phone > p,
+  .height > p,
+  .position > p,
+  .location > p {
+    margin: var(--mid-margin-size) 0 0;
+    font-size: var(--mid-font-size);
+  }
+  .location > .location__box > div {
+    display: flex;
+    font-size: var(--main-font-size);
+    align-items: center;
+    justify-content: center;
+    margin: var(--small-margin-size) 0;
+  }
+  
+  .location > .location__box > div > p {
+    width: 70px;
+    height: var(--btn-height);
+    line-height: var(--btn-height);
+    margin: 0 var(--main-margin-size);
+  }
+  
+  .location > .location__box > div > div {
+    display: flex;
+  }
+  
+  .location > .location__box > div > div > p {
+    height: var(--btn-height);
+    line-height: var(--btn-height);
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    width: 70px;
+    margin: 0 var(--main-margin-size);
+    background-color: var(--grey-color);
+  }
 }

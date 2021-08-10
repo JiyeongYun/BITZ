@@ -1,7 +1,7 @@
 footer {
     background-color: #2a2a2a;
     width: 100%;
-    margin-top: var(--main-margin-size);
+    /* margin-top: var(--main-margin-size); */
     display: flex;
     justify-content: center;
     height: 10vh;
