@@ -171,6 +171,28 @@ const BusMyProfile = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// KOW - 일반 회원 탈퇴
+const quitAccount = (data, callback, errorCallback) => {
+  axios({
+    method: 'DELETE',
+    url: BASE_URL + '/account/user/userauth',
+    data: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
+// KOW - 비즈니스 회원 탈퇴
+const quitBusAccount = (data, callback, errorCallback) => {
+  axios({
+    method: 'DELETE',
+    url: BASE_URL + '/account/business/businessauth',
+    data: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
@@ -187,6 +209,8 @@ const UserApi = {
   NicknameCheck: (data, callback, errorCallback) => NicknameCheck(data, callback, errorCallback),
   BusEmailCheck: (data, callback, errorCallback) => BusEmailCheck(data, callback, errorCallback),
   BusMyProfile: (data, callback, errorCallback) => BusMyProfile(data, callback, errorCallback),
+  quitAccount: (data, callback, errorCallback) => quitAccount(data, callback, errorCallback),
+  quitBusAccount: (data, callback, errorCallback) => quitBusAccount(data, callback, errorCallback),
 };
 
 export default UserApi;

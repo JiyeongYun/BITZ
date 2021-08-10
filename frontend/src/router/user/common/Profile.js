@@ -51,6 +51,43 @@ const Profile = ({ history }) => {
     }
   }, [value.isLogin, userKind])
 
+  // 회원 탈퇴
+  const removeUser = () => {
+    const data = {
+      email: value.isLogin,
+      password: "",
+    }
+    if (userKind === "player") {
+      if (window.confirm("탈퇴하면 회원 정보가 모두 삭제되며 복구할 수 없습니다.\n그래도 탈퇴 하시겠습니까?") === true) {
+        UserApi.quitAccount(
+          data,
+          res => {
+            alert('회원 탈퇴되었습니다.')
+            localStorage.removeItem('currentUser')
+            history.push('/accounts/login')
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      }
+    } else if (userKind === 'business') {
+      if (window.confirm("탈퇴하면 회원 정보가 모두 삭제되며 복구할 수 없습니다.\n그래도 탈퇴 하시겠습니까?") === true) {
+        UserApi.quitBusAccount(
+          data,
+          res => {
+            alert('회원 탈퇴되었습니다.')
+            localStorage.removeItem('currentUser')
+            history.push('/accounts/login')
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      }
+    }
+  }
+
   return (
     <div className="profile__div">
       <div className="user__profile">
@@ -82,6 +119,7 @@ const Profile = ({ history }) => {
         <Link to="/accounts/change_password">비밀번호 변경</Link>
         <span onClick={onLogout}>로그아웃</span>
         <Link to={`/accounts/profile/${value.isLogin}/update`}>회원 정보 수정</Link>
+        <span className="quit__btn" onClick={removeUser}>회원 탈퇴</span>
       </div>
     </div>
   );
