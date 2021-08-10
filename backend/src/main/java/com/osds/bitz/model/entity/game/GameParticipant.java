@@ -22,9 +22,8 @@ public class GameParticipant {
 
     @OneToOne
     @JoinColumn(name="user_id")
-    private UserAuth userId;          // 사용자
+    private UserAuth userAuth;          // 사용자
 
-    //@Convert(converter = UserStateConverter.class)
     @Enumerated(EnumType.STRING)
     private UserState state;        // 상태
 
