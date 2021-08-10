@@ -108,6 +108,13 @@ public class GameController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PutMapping("/teaming")
+    @ApiOperation(value = "팀 배정", notes = "참가자들을 팀에 배정합니다.")
+    public ResponseEntity createTeaming(@RequestBody @ApiParam(value = "게임 정보") Map<String,Long> requestBody) throws Exception {
+        gameService.createTeaming(requestBody.get("gameId"));
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @PostMapping("/gamerecord")
     @ApiOperation(value = "게임 점수 기록", notes = "경기 기록을 저장합니다.")
     public ResponseEntity createRecord(@RequestBody @ApiParam(value = "기록 정보") RecordRequest recordRequest) throws Exception {
