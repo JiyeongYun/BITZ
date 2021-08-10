@@ -12,6 +12,7 @@ import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js';
 import Detail from './router/game/player/GameDetail';
 import MyGame from './router/game/player/MyGame';
+import GameRegister from './router/game/business/GameRegister';
 import { GameStateProvider } from 'store/gameStore.js';
 import { store } from 'store/store';
 import GameReservation from 'router/game/player/GameReservation';
@@ -27,6 +28,7 @@ function App() {
     // 플레이어 로그인
     const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
     if (currentUser) {
+      dispatch({ type: "SELECT_USER_KIND", value: "player" })
       dispatch({type: "LOGIN", value:currentUser.email})
     }
     // 비즈니스 로그인
@@ -53,7 +55,7 @@ function App() {
           onClick={toggleCanvas}
         ></div>
         <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
-          <OffCanvas />
+          <OffCanvas toggleCanvas={toggleCanvas}/>
         </div>
         <Route path="/" exact={true} component={MainPage} />
         <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
@@ -68,6 +70,7 @@ function App() {
           <Route path="/detail/:gameId/reservation" exact={true} component={GameReservation} />
         </GameStateProvider>
         <Route path="/match/mygames" exact={true} component={MyGame} />
+        <Route path="/match/register" exact={true} component={GameRegister} />
       </BrowserRouter>
     </div>
   );

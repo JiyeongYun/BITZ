@@ -27,9 +27,21 @@ const requsetGame = (data,callback,errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
+
+// KOW - Game 등록 요청
+const registerGame = (data, callback, errorCallback) => {
+  axios({
+    method: "post",
+    url: BASE_URL + "/game/game",
+    data: data,
+  })
+  .then(callback)
+  .catch(errorCallback)
+}
  
 const GameApi = {
-  requsetGameList:(data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
+  requsetGameList: (data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
+  registerGame: (data,callback,errorCallback)=>registerGame(data,callback,errorCallback),
   requsetGame:(data,callback,errorCallback)=>requsetGame(data,callback,errorCallback),
 }
 

@@ -19,14 +19,12 @@ public class GymReview {
     private Long id;           // 체육관리뷰ID
 
     @Column(nullable = false)
-    private Long gymId; // 체육관ID
+    private Long gymId;         // 체육관ID
 
     @Column(nullable = false)
-    private String userId; // 유저ID
+    private String userId;      // 유저ID
 
-    private String text; // 리뷰내용
-
-    private int rate; // 평점
+    private int rate;           // 평점
 
     @Column(nullable = false)
     private LocalDateTime date; // 날짜

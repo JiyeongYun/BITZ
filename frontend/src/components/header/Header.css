@@ -97,5 +97,18 @@
 }
 
 .offcanvas__show {
-	right: 0;
+	right: 0 !important;
+}
+
+@media screen and (max-width: 1024px) {
+	.header {
+		width: 100vw;
+		padding: 0 var(--main-margin-size);
+	}
+
+	.offcanvas {
+		height: 100%;
+		width: 100%;
+		right: -100vw;
+	}
 }

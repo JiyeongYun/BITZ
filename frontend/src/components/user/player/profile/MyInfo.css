@@ -8,11 +8,23 @@
   margin: var(--mid-margin-size) 0;
 }
 
+.phone > p,
 .height > p,
 .position > p,
 .location > p {
   font-weight: bold;
   margin: var(--large-margin-size) 0 0;
+}
+
+.phoneForm > input {
+  border: none;
+  border-radius: 5px;
+  background-color: var(--grey-color);
+  width: 120px;
+  height: var(--btn-height);
+  margin-top: var(--main-font-size);
+  text-align: end;
+  padding-right: var(--main-margin-size);
 }
 
 .heightForm > input {
@@ -22,10 +34,8 @@
   width: 100px;
   height: var(--btn-height);
   margin-top: var(--main-font-size);
-}
-
-.heightForm > input:disabled {
-  background-color: rgba(0, 0, 0, 0.3);
+  text-align: end;
+  padding-right: var(--main-margin-size);
 }
 
 .heightForm > span {
@@ -64,8 +74,6 @@
 }
 
 .location__box {
-  display: flex;
-  justify-content: center;
   margin: var(--small-margin-size) 0 0;
 }
 
@@ -77,12 +85,28 @@
   line-height: 70px;
 }
 
-.noclick {
-  pointer-events: none;
+.location > .location__box {
+  margin-top: var(--main-margin-size);
 }
 
-.noclick::after {
-  content: "";
-  display: none;
-  background-color: black;
+.location > .location__box > div {
+  display: flex;
+  font-size: var(--main-font-size);
+  align-items: center;
+  justify-content: center;
+  margin: var(--small-margin-size) 0;
+}
+
+.location > .location__box > div > div {
+  display: flex;
+}
+
+.location > .location__box > div > div > p {
+  height: var(--btn-height);
+  line-height: var(--btn-height);
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+  width: 70px;
+  margin: 0 var(--main-margin-size);
+  background-color: var(--grey-color);
 }

@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react"
 import "./Main__Business.css"
 import { store } from 'store/store.js'
 import gameManageListDummy from "store/gameManageListDummy";
+import {Link} from 'react-router-dom'
+import UserApi from "api/UserApi";
 import GameApi from "api/GameApi";
 
-function Main__Business () {
+function Main__Business ({history}) {
   // Global State Managemnet
   const globalState = useContext(store);
   const { value, dispatch } = globalState;
@@ -38,8 +40,25 @@ function Main__Business () {
     setProcessedData(dataBox)
   },[gameManagementList])
 
+  // 체육관 등록이 안되어 있으면 체육관 등록 페이지 이동
+  useEffect(() => {
+    const data = {
+      email: value.isLogin,
+      password: null,
+    }
+
+    UserApi.busFirstLogin(
+      data,
+      res => {
+        if(res.status === 200) {
+          history.push('/registergym')
+        }
+      },
+      err => console.log(err)
+    )
+  }, [value.isLogin, history])
+  
   useEffect(()=>{
-    console.log('hi')
     GameApi.requsetGameList(res => {
         console.log(res.data)
       },
@@ -62,7 +81,7 @@ function Main__Business () {
               |
             </div>
             <div>
-              게임 추가하기
+              <Link to="/match/register">픽업 게임 등록하기</Link>
             </div>
           </div>
         </div>

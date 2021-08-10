@@ -22,10 +22,14 @@
   font-weight: bold;
 }
 
-.user__profile > #email {
-  margin-bottom: var(--main-margin-size);;
+.user__profile > #email,
+.user__profile > #birth {
   font-size: var(--mid-font-size);
   color: var(--main-color);
+}
+
+.user__profile > #birth {
+  margin-bottom: var(--main-margin-size);;
 }
 
 .left_right_profile {
@@ -60,4 +64,10 @@
   border-radius: 5px;
   height: var(--btn-height);
   margin: var(--main-margin-size) 0;
+}
+
+.profile__div > .businessAccount {
+  margin: var(--small-margin-size) 0;
+  font-size: var(--mid-font-size);
+  text-align: center;
 }
