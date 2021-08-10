@@ -42,6 +42,10 @@
   font-size: 15px;
 }
 
+.MainBusiness__toggle_game_list {
+  cursor: pointer;
+}
+
 .MainBusiness__allGameList {
   margin-top: 50px;
 }

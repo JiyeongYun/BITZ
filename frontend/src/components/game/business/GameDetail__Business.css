@@ -1,0 +1,41 @@
+.GameDatail__Business_top {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.GameDatail__Business_top > span {
+  margin: var(--small-margin-size);
+}
+
+.GameDatail__Business_table {
+  width: 100%;
+  border: 0;
+  border-collapse: separate; 
+  border-spacing: 0 5px;
+}
+
+.GameDatail__Business_table > thead > th {
+  color: var(--main-color);
+  border-bottom: 1px solid var(--main-color); 
+  border-collapse: separate; 
+  border-spacing: 5px 5px;
+  padding: var(--small-margin-size) 0px var(--small-margin-size) 0px;
+}
+
+.GameDatail__Business_table > tbody > tr > td {
+  height: 100px;
+  text-align: center;
+}
+
+
+.GameDatail__Business_table > tbody > tr > td > img {
+  width: 80px;
+}
+
+.GameDatail__Business_table_Roster > div,
+.GameDatail__Business_table_Position {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

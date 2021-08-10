@@ -35,7 +35,7 @@ const day = ["일요일", "월요일", "화요일", "수요일", "목요일", "�
       </div>
       <div className="gameuser">
         <p>모집 인원 {aboutGame.gameInfo.minPeople}~{aboutGame.gameInfo.maxPeople}명</p>
-        <p>경기 인원은 <span>{aboutGame.gameParticipantList.length}</span> 명 입니다.</p>
+        <p>현재 모인 인원은 <span>{aboutGame.gameParticipantList.length}</span> 명 입니다.</p>
         {/* <p>총 9쿼터 진행 예정</p> */}
         <p>쿼터 당 경기 시간은 <span>10</span> 분 입니다.</p>
       </div>

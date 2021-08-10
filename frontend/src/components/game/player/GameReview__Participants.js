@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { gameStore } from 'store/gameStore';
 import GameReviewParticipantsMiniInfo from './GameReview__participants_miniInfo';
 import "./GameReview__Participants.css"
@@ -7,7 +7,12 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
 
-  const members = aboutGame.gameParticipantDetails      
+  const [members, setMembers] = useState(aboutGame.gameParticipantDetails)
+  
+  useEffect(()=>{
+    setMembers(aboutGame.gameParticipantDetails)
+    console.log(members, aboutGame.gameParticipantList) 
+  },[aboutGame.gameParticipantDetails])
   
   // 참가자의 포지션 표시
   useEffect(() => {
