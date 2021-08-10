@@ -4,6 +4,7 @@ import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.Manner;
 import com.osds.bitz.model.entity.account.user.Skill;
 import com.osds.bitz.model.entity.account.user.UserAuth;
+import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.game.GameRecord;
@@ -19,6 +20,7 @@ import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.account.user.MannerRepository;
 import com.osds.bitz.repository.account.user.SkillRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
+import com.osds.bitz.repository.account.user.UserProfileRepository;
 import com.osds.bitz.repository.game.GameParticipantRepository;
 import com.osds.bitz.repository.game.GameRecordRepository;
 import com.osds.bitz.repository.game.GameRepository;
@@ -31,6 +33,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
 @Slf4j
@@ -55,13 +58,31 @@ public class GameService {
     private UserAuthRepository userAuthRepository;
 
     @Autowired
+    private UserProfileRepository userProfileRepository;
+
+    @Autowired
+    private BusinessProfileRepository businessProfileRepository;
+
+    @Autowired
     private MannerRepository mannerRepository;
 
     @Autowired
     private SkillRepository skillRepository;
 
-    @Autowired
-    private BusinessProfileRepository businessProfileRepository;
+    class UserSkill implements Comparable<UserSkill> {
+        String userId;
+        double skillScore;
+
+        public UserSkill(String userId, double skillScore) {
+            this.userId = userId;
+            this.skillScore = skillScore;
+        }
+
+        @Override
+        public int compareTo(UserSkill o) {
+            return (int) (o.skillScore - this.skillScore);
+        }
+    }
 
     /**
      * 게임 등록
@@ -96,8 +117,8 @@ public class GameService {
         businessProfile.setBusinessRegistration(null);
         businessProfile.setBusinessAuth(null);
 
-        for(int i=0; i<gameParticipantList.size(); i++) // 중요 정보 제거
-            gameParticipantList.get(i).getUserId().setPassword(null);
+        for (int i = 0; i < gameParticipantList.size(); i++) // 중요 정보 제거
+            gameParticipantList.get(i).getUserAuth().setPassword(null);
 
         return new GameDetailResponse(gameParticipantList, game, businessProfile);
     }
@@ -157,7 +178,7 @@ public class GameService {
 
         GameParticipant newGameParticipant =
                 new GameParticipant().builder()
-                        .userId(userAuth)
+                        .userAuth(userAuth)
                         .gameId(gameId)
                         .team(0)
                         .state(UserState.ON_DEPOSIT)
@@ -177,7 +198,7 @@ public class GameService {
         updateGameParticipant = updateGameParticipant.builder()
                 .id(updateGameParticipant.getId())
                 .gameId(gameId)
-                .userId(userAuth)
+                .userAuth(userAuth)
                 .state(UserState.WAITING)
                 .team(updateGameParticipant.getTeam())
                 .build();
@@ -196,7 +217,7 @@ public class GameService {
         updateGameParticipant = updateGameParticipant.builder()
                 .id(updateGameParticipant.getId())
                 .gameId(gameId)
-                .userId(userAuth)
+                .userAuth(userAuth)
                 .state(UserState.COMPLETE)
                 .team(updateGameParticipant.getTeam())
                 .build();
@@ -211,6 +232,107 @@ public class GameService {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
         gameParticipantRepository.deleteGameParticipantByUserIdAndGameId(userAuth, gameId);
+    }
+
+    /**
+     * 팀 배정
+     */
+    public void createTeaming(Long gameId) {
+        ArrayList<GameParticipant> participants = this.gameParticipantRepository.getGameParticipantsByGameId(gameId);
+
+        // 1. 참가자 인원 수에 따라 팀별 인원수 계산
+        int[] numOfTeam = getNumOfTeam(participants.size());
+
+        // 2. 각 참가자들의 실력 점수(+ 키)를 계산
+        // UserSKill(String userId, double skill)
+        ArrayList<UserSkill> userSkills = new ArrayList<>();
+        for (GameParticipant participant : participants) {
+            UserAuth userAuth = participant.getUserAuth();
+            UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(userAuth);
+            Skill skill = this.skillRepository.getSkillByUserAuth(userAuth);
+
+            // 실력 점수 계산
+            double total = getSkillScore(skill) + userProfile.getHeight();
+
+            // 참가자 아이디 + 실력점수
+            userSkills.add(new UserSkill(userAuth.getId(), total));
+        }
+
+        // 3. 실력점수에 따라 내림차순 정렬
+        Collections.sort(userSkills);
+
+        // 4. 팀 배정
+        ArrayList<UserSkill[]> team = setTeamBySkillScore(numOfTeam, userSkills);
+
+        // 5. DB에 저장
+        for(int i = 0; i < team.size(); i++){
+            for(int j = 0; j < team.get(i).length; j++){
+                UserSkill userSkill = team.get(i)[j];
+                UserAuth userAuth = this.userAuthRepository.getUserAuthById(userSkill.userId);
+                GameParticipant gameParticipant = this.gameParticipantRepository.getGameParticipantByUserAuth(userAuth);
+                gameParticipant.setId(gameParticipant.getId());
+                gameParticipant.setTeam(i+1);
+                this.gameParticipantRepository.save(gameParticipant);
+            }
+        }
+    }
+
+    /**
+     * createTeaming() - 참가자 수에 따른 팀별 인원수 리턴
+     */
+    public int[] getNumOfTeam(int numOfParticipant) {
+        int[][] teams = {
+                {6, 6, -1},
+                {7, 6, -1},
+                {7, 7, -1},
+                {5, 5, 5},
+                {8, 8, -1},
+                {5, 6, 6},
+                {6, 6, 6}
+        };
+
+        return teams[numOfParticipant - 12];
+    }
+
+    /**
+     * createTeaming() - 실력 점수 계산
+     */
+    public double getSkillScore(Skill skill) {
+        return (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getMvpCnt() * 0.2);
+    }
+
+    /**
+     * createTeaming() - 팀별 인원배치
+     */
+    public ArrayList<UserSkill[]> setTeamBySkillScore(int[] numOfTeam, ArrayList<UserSkill> userSkills){
+
+        // 참가자수에 따른 team 개수 구하고 세팅하기
+        int teamCnt = numOfTeam[2] == -1 ? 2 : 3;
+        ArrayList<UserSkill[]> team = new ArrayList<>();
+        for (int i = 0; i < teamCnt; i++) {
+            team.add(new UserSkill[numOfTeam[i]]);
+        }
+
+        // skillScore에 따라 팀 배정하기
+        /*
+            teamIdx: team을 가리키는 index
+            peopleIdx: 팀에 배정된 인원수를 가리키는 index
+            direction: 방향을 의미하는 변수
+        */
+        int teamIdx = 0, peopleIdx = 0;
+        int direction = 1;
+        for (int i = 0; i < userSkills.size(); i++) {
+            UserSkill userSkill = userSkills.get(i);
+            team.get(teamIdx)[peopleIdx] = userSkill;
+            teamIdx = teamIdx + direction;
+
+            if(teamIdx == -1 || teamIdx == teamCnt){
+                peopleIdx++;
+                direction = direction * -1;
+                teamIdx = teamIdx + direction;
+            }
+        }
+        return team;
     }
 
     /**
