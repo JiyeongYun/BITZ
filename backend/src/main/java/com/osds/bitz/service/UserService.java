@@ -4,6 +4,7 @@ import com.osds.bitz.model.entity.account.user.FavoriteLocation;
 import com.osds.bitz.model.entity.account.user.Position;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.account.user.UserProfile;
+import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.account.ReadAuthRequest;
@@ -11,10 +12,11 @@ import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.account.UserAuthRequest;
 import com.osds.bitz.model.network.request.account.UserRequest;
 import com.osds.bitz.model.network.response.account.UserResponse;
-import com.osds.bitz.repository.account.user.FavoriteLocationRepository;
-import com.osds.bitz.repository.account.user.PositionRepository;
-import com.osds.bitz.repository.account.user.UserAuthRepository;
-import com.osds.bitz.repository.account.user.UserProfileRepository;
+import com.osds.bitz.repository.account.user.*;
+import com.osds.bitz.repository.game.GameParticipantRepository;
+import com.osds.bitz.repository.game.GameRecordRepository;
+import com.osds.bitz.repository.gym.GymReviewRepository;
+import com.osds.bitz.repository.log.LoginLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -38,6 +40,24 @@ public class UserService extends BaseAuthService {
 
     @Autowired
     private PositionRepository positionRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
+
+    @Autowired
+    private MannerRepository mannerRepository;
+
+    @Autowired
+    private GameParticipantRepository gameParticipantRepository;
+
+    @Autowired
+    private GameRecordRepository gameRecordRepository;
+
+    @Autowired
+    private GymReviewRepository gymReviewRepository;
+
+    @Autowired
+    private LoginLogRepository loginLogRepository;
 
     /**
      * 회원가입
@@ -317,9 +337,58 @@ public class UserService extends BaseAuthService {
         UserProfile userProfile = this.userProfileRepository.getUserProfileByUserAuth(userAuth);
 
         // TODO: LoginLog, Position, FavoriteLocation, Manner, GymReview, .. 등등 UserAuth의 id가 속한 모든 table 데이터 지우기
+        // gamerecord, gameparticipant, gymreview
+        try {
+            this.favoriteLocationRepository.deleteByUserAuth(userAuth);
+        } catch (Exception e) {
+            System.out.println("선호지역");
+        }
+        try {
+            this.positionRepository.deleteByUserAuth(userAuth);
+        } catch (Exception e) {
+            System.out.println("포지션");
+        }
+        try {
+            this.skillRepository.deleteByUserAuth(userAuth);
+        } catch (Exception e) {
+            System.out.println("스킬");
+        }
+        try {
+            this.mannerRepository.deleteByUserAuth(userAuth);
+        } catch (Exception e) {
+            System.out.println("매너");
+        }
+        try {
+            this.gameParticipantRepository.deleteAllByUserAuth(userAuth);
+        } catch (Exception e) {
+            System.out.println("게임참여자");
+        }
+        try {
+            this.gameRecordRepository.deleteAllByUserId(userAuth.getId());
+        } catch (Exception e) {
+            System.out.println("게임기록");
+        }
 
-        this.userProfileRepository.delete(userProfile);
-        this.userAuthRepository.delete(userAuth);
+        try {
+            this.gymReviewRepository.deleteAllByUserId(userAuth.getId());
+        } catch (Exception e) {
+            System.out.println("체육관리뷰");
+        }
+        try {
+            this.loginLogRepository.deleteAllByEmail(userAuth.getEmail());
+        } catch (Exception e) {
+            System.out.println("로그인로그");
+        }
+        try {
+            this.userProfileRepository.delete(userProfile);
+        } catch (Exception e) {
+            System.out.println("유저프로필");
+        }
+        try {
+            this.userAuthRepository.delete(userAuth);
+        } catch (Exception e) {
+            System.out.println("유저인증");
+        }
     }
 
     /**
