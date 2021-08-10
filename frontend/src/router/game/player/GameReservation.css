@@ -1,0 +1,39 @@
+.GameReservation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.GameReservation > img {
+  width: var(--logo-width);
+}
+
+.GameReservation__account {
+  font-weight: bold;
+  font-size: var(--large-font-size);
+}
+
+.GameReservation__warning {
+  font-size: var(--mid-font-size);
+  margin: var(--large-margin-size);
+}
+
+.GameReservation__announcement {
+  font-weight: bold;
+  font-size: var(--xlarge-font-size);
+}
+
+.GameReservation__buttons {
+  display: flex;
+}
+
+.GameReservation__buttons > button {
+  cursor: pointer;
+  margin: var(--xlarge-font-size) var(--small-font-size);
+  background-color: var(--main-color);
+  border: none;
+  height: var(--btn-height);
+  padding: 0px 10px 0px 10px;
+  border-radius: 20px;
+}

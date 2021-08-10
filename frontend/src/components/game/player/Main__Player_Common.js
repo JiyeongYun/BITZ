@@ -8,7 +8,7 @@ import { store } from 'store/store.js'; // store import
 import UserApi from "api/UserApi";
 import FirstLogin from "components/user/player/FirstLogin";
 
-function Main__Player_Common() {
+function Main__Player_Common({ isBusiness }) {
   const [isFirstLogin, setIsFirstLogin] = useState(false)
 
   // (1) store에서 가져온 store Context를 globalState 변수에 집어넣음
@@ -28,7 +28,8 @@ function Main__Player_Common() {
       email : value.isLogin,
       password : null,
     }
-    if (value.isLogin) {
+    
+    if (value.isLogin && !isBusiness) {
       UserApi.firstLogin(data,
         (res) => {
           if (res.status===200){
