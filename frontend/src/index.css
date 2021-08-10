@@ -13,6 +13,7 @@ body {
     overflow: scroll;
     overflow-x: hidden;
     min-height: 100vh;
+    position: relative;
 }
 
 :root {
