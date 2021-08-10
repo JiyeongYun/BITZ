@@ -15,7 +15,7 @@ function Login({ history }) {
 
   useEffect(() => {
     dispatch({ type: "SELECT_USER_KIND", value:"player"})
-  }, [])
+  }, [dispatch])
 
   const onChange = (event) => {
     const {

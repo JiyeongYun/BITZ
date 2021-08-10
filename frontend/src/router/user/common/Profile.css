@@ -63,11 +63,16 @@
   border: none;
   border-radius: 5px;
   height: var(--btn-height);
-  margin: var(--main-margin-size) 0;
+  margin: var(--main-margin-size);
 }
 
 .profile__div > .businessAccount {
   margin: var(--small-margin-size) 0;
   font-size: var(--mid-font-size);
   text-align: center;
+}
+
+.quit__btn {
+  color: rgba(0,0,0,0.7);
+  font-size: var(--mid-font-size);
 }

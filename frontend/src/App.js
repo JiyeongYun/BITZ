@@ -7,6 +7,7 @@ import MainPage from './router/game/common/MainPage.js';
 import Login from './router/user/common/Login.js';
 import Register from './router/user/common/Register.js';
 import Profile from './router/user/common/Profile.js';
+import UpdateProfile from './router/user/common/UpdateProfile.js';
 import RegisterGym from './router/user/business/gym/RegisterGym.js';
 import FindPassword from './router/user/common/FindPassword.js';
 import ChangePassword from './router/user/common/ChangePassword.js';
@@ -62,6 +63,7 @@ function App() {
         <Route path="/accounts/login" exact={true} component={Login} />
         <Route path="/accounts/register" exact={true} component={Register}></Route>
         <Route path="/accounts/profile/:email" exact={true} component={Profile} />
+        <Route path="/accounts/profile/:email/update" exact={true} component={UpdateProfile} />
         <Route path="/accounts/find_password" exact={true} component={FindPassword} />
         <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
         {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}

@@ -24,7 +24,7 @@ function Register(props) {
   // userKind를 player 로 만들어주기 (css animation을 위해)
   useEffect(() => {
     dispatch_({ type: "SELECT_USER_KIND", value:"player"})
-  }, [])
+  }, [dispatch_])
 
   const onChange = (event) => {
     const {
