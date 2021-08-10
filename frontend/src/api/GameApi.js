@@ -39,10 +39,58 @@ const registerGame = (data, callback, errorCallback) => {
   .catch(errorCallback)
 }
  
+// PJW - Game 예약 버튼
+const reserveGame = (data,callback,errorCallback) => {
+    axios({
+      method: "POST",
+      url: BASE_URL + "/game/game/reserve",
+      data: data
+    })
+    .then(callback)
+    .catch(errorCallback)
+}
+ 
+// PJW - Game 입금 확인 버튼
+const requsetPaymentCheck = (data,callback,errorCallback) => {
+    axios({
+      method: "PUT",
+      url: BASE_URL + "/game/game/reserve",
+      data: data
+    })
+    .then(callback)
+    .catch(errorCallback)
+}
+ 
+// PJW - Game 예약 취소 버튼
+const cancelReservation = (data,callback,errorCallback) => {
+    axios({
+      method: "DELETE",
+      url: BASE_URL + "/game/gameparticipant",
+      data: data
+    })
+    .then(callback)
+    .catch(errorCallback)
+}
+ 
+// PJW - Game 확정 버튼
+const ConfirmReservation = (data,callback,errorCallback) => {
+    axios({
+      method: "PUT",
+      url: BASE_URL + "/game/gameparticipant",
+      data: data
+    })
+    .then(callback)
+    .catch(errorCallback)
+}
+ 
 const GameApi = {
   requsetGameList: (data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
   registerGame: (data,callback,errorCallback)=>registerGame(data,callback,errorCallback),
   requsetGame:(data,callback,errorCallback)=>requsetGame(data,callback,errorCallback),
+  reserveGame:(data,callback,errorCallback)=>reserveGame(data,callback,errorCallback),
+  requsetPaymentCheck:(data,callback,errorCallback)=>requsetPaymentCheck(data,callback,errorCallback),
+  cancelReservation:(data,callback,errorCallback)=>cancelReservation(data,callback,errorCallback),
+  ConfirmReservation:(data,callback,errorCallback)=>ConfirmReservation(data,callback,errorCallback),
 }
 
 export default GameApi 

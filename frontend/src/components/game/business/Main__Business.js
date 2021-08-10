@@ -5,6 +5,7 @@ import gameManageListDummy from "store/gameManageListDummy";
 import {Link} from 'react-router-dom'
 import UserApi from "api/UserApi";
 import GameApi from "api/GameApi";
+import Main__Player_Common from "../player/Main__Player_Common";
 
 function Main__Business ({history}) {
   // Global State Managemnet
@@ -58,24 +59,40 @@ function Main__Business ({history}) {
     )
   }, [value.isLogin, history])
   
-  useEffect(()=>{
-    GameApi.requsetGameList(res => {
-        console.log(res.data)
-      },
-        err => {
-        console.log(err)
-      }
-    )
-  })
+  // useEffect(()=>{
+  //   GameApi.requsetGameList(res => {
+  //       console.log(res.data)
+  //     },
+  //       err => {
+  //       console.log(err)
+  //     }
+  //   )
+  // })
 
+  // 모든 게임 보기 버튼 활성화
+  const [toggleGameList, setToggleGameList] = useState(true)
+  const onToggle = () => {
+    setToggleGameList(!toggleGameList)
+  }
+
+  // 게임 관리 상세 페이지
+  const manageGame = (event) => {
+    console.log(event.target.value)
+    history.push({
+      pathname: '/detail/1',
+      state: {isBusiness: true}
+    })
+  }
+  
   return (
+  <div>
     <div className="MainBusiness">
       <div>
         <div className="MainBusiness__top">
           <div>게임 관리하기</div>
           <div className="MainBusiness__top_links">
-            <div>
-              모든 게임 보기
+            <div onClick={onToggle} className="MainBusiness__toggle_game_list">
+              { toggleGameList ? <span>모든 게임 보기</span> : <span>나의 게임 보기</span> }
             </div>
             <div>
               |
@@ -85,95 +102,101 @@ function Main__Business ({history}) {
             </div>
           </div>
         </div>
-        <div className="MainBusiness__allGameList">
-          {
-            processedData.length ? (
-              processedData.map((game,idx)=>(
-                <div className="MainBusiness__EachDate" key={idx}>
-                  <div className={idx? "MainBusiness__DateName" : "MainBusiness__DateName MainBusiness__DateName_Today"}>
-                    {!idx? (<div className="MainBusiness__Today">오늘</div>) : ""}
-                    {`${game.time.month+1}월 ${game.time.date}일 (${Day_index2name[game.time.day]})`}
-                  </div>
-                  <div className="MainBusiness__DailyGames">
-                    {game.games.map((game,idx)=>(
-                      <div key={idx} className="MainBusiness__DailyGame">
-                        {idx? <hr /> : ""}
-                        {/* 게임 내용 시작 */}
-                        <div className="gameList__content">
-                          <div className="gameList__game__Time">
-                            <div className="gameList__start">
-                              {game.start_time.substr(0,2)+" : "+game.start_time.substr(2,4)+" ~"}
+        {toggleGameList ?
+          <div className="MainBusiness__allGameList">
+            {
+              processedData.length ? (
+                processedData.map((game,idx)=>(
+                  <div className="MainBusiness__EachDate" key={idx}>
+                    <div className={idx? "MainBusiness__DateName" : "MainBusiness__DateName MainBusiness__DateName_Today"}>
+                      {!idx? (<div className="MainBusiness__Today">오늘</div>) : ""}
+                      {`${game.time.month+1}월 ${game.time.date}일 (${Day_index2name[game.time.day]})`}
+                    </div>
+                    <div className="MainBusiness__DailyGames">
+                      {game.games.map((game,idx)=>(
+                        <div key={idx} className="MainBusiness__DailyGame">
+                          {idx? <hr /> : ""}
+                          {/* 게임 내용 시작 */}
+                          <div className="gameList__content">
+                            <div className="gameList__game__Time">
+                              <div className="gameList__start">
+                                {game.start_time.substr(0,2)+" : "+game.start_time.substr(2,4)+" ~"}
+                              </div>
+                              <div className="gameList__end">
+                                {game.end_time.substr(0,2)+" : "+game.end_time.substr(2,4)}
+                              </div>
                             </div>
-                            <div className="gameList__end">
-                              {game.end_time.substr(0,2)+" : "+game.end_time.substr(2,4)}
-                            </div>
-                          </div>
 
-                          <div className="gameList__game__info">
-                            <div className="gameList__game__name">
-                              {game.name}
+                            <div className="gameList__game__info">
+                              <div className="gameList__game__name">
+                                {game.name}
+                              </div>
+                              <div className="gameList__game__location">
+                                {game.City + " " + game.Area}
+                              </div>
+                              <div className="gameList__game__location">
+                                {"코트 규격: " + game.court_length + "m * " + game.court_width + "m"}
+                              </div>
                             </div>
-                            <div className="gameList__game__location">
-                              {game.City + " " + game.Area}
+                            <div className="MainBusiness__game__personnel">
+                              <div>
+                                {`최대 ${game.max_people}`}
+                              </div>
+                              <div>
+                                {`최소 ${game.min_people}`}
+                              </div>
                             </div>
-                            <div className="gameList__game__location">
-                              {"코트 규격: " + game.court_length + "m * " + game.court_width + "m"}
-                            </div>
-                          </div>
-                          <div className="MainBusiness__game__personnel">
-                            <div>
-                              {`최대 ${game.max_people}`}
-                            </div>
-                            <div>
-                              {`최소 ${game.min_people}`}
-                            </div>
-                          </div>
 
-                          <div className="MainBusiness__game__participants">
-                            <span>{"모집인원 | "}</span>
-                            <span>
-                              {`${game.gameparticipant.filter(element=>element.state===2).length} 명`}
-                            </span>
-                            <span>{" / "}</span>
-                            <span>
-                              {`${game.max_people} 명 `}
-                            </span>
-                            <span>
-                              {" 입금 확인 요청 | "}
-                            </span>
-                            <span>
-                              {game.gameparticipant.filter(element=>element.state===1).length}명
-                            </span>
-                          </div>
+                            <div className="MainBusiness__game__participants">
+                              <span>{"모집인원 | "}</span>
+                              <span>
+                                {`${game.gameparticipant.filter(element=>element.state===2).length} 명`}
+                              </span>
+                              <span>{" / "}</span>
+                              <span>
+                                {`${game.max_people} 명 `}
+                              </span>
+                              <span>
+                                {" 입금 확인 요청 | "}
+                              </span>
+                              <span>
+                                {game.gameparticipant.filter(element=>element.state===1).length}명
+                              </span>
+                            </div>
 
-                          <div className="gameList__game__state">
-                            { function(){if (game.gameparticipant.filter(element=>element.state===2).length===game.max_people) {
-                              return (
-                                <button className="gameList__state__button gameList__state__button_Complete">모집 완료</button>
-                              )
-                            } else if (game.gameparticipant.filter(element=>element.state===2).length>=game.min_people) {
-                              return (
-                                <button className="gameList__state__button gameList__state__button_Confirm">게임 확정</button>
-                              )
-                            } else {
-                              return (
-                                <button className="gameList__state__button gameList__state__button_Wait">모집 중</button>
-                              )
-                            }}() }
+                            <div className="gameList__game__state">
+                              { function(){if (game.gameparticipant.filter(element=>element.state===2).length===game.max_people) {
+                                return (
+                                  <button className="gameList__state__button gameList__state__button_Complete" onClick={manageGame}>모집 완료</button>
+                                  )
+                                } else if (game.gameparticipant.filter(element=>element.state===2).length>=game.min_people) {
+                                  return (
+                                  <button className="gameList__state__button gameList__state__button_Confirm" onClick={manageGame}>게임 확정</button>
+                                  )
+                                } else {
+                                  return (
+                                    <button className="gameList__state__button gameList__state__button_Wait" onClick={manageGame}>모집 중</button>
+                                    )
+                                  }
+                                }()
+                              }
+                            </div>
                           </div>
+                          {/* 게임 내용 끝 */}
                         </div>
-                        {/* 게임 내용 끝 */}
-                      </div>
-                    ))}
-                  </div>
+                      )
+                    )
+                  }
+                </div>
               </div>
             ))
             ):(<div>등록된 게임이 없습니다.</div>)
           }
+          </div>
+          :<Main__Player_Common isBusiness={true} />}
+          </div>
         </div>
-      </div>
-    </div>
-  )
-}
-
-export default Main__Business
+      </div>)
+      }
+      
+      export default Main__Business

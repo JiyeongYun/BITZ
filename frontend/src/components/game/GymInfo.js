@@ -1,13 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './GymInfo.css';
 import { gameStore } from 'store/gameStore';
-import { useHistory  } from 'react-router-dom';
+import { useHistory, useRouteMatch  } from 'react-router-dom';
+import { store } from 'store/store';
+import GameApi from 'api/GameApi';
 
 const GymInfo = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
   const { parking, shower, airconditional, water, basketball, scoreboard } = aboutGame.gameInfo.gym
   const history = useHistory();
+  const match = useRouteMatch();
+  const globalState = useContext(store);
+  const { value } = globalState;
+  const { params } = match
 
   // 픽업게임 상세보기에서 체육관 정보를 보여주는 컴포넌트
 
@@ -33,8 +39,22 @@ const GymInfo = () => {
   });
 
   const reserveGame = () => {
-    history.push(`/detail/${aboutGame.gameInfo.id}/reservation`)
+    GameApi.reserveGame({
+      "userEmail": value.isLogin,
+      "gameId": params.gameId
+      },
+      ()=>{
+        history.push(`/detail/${aboutGame.gameInfo.id}/reservation`)
+      },
+      (error)=>{console.log(error)}
+    )
   }
+
+  // 예약 완료 여부 확인
+  const [isFull, setIsFull] = useState(false)
+  useEffect(()=>{
+    setIsFull(aboutGame.gameParticipantList.length === aboutGame.gameInfo.maxPeople)
+  },[aboutGame.gameParticipantList, aboutGame.gameInfo])
 
   return (
     <div className="gymInfo">
@@ -86,7 +106,10 @@ const GymInfo = () => {
           </ul>
         </div>
       </div>
-      <button className="reservation__btn" onClick={reserveGame}>예약하기</button>
+      { isFull?
+        <button className="reservation__btn">모집완료</button> :
+        <button className="reservation__btn" onClick={reserveGame}>예약하기</button>
+      }
     </div>
   );
 };
