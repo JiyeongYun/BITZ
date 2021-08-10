@@ -8,6 +8,7 @@ import GameRecord from 'components/game/player/GameRecord';
 import GameResult from 'components/game/player/GameResult';
 import { gameStore } from 'store/gameStore';
 import GameApi from 'api/GameApi';
+import UserApi from 'api/UserApi';
 
 const GameDetail = ({ match }) => {
   // PJW - GameData Fetch (현재 백엔드, DB 작업이 진행 중이라 임시로 DummyData 사용)
@@ -25,6 +26,23 @@ const GameDetail = ({ match }) => {
       )
     },[gameDispatch])
     // 픽업 게임 상세 내역 보여주는 컴포넌트
+
+  useEffect(()=>{
+    const newData = []
+
+    aboutGame.gameParticipantList.forEach((member)=>{
+      
+      UserApi.myprofile({email: member.userId.email},
+        (res) => {
+          newData.push({...res.data, team: member.team})
+        },
+        (error) => {
+          console.log(error)
+        })
+      })
+
+      gameDispatch({ type: 'FETCH_PARTICIPANTS_DETAIL', value: newData })
+    },[aboutGame.gameParticipantList])
 
   useEffect(()=>{
     gameDispatch({ type: "UPDATE_GAME_STATE"})

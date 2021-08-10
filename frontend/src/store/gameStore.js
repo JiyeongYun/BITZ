@@ -37,6 +37,7 @@ const GameStateProvider = ({children}) => {
       // GameData 저장
       case 'FETCH_GAME_DATA':
         const gameData = action.value
+        console.log('게임데이터', {...state, ...gameData}, gameData.gameParticipantList.length)
         return {...state, ...gameData};
       // 시간에 따른 게임 State 변경
       case 'UPDATE_GAME_STATE':
@@ -87,6 +88,7 @@ const GameStateProvider = ({children}) => {
       // 경기 참여자 상세 정보 받기
       case 'FETCH_PARTICIPANTS_DETAIL':
         const gameParticipantDetails = action.value
+        console.log('게임 스토어', {...state, gameParticipantDetails}, gameParticipantDetails.length)
         return {...state, gameParticipantDetails}
         
       default:

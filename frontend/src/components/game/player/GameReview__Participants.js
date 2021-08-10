@@ -1,56 +1,57 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { gameStore } from 'store/gameStore';
 import GameReviewParticipantsMiniInfo from './GameReview__participants_miniInfo';
 import "./GameReview__Participants.css"
-import UserApi from 'api/UserApi';
 
 const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) => {
   const gameStoreData = useContext(gameStore);
-  const { aboutGame, gameDispatch } = gameStoreData;
-  
+  const { aboutGame } = gameStoreData;
+      
+  const [members, setMembers] = useState([])
   useEffect(()=>{
-    const newData = []
+    setMembers(aboutGame.gameParticipantDetails)
+    console.log('hoi', aboutGame.gameParticipantDetails, aboutGame.gameParticipantDetails.length , aboutGame.gameParticipantDetails[0])
+  }, [aboutGame, aboutGame.gameParticipantDetails])
 
-    aboutGame.gameParticipantList.forEach((member)=>{
-
-      UserApi.myprofile({email: member.userId.email},
-        (res) => {
-          newData.push(res.data)
-        },
-        (error) => {
-          console.log(error)
-        }
-        )
-      })
-
-      gameDispatch({ type: 'FETCH_PARTICIPANTS_DETAIL', value: newData })
-    },[aboutGame.gameParticipantList])
-    
-  const members = aboutGame.gameParticipantDetails
+  useEffect(()=>{
+    console.log('gou', members, members.length ,members[0])
+  }, [members])
   
   // 참가자의 포지션 표시
   useEffect(() => {
     members.forEach((member,idx) => {
       if (member.center) {
         let select = document.querySelector(`.${reviewType}user${idx} #center`)
-        select.className = "istrue"
+        if (select) {
+          select.className = "istrue"
+        }
       }
       if (member.forward) {
         let select = document.querySelector(`.${reviewType}user${idx} #forward`)
-        select.className = "istrue"
+        if (select) {
+          select.className = "istrue"
+        }
       }
       if (member.guard) {
         let select = document.querySelector(`.${reviewType}user${idx} #guard`)
-        select.className = "istrue"
+        if (select) {
+          select.className = "istrue"
+        }
       }
     })
-  }, [aboutGame.gameParticipantDetails])
+  }, [members])
 
   // 선택되지 않은 참가자 제거 (정확히는 모든 참가자의 선택사항 display를 none으로 초기화)
   useEffect(() => {
     for (let idx=0;idx<members.length;idx++){
-      document.querySelector(`.mvp${idx} .Participants__selected`).style.display = 'none';
-      document.querySelector(`.manner${idx} .Participants__selected`).style.display = 'none';
+      let select1 = document.querySelector(`.mvp${idx} .Participants__selected`)
+      if (select1) {
+        select1.style.display = 'none';
+      }
+      let select2 = document.querySelector(`.manner${idx} .Participants__selected`)
+      if (select2) {
+        select2.style.display = 'none';
+      }
     }
   }, [reviewScore, members.length])
 
@@ -100,7 +101,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
               return member.team === 0? (
                 <div className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">O</div>
-                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>      
+                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>      
                   <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
@@ -114,7 +115,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore }) =
               return member.team === 1? (
                 <div className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">O</div>
-                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>
+                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}></img>
                   <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
