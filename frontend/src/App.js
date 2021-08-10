@@ -1,4 +1,5 @@
 import Header from './components/header/Header';
+import Footer from './components/header/Footer';
 import OffCanvas from './components/header/OffCanvas';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
@@ -73,6 +74,7 @@ function App() {
         </GameStateProvider>
         <Route path="/match/mygames" exact={true} component={MyGame} />
         <Route path="/match/register" exact={true} component={GameRegister} />
+        <Footer />
       </BrowserRouter>
     </div>
   );
