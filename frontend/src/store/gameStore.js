@@ -86,7 +86,8 @@ const GameStateProvider = ({children}) => {
         return state
       // 경기 참여자 상세 정보 받기
       case 'FETCH_PARTICIPANTS_DETAIL':
-        const gameParticipantDetails = action.value
+        const { gameParticipantDetails } = state
+        gameParticipantDetails[action.value.idx] = action.value
         return {...state, gameParticipantDetails}
         
       default:

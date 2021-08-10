@@ -6,10 +6,12 @@ const Participant = (props) => {
   // 참가자의 포지션 표시
   useEffect(() => {
     const position = props.user.position
-    position.forEach(pos => {
-      let select = document.querySelector(`.user${props.idx} #${pos}`)
-      select.className = "istrue"
-    })
+    if (position) {
+      position.forEach(pos => {
+        let select = document.querySelector(`.user${props.idx} #${pos}`)
+        select.className = "istrue"
+      })
+    }
   })
 
   // 커서 올라가면 참가자 정보 표시

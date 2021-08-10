@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './GameDetail.css';
 import GymInfo from 'components/game/GymInfo';
 import TeamInfo from 'components/game/TeamInfo';
@@ -8,6 +8,7 @@ import GameRecord from 'components/game/player/GameRecord';
 import GameResult from 'components/game/player/GameResult';
 import { gameStore } from 'store/gameStore';
 import GameApi from 'api/GameApi';
+import UserApi from 'api/UserApi';
 
 const GameDetail = ({ match }) => {
   // PJW - GameData Fetch (현재 백엔드, DB 작업이 진행 중이라 임시로 DummyData 사용)
@@ -25,6 +26,19 @@ const GameDetail = ({ match }) => {
       )
     },[gameDispatch])
     // 픽업 게임 상세 내역 보여주는 컴포넌트
+    
+  useEffect(()=>{
+
+    aboutGame.gameParticipantList.forEach((member, idx)=>{
+      UserApi.myprofile({email: member.userId.email},
+        (res) => {
+          gameDispatch({ type: 'FETCH_PARTICIPANTS_DETAIL', value: {...res.data, idx, team: member.team} })
+        },
+        (error) => {
+          console.log(error)
+        })
+      })
+    },[aboutGame.gameParticipantList])
 
   useEffect(()=>{
     gameDispatch({ type: "UPDATE_GAME_STATE"})
