@@ -36,7 +36,7 @@ const GameDetail = ({ match }) => {
       <div className="detail__top">
         {aboutGame.gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
-          <img src={'/images/gym.jpg'} alt="gym" />
+          <img src={'/images/basketball_gym.jpg'} alt="gym" />
         </div>
       </div>
       {/* 예약 페이지 */}

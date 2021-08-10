@@ -22,5 +22,7 @@ public class GymRequest {
     private boolean isWater;
     private boolean isBasketball;
     private boolean isScoreboard;
+    private String intro;
+    private String notice;
 
 }

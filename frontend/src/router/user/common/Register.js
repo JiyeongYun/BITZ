@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
 import RegisterGeneral from "components/user/player/register/RegisterGeneral.js"
 import RegisterBusiness from "components/user/business/register/RegisterBusiness.js"
 import "./Register.css"
@@ -20,6 +20,11 @@ function Register(props) {
   const globalState = useContext(store);
   const dispatch_ = globalState.dispatch;
   const { userKind } = globalState.value;
+
+  // userKind를 player 로 만들어주기 (css animation을 위해)
+  useEffect(() => {
+    dispatch_({ type: "SELECT_USER_KIND", value:"player"})
+  }, [])
 
   const onChange = (event) => {
     const {

@@ -124,7 +124,12 @@
 }
 
 .location__container > .location__data {
-    display: flex;
-    justify-content: space-between;
     margin-top: var(--main-margin-size);
+    font-size: var(--main-font-size);
+}
+
+.location__container > .location__data > div {
+    margin: var(--small-margin-size) 0;
+    display: flex;
+    align-items: center;
 }

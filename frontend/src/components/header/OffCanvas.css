@@ -2,17 +2,18 @@
 	width: 200px;
 	height: 2px;
 	background-color: #ffad4e;
-	margin: 40px auto;
+	margin: var(--mid-margin-size) auto;
 }
 
 .offcanvas__logo {
-	margin: 50px 0;
+	margin: var(--large-margin-size) 0;
 	width: 200px;
 	object-fit: contain;
 }
 
 .offcanvas__links > p{
 	font-weight: bold;
-	font-size: 24px;
-	margin-bottom: 20px;
+	font-size: var(--large-font-size);
+	margin-bottom: var(--main-margin-size);
+	cursor: pointer;
 }

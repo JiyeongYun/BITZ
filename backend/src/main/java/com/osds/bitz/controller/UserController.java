@@ -85,7 +85,7 @@ public class UserController {
 
     @GetMapping("/userprofile")
     @ApiOperation(value = "마이페이지 정보 조회", notes = "회원의 마이페이지 정보를 조회합니다.")
-    public ResponseEntity<UserResponse> readProfile(@RequestBody @ApiParam(value = "회원 정보") @RequestParam String email) throws Exception {
+    public ResponseEntity<UserResponse> readProfile(@ApiParam(value = "회원 정보") @RequestParam(value="email") String email) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(userService.readProfile(email));
     }
 
@@ -100,19 +100,15 @@ public class UserController {
     @ApiOperation(value = "비밀번호 변경", notes = "회원의 비밀번호를 DB에서 수정합니다.")
     public ResponseEntity<UserAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
         UserAuth userAuth = userService.updatePassword(updatePasswordRequest);
-
-        if (userAuth == null) {//기존비밀번호가 일치하지 않은 경우
+        if (userAuth == null) //기존비밀번호가 일치하지 않은 경우
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        UserAuthResponse response = new UserAuthResponse(userAuth);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/userauth/password/reset")
     @ApiOperation(value = "비밀번호 찾기", notes = "회원의 이메일에 비밀번호를 찾아서 임시 비밀번호를 이메일로 전송합니다.")
     public ResponseEntity<UserAuthResponse> resetPassword(@RequestBody @ApiParam(value = "비밀번호 찾기") UserAuthRequest userAuthRequest) throws Exception {
         UserAuth userAuth = userService.resetPassword(userAuthRequest);
-
         if (userAuth == null) // 이메일이 존재하지 않는 경우
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return new ResponseEntity(HttpStatus.OK);

@@ -61,7 +61,7 @@ export default function RegisterGeneralValidation({ email, name, nickname, passw
     if (!phoneNumber) {
       errors.phoneNumber = "핸드폰 번호가 입력되지 않았습니다.";
     } else if (!/^010-?([0-9]{4})-?([0-9]{4})$/.test(phoneNumber)) {
-      errors.phoneNumber = "010-0000-0000 형식으로 입력해 주세요.";
+      errors.phoneNumber = "01056781234 형식으로 입력해 주세요.";
     } else {
       errors.phoneNumber = ""
     }

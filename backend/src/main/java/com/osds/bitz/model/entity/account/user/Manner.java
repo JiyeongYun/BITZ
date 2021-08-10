@@ -16,15 +16,15 @@ public class Manner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 매너점수ID
 
-    @Column(nullable = false)
-    private String userId;      // 유저ID
-
-    @Column(nullable = false)
-    private String recordId;    // 기록자ID
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserAuth userAuth;  // 사용자ID
 
     private int score;          // 점수
 
     @Column(nullable = false)
     private LocalDateTime date; // 기록날짜
+
+    private String recordId;
 
 }

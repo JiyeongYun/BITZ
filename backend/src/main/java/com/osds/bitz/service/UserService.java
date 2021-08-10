@@ -55,15 +55,16 @@ public class UserService extends BaseAuthService {
 
         // userauth테이블 내용 설정하기
         UserAuth userAuth = UserAuth.builder()
-                .email(userAuthRequest.getEmail())
-                .birth(userAuthRequest.getBirth())
-                .password(encodingPassword(userAuthRequest.getPassword()))
                 .id(userAuthId)
+                .email(userAuthRequest.getEmail())
+                .password(encodingPassword(userAuthRequest.getPassword()))
+                .birth(userAuthRequest.getBirth())
                 .build();
 
         // userauth테이블에서 값 가져와서 userprofile값 설정하기
         UserProfile userProfile = UserProfile.builder()
                 .name(userAuthRequest.getName())
+                .nickname(userAuthRequest.getNickname())
                 .phone(userAuthRequest.getPhone())
                 .userAuth(userAuth)
                 .build();
@@ -112,6 +113,7 @@ public class UserService extends BaseAuthService {
 
         return userAuth;
     }
+
     /**
      * Token 생성
      */
@@ -137,7 +139,7 @@ public class UserService extends BaseAuthService {
      */
     public boolean readLoginLog(String email) {
         // 로그인 로그에 있는 경우 false (최초로그인 X)
-        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, true) != null){
+        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, true) != null) {
             return false;
         }
         // 최초 로그인인 경우
@@ -172,6 +174,7 @@ public class UserService extends BaseAuthService {
                 .sido2(userRequest.getSido2())
                 .gugun2(userRequest.getGugun2())
                 .sido3(userRequest.getSido3())
+                .gugun3(userRequest.getGugun3())
                 .build();
         this.favoriteLocationRepository.save(favoriteLocation);
 
@@ -217,42 +220,41 @@ public class UserService extends BaseAuthService {
      */
     public void updateProfile(UserRequest userRequest) {
 
-        UserAuth userAuth = getUserAuthByEmail(userRequest.getEmail());
-        UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(userAuth);
-
         // UserAuth: birth
-        userAuth.builder()
-                .birth(userRequest.getBirth())
-                .build();
+        String userAuthId = getUserAuthByEmail(userRequest.getEmail()).getId();
+        UserAuth userAuth = userAuthRepository.getUserAuthById(userAuthId);
+        userAuth.setBirth(userRequest.getBirth());
         this.userAuthRepository.save(userAuth);
 
         // UserProfile: name, nickname, phone, height
-        userProfile.builder()
-                .name(userRequest.getName())
-                .nickname(userRequest.getNickname())
-                .phone(userRequest.getPhone())
-                .height(userRequest.getHeight())
-                .build();
+        Long userProfileId = userProfileRepository.getUserProfileByUserAuth(userAuth).getId();
+        UserProfile userProfile = userProfileRepository.getUserProfileById(userProfileId);
+        userProfile.setName(userRequest.getName());
+        userProfile.setNickname(userRequest.getNickname());
+        userProfile.setPhone(userRequest.getPhone());
+        userProfile.setHeight(userRequest.getHeight());
+        userProfile.setUserAuth(userAuth);
         this.userProfileRepository.save(userProfile);
 
         // 포지션 저장
-        Position position = Position.builder()
-                .userAuth(userAuth)
-                .center(userRequest.isCenter())
-                .forward(userRequest.isForward())
-                .guard(userRequest.isGuard())
-                .build();
+        Long positionId = this.positionRepository.getPositionByUserAuth(userAuth).getId();
+        Position position = positionRepository.getPositionById(positionId);
+        position.setUserAuth(userAuth);
+        position.setCenter(userRequest.isCenter());
+        position.setForward(userRequest.isForward());
+        position.setGuard(userRequest.isGuard());
         this.positionRepository.save(position);
 
         // 선호지역 저장
-        FavoriteLocation favoriteLocation = FavoriteLocation.builder()
-                .userAuth(userAuth)
-                .sido1(userRequest.getSido1())
-                .gugun1(userRequest.getGugun1())
-                .sido2(userRequest.getSido2())
-                .gugun2(userRequest.getGugun2())
-                .sido3(userRequest.getSido3())
-                .build();
+        Long favoriteLocationId = this.favoriteLocationRepository.getFavoriteLocationByUserAuth(userAuth).getId();
+        FavoriteLocation favoriteLocation = favoriteLocationRepository.getFavoriteLocationById(favoriteLocationId);
+        favoriteLocation.setUserAuth(userAuth);
+        favoriteLocation.setSido1(userRequest.getSido1());
+        favoriteLocation.setGugun1(userRequest.getGugun1());
+        favoriteLocation.setSido2(userRequest.getSido2());
+        favoriteLocation.setGugun2(userRequest.getGugun2());
+        favoriteLocation.setSido3(userRequest.getSido3());
+        favoriteLocation.setGugun3(userRequest.getGugun3());
         this.favoriteLocationRepository.save(favoriteLocation);
 
     }
@@ -297,9 +299,6 @@ public class UserService extends BaseAuthService {
             helper.setText(msg);
             message.setContent(msg, "text/html; charset=UTF-8");
             helper.setSubject("[OSDS] 비밀번호 찾기 요청에 대한 임시 비밀번호를 보내드립니다.");
-            log.info("msg:{}", msg);
-            log.info("helper:{}", helper);
-            log.info("message:{}", message);
             mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();

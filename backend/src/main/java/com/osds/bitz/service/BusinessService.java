@@ -4,7 +4,6 @@ import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.UserAuth;
 import com.osds.bitz.model.entity.gym.Gym;
-import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
 import com.osds.bitz.model.network.request.account.BusinessRequest;
@@ -106,6 +105,7 @@ public class BusinessService extends BaseAuthService {
 
         return businessAuth;
     }
+
     /**
      * Token 생성
      */
@@ -131,39 +131,13 @@ public class BusinessService extends BaseAuthService {
      */
     public boolean readLoginLog(String email) {
         // 로그인 로그에 있는 경우 false (최초로그인 X)
-        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, false) != null){
+        if (this.loginLogRepository.getLoginLogByEmailAndIsGeneral(email, false) != null) {
             return false;
         }
         // 최초 로그인인 경우
         return true;
     }
 
-    /**
-     * 마이페이지 정보 저장
-     */
-    public void createProfile(BusinessRequest businessRequest) {
-        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
-
-        // gym
-        Gym gym = Gym.builder()
-                .businessAuth(businessAuth)
-                .name(businessRequest.getName())
-                .sido("서울특별시")
-                .gugun("강남구")
-                .address(businessRequest.getAddress())
-                .intro(businessRequest.getIntro())
-                .notice(businessRequest.getNotice())
-                .courtLength(businessRequest.getCourtLength())
-                .courtWidth(businessRequest.getCourtWidth())
-                .isParking(businessRequest.isParking())
-                .isShower(businessRequest.isShower())
-                .isAirconditional(businessRequest.isAirconditional())
-                .isWater(businessRequest.isWater())
-                .isBasketball(businessRequest.isBasketball())
-                .isScoreboard(businessRequest.isScoreboard())
-                .build();
-        this.gymRepository.save(gym);
-    }
 
     /**
      * 마이페이지 정보 조회
@@ -188,8 +162,26 @@ public class BusinessService extends BaseAuthService {
     /**
      * 마이페이지 정보 수정
      */
-    public void updateProfile(BusinessRequest businessRequest) {
+    public void updateProfile(BusinessRequest businessRequest) throws IOException {
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
+        BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
 
+        // BusinessAuth
+        businessAuth.builder()
+                .email(businessRequest.getEmail())
+                .birth(businessRequest.getBirth())
+                .build();
+        businessAuthRepository.save(businessAuth);
+
+        // BusinessProfile
+        businessProfile.builder()
+                .name(businessRequest.getName())
+                .phone(businessRequest.getPhone())
+                .bank(businessRequest.getBank())
+                .account(businessRequest.getAccount())
+                .businessRegistration(businessRequest.getBusinessRegistration().getBytes())
+                .build();
+        businessProfileRepository.save(businessProfile);
     }
 
     /**
@@ -215,17 +207,19 @@ public class BusinessService extends BaseAuthService {
     public BusinessAuth resetPassword(BusinessAuthRequest businessAuthRequest) {
 
         // 이메일로 객체 찾아오기
-        BusinessAuth newBusinessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
+
+        if (businessAuth == null)
+            return null;
 
         // 임시 비밀번호 생성 및 메일 전송
-        String tempPassword = "";
+        String tempPassword = generateRandomNumber();
         try {
-            tempPassword = generateRandomNumber();
-            String msg = "<p><b> " + newBusinessAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + tempPassword + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
+            String msg = "<p><b> " + businessAuth.getEmail() + " </b>님의 임시 비밀번호입니다.</p> <p style=color:red;> <h1>" + tempPassword + "</h1> </p>\n \n 로 새롭게 로그인 후 비밀번호를 변경해주세요!";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("OSDS"); // 보내는 사람
-            helper.setTo(newBusinessAuth.getEmail());
+            helper.setTo(businessAuth.getEmail());
             helper.setText(msg);
             message.setContent(msg, "text/html; charset=UTF-8");
             helper.setSubject("[OSDS] 비밀번호 찾기 요청에 대한 임시 비밀번호를 보내드립니다.");
@@ -235,8 +229,8 @@ public class BusinessService extends BaseAuthService {
         }
 
         // 임시 비밀번호로 비밀번호 변경하기
-        newBusinessAuth.setPassword(encodingPassword(tempPassword));
-        return this.businessAuthRepository.save(newBusinessAuth);
+        businessAuth.setPassword(encodingPassword(tempPassword));
+        return this.businessAuthRepository.save(businessAuth);
     }
 
     /**
