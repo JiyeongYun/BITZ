@@ -142,7 +142,7 @@ input:focus {
   color: var(--grey-color);
   font-size: var(--main-font-size);
   height: 20px;
-  margin: 0 0 0 auto;
+  margin: var(--main-margin-size) 0 0 auto;
 }
 
 .change_to_business div {

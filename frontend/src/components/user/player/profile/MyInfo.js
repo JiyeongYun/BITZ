@@ -19,6 +19,10 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
   }
 
   // 버튼 클릭 시
+  const toggleIsUpdate = () => {
+    setIsUpdate(!isUpdate)
+  }
+
   const onClickBtn = () => {
     if (isUpdate) {
       // 수정된 값으로 DB 변경
@@ -137,6 +141,7 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
         </div>
       </div>
       <button className="save__btn" onClick={onClickBtn}>{isUpdate? '저장':'수정'}</button>
+      {isUpdate ? <button className="save__btn" onClick={toggleIsUpdate}>취소</button>:null}
     </div>
   );
 };
