@@ -81,6 +81,7 @@ const Profile = ({ history }) => {
         <h2>계정 관리</h2>
         <Link to="/accounts/change_password">비밀번호 변경</Link>
         <span onClick={onLogout}>로그아웃</span>
+        <Link to={`/accounts/profile/${value.isLogin}/update`}>회원 정보 수정</Link>
       </div>
     </div>
   );
