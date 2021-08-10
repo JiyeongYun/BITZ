@@ -7,22 +7,27 @@ const TeamInfo = () => {
   const { aboutGame } = gameStoreData;
     
   const members = aboutGame.gameParticipantDetails
-  console.log(members)
   
   // 참가자의 포지션 표시
   useEffect(() => {
     members.forEach((member,idx) => {
       if (member.center) {
         let select = document.querySelector(`.user${idx} #center`)
-        select.className = "istrue"
+        if (select) {
+          select.className = "istrue"
+        }
       }
       if (member.forward) {
         let select = document.querySelector(`.user${idx} #forward`)
+        if (select) {
         select.className = "istrue"
+        }
       }
       if (member.guard) {
         let select = document.querySelector(`.user${idx} #guard`)
+        if (select) {
         select.className = "istrue"
+        }
       }
     })
   }, [aboutGame.gameParticipantDetails])
