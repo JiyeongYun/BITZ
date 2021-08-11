@@ -17,10 +17,8 @@ import javax.validation.constraints.NotEmpty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BusinessRequest {
 
-    @NotEmpty
     private BusinessAuth businessAuth;
 
-    @NotEmpty
     private String email;
 
     private String password;
