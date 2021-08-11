@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @CrossOrigin("*")
 @AllArgsConstructor
 @RestController
@@ -29,7 +31,7 @@ public class UserController {
 
     @PostMapping("/userauth")
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
-    public ResponseEntity<UserAuthResponse> createUser(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
+    public ResponseEntity<UserAuthResponse> createUser(@Valid @RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
         userService.createUser(userAuthRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -37,7 +39,7 @@ public class UserController {
     @PostMapping("/userauth/email")
     @ApiOperation(value = "이메일 중복체크", notes = "이메일 중복체크를 시행합니다.")
     public ResponseEntity<UserAuthResponse> isDuplicatedEmail(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
-        if(userService.isDuplicatedEmail(userAuthRequest.getEmail()))
+        if (userService.isDuplicatedEmail(userAuthRequest.getEmail()))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -45,19 +47,19 @@ public class UserController {
     @PostMapping("/userauth/nickname")
     @ApiOperation(value = "닉네임 중복체크", notes = "닉네임 중복체크를 시행합니다.")
     public ResponseEntity<UserAuthResponse> isDuplicatedNickname(@RequestBody @ApiParam(value = "회원 정보") UserAuthRequest userAuthRequest) throws Exception {
-        if(userService.isDuplicatedNickname(userAuthRequest.getNickname()))
+        if (userService.isDuplicatedNickname(userAuthRequest.getNickname()))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/userauth/login")
     @ApiOperation(value = "로그인", notes = "회원의 정보를 통해 로그인 처리를 합니다.")
-    public ResponseEntity<UserAuthResponse> readUser(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
+    public ResponseEntity<UserAuthResponse> readUser(@Valid @RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readAuthRequest) throws Exception {
 
         UserAuth userAuth = userService.readUser(readAuthRequest);
 
         // 로그인 실패
-        if(userAuth == null)
+        if (userAuth == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
 
         UserAuthResponse response = new UserAuthResponse(userAuth);
@@ -71,7 +73,7 @@ public class UserController {
     @PostMapping("/loginlog")
     @ApiOperation(value = "최초 로그인 확인", notes = "회원의 최초 로그인 여부를 DB에서 확인합니다.")
     public ResponseEntity<UserAuthResponse> readLoginLog(@RequestBody @ApiParam(value = "회원 정보") ReadAuthRequest readUAuthRequest) throws Exception {
-        if(!userService.readLoginLog(readUAuthRequest.getEmail()))  // 최초로그인이 아닌 경우
+        if (!userService.readLoginLog(readUAuthRequest.getEmail()))  // 최초로그인이 아닌 경우
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         return new ResponseEntity(HttpStatus.OK);                       // 최초로그인인 경우
     }
@@ -85,7 +87,7 @@ public class UserController {
 
     @GetMapping("/userprofile")
     @ApiOperation(value = "마이페이지 정보 조회", notes = "회원의 마이페이지 정보를 조회합니다.")
-    public ResponseEntity<UserResponse> readProfile(@ApiParam(value = "회원 정보") @RequestParam(value="email") String email) throws Exception {
+    public ResponseEntity<UserResponse> readProfile(@ApiParam(value = "회원 정보") @RequestParam(value = "email") String email) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(userService.readProfile(email));
     }
 
@@ -98,7 +100,7 @@ public class UserController {
 
     @PutMapping("/userauth/password/change")
     @ApiOperation(value = "비밀번호 변경", notes = "회원의 비밀번호를 DB에서 수정합니다.")
-    public ResponseEntity<UserAuthResponse> updatePassword(@RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
+    public ResponseEntity<UserAuthResponse> updatePassword(@Valid @RequestBody @ApiParam(value = "회원 정보") UpdatePasswordRequest updatePasswordRequest) throws Exception {
         UserAuth userAuth = userService.updatePassword(updatePasswordRequest);
         if (userAuth == null) //기존비밀번호가 일치하지 않은 경우
             return new ResponseEntity(HttpStatus.NOT_FOUND);
