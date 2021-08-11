@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import UserApi from 'api/UserApi'
 
-function RegisterGeneral({userData, setUserData, updateProfile}) {  
+function UpdateProfileGeneral({userData, setUserData}) {  
   // PJW - 닉네임 중복 체크
   const onNicknameCheck = () => {
     UserApi.NicknameCheck(
@@ -138,4 +138,4 @@ function RegisterGeneral({userData, setUserData, updateProfile}) {
   )
 }
 
-export default RegisterGeneral
+export default UpdateProfileGeneral

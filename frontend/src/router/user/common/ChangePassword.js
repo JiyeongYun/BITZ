@@ -7,7 +7,7 @@ import { store } from 'store/store.js'; // store import (store)
 function ChangePassword({ history }) {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
-  const { isLogin } = globalState.value;
+  const { isLogin, userKind } = globalState.value;
 
   // State ***************************************************************
   // 입력 데이터
@@ -83,18 +83,31 @@ function ChangePassword({ history }) {
       password: values.password,
     }
 
-    UserApi.changePassword(
-      data,
-      () => {
-        alert('비밀번호가 변경되었습니다!')
-        history.push(`/accounts/profile/${isLogin}`)
-      },
-      () => {
-        alert('비밀번호를 확인해주세요.');
-      }
-    )
-  } // onChangePassword End
+    if (userKind === 'player') {
+      UserApi.changePassword(
+        data,
+        () => {
+          alert('비밀번호가 변경되었습니다!')
+          history.push(`/accounts/profile/${isLogin}`)
+        },
+        () => {
+          alert('비밀번호를 확인해주세요.');
+        }
+      )
+    } else if (userKind === 'business') {
+      UserApi.changeBusPassword(
+        data,
+        () => {
+          alert('비밀번호가 변경되었습니다!')
+          history.push(`/accounts/profile/${isLogin}`)
+        },
+        () => {
+          alert('비밀번호를 확인해주세요.');
+        }
+      )
+    }
 
+  } // onChangePassword End
 
   return(
     <div className="changePassword">
