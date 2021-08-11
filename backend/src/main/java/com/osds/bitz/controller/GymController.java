@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class GymController {
 
     @PostMapping("/gym")
     @ApiOperation(value = "체육관 등록", notes = "체육관의 정보를 DB에 저장합니다.")
-    public ResponseEntity<GymResponse> createGym(@RequestBody @ApiParam(value = "체육관 정보") GymRequest gymRequest) throws Exception {
+    public ResponseEntity<GymResponse> createGym(@Valid @RequestBody @ApiParam(value = "체육관 정보") GymRequest gymRequest) throws Exception {
         gymService.createGym(gymRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -39,6 +40,11 @@ public class GymController {
     public ResponseEntity deleteGym(@RequestBody Map<String, String> body) {
         String businessId = body.get("businessId");
         Long gymId = Long.parseLong(body.get("gymId"));
+
+        if(businessId==null || businessId.length()==0 || gymId== null){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
         gymService.deleteGym(gymId, businessId);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -59,7 +65,7 @@ public class GymController {
 
     @PutMapping("/gym")
     @ApiOperation(value = "체육관 업데이트", notes = "체육관을 DB에 업데이트합니다.")
-    public ResponseEntity<Gym> updateGym(@RequestBody GymUpdateRequest gymUpdateRequest) {
+    public ResponseEntity<Gym> updateGym(@Valid @RequestBody GymUpdateRequest gymUpdateRequest) {
         gymService.updateGym(gymUpdateRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
