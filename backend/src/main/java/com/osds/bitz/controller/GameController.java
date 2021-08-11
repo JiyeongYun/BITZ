@@ -1,5 +1,6 @@
 package com.osds.bitz.controller;
 
+import com.osds.bitz.model.RecordTable;
 import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.network.request.RecordRequest;
 import com.osds.bitz.model.network.request.ReviewRequest;
@@ -123,21 +124,30 @@ public class GameController {
 
     @PutMapping("/teaming")
     @ApiOperation(value = "팀 배정", notes = "참가자들을 팀에 배정합니다.")
-    public ResponseEntity createTeaming(@RequestBody @ApiParam(value = "게임 정보") Map<String, Long> requestBody) throws Exception {
+    public ResponseEntity createTeaming(@RequestBody @ApiParam(value = "게임 정보") Map<String, Long> requestBody) {
         gameService.createTeaming(requestBody.get("gameId"));
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/gamerecord")
     @ApiOperation(value = "게임 점수 기록", notes = "경기 기록을 저장합니다.")
-    public ResponseEntity createRecord(@Valid @RequestBody @ApiParam(value = "기록 정보") RecordRequest recordRequest) throws Exception {
+    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "게임 정보") RecordRequest recordRequest){
         gameService.createRecord(recordRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @GetMapping("/gamerecord")
+    @ApiOperation(value = "게임 점수 기록 조회", notes = "경기 기록을 조회합니다.")
+    public ResponseEntity<RecordTable[]> readRecord (@RequestParam(value="gameId") Long gameId) {
+        RecordTable[] recordTableList = gameService.readRecord(gameId);
+        if(recordTableList == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.OK).body(recordTableList);
+    }
+
     @PostMapping("/review")
     @ApiOperation(value = "경기 리뷰 저장", notes = "경기 리뷰를 저장합니다.")
-    public ResponseEntity createReview(@Valid @RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) throws Exception {
+    public ResponseEntity createReview(@RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) {
         gameService.createReview(reviewRequest);
         return new ResponseEntity(HttpStatus.OK);
     }

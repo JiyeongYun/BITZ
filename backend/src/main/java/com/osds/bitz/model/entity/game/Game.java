@@ -38,13 +38,13 @@ public class Game {
     @Column(nullable = false)
     private int maxPeople;          // 최대인원
 
-    @Column(nullable = false)
     private int participant;        // 최대인원
 
-    @Column(nullable = false)
     private int quarter;            // 쿼터
 
     @Column(nullable = false)
     private int participationFee;   // 참가비
+
+    private int teamCnt;            // 팀 개수
 
 }

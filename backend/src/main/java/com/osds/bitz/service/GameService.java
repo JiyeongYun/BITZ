@@ -1,5 +1,6 @@
 package com.osds.bitz.service;
 
+import com.osds.bitz.model.RecordTable;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.Manner;
 import com.osds.bitz.model.entity.account.user.Skill;
@@ -37,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 @Service
 @Slf4j
@@ -304,6 +306,12 @@ public class GameService {
                 this.gameParticipantRepository.save(gameParticipant);
             }
         }
+
+        // 6. 팀 개수 업데이트
+        Game game = gameRepository.getGameById(gameId);
+        game.setTeamCnt(team.size());
+        gameRepository.save(game);
+
     }
 
     /**
@@ -337,6 +345,7 @@ public class GameService {
 
         // 참가자수에 따른 team 개수 구하고 세팅하기
         int teamCnt = numOfTeam[2] == -1 ? 2 : 3;
+
         ArrayList<UserSkill[]> team = new ArrayList<>();
         for (int i = 0; i < teamCnt; i++) {
             team.add(new UserSkill[numOfTeam[i]]);
@@ -386,6 +395,60 @@ public class GameService {
                 .score(1)
                 .build();
         mannerRepository.save(manner);
+    }
+
+    /**
+     * 게임 점수 기록 조회
+     */
+    public RecordTable[] readRecord(Long gameId) {
+
+        Game game = gameRepository.getGameById(gameId);
+        ArrayList<GameRecord> gameRecordList = gameRecordRepository.getGameRecordsByGameId(gameId);
+
+        // gameRecord 정렬
+        Comparator<GameRecord> comparator = new Comparator<GameRecord>() {
+            @Override
+            public int compare(GameRecord a, GameRecord b) {
+                if (a.getQuarter() == b.getQuarter())
+                    return a.getTeam() - b.getTeam();
+                return a.getQuarter() - b.getQuarter();
+            }
+        };
+        Collections.sort(gameRecordList, comparator);
+
+        int teamCnt = game.getTeamCnt();    // 2 or 3
+        int tableCnt = teamCnt == 2 ? 1 : 3; // 1 or 3
+        RecordTable[] recordTableList = new RecordTable[tableCnt];
+
+        // recordTableList 세팅
+        for (int i = 1; i <= tableCnt; i++) {
+            recordTableList[i - 1].setTeamA(i == teamCnt ? i / teamCnt : i);
+            recordTableList[i - 1].setTeamB(i == teamCnt ? i : i + 1);
+            recordTableList[i - 1].setTeamAScoreList(new ArrayList<>());
+            recordTableList[i - 1].setTeamBScoreList(new ArrayList<>());
+            recordTableList[i - 1].setRecorderList(new ArrayList<>());
+        }
+
+        int peopleIdx = 0;
+        int tableIdx = 0;
+        for (int i = 0; i < gameRecordList.size(); i++) {
+            GameRecord gameRecord = gameRecordList.get(i);
+            if (peopleIdx % 2 == 0) {
+                recordTableList[tableIdx].getTeamAScoreList().add(gameRecord.getScore());
+                recordTableList[tableIdx].getRecorderList().add(gameRecord.getUserAuth());
+            } else {
+                recordTableList[tableIdx].getTeamBScoreList().add(gameRecord.getScore());
+            }
+
+            if (++peopleIdx == 2) {
+                peopleIdx = 0;
+                if (++tableIdx == tableCnt){
+                    tableIdx = 0;
+                }
+            }
+        }
+
+        return recordTableList;
     }
 
 
