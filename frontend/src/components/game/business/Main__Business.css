@@ -11,7 +11,7 @@
 
 .MainBusiness__top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .MainBusiness__top_links {
@@ -74,7 +74,6 @@
   
   .MainBusiness__top {
     font-size: var(--main-font-size);
-    margin: 0 var(--small-margin-size);
   }
 
   .MainBusiness__DateName {

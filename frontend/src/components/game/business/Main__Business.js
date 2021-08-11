@@ -89,7 +89,6 @@ function Main__Business ({history}) {
     <div className="MainBusiness">
       <div>
         <div className="MainBusiness__top">
-          <div>게임 관리하기</div>
           <div className="MainBusiness__top_links">
             <div onClick={onToggle} className="MainBusiness__toggle_game_list">
               { toggleGameList ? <span>모든 게임 보기</span> : <span>나의 게임 보기</span> }

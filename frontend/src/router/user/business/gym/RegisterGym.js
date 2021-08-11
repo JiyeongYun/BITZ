@@ -165,8 +165,10 @@ const RegisterGym = () => {
           <div className="courtsize__box">
             <h4>코트 규격</h4>
             <p>정규 코트 : 28m X 15m</p>
-            <input type="number" name="courtLength" onChange={onChange} />m<span>X</span>
-            <input type="number" name="courtWidth" onChange={onChange} />m
+            <div>
+              <input type="number" name="courtLength" onChange={onChange} />m<span>X</span>
+              <input type="number" name="courtWidth" onChange={onChange} />m
+            </div>
           </div>
           <div className="gymaddress__box">
             <h4>위치</h4>
