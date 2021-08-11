@@ -69,7 +69,7 @@ const GameDetail = ({ match, location }) => {
       {
         aboutGame.gameState===0?
         <div>
-          <GymInfo />
+          <GymInfo isBusiness={isBusiness} />
       </div>
       : ""
     }
