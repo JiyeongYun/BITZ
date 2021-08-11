@@ -75,7 +75,11 @@ public class GameController {
     public ResponseEntity reserveGame(@RequestBody Map<String, String> requestBody) {
         String userEmail = requestBody.get("userEmail");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
-        gameService.reserveGame(userEmail, gameId);
+        try {
+            gameService.reserveGame(userEmail, gameId);
+        } catch(Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity(HttpStatus.OK);
     }
