@@ -173,8 +173,11 @@ public class GameService {
     /**
      * 게임 예약
      */
-    public void reserveGame(String userEmail, Long gameId) {
+    public void reserveGame(String userEmail, Long gameId) throws Exception{
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
+
+        if(gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth,gameId) != null)
+            throw new Exception();
 
         GameParticipant newGameParticipant =
                 new GameParticipant().builder()
