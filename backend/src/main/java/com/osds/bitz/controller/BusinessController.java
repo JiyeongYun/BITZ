@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class BusinessController {
 
     @PostMapping("/businessauth")
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
-    public ResponseEntity<BusinessAuthResponse> createBusiness(@ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
+    public ResponseEntity<BusinessAuthResponse> createBusiness(@Valid @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws Exception {
         businessService.createBusiness(businessAuthRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -74,7 +75,7 @@ public class BusinessController {
 
     @PutMapping("/businessprofile")
     @ApiOperation(value = "마이페이지 정보 수정", notes = "회원의 마이페이지 정보를 수정합니다.")
-    public ResponseEntity<BusinessResponse> updateProfile(@RequestBody @ApiParam(value = "회원 정보") BusinessRequest businessRequest) throws Exception {
+    public ResponseEntity<BusinessResponse> updateProfile(@Valid @RequestBody @ApiParam(value = "회원 정보") BusinessRequest businessRequest) throws Exception {
         businessService.updateProfile(businessRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
