@@ -234,13 +234,12 @@ public class GameService {
     }
 
     /**
-     * 사용자 확정
+     * 사용자 확정 (WAITING > COMPLETE)
      **/
     public void confirmGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
         GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
-
         updateGameParticipant = updateGameParticipant.builder()
                 .id(updateGameParticipant.getId())
                 .gameId(gameId)
@@ -248,8 +247,11 @@ public class GameService {
                 .state(UserState.COMPLETE)
                 .team(updateGameParticipant.getTeam())
                 .build();
-
         gameParticipantRepository.save(updateGameParticipant);
+
+        Game game = gameRepository.getGameById(gameId);
+        game.setParticipant(game.getParticipant() + 1);
+        gameRepository.save(game);
     }
 
     /**
