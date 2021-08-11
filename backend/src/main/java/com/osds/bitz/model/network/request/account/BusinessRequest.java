@@ -23,58 +23,38 @@ public class BusinessRequest {
     @NotEmpty
     private String email;
 
-    @NotEmpty
     private String password;
 
-    @NotEmpty
     private String birth;
 
-    @NotEmpty
     private String name;
 
-    @NotEmpty
     private String phone;
 
-    @NotEmpty
     private String bank;
 
-    @NotEmpty
     private String account;
 
-    @NotEmpty
-    private MultipartFile businessRegistration;
-
-    @NotEmpty
     private String address;
 
-    @NotEmpty
     private String intro;
 
-    @NotEmpty
     private String notice;
 
-    @NotEmpty
     private int courtWidth;
 
-    @NotEmpty
     private int courtLength;
 
-    @NotEmpty
     private boolean isParking;
 
-    @NotEmpty
     private boolean isShower;
 
-    @NotEmpty
     private boolean isAirconditional;
 
-    @NotEmpty
     private boolean isWater;
 
-    @NotEmpty
     private boolean isBasketball;
 
-    @NotEmpty
     private boolean isScoreboard;
 
 }

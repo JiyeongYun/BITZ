@@ -182,7 +182,6 @@ public class BusinessService extends BaseAuthService {
         businessProfile.setPhone(businessRequest.getPhone());
         businessProfile.setBank(businessRequest.getBank());
         businessProfile.setAccount(businessRequest.getAccount());
-        businessProfile.setBusinessRegistration(businessRequest.getBusinessRegistration().getBytes());
         businessProfileRepository.save(businessProfile);
     }
 
