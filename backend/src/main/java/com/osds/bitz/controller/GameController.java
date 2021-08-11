@@ -132,7 +132,7 @@ public class GameController {
     @ApiOperation(value = "게임 점수 기록", notes = "경기 기록을 저장합니다.")
     public ResponseEntity createRecord(@Valid @RequestBody @ApiParam(value = "기록 정보") RecordRequest recordRequest) throws Exception {
         gameService.createRecord(recordRequest);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/review")

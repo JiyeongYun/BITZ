@@ -25,7 +25,7 @@ public class RecordRequest {
     private int score;
 
     @NotEmpty
-    private String userId;
+    private String userEmail;
 
     @NotEmpty
     private Long gameId;
