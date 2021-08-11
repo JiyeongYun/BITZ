@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 @Slf4j
@@ -208,9 +209,20 @@ public class UserService extends BaseAuthService {
      */
     public UserResponse readProfile(String email) {
         UserAuth userAuth = getUserAuthByEmail(email);
+
         UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(userAuth);
+
         Position position = positionRepository.getPositionByUserAuth(userAuth);
+
         FavoriteLocation favoriteLocation = favoriteLocationRepository.getFavoriteLocationByUserAuth(userAuth);
+
+        // skill 점수 계산하기
+        Skill skill = skillRepository.getSkillByUserAuth(userAuth);
+        double skillScore = getSkillScore(skill);
+
+        // manner 점수 계산하기
+        ArrayList<Manner> manner = mannerRepository.getMannersByUserAuth(userAuth);
+        double mannerScore = getMannerScore(manner);
 
         UserResponse userResponse = UserResponse.builder()
                 .email(userAuth.getEmail())
@@ -228,8 +240,36 @@ public class UserService extends BaseAuthService {
                 .gugun2(favoriteLocation.getGugun2())
                 .sido3(favoriteLocation.getSido3())
                 .gugun3(favoriteLocation.getGugun3())
+                .skill(skillScore)
+                .manner(mannerScore)
                 .build();
         return userResponse;
+    }
+
+    /**
+     * readProfile() - 실력 점수 계산
+     */
+    public double getSkillScore(Skill skill) {
+        double skillScore = 50;
+        double score = 0;
+        if(skill != null)
+            score = (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getMvpCnt() * 0.2);
+        return skillScore + score;
+    }
+
+    /**
+     * readProfile() - 매너 점수 계산
+     */
+    public double getMannerScore(ArrayList<Manner> manner){
+        double mannerScore = 25;
+        double score = 0;
+        if(manner != null){
+            for(Manner m : manner){
+                score = score + m.getScore();
+            }
+            score = score / 10;
+        }
+        return mannerScore + score;
     }
 
     /**
