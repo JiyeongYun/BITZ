@@ -34,14 +34,14 @@ const Participant = (props) => {
     <div className="participant">
       <img
         id={props.idx}
-        src={"/images/"+props.user.id+".png"}
+        src='/images/symbol.png'
         onMouseOver={over}
         onMouseOut={out}
         alt="participants"
       />
       <div className={'user' + props.idx + ' userinfo'}>
         <div className="about__user">
-          <img src={"/images/"+props.user.id+".png"} alt="prticipants" />
+          <img src='/images/symbol.png' alt="prticipants" />
           <div>
             <p>{props.user.name}</p>
             <p>{props.user.height}cm</p>
