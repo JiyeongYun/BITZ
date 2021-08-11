@@ -30,5 +30,7 @@ public class UserResponse {
     private String gugun2;
     private String sido3;
     private String gugun3;
+    private double skill;
+    private double manner;
 
 }
