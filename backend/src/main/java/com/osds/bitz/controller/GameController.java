@@ -70,6 +70,14 @@ public class GameController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/game/mygame")
+    @ApiOperation(value = "예약한 게임 리스트 조회", notes = "사용자가 예약한 게임리스트를 조회합니다.")
+    public ResponseEntity<List<Game>> getMyGameList(@RequestParam(value="userEmail") String userEmail) {
+        List<Game> result = gameService.getMyGameList(userEmail);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @PostMapping("/game/reserve")
     @ApiOperation(value = "게임 예약", notes = "사용자가 픽업게임을 예약합니다")
     public ResponseEntity reserveGame(@RequestBody Map<String, String> requestBody) {
@@ -77,7 +85,7 @@ public class GameController {
         Long gameId = Long.parseLong(requestBody.get("gameId"));
         try {
             gameService.reserveGame(userEmail, gameId);
-        } catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
@@ -104,8 +112,8 @@ public class GameController {
     }
 
     @DeleteMapping("/gameparticipant")
-    @ApiOperation(value="참가자 삭제", notes="사업자가 사용자를 픽업게임 참가자 리스트에서 삭제합니다.")
-    public ResponseEntity deleteGameParticipant(@RequestBody Map<String,String> requestBody) {
+    @ApiOperation(value = "참가자 삭제", notes = "사업자가 사용자를 픽업게임 참가자 리스트에서 삭제합니다.")
+    public ResponseEntity deleteGameParticipant(@RequestBody Map<String, String> requestBody) {
         String userEmail = requestBody.get("userEmail");
         Long gameId = Long.parseLong(requestBody.get("gameId"));
         gameService.deleteGameParticipant(userEmail, gameId);
@@ -114,7 +122,7 @@ public class GameController {
 
     @PutMapping("/teaming")
     @ApiOperation(value = "팀 배정", notes = "참가자들을 팀에 배정합니다.")
-    public ResponseEntity createTeaming(@RequestBody @ApiParam(value = "게임 정보") Map<String,Long> requestBody) throws Exception {
+    public ResponseEntity createTeaming(@RequestBody @ApiParam(value = "게임 정보") Map<String, Long> requestBody) throws Exception {
         gameService.createTeaming(requestBody.get("gameId"));
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -133,5 +141,16 @@ public class GameController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/review")
+    @ApiOperation(value = "경기 리뷰 작성 유무 확인", notes = "경기 리뷰를 작성했었는지 확인합니다.")
+    public ResponseEntity readReview(@RequestBody Map<String, String> requestBody) {
+        String userEmail = requestBody.get("userEmail");
+        Long gameId = Long.parseLong(requestBody.get("gameId"));
+
+        if (gameService.readReview(userEmail, gameId))
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }
