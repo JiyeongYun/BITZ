@@ -124,4 +124,7 @@
     padding: 0 1px;
     font-size: var(--small-font-size);
   }
+  .gameList__state__button {
+    margin-right: 0;
+  }
 }

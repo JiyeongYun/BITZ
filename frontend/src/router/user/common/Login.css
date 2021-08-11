@@ -218,6 +218,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin-bottom: var(--mid-margin-size);
 }
 
 #google__logo  {
