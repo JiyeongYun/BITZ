@@ -16,7 +16,7 @@ public class RecordRequest {
     private int team;
     private int quarter;
     private int score;
-    private String userId;
+    private String userEmail;
     private Long gameId;
 
 }
