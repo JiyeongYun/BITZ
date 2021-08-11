@@ -76,3 +76,56 @@
     margin: 0 auto;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1024px) {
+    .game_register_container {
+        width: 90vw;
+        font-size: var(--small-font-size);
+    }
+
+    .game_register_container > h1 {
+        margin-bottom: var(--mid-margin-size);
+    }
+    
+    .game_register_container > .game__container > div {
+        margin: var(--mid-margin-size) 0;
+    }
+    
+    .game__container > div > h4 {
+        margin-bottom: var(--small-margin-size);
+        font-size: var(--mid-font-size);
+    }
+    
+    .game__container > div input {
+        width: 20%;
+        max-width: 100px;
+    }
+    
+    .game__container > div input ~ span {
+        margin: 0 var(--main-margin-size);
+    }
+
+    .game__container > .gym_select_box > select {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .time_select_box > .time_container input,
+    .people_select_box > .people_container input {
+        width: 33%;
+        max-width: 100px;
+    }
+
+    .people_select_box > .people_container {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .fee_select_box > input {
+        width: 30vw !important;
+    }
+    
+    .game__container > button {
+        width: 100%;
+    }
+}
