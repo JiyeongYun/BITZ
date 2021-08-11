@@ -2,6 +2,7 @@ import UserApi from "api/UserApi";
 import React, { useContext, useEffect, useState } from "react";
 import { store } from 'store/store.js';
 import UpdateProfileGeneral from 'components/user/player/profile/UpdateProfileGeneral'
+import UpdateProfileBusiness from 'components/user/player/profile/UpdateProfileBusiness'
 
 function UpdateProfile() {
   // store 에서 userKind(유저 종류)와 isLogin(email 정보) 가져오기 위해 사용
@@ -20,17 +21,17 @@ function UpdateProfile() {
           setUserData(res.data)
         },
         err => {
-          console.log(err.response)
+          console.log(err)
         }
       )
     } else if (userKind === 'business') {
       UserApi.BusMyProfile(
-        isLogin,
+        {email:isLogin},
         res => {
-          console.log(res)
+          setUserData(res.data)
         },
         err => {
-          console.log(err.response)
+          console.log(err)
         }
       )
     }
@@ -40,7 +41,7 @@ function UpdateProfile() {
     <div className="updateprofile__container">
       {userKind === 'player' ? 
         <UpdateProfileGeneral userData={userData} setUserData={setUserData} />:
-        <span>비즈니스</span>
+        <UpdateProfileBusiness userData={userData} setUserData={setUserData} />
       }
     </div>
   )};

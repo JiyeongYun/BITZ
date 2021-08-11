@@ -62,11 +62,33 @@ const changePassword = (data, callback, errorCallback) => {
     .catch(errorCallback);
 }; // changePassword End
 
-// KOW - 비밀번호 찾기 axios 요청
+// KOW - 비즈니스 비밀번호 변경
+const changeBusPassword = (data, callback, errorCallback) => {
+  axios({
+    method: 'put',
+    url: BASE_URL + '/account/business/businessauth/password/change',
+    data: data,
+  })
+    .then(callback)
+    .catch(errorCallback);
+}; // changePassword End
+
+// KOW - 비밀번호 찾기 플레이어
 const findPwd = (data, callback, errorCallback) => {
   axios({
     method: 'PUT',
     url: BASE_URL + '/account/user/userauth/password/reset',
+    data: data,
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
+// KOW - 비밀번호 찾기 비즈니스
+const findBusPwd = (data, callback, errorCallback) => {
+  axios({
+    method: 'PUT',
+    url: BASE_URL + '/account/business/businessauth/password/reset',
     data: data,
   })
     .then(callback)
@@ -171,6 +193,17 @@ const BusMyProfile = (data, callback, errorCallback) => {
     .catch(errorCallback)
 }
 
+// KOW - 비즈니스 마이 페이지 수정
+const UpdateBusMyProfile = (data, callback, errorCallback) => {
+  axios({
+    method: 'PUT',
+    url: BASE_URL + '/account/business/businessprofile',
+    data: data
+  })
+    .then(callback)
+    .catch(errorCallback)
+}
+
 // KOW - 일반 회원 탈퇴
 const quitAccount = (data, callback, errorCallback) => {
   axios({
@@ -197,7 +230,9 @@ const UserApi = {
   requestJoin: (data, callback, errorCallback) => requestJoin(data, callback, errorCallback),
   requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
   changePassword: (data, callback, errorCallback) => changePassword(data, callback, errorCallback),
+  changeBusPassword: (data, callback, errorCallback) => changeBusPassword(data, callback, errorCallback),
   findPwd: (data, callback, errorCallback) => findPwd(data, callback, errorCallback),
+  findBusPwd: (data, callback, errorCallback) => findBusPwd(data, callback, errorCallback),
   firstLogin: (data, callback, errorCallback) => firstLogin(data, callback, errorCallback),
   requestBusinessJoin: (data, headers, callback, errorCallback) => requestBusinessJoin(data, headers, callback, errorCallback),
   requestBusinessLogin: (data, headers, callback, errorCallback) => requestBusinessLogin(data, headers, callback, errorCallback),
@@ -211,6 +246,7 @@ const UserApi = {
   BusMyProfile: (data, callback, errorCallback) => BusMyProfile(data, callback, errorCallback),
   quitAccount: (data, callback, errorCallback) => quitAccount(data, callback, errorCallback),
   quitBusAccount: (data, callback, errorCallback) => quitBusAccount(data, callback, errorCallback),
+  UpdateBusMyProfile: (data, callback, errorCallback) => UpdateBusMyProfile(data, callback, errorCallback),
 };
 
 export default UserApi;

@@ -4,7 +4,6 @@ import { useHistory  } from 'react-router-dom';
 
 const MyGym = ({gyminfo}) => {
   const history = useHistory();
-  console.log(gyminfo)
 
   const onAddGym = () => {
     history.push('/registergym')
