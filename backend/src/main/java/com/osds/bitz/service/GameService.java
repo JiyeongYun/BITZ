@@ -422,6 +422,7 @@ public class GameService {
 
         // recordTableList 세팅
         for (int i = 1; i <= tableCnt; i++) {
+            recordTableList[i - 1] = new RecordTable();
             recordTableList[i - 1].setTeamA(i == teamCnt ? i / teamCnt : i);
             recordTableList[i - 1].setTeamB(i == teamCnt ? i : i + 1);
             recordTableList[i - 1].setTeamAScoreList(new ArrayList<>());
@@ -442,13 +443,58 @@ public class GameService {
 
             if (++peopleIdx == 2) {
                 peopleIdx = 0;
-                if (++tableIdx == tableCnt){
+                if (++tableIdx == tableCnt) {
                     tableIdx = 0;
                 }
             }
         }
 
         return recordTableList;
+    }
+
+    /**
+     * 게임 결과 반영
+     */
+    public void completeGame(Long gameId) {
+        Game game = gameRepository.getGameById(gameId);
+        int teamCnt = game.getTeamCnt(); // 팀 개수
+
+        ArrayList<int[]>[] team = (ArrayList<int[]>[]) new ArrayList[teamCnt + 1];
+
+        for (int i = 1; i <= teamCnt; i++)
+            team[i] = new ArrayList<>();
+
+        RecordTable[] recordTableList = readRecord(gameId);
+
+        for (int i = 0; i < recordTableList.length; i++) {
+            int teamA = recordTableList[i].getTeamA();
+            int teamB = recordTableList[i].getTeamB();
+            team[teamA].add(new int[]{recordTableList[i].getTeamAScoreList().get(recordTableList[i].getTeamAScoreList().size() - 1), teamB});
+            team[teamB].add(new int[]{recordTableList[i].getTeamBScoreList().get(recordTableList[i].getTeamBScoreList().size() - 1), teamA});
+        }
+
+        // 해당 게임의 게임기록들 다 가져오기
+        ArrayList<GameRecord> gameRecordList = gameRecordRepository.getGameRecordsByGameId(gameId);
+
+
+        ArrayList<GameRecord> lastGames = new ArrayList<>();
+
+        if (teamCnt == 2) { // 2파전
+            int quater = 1;
+            for (int i = 0; i < gameRecordList.size(); i++) { // 4쿼터씩 끊어서 받기
+                if (quater == 4)
+                    lastGames.add(gameRecordList.get(i));
+                if (i % 2 != 0) {
+                    if (quater == 4)
+                        quater = 1;
+                    quater++;
+                }
+            }
+        } else { // 3파전
+
+        }
+
+
     }
 
 

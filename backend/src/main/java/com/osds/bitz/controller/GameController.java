@@ -145,6 +145,13 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.OK).body(recordTableList);
     }
 
+    @PostMapping("/gameresult")
+    @ApiOperation(value="게임 결과 반영", notes= "끝난 경기의 결과를 반영합니다.")
+    public ResponseEntity completeGame() {
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @PostMapping("/review")
     @ApiOperation(value = "경기 리뷰 저장", notes = "경기 리뷰를 저장합니다.")
     public ResponseEntity createReview(@RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) {
