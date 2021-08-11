@@ -377,7 +377,7 @@ public class UserService extends BaseAuthService {
         this.skillRepository.deleteByUserAuth(userAuth);
         this.mannerRepository.deleteByUserAuth(userAuth);
         this.gameParticipantRepository.deleteAllByUserAuth(userAuth);
-        this.gameRecordRepository.deleteAllByUserId(userAuth.getId());
+        this.gameRecordRepository.deleteAllByUserAuth(userAuth);
         this.gymReviewRepository.deleteAllByUserId(userAuth.getId());
         this.loginLogRepository.deleteAllByEmail(userAuth.getEmail());
         this.userProfileRepository.delete(userProfile);
