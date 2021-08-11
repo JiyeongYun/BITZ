@@ -173,20 +173,16 @@ public class BusinessService extends BaseAuthService {
         BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
 
         // BusinessAuth
-        businessAuth.builder()
-                .email(businessRequest.getEmail())
-                .birth(businessRequest.getBirth())
-                .build();
+        businessAuth.setEmail(businessRequest.getEmail());
+        businessAuth.setBirth(businessRequest.getBirth());
         businessAuthRepository.save(businessAuth);
 
         // BusinessProfile
-        businessProfile.builder()
-                .name(businessRequest.getName())
-                .phone(businessRequest.getPhone())
-                .bank(businessRequest.getBank())
-                .account(businessRequest.getAccount())
-                .businessRegistration(businessRequest.getBusinessRegistration().getBytes())
-                .build();
+        businessProfile.setName(businessRequest.getName());
+        businessProfile.setPhone(businessRequest.getPhone());
+        businessProfile.setBank(businessRequest.getBank());
+        businessProfile.setAccount(businessRequest.getAccount());
+        businessProfile.setBusinessRegistration(businessRequest.getBusinessRegistration().getBytes());
         businessProfileRepository.save(businessProfile);
     }
 
