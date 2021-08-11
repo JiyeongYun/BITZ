@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,12 +15,22 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReviewRequest {
 
+    @NotEmpty
     private String email;
+
+    @NotEmpty
     private Long gameId;
+
     private String mvp;
+
     private String goodPeople[];
+
     private String badPeople[];
+
+    @NotEmpty
     private Long gymId;
+
+    @NotEmpty
     private int rate;
 
 }
