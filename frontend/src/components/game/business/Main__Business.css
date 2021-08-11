@@ -24,22 +24,20 @@
 
 .MainBusiness__DateName {
   position: relative;
-  padding-top: 8px;
-  height: 40px;
-  background-color: #ffad4e;
+  height: var(--btn-height);
+  line-height: var(--btn-height);
+  background-color: var(--dark-blue);
   color: white;
   text-align: center;
 }
 
 .MainBusiness__DateName_Today {
-  background-color: #0A1840;
+  background-color: var(--main-color);
 }
 
 .MainBusiness__Today {
   position: absolute;
   left: 10px;
-  top: 25%;
-  font-size: 15px;
 }
 
 .MainBusiness__toggle_game_list {
@@ -47,7 +45,7 @@
 }
 
 .MainBusiness__allGameList {
-  margin-top: 50px;
+  margin: var(--large-margin-size) 0;
 }
 
 .MainBusiness__DailyGame {
@@ -66,5 +64,61 @@
 }
 
 .gameList__state__button_Complete {
-  background-color: #0A1840;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 1024px) {
+  .MainBusiness > div {
+    width: 90vw;
+  }
+  
+  .MainBusiness__top {
+    font-size: var(--main-font-size);
+    margin: 0 var(--small-margin-size);
+  }
+
+  .MainBusiness__DateName {
+    font-size: var(--mid-font-size);
+    margin: var(--main-margin-size) 0 var(--small-margin-size);
+  }
+  
+  .MainBusiness__allGameList {
+    margin: var(--mid-margin-size) 0;
+  }
+  
+  .gameList__game__Time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    padding-right: 5px;
+  }
+
+  .MainBusiness__DailyGame {
+    height: 70px;
+  }
+
+  .gameList__game__info {
+    text-align: center;
+    padding-right: 5px;
+  }
+
+  .gameList__game__info > .gameList__game__location {
+    display: none;
+  }
+  
+  .gameList__content > .MainBusiness__game__personnel {
+    display: none;
+  }
+  
+  .MainBusiness__game__participants {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    height: 100%;
+    line-height: var(--btn-height);
+    font-size: var(--small-font-size);
+  }
 }
