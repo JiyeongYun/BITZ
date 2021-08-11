@@ -111,7 +111,7 @@
   margin-bottom: 40px;
 }
 
-.gymInfo > button {
+.gymInfo .reservation__btn {
   display: block;
   margin: 50px auto 0;
   width: 50%;

@@ -39,3 +39,20 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+.GameDatail__Business_red {
+  font-weight: bold;
+  color: red;
+}
+
+.GameDatail__Business_table_Roster img {
+  width: 20px;
+}
+
+.GameDatail__Business_button {
+  cursor: pointer;
+}
+
+.activate {
+  font-weight: bold;
+}
