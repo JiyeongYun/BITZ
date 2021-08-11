@@ -1,9 +1,6 @@
 package com.osds.bitz.service;
 
-import com.osds.bitz.model.entity.account.user.FavoriteLocation;
-import com.osds.bitz.model.entity.account.user.Position;
-import com.osds.bitz.model.entity.account.user.UserAuth;
-import com.osds.bitz.model.entity.account.user.UserProfile;
+import com.osds.bitz.model.entity.account.user.*;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.account.ReadAuthRequest;
@@ -11,10 +8,7 @@ import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
 import com.osds.bitz.model.network.request.account.UserAuthRequest;
 import com.osds.bitz.model.network.request.account.UserRequest;
 import com.osds.bitz.model.network.response.account.UserResponse;
-import com.osds.bitz.repository.account.user.FavoriteLocationRepository;
-import com.osds.bitz.repository.account.user.PositionRepository;
-import com.osds.bitz.repository.account.user.UserAuthRepository;
-import com.osds.bitz.repository.account.user.UserProfileRepository;
+import com.osds.bitz.repository.account.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -39,6 +33,9 @@ public class UserService extends BaseAuthService {
     @Autowired
     private PositionRepository positionRepository;
 
+    @Autowired
+    private SkillRepository skillRepository;
+
     /**
      * 회원가입
      */
@@ -60,6 +57,7 @@ public class UserService extends BaseAuthService {
                 .password(encodingPassword(userAuthRequest.getPassword()))
                 .birth(userAuthRequest.getBirth())
                 .build();
+        this.userAuthRepository.save(userAuth);
 
         // userauth테이블에서 값 가져와서 userprofile값 설정하기
         UserProfile userProfile = UserProfile.builder()
@@ -68,9 +66,13 @@ public class UserService extends BaseAuthService {
                 .phone(userAuthRequest.getPhone())
                 .userAuth(userAuth)
                 .build();
-
-        UserAuth newUserAuth = this.userAuthRepository.save(userAuth);
         this.userProfileRepository.save(userProfile);
+
+        Skill skill = Skill.builder()
+                .userAuth(userAuth)
+                .build();
+        this.skillRepository.save(skill);
+
     }
 
     /**
@@ -191,9 +193,9 @@ public class UserService extends BaseAuthService {
      */
     public UserResponse readProfile(String email) {
         UserAuth userAuth = getUserAuthByEmail(email);
-        UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(userAuth);
-        Position position = positionRepository.getPositionByUserAuth(userAuth);
-        FavoriteLocation favoriteLocation = favoriteLocationRepository.getFavoriteLocationByUserAuth(userAuth);
+        UserProfile userProfile = userProfileRepository.getUserProfileById(userProfileRepository.getUserProfileByUserAuth(userAuth).getId());
+        Position position = positionRepository.getPositionById(positionRepository.getPositionByUserAuth(userAuth).getId());
+        FavoriteLocation favoriteLocation = favoriteLocationRepository.getFavoriteLocationById(favoriteLocationRepository.getFavoriteLocationByUserAuth(userAuth).getId());
 
         UserResponse userResponse = UserResponse.builder()
                 .email(userAuth.getEmail())
@@ -319,6 +321,8 @@ public class UserService extends BaseAuthService {
         // TODO: LoginLog, Position, FavoriteLocation, Manner, GymReview, .. 등등 UserAuth의 id가 속한 모든 table 데이터 지우기
 
         this.userProfileRepository.delete(userProfile);
+
+
         this.userAuthRepository.delete(userAuth);
     }
 

@@ -260,6 +260,11 @@ public class GameService {
 
         // 3. 실력점수에 따라 내림차순 정렬
         Collections.sort(userSkills);
+        System.out.println("=============================");
+        for(UserSkill u : userSkills){
+            System.out.println("id: " + u.userId + ", skill score: " + u.skillScore);
+        }
+        System.out.println("=============================");
 
         // 4. 팀 배정
         ArrayList<UserSkill[]> team = setTeamBySkillScore(numOfTeam, userSkills);
