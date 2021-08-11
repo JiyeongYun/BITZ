@@ -3,6 +3,7 @@ package com.osds.bitz.service;
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
 import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.UserAuth;
+import com.osds.bitz.model.entity.game.Game;
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.account.BusinessAuthRequest;
@@ -12,6 +13,7 @@ import com.osds.bitz.model.network.request.account.UpdatePasswordRequest;
 import com.osds.bitz.model.network.response.account.BusinessResponse;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
+import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -38,6 +41,9 @@ public class BusinessService extends BaseAuthService {
 
     @Autowired
     private GymRepository gymRepository;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     /**
      * 회원가입
@@ -138,7 +144,6 @@ public class BusinessService extends BaseAuthService {
         return true;
     }
 
-
     /**
      * 마이페이지 정보 조회
      */
@@ -182,6 +187,29 @@ public class BusinessService extends BaseAuthService {
                 .businessRegistration(businessRequest.getBusinessRegistration().getBytes())
                 .build();
         businessProfileRepository.save(businessProfile);
+    }
+
+    /**
+     * 메인 페이지 조회
+     */
+    public ArrayList<Game> readGameList(String email, Date date) {
+
+        // 이메일로 business 계정 가져오기
+        BusinessAuth businessAuth = businessAuthRepository.getBusinessAuthByEmail(email);
+
+        // 체육관 리스트 가져오기
+        ArrayList<Gym> gymList = gymRepository.getGymsByBusinessAuth(businessAuth);
+
+        // 체육관별 픽업게임 가져오기
+        ArrayList<Game> myPickupGameList = new ArrayList<>();
+        for (Gym gym : gymList) {
+            ArrayList<Game> gameList = gameRepository.getGamesByGym(gym);
+            for (Game game : gameList) {
+                if (date.compareTo(game.getDate()) <= 0)
+                    myPickupGameList.add(game);
+            }
+        }
+        return myPickupGameList;
     }
 
     /**
