@@ -1,5 +1,6 @@
 package com.osds.bitz.model.entity.game;
 
+import com.osds.bitz.model.entity.account.user.UserAuth;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,8 +30,9 @@ public class GameRecord {
     @Column(nullable = false)
     private LocalDateTime recordTime;   // 기록시간
 
-    @Column(nullable = false)
-    private String userId;              // 사용자ID
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserAuth userAuth;              // 사용자ID
 
     @Column(nullable = false)
     private Long gameId;                // 게임ID
