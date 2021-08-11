@@ -27,10 +27,13 @@ import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import com.osds.bitz.repository.gym.GymReviewRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.boot.model.relational.SimpleAuxiliaryDatabaseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -171,12 +174,33 @@ public class GameService {
     }
 
     /**
+     * 예약한 게임 리스트 조회
+     */
+    public ArrayList<Game> getMyGameList(String userEmail) {
+        UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
+        ArrayList<GameParticipant> gameParticipants = gameParticipantRepository.getGameParticipantsByUserAuth(userAuth);
+
+        ArrayList<Game> result = new ArrayList<Game>();
+
+        for (int i = 0; i < gameParticipants.size(); i++) {
+            Game game = gameRepository.getGameById(gameParticipants.get(i).getGameId());
+            if (game.getDate().compareTo(new Date(System.currentTimeMillis())) >= 0) {
+                game.getGym().getBusinessAuth().setPassword(null);
+                result.add(game);
+            }
+        }
+
+        return result;
+    }
+
+
+    /**
      * 게임 예약
      */
-    public void reserveGame(String userEmail, Long gameId) throws Exception{
+    public void reserveGame(String userEmail, Long gameId) throws Exception {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
-        if(gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth,gameId) != null)
+        if (gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId) != null)
             throw new Exception();
 
         GameParticipant newGameParticipant =
@@ -268,13 +292,13 @@ public class GameService {
         ArrayList<UserSkill[]> team = setTeamBySkillScore(numOfTeam, userSkills);
 
         // 5. DB에 저장
-        for(int i = 0; i < team.size(); i++){
-            for(int j = 0; j < team.get(i).length; j++){
+        for (int i = 0; i < team.size(); i++) {
+            for (int j = 0; j < team.get(i).length; j++) {
                 UserSkill userSkill = team.get(i)[j];
                 UserAuth userAuth = this.userAuthRepository.getUserAuthById(userSkill.userId);
                 GameParticipant gameParticipant = this.gameParticipantRepository.getGameParticipantByUserAuth(userAuth);
                 gameParticipant.setId(gameParticipant.getId());
-                gameParticipant.setTeam(i+1);
+                gameParticipant.setTeam(i + 1);
                 this.gameParticipantRepository.save(gameParticipant);
             }
         }
@@ -307,7 +331,7 @@ public class GameService {
     /**
      * createTeaming() - 팀별 인원배치
      */
-    public ArrayList<UserSkill[]> setTeamBySkillScore(int[] numOfTeam, ArrayList<UserSkill> userSkills){
+    public ArrayList<UserSkill[]> setTeamBySkillScore(int[] numOfTeam, ArrayList<UserSkill> userSkills) {
 
         // 참가자수에 따른 team 개수 구하고 세팅하기
         int teamCnt = numOfTeam[2] == -1 ? 2 : 3;
@@ -329,7 +353,7 @@ public class GameService {
             team.get(teamIdx)[peopleIdx] = userSkill;
             teamIdx = teamIdx + direction;
 
-            if(teamIdx == -1 || teamIdx == teamCnt){
+            if (teamIdx == -1 || teamIdx == teamCnt) {
                 peopleIdx++;
                 direction = direction * -1;
                 teamIdx = teamIdx + direction;
@@ -411,6 +435,20 @@ public class GameService {
             this.mannerRepository.save(manner);
         }
 
+    }
+
+
+    /**
+     * 경기 리뷰 작성 유무 확인
+     */
+    public boolean readReview(String userEmail, Long gameId) {
+        String userId = userAuthRepository.getUserAuthByEmail(userEmail).getId();
+        long gymId = gameRepository.getGameById(gameId).getGym().getId();
+
+        if (gymReviewRepository.getGymReviewByUserIdAndGymId(userId, gymId) != null)
+            return true;
+
+        return false;
     }
 
 
