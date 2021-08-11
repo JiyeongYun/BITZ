@@ -1,10 +1,6 @@
 package com.osds.bitz.service;
 
-import com.osds.bitz.model.entity.account.user.FavoriteLocation;
-import com.osds.bitz.model.entity.account.user.Position;
-import com.osds.bitz.model.entity.account.user.UserAuth;
-import com.osds.bitz.model.entity.account.user.UserProfile;
-import com.osds.bitz.model.entity.game.GameParticipant;
+import com.osds.bitz.model.entity.account.user.*;
 import com.osds.bitz.model.entity.log.LoginLog;
 import com.osds.bitz.model.entity.token.RefreshToken;
 import com.osds.bitz.model.network.request.account.ReadAuthRequest;
@@ -16,7 +12,6 @@ import com.osds.bitz.repository.account.user.*;
 import com.osds.bitz.repository.game.GameParticipantRepository;
 import com.osds.bitz.repository.game.GameRecordRepository;
 import com.osds.bitz.repository.gym.GymReviewRepository;
-import com.osds.bitz.repository.log.LoginLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -56,9 +51,6 @@ public class UserService extends BaseAuthService {
     @Autowired
     private GymReviewRepository gymReviewRepository;
 
-    @Autowired
-    private LoginLogRepository loginLogRepository;
-
     /**
      * 회원가입
      */
@@ -80,6 +72,7 @@ public class UserService extends BaseAuthService {
                 .password(encodingPassword(userAuthRequest.getPassword()))
                 .birth(userAuthRequest.getBirth())
                 .build();
+        this.userAuthRepository.save(userAuth);
 
         // userauth테이블에서 값 가져와서 userprofile값 설정하기
         UserProfile userProfile = UserProfile.builder()
@@ -88,9 +81,13 @@ public class UserService extends BaseAuthService {
                 .phone(userAuthRequest.getPhone())
                 .userAuth(userAuth)
                 .build();
-
-        UserAuth newUserAuth = this.userAuthRepository.save(userAuth);
         this.userProfileRepository.save(userProfile);
+
+        // 회원가입시 Skill 테이블에 데이터 추가
+        Skill skill = Skill.builder()
+                .userAuth(userAuth)
+                .build();
+        this.skillRepository.save(skill);
     }
 
     /**
@@ -335,60 +332,16 @@ public class UserService extends BaseAuthService {
     public void deleteUser(ReadAuthRequest readAuthRequest) {
         UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(readAuthRequest.getEmail());
         UserProfile userProfile = this.userProfileRepository.getUserProfileByUserAuth(userAuth);
-
-        // TODO: LoginLog, Position, FavoriteLocation, Manner, GymReview, .. 등등 UserAuth의 id가 속한 모든 table 데이터 지우기
-        // gamerecord, gameparticipant, gymreview
-        try {
-            this.favoriteLocationRepository.deleteByUserAuth(userAuth);
-        } catch (Exception e) {
-            System.out.println("선호지역");
-        }
-        try {
-            this.positionRepository.deleteByUserAuth(userAuth);
-        } catch (Exception e) {
-            System.out.println("포지션");
-        }
-        try {
-            this.skillRepository.deleteByUserAuth(userAuth);
-        } catch (Exception e) {
-            System.out.println("스킬");
-        }
-        try {
-            this.mannerRepository.deleteByUserAuth(userAuth);
-        } catch (Exception e) {
-            System.out.println("매너");
-        }
-        try {
-            this.gameParticipantRepository.deleteAllByUserAuth(userAuth);
-        } catch (Exception e) {
-            System.out.println("게임참여자");
-        }
-        try {
-            this.gameRecordRepository.deleteAllByUserId(userAuth.getId());
-        } catch (Exception e) {
-            System.out.println("게임기록");
-        }
-
-        try {
-            this.gymReviewRepository.deleteAllByUserId(userAuth.getId());
-        } catch (Exception e) {
-            System.out.println("체육관리뷰");
-        }
-        try {
-            this.loginLogRepository.deleteAllByEmail(userAuth.getEmail());
-        } catch (Exception e) {
-            System.out.println("로그인로그");
-        }
-        try {
-            this.userProfileRepository.delete(userProfile);
-        } catch (Exception e) {
-            System.out.println("유저프로필");
-        }
-        try {
-            this.userAuthRepository.delete(userAuth);
-        } catch (Exception e) {
-            System.out.println("유저인증");
-        }
+        this.favoriteLocationRepository.deleteByUserAuth(userAuth);
+        this.positionRepository.deleteByUserAuth(userAuth);
+        this.skillRepository.deleteByUserAuth(userAuth);
+        this.mannerRepository.deleteByUserAuth(userAuth);
+        this.gameParticipantRepository.deleteAllByUserAuth(userAuth);
+        this.gameRecordRepository.deleteAllByUserId(userAuth.getId());
+        this.gymReviewRepository.deleteAllByUserId(userAuth.getId());
+        this.loginLogRepository.deleteAllByEmail(userAuth.getEmail());
+        this.userProfileRepository.delete(userProfile);
+        this.userAuthRepository.delete(userAuth);
     }
 
     /**
