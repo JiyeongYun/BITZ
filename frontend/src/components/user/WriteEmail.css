@@ -6,7 +6,7 @@
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     background-color: var(--grey-color);
-    width: 300px;
+    width: 340px;
     height: var(--btn-height);
 }
 
@@ -18,7 +18,7 @@
 
 .sendpw > button {
     font-size: var(--main-font-size);
-    width: 300px;
+    width: 340px;
     color: white;
     background-color: var(--main-color);
     border: none;
@@ -36,4 +36,11 @@
 .send__info > #email {
     margin: var(--mid-margin-size) 0;
     color: var(--main-color)
+}
+
+@media screen and (max-width: 1024px) {
+    .sendpw > .send__info > p:nth-child(1) {
+        display: flex;
+        flex-direction: column;
+    }
 }

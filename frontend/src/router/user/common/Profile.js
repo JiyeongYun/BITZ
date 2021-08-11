@@ -94,6 +94,7 @@ const Profile = ({ history }) => {
         <img src="/images/KOW.png" alt="profile" />
         <p id="nickname">{userData.nickname}</p>
         <p id="email">{userData.email}</p>
+        <p id="email">{userData.phone}</p>
         <p id="birth">{userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
       </div>
       {/* 유저가 플레이어일 경우 */}
