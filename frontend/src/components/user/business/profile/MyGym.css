@@ -68,3 +68,24 @@
 .mygym > .mygym__list > .gym__info > p:nth-child(1) {
   font-weight: bold;
 }
+
+@media screen and (max-width: 1024px) {
+  .mygym {
+    margin: var(--large-margin-size);
+    width: 90vw;
+  }
+  
+  .mygym > .mygym__container {
+    font-size: var(--mid-font-size);
+  }
+  
+  .mygym > .mygym__container > h3 {
+    font-weight: bold;
+  }
+  
+  .mygym > .mygym__container > button {
+    width: 20px;
+    height: 20px;
+    font-size: var(--mid-font-size);
+  }
+}

@@ -1,6 +1,7 @@
 .profile__div {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -128,6 +129,6 @@
     border: none;
     border-radius: 5px;
     height: var(--btn-height);
-    margin: var(--mid-margin-size);
+    margin: var(--small-margin-size) 0;
   }
 }

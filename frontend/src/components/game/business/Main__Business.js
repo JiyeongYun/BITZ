@@ -89,7 +89,6 @@ function Main__Business ({history}) {
     <div className="MainBusiness">
       <div>
         <div className="MainBusiness__top">
-          <div>게임 관리하기</div>
           <div className="MainBusiness__top_links">
             <div onClick={onToggle} className="MainBusiness__toggle_game_list">
               { toggleGameList ? <span>모든 게임 보기</span> : <span>나의 게임 보기</span> }
@@ -148,20 +147,24 @@ function Main__Business ({history}) {
                             </div>
 
                             <div className="MainBusiness__game__participants">
-                              <span>{"모집인원 | "}</span>
-                              <span>
-                                {`${game.gameparticipant.filter(element=>element.state===2).length} 명`}
-                              </span>
-                              <span>{" / "}</span>
-                              <span>
-                                {`${game.max_people} 명 `}
-                              </span>
-                              <span>
-                                {" 입금 확인 요청 | "}
-                              </span>
-                              <span>
-                                {game.gameparticipant.filter(element=>element.state===1).length}명
-                              </span>
+                              <div>
+                                <span>{"모집인원 | "}</span>
+                                <span>
+                                  {`${game.gameparticipant.filter(element=>element.state===2).length} 명`}
+                                </span>
+                                <span>{" / "}</span>
+                                <span>
+                                  {`${game.max_people} 명 `}
+                                </span>
+                              </div>
+                              <div>
+                                <span>
+                                  {" 입금 확인 요청 | "}
+                                </span>
+                                <span>
+                                  {game.gameparticipant.filter(element=>element.state===1).length}명
+                                </span>
+                              </div>
                             </div>
 
                             <div className="gameList__game__state">
