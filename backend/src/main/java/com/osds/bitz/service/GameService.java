@@ -368,17 +368,19 @@ public class GameService {
      * 게임 점수 기록
      */
     public void createRecord(RecordRequest recordRequest) {
+
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(recordRequest.getUserEmail());
+
         GameRecord gameRecord = GameRecord.builder()
                 .team(recordRequest.getTeam())
                 .quarter(recordRequest.getQuarter())
                 .score(recordRequest.getScore())
-                .userId(recordRequest.getUserId())
+                .userAuth(userAuth)
                 .gameId(recordRequest.getGameId())
                 .build();
         gameRecordRepository.save(gameRecord);
 
         // 점수 기록자의 매너 점수도 0.2점 올리기 (한 쿼터에 2개의 로그가 등록되므로 0.1점 씩)
-        UserAuth userAuth = userAuthRepository.getById(gameRecord.getUserId()); // 기록자 정보 얻어오기
         Manner manner = Manner.builder()
                 .userAuth(userAuth)
                 .score(1)
