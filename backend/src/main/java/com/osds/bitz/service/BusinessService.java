@@ -155,6 +155,7 @@ public class BusinessService extends BaseAuthService {
         BusinessResponse businessResponse = BusinessResponse.builder()
                 .email(businessAuth.getEmail())
                 .birth(businessAuth.getBirth())
+                .phone(businessProfile.getPhone())
                 .name(businessProfile.getName())
                 .bank(businessProfile.getBank())
                 .account(businessProfile.getAccount())
