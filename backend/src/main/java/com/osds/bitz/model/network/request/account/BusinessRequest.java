@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,27 +17,64 @@ import org.springframework.web.multipart.MultipartFile;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BusinessRequest {
 
+    @NotEmpty
     private BusinessAuth businessAuth;
+
+    @NotEmpty
     private String email;
+
+    @NotEmpty
     private String password;
+
+    @NotEmpty
     private String birth;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String phone;
+
+    @NotEmpty
     private String bank;
+
+    @NotEmpty
     private String account;
+
+    @NotEmpty
     private MultipartFile businessRegistration;
 
+    @NotEmpty
     private String address;
-    private String intro;
-    private String notice;
-    private int courtWidth;
-    private int courtLength;
-    private boolean isParking;
-    private boolean isShower;
-    private boolean isAirconditional;
-    private boolean isWater;
-    private boolean isBasketball;
-    private boolean isScoreboard;
 
+    @NotEmpty
+    private String intro;
+
+    @NotEmpty
+    private String notice;
+
+    @NotEmpty
+    private int courtWidth;
+
+    @NotEmpty
+    private int courtLength;
+
+    @NotEmpty
+    private boolean isParking;
+
+    @NotEmpty
+    private boolean isShower;
+
+    @NotEmpty
+    private boolean isAirconditional;
+
+    @NotEmpty
+    private boolean isWater;
+
+    @NotEmpty
+    private boolean isBasketball;
+
+    @NotEmpty
+    private boolean isScoreboard;
 
 }

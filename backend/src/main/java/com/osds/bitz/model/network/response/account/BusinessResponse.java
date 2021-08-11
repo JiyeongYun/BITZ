@@ -19,6 +19,7 @@ public class BusinessResponse {
     private String email;
     private String password;
     private String birth;
+    private String phone;
     private String name;
     private String bank;
     private String account;

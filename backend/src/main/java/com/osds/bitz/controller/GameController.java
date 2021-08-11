@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class GameController {
 
     @PostMapping("/game")
     @ApiOperation(value = "게임 등록", notes = "게임의 정보를 DB에 저장합니다.")
-    public ResponseEntity<GameResponse> createGame(@RequestBody @ApiParam(value = "게임 정보") GameRequest gameRequest) throws Exception {
+    public ResponseEntity<GameResponse> createGame(@Valid @RequestBody @ApiParam(value = "게임 정보") GameRequest gameRequest) throws Exception {
         GameResponse response = new GameResponse(gameService.createGame(gameRequest));
         return new ResponseEntity<GameResponse>(response, HttpStatus.OK);
     }
@@ -57,7 +58,7 @@ public class GameController {
 
     @PutMapping(value = "/game")
     @ApiOperation(value = "게임 수정", notes = "게임 수정")
-    public ResponseEntity<Game> updateGame(@RequestBody GameRequest gameRequest) {
+    public ResponseEntity<Game> updateGame(@Valid @RequestBody GameRequest gameRequest) {
         Game game = gameService.updateGame(gameRequest);
         return new ResponseEntity<Game>(HttpStatus.OK);
     }
