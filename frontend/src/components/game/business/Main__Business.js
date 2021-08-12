@@ -118,7 +118,7 @@ function Main__Business ({history}) {
                         <p>모집 인원 : <span>{game.participant}</span>/{game.maxPeople}</p>
                         <p>입금 확인 요청 : <span>{game.participant}</span>명</p>
                       </div>
-                      <button className="game__btn">모집 중</button>
+                      <Link to={"/detail/"+ game.id} className="game__btn">모집 중</Link>
                     </div>
                   )
                 }
@@ -145,7 +145,7 @@ function Main__Business ({history}) {
                         <p>모집 인원 : <span>{game.participant}</span>/{game.maxPeople}</p>
                         <p>입금 확인 요청 : <span>{game.participant}</span>명</p>
                       </div>
-                      <button className="game__btn">모집 중</button>
+                      <Link to={"/detail/"+ game.id} className="game__btn">모집 중</Link>
                     </div>
                   )
                 }
@@ -172,7 +172,7 @@ function Main__Business ({history}) {
                         <p>모집 인원 : <span>{game.participant}</span>/{game.maxPeople}</p>
                         <p>입금 확인 요청 : <span>{game.participant}</span>명</p>
                       </div>
-                      <button className="game__btn">모집 중</button>
+                      <Link to={"/detail/"+ game.id} className="game__btn">모집 중</Link>
                     </div>
                   )
                 }
