@@ -585,22 +585,22 @@ public class GameService {
         // 1. 체육관 리뷰 저장
         GymReview gymReview = GymReview.builder()
                 .gymId(reviewRequest.getGymId())        // 체육관 ID
-                .userId(reviewRequest.getEmail())       // 유저 ID
+                .userId(userAuthRepository.getUserAuthByEmail(reviewRequest.getEmail()).getId())       // 유저 ID
                 .rate(reviewRequest.getRate())          // 평점
                 .date(LocalDateTime.now())              // 현재시간
                 .build();
+
         this.gymReviewRepository.save(gymReview);
 
         // 2. 사용자 리뷰 저장
         // 2-1. MVP
         UserAuth mvpUser = this.userAuthRepository.getUserAuthByEmail(reviewRequest.getMvp());
         Skill skill = this.skillRepository.getSkillByUserAuth(mvpUser);
+
         int mvpCnt = this.skillRepository.getSkillById(skill.getId()).getMvpCnt();
 
         // Update MVP Count
-        skill = Skill.builder()
-                .mvpCnt(mvpCnt + 1)
-                .build();
+        skill.setMvpCnt(mvpCnt + 1);
         this.skillRepository.save(skill);
 
         // 2-2. Manner
