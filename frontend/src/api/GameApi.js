@@ -82,6 +82,52 @@ const ConfirmReservation = (data,callback,errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
+
+// PJW - Game 리뷰 여부 확인
+const ReviewCheck = (data,callback,errorCallback) => {
+  axios({
+    method: "GET",
+    url: BASE_URL + "/game/review",
+    params: data
+  })
+  .then(callback)
+  .catch(errorCallback)
+}
+
+// PJW - Game 리뷰 제출
+const ApplyReview = (data,callback,errorCallback) => {
+  axios({
+    method: "POST",
+    url: BASE_URL + "/game/review",
+    data: data
+  })
+  .then(callback)
+  .catch(errorCallback)
+}
+
+// PJW - 쿼터별 경기 기록
+const RecordGame = (data,callback,errorCallback) => {
+  axios({
+    method: "POST",
+    url: BASE_URL + "/game/review",
+    data: data
+  })
+  .then(callback)
+  .catch(errorCallback)
+}
+
+
+
+// KOW - 내가 만든 게임 리스트
+const myGameList = (data, callback, errorCallback) => {
+  axios({
+    method: 'GET',
+    url: BASE_URL + "/account/business/game/list",
+    params: data,
+  })
+   .then(callback)
+   .catch(errorCallback)
+}
  
 // PJW - Game 리뷰 여부 확인
 const ReviewCheck = (data,callback,errorCallback) => {
@@ -127,6 +173,7 @@ const GameApi = {
   ApplyReview:(data,callback,errorCallback)=>ApplyReview(data,callback,errorCallback),
   ReviewCheck:(data,callback,errorCallback)=>ReviewCheck(data,callback,errorCallback),
   RecordGame:(data,callback,errorCallback)=>RecordGame(data,callback,errorCallback),
+  myGameList:(data,callback,errorCallback)=>myGameList(data,callback,errorCallback),
 }
 
 export default GameApi 
