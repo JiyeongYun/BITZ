@@ -637,7 +637,7 @@ public class GameService {
         String userId = userAuthRepository.getUserAuthByEmail(userEmail).getId();
         long gymId = gameRepository.getGameById(gameId).getGym().getId();
 
-        if (gymReviewRepository.getGymReviewByUserIdAndGymId(userId, gymId) != null)
+        if (gymReviewRepository.getGymReviewsByUserIdAndGymId(userId, gymId).size() > 0)
             return true;
 
         return false;
