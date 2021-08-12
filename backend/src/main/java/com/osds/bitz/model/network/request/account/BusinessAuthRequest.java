@@ -1,39 +1,31 @@
 package com.osds.bitz.model.network.request.account;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotEmpty;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BusinessAuthRequest {
 
-    @NotEmpty
     private String name;
 
-    @NotEmpty
     private String phone;
 
-    @NotEmpty
     private String email;
 
-    @NotEmpty
     private String password;
 
-    @NotEmpty
     private String birth;
 
-    @NotEmpty
     private String bank;
 
-    @NotEmpty
     private String account;
 
-    @NotEmpty
     private MultipartFile businessRegistration;
 
 }

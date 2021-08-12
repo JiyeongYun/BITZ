@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface GameRecordRepository extends JpaRepository<GameRecord, String> {
 
     ArrayList<GameRecord> getGameRecordsByGameId(Long gameId);
+
     @Transactional
     void deleteAllByUserAuth(UserAuth userAuth);
 }

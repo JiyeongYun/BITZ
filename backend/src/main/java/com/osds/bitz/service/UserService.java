@@ -209,11 +209,8 @@ public class UserService extends BaseAuthService {
      */
     public UserResponse readProfile(String email) {
         UserAuth userAuth = getUserAuthByEmail(email);
-
         UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(userAuth);
-
         Position position = positionRepository.getPositionByUserAuth(userAuth);
-
         FavoriteLocation favoriteLocation = favoriteLocationRepository.getFavoriteLocationByUserAuth(userAuth);
 
         // skill 점수 계산하기
@@ -337,10 +334,10 @@ public class UserService extends BaseAuthService {
     /**
      * 비밀번호 찾기
      */
-    public UserAuth resetPassword(UserAuthRequest userAuthRequest) {
+    public UserAuth resetPassword(String email) {
 
         // 이메일로 해당 객체 찾아오기
-        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail());
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(email);
 
         // 객체가 없는 경우 null로 return
         if (userAuth == null) return null;
