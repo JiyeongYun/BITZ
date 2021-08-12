@@ -59,10 +59,10 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 0? (
                 <div className="member">
-                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
-                      <img src={"/images/"+member.id+".png"} alt="member" />
+                      <img src='/images/symbol.png' alt="member" />
                       <div>
                         <p>{member.name}</p>
                         <p>{member.height}cm</p>
@@ -96,10 +96,10 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 1? (
                 <div className="member">
-                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
-                      <img src={"/images/"+member.id+".png"} alt="member" />
+                      <img src='/images/symbol.png' alt="member" />
                       <div>
                         <p>{member.name}</p>
                         <p>{member.height}cm</p>
@@ -133,10 +133,10 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 2? (
                 <div className="member">
-                  <img id={idx} src={'/images/'+ member.id +'.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
-                      <img src={"/images/"+member.id+".png"} alt="member" />
+                      <img src='/images/symbol.png' alt="member" />
                       <div>
                         <p>{member.name}</p>
                         <p>{member.height}cm</p>

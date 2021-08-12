@@ -4,10 +4,56 @@
   width: 10px;
   height: 10px;
   font-size: 0.5px;
-  display: none;
+  /* display: none; */
   justify-content: center;
   align-items: center;
-  color: #0a1840;
-  background-color: #0a1840;
+  /* color: #0a1840;
+  background-color: #0a1840; */
   /* display: flex; */
+}
+
+.teaminfo > .teams > .team {
+  position: relative;
+}
+
+.manner__overlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 3;
+  background-color: rgb(99, 99, 99);
+  opacity: 96%;
+  width: 100px;
+  height: 96px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.manner__overlay > div {
+  text-align: center;
+  width: 45%;
+  height: 90%;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.manner__overlay > div > span {
+  position: relative;
+  top: 10px;
+  font-size: var(--main-font-size);
+  color: black;
+  font-weight: bold;
+}
+
+.select_manner {
+  width: 40px;
+  position: relative;
+  top: 5px;
+}
+
+.round_profile {
+  border-radius: 200px;
 }
