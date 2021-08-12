@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from "react"
+import GameApi from "api/GameApi";
+import React, { useContext, useEffect, useState } from "react"
+import { gameStore } from "store/gameStore";
+import { store } from "store/store";
 import "./GameReview.css"
 import GameReviewParticipants from "./GameReview__Participants";
 
 const GameReview = ({ setShowReview }) => {
+  const gameStoreData = useContext(gameStore);
+  const { aboutGame } = gameStoreData;
+  const globalState = useContext(store);
+  const { value } = globalState;
+
   // State
   const [tempScore, setTempScore] = useState({
     mvp: "",
-    manner: [],
-    facility: 0,
-    kindness: 0
+    manner: "",
+    goodPeople: [],
+    badPeople: [],
+    facility: 0
   })
   const [reviewScore, setReviewScore] = useState({
     mvp: "",
-    manner: [],
-    facility: 0,
-    kindness: 0
+    manner: "",
+    goodPeople: [],
+    badPeople: [],
+    facility: 0
   })
 
   // Methods
@@ -24,14 +34,35 @@ const GameReview = ({ setShowReview }) => {
   }
   // PJW - 리뷰 등록 (미완성)
   const registerReview = () => {
-    alert('소중한 리뷰 감사합니다!')
-    setShowReview(false)
+    const data = {
+      "badPeople": reviewScore.badPeople.map(idx=>aboutGame.gameParticipantList[idx].userAuth.email),
+      "email": value.isLogin,
+      "gameId": aboutGame.gameInfo.id,
+      "goodPeople": reviewScore.goodPeople.map(idx=>aboutGame.gameParticipantList[idx].userAuth.email),
+      "gymId": aboutGame.gameInfo.gym.id,
+      "mvp": aboutGame.gameParticipantList[parseInt(reviewScore.mvp)].userAuth.email,
+      "rate": parseInt(reviewScore.facility)
+    }
+    
+    GameApi.ApplyReview(data,
+      (response)=>{
+        console.log(response)
+        alert('소중한 리뷰 감사합니다!')
+        setShowReview(false)
+      },
+      (error)=>{
+        alert('리뷰를 등록할 수 없습니다.')
+        console.log(error)
+      }
+    )
   }
   // PJW - 농구공 점수 임시 등록 (MouseOver 시)
   const Basketball_scoring = (event) => {
-    const { name } = event.target;
-    const value = event.target.getAttribute('value')
-    setTempScore({...tempScore, [name]: value})
+    if (!reviewScore.facility) {
+      const { name } = event.target;
+      const value = event.target.getAttribute('value')
+      setTempScore({...tempScore, [name]: value})
+    }
   }
   // PJW - 농구공 점수 복구 (MouseOut 시)
   const Basketball_scoring_restore = () => {
@@ -42,6 +73,7 @@ const GameReview = ({ setShowReview }) => {
     const { name } = event.target;
     const value = event.target.getAttribute('value')
     setReviewScore({...reviewScore, [name]: value})
+    setTempScore({...reviewScore, [name]: value})
   }
 
   // PJW - MVP, Manner에 선택된 사람 표시
@@ -50,7 +82,7 @@ const GameReview = ({ setShowReview }) => {
       document.querySelector(`.mvp${reviewScore.mvp} .Participants__selected`).style.display = 'flex';
     }
     if (reviewScore.manner.length) {
-      reviewScore.manner.forEach(manner=>document.querySelector(`.manner${manner} .Participants__selected`).style.display = 'flex')
+      document.querySelector(`.manner${reviewScore.manner} .Participants__selected`).style.display = 'flex';
     }
   },[reviewScore])
 
@@ -68,15 +100,15 @@ const GameReview = ({ setShowReview }) => {
             <h2>최고의 MVP를 뽑아주세요!</h2>
             <span>* 한 명만 선택하실 수 있습니다.</span>
             <div>
-              <GameReviewParticipants reviewType="mvp" setReviewScore={setReviewScore} reviewScore={reviewScore} />
+              <GameReviewParticipants reviewType="mvp" setReviewScore={setReviewScore} reviewScore={reviewScore} mode='mvp' />
             </div>
           </div>
           {/* Manner */}
           <div className="gameReview__manner">
-            <h2>다음에 또 같이 농구하고 싶은 사람은 누구인가요?</h2>
+            <h2>같이 농구했던 사람들은 어떠셨나요?</h2>
             <span>* 복수선택 가능</span>
             <div>
-              <GameReviewParticipants reviewType="manner" setReviewScore={setReviewScore} reviewScore={reviewScore} />
+              <GameReviewParticipants reviewType="manner" setReviewScore={setReviewScore} reviewScore={reviewScore} mode='manner' />
             </div>
           </div>
           {/* Gym */}
@@ -113,38 +145,6 @@ const GameReview = ({ setShowReview }) => {
                     <img src={'/images/basketball_purple.png'} alt="facility_score" className="gameReview__basketballScore" name="facility" value={5} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
                     ):(
                     <img src={'/images/basketball_black.png'} alt="facility_score" className="gameReview__basketballScore" name="facility" value={5} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                  )}
-                </div>
-              </div>
-              <div className="gameReview__Kindness">
-                <div className="gameReview__gym_itemName">
-                  친절
-                </div>
-                <div onMouseOut={Basketball_scoring_restore}>
-                  {tempScore.kindness>=1?(
-                    <img src={'/images/basketball_purple.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={1} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                    ):(
-                    <img src={'/images/basketball_black.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={1} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                  )}
-                  {tempScore.kindness>=2?(
-                    <img src={'/images/basketball_purple.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={2} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                    ):(
-                    <img src={'/images/basketball_black.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={2} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                  )}
-                  {tempScore.kindness>=3?(
-                    <img src={'/images/basketball_purple.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={3} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                    ):(
-                    <img src={'/images/basketball_black.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={3} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                  )}
-                  {tempScore.kindness>=4?(
-                    <img src={'/images/basketball_purple.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={4} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                    ):(
-                    <img src={'/images/basketball_black.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={4} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                  )}
-                  {tempScore.kindness>=5?(
-                    <img src={'/images/basketball_purple.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={5} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
-                    ):(
-                    <img src={'/images/basketball_black.png'} alt="kindness_score" className="gameReview__basketballScore" name="kindness" value={5} onMouseOver={Basketball_scoring} onClick={Basketball_scoring_select} />
                   )}
                 </div>
               </div>

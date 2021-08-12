@@ -53,7 +53,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   return (
     <div className="modal">
       <div className="modal__overlay"></div> {/* 회색 배경 */}
-      <div className="modal__content"> {/* 모달 내부 */}
+      <div className="modal__content quarter_record"> {/* 모달 내부 */}
         <div className="modal__switch" onClick={switchRecordingType}>
           <div className={modalSwitch? "modal__switch_current" : "modal__switch_current modal__switch_active"}></div>
           <div className={modalSwitch? "modal__switch_prefix modal__switch_stateActivated" : "modal__switch_prefix"}>누적합</div>

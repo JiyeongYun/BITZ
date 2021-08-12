@@ -83,6 +83,17 @@ const ConfirmReservation = (data,callback,errorCallback) => {
     .catch(errorCallback)
 }
  
+// PJW - Game 리뷰 제출
+const ApplyReview = (data,callback,errorCallback) => {
+    axios({
+      method: "POST",
+      url: BASE_URL + "/game/review",
+      data: data
+    })
+    .then(callback)
+    .catch(errorCallback)
+}
+ 
 const GameApi = {
   requsetGameList: (data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
   registerGame: (data,callback,errorCallback)=>registerGame(data,callback,errorCallback),
@@ -91,6 +102,7 @@ const GameApi = {
   requsetPaymentCheck:(data,callback,errorCallback)=>requsetPaymentCheck(data,callback,errorCallback),
   cancelReservation:(data,callback,errorCallback)=>cancelReservation(data,callback,errorCallback),
   ConfirmReservation:(data,callback,errorCallback)=>ConfirmReservation(data,callback,errorCallback),
+  ApplyReview:(data,callback,errorCallback)=>ApplyReview(data,callback,errorCallback),
 }
 
 export default GameApi 
