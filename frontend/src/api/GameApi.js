@@ -82,6 +82,17 @@ const ConfirmReservation = (data,callback,errorCallback) => {
     .then(callback)
     .catch(errorCallback)
 }
+
+// KOW - 내가 만든 게임 리스트
+const myGameList = (data, callback, errorCallback) => {
+  axios({
+    method: 'GET',
+    url: BASE_URL + "/account/business/game/list",
+    params: data,
+  })
+   .then(callback)
+   .catch(errorCallback)
+}
  
 const GameApi = {
   requsetGameList: (data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
@@ -91,6 +102,7 @@ const GameApi = {
   requsetPaymentCheck:(data,callback,errorCallback)=>requsetPaymentCheck(data,callback,errorCallback),
   cancelReservation:(data,callback,errorCallback)=>cancelReservation(data,callback,errorCallback),
   ConfirmReservation:(data,callback,errorCallback)=>ConfirmReservation(data,callback,errorCallback),
+  myGameList:(data,callback,errorCallback)=>myGameList(data,callback,errorCallback),
 }
 
 export default GameApi 
