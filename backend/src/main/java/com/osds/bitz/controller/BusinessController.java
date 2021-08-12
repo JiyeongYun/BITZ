@@ -63,7 +63,7 @@ public class BusinessController {
 
     @GetMapping("/businessprofile")
     @ApiOperation(value = "마이페이지 정보 조회", notes = "회원의 마이페이지 정보를 조회합니다.")
-    public ResponseEntity<BusinessResponse> readProfile(@RequestParam(value = "이메일") String email) {
+    public ResponseEntity<BusinessResponse> readProfile(@RequestParam(value = "email") String email) {
         BusinessResponse businessResponse = businessService.readProfile(email);
         if (businessResponse == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
