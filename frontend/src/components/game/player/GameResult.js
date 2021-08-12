@@ -2,12 +2,28 @@ import React, { useContext, useState } from "react";
 import GameReview from "./GameReview";
 import "./GameResult.css"
 import { gameStore } from 'store/gameStore';
+import { store } from "store/store";
+import GameApi from "api/GameApi";
 
 const GameResult = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
+  const globalState = useContext(store);
+  const { value } = globalState;
   // 리뷰 등록 컴포넌트 display 여부
-  const [showReview, setShowReview] = useState(true)
+  const [showReview, setShowReview] = useState(false)
+
+  // 게임 리뷰가 존재하는지 확인
+  GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), userEmail: value.isLogin},
+    (res)=>{
+      if (res.status===204) { // 존재 하는 경우
+        setShowReview(false)
+      } else if (res.status===200) { // 존재하지 않는 경우
+        setShowReview(true)
+      }
+    },
+    (error)=>console.log(error)  
+  )
 
   // 점수 합산 => 누적합 계산
   const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
