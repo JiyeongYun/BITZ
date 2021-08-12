@@ -36,14 +36,14 @@ public class GymController {
 
     @GetMapping("/gymlist")
     @ApiOperation(value = "체육관 목록 조회", notes = "이메일로 해당 계정의 체육관 목록을 조회합니다.")
-    public ResponseEntity<List<Gym>> getGymList(@RequestParam(value = "사업자 아이디") String businessEmail) {
+    public ResponseEntity<List<Gym>> getGymList(@RequestParam(value = "businessEmail") String businessEmail) {
         List<Gym> response = gymService.getGymList(businessEmail);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/gym")
     @ApiOperation(value = "체육관 상세 정보 조회", notes = "체육관 ID로 체육관을 조회합니다.")
-    public ResponseEntity<Gym> getGym(@RequestParam(value = "체육관 아이디") Long gymId) {
+    public ResponseEntity<Gym> getGym(@RequestParam(value = "gymId") Long gymId) {
         Gym response = gymService.getGymById(gymId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
