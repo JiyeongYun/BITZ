@@ -42,7 +42,7 @@ public class GameController {
 
     @GetMapping(value = "/game")
     @ApiOperation(value = "게임 상세", notes = "게임 ID로 게임 상세정보를 조회합니다.")
-    public ResponseEntity<GameDetailResponse> getGameDetail(@RequestParam(value = "게임 아이디") long gameId) {
+    public ResponseEntity<GameDetailResponse> getGameDetail(@RequestParam(value = "gameId") long gameId) {
         GameDetailResponse response = gameService.getGameDetail(gameId);
         if (response == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -59,14 +59,14 @@ public class GameController {
 
     @DeleteMapping(value = "/game")
     @ApiOperation(value = "게임 삭제", notes = "게임 ID로 게임 삭제합니다.")
-    public ResponseEntity deleteGame(@RequestParam(value = "게임 아이디") long gameId) {
+    public ResponseEntity deleteGame(@RequestParam(value = "gameId") long gameId) {
         gameService.deleteGame(gameId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/game/list")
     @ApiOperation(value = "게임 목록", notes = "날짜와 지역정보로 게임리스트를 조회합니다.")
-    public ResponseEntity<List<GameListResponse>> getGameList(@RequestParam(value = "날짜") Date date, @RequestParam(value = "시/도") String sido) {
+    public ResponseEntity<List<GameListResponse>> getGameList(@RequestParam(value = "date") Date date, @RequestParam(value = "sido") String sido) {
         List<GameListResponse> response = gameService.getGameList(date, sido);
         if (response == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -75,8 +75,8 @@ public class GameController {
 
     @GetMapping("/game/mygame")
     @ApiOperation(value = "예약한 게임 리스트 조회", notes = "사용자가 예약한 게임리스트를 조회합니다.")
-    public ResponseEntity<List<Game>> getMyGameList(@RequestParam(value = "관리자 이메일") String userEmail) {
-        List<Game> response = gameService.getMyGameList(userEmail);
+    public ResponseEntity<List<Game>> getMyGameList(@RequestParam(value = "email") String email) {
+        List<Game> response = gameService.getMyGameList(email);
         if (response == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -131,7 +131,7 @@ public class GameController {
 
     @GetMapping("/gamerecord")
     @ApiOperation(value = "게임 점수 기록 조회", notes = "경기 기록을 조회합니다.")
-    public ResponseEntity<RecordTable[]> readRecord(@RequestParam(value = "게임 아이디") Long gameId) {
+    public ResponseEntity<RecordTable[]> readRecord(@RequestParam(value = "gameId") Long gameId) {
         RecordTable[] response = gameService.readRecord(gameId);
         if (response == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -156,7 +156,7 @@ public class GameController {
 
     @GetMapping("/review")
     @ApiOperation(value = "경기 리뷰 작성 유무 확인", notes = "경기 리뷰를 작성했었는지 확인합니다.")
-    public ResponseEntity readReview(@RequestParam(value = "사용자 이메일") String userEmail, @RequestParam(value = "게임 아이디") Long gameId) {
+    public ResponseEntity readReview(@RequestParam(value = "사용자 이메일") String userEmail, @RequestParam(value = "gameId") Long gameId) {
         if (gameService.readReview(userEmail, gameId))
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         return new ResponseEntity(HttpStatus.OK);
