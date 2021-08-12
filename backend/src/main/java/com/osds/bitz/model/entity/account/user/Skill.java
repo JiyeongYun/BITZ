@@ -23,5 +23,8 @@ public class Skill {
 
     private int loseCnt;        // 진 횟수
 
+    private int tieCnt;         // 무승부 횟수
+
     private int mvpCnt;         // mvp 횟수
+
 }

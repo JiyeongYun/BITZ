@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface PositionRepository extends JpaRepository<Position, Long> {
     Position getPositionById(Long id);
+
     Position getPositionByUserAuth(UserAuth userAuth);
 
     @Transactional

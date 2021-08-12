@@ -17,6 +17,7 @@ import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.model.network.response.game.GameResultResponse;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.account.user.MannerRepository;
 import com.osds.bitz.repository.account.user.SkillRepository;
@@ -28,13 +29,10 @@ import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import com.osds.bitz.repository.gym.GymReviewRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.boot.model.relational.SimpleAuxiliaryDatabaseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,7 +105,6 @@ public class GameService {
                 .maxPeople(gameRequest.getMaxPeople())
                 .participationFee(gameRequest.getParticipationFee())
                 .build();
-
         return this.gameRepository.save(game); // 작업중
     }
 
@@ -118,22 +115,12 @@ public class GameService {
         Game game = this.gameRepository.getGameById(gameId);
         ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
         BusinessProfile businessProfile = businessProfileRepository.getBusinessProfileByBusinessAuth(game.getGym().getBusinessAuth());
-
         businessProfile.setBusinessRegistration(null);
         businessProfile.setBusinessAuth(null);
 
         for (int i = 0; i < gameParticipantList.size(); i++) // 중요 정보 제거
             gameParticipantList.get(i).getUserAuth().setPassword(null);
-
         return new GameDetailResponse(gameParticipantList, game, businessProfile);
-    }
-
-    /**
-     * 게임 삭제
-     */
-    public void deleteGame(long gameId) {
-        gameParticipantRepository.deleteAllByGameId(gameId);
-        gameRepository.deleteAllById(gameId);
     }
 
     /**
@@ -155,6 +142,14 @@ public class GameService {
                 .build();
 
         return this.gameRepository.save(updateGame);
+    }
+
+    /**
+     * 게임 삭제
+     */
+    public void deleteGame(long gameId) {
+        gameParticipantRepository.deleteAllByGameId(gameId);
+        gameRepository.deleteAllById(gameId);
     }
 
     /**
@@ -195,15 +190,13 @@ public class GameService {
         return result;
     }
 
-
     /**
      * 게임 예약
      */
-    public void reserveGame(String userEmail, Long gameId) throws Exception {
+    public GameParticipant reserveGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
-
         if (gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId) != null)
-            throw new Exception();
+            return null;
 
         GameParticipant newGameParticipant =
                 new GameParticipant().builder()
@@ -212,18 +205,15 @@ public class GameService {
                         .team(0)
                         .state(UserState.ON_DEPOSIT)
                         .build();
-
-        gameParticipantRepository.save(newGameParticipant);
+        return gameParticipantRepository.save(newGameParticipant);
     }
 
     /**
-     * 입금 완료 요청
+     * 입금 완료 요청 (ON_DEPOSIT > WAITING)
      */
-    public void payGame(String userEmail, Long gameId) {
+    public GameParticipant payGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
-
         GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
-
         updateGameParticipant = updateGameParticipant.builder()
                 .id(updateGameParticipant.getId())
                 .gameId(gameId)
@@ -231,14 +221,13 @@ public class GameService {
                 .state(UserState.WAITING)
                 .team(updateGameParticipant.getTeam())
                 .build();
-
-        gameParticipantRepository.save(updateGameParticipant);
+        return gameParticipantRepository.save(updateGameParticipant);
     }
 
     /**
      * 사용자 확정 (WAITING > COMPLETE)
      **/
-    public void confirmGame(String userEmail, Long gameId) {
+    public Game confirmGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
 
         GameParticipant updateGameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
@@ -253,7 +242,7 @@ public class GameService {
 
         Game game = gameRepository.getGameById(gameId);
         game.setParticipant(game.getParticipant() + 1);
-        gameRepository.save(game);
+        return gameRepository.save(game);
     }
 
     /**
@@ -268,7 +257,7 @@ public class GameService {
     /**
      * 팀 배정
      */
-    public void createTeaming(Long gameId) {
+    public Game createTeaming(Long gameId) {
         ArrayList<GameParticipant> participants = this.gameParticipantRepository.getGameParticipantsByGameId(gameId);
 
         // 1. 참가자 인원 수에 따라 팀별 인원수 계산
@@ -310,7 +299,7 @@ public class GameService {
         // 6. 팀 개수 업데이트
         Game game = gameRepository.getGameById(gameId);
         game.setTeamCnt(team.size());
-        gameRepository.save(game);
+        return gameRepository.save(game);
 
     }
 
@@ -335,7 +324,7 @@ public class GameService {
      * createTeaming() - 실력 점수 계산
      */
     public double getSkillScore(Skill skill) {
-        return (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getMvpCnt() * 0.2);
+        return (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getTieCnt() * 0.2) + (skill.getMvpCnt() * 0.2);
     }
 
     /**
@@ -376,7 +365,7 @@ public class GameService {
     /**
      * 게임 점수 기록
      */
-    public void createRecord(RecordRequest recordRequest) {
+    public GameRecord createRecord(RecordRequest recordRequest) {
 
         UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(recordRequest.getUserEmail());
 
@@ -384,17 +373,21 @@ public class GameService {
                 .team(recordRequest.getTeam())
                 .quarter(recordRequest.getQuarter())
                 .score(recordRequest.getScore())
+                .recordTime(LocalDateTime.now())
                 .userAuth(userAuth)
                 .gameId(recordRequest.getGameId())
                 .build();
-        gameRecordRepository.save(gameRecord);
+        GameRecord response = gameRecordRepository.save(gameRecord);
 
         // 점수 기록자의 매너 점수도 0.2점 올리기 (한 쿼터에 2개의 로그가 등록되므로 0.1점 씩)
         Manner manner = Manner.builder()
                 .userAuth(userAuth)
                 .score(1)
+                .date(LocalDateTime.now())
                 .build();
         mannerRepository.save(manner);
+
+        return response;
     }
 
     /**
@@ -417,33 +410,68 @@ public class GameService {
         Collections.sort(gameRecordList, comparator);
 
         int teamCnt = game.getTeamCnt();    // 2 or 3
-        int tableCnt = teamCnt == 2 ? 1 : 3; // 1 or 3
+        int tableCnt = teamCnt; // 1 or 3
         RecordTable[] recordTableList = new RecordTable[tableCnt];
 
         // recordTableList 세팅
-        for (int i = 1; i <= tableCnt; i++) {
-            recordTableList[i - 1].setTeamA(i == teamCnt ? i / teamCnt : i);
-            recordTableList[i - 1].setTeamB(i == teamCnt ? i : i + 1);
-            recordTableList[i - 1].setTeamAScoreList(new ArrayList<>());
-            recordTableList[i - 1].setTeamBScoreList(new ArrayList<>());
-            recordTableList[i - 1].setRecorderList(new ArrayList<>());
+        if (teamCnt == 2) {
+            for (int i = 1; i <= tableCnt; i++) {
+                recordTableList[i - 1] = new RecordTable();
+                recordTableList[i - 1].setTeamA(i == teamCnt ? i - 1 : i);
+                recordTableList[i - 1].setTeamB(i == teamCnt ? i : i + 1);
+                recordTableList[i - 1].setTeamAScoreList(new ArrayList<>());
+                recordTableList[i - 1].setTeamBScoreList(new ArrayList<>());
+                recordTableList[i - 1].setRecorderList(new ArrayList<>());
+            }
+        } else {
+            for (int i = 1; i <= tableCnt; i++) {
+                recordTableList[i - 1] = new RecordTable();
+                recordTableList[i - 1].setTeamA(i == teamCnt ? i / teamCnt : i);
+                recordTableList[i - 1].setTeamB(i == teamCnt ? i : i + 1);
+                recordTableList[i - 1].setTeamAScoreList(new ArrayList<>());
+                recordTableList[i - 1].setTeamBScoreList(new ArrayList<>());
+                recordTableList[i - 1].setRecorderList(new ArrayList<>());
+            }
         }
 
-        int peopleIdx = 0;
-        int tableIdx = 0;
-        for (int i = 0; i < gameRecordList.size(); i++) {
-            GameRecord gameRecord = gameRecordList.get(i);
-            if (peopleIdx % 2 == 0) {
-                recordTableList[tableIdx].getTeamAScoreList().add(gameRecord.getScore());
-                recordTableList[tableIdx].getRecorderList().add(gameRecord.getUserAuth());
-            } else {
-                recordTableList[tableIdx].getTeamBScoreList().add(gameRecord.getScore());
+
+        if (teamCnt == 2) {
+            int peopleIdx = 0;
+            int colIdx = 0;
+            int tableIdx = 0;
+            for (int i = 0; i < gameRecordList.size(); i++) {
+                GameRecord gameRecord = gameRecordList.get(i);
+                if (peopleIdx % 2 == 0) {
+                    recordTableList[tableIdx].getTeamAScoreList().add(gameRecord.getScore());
+                } else {
+                    recordTableList[tableIdx].getTeamBScoreList().add(gameRecord.getScore());
+                }
+                if (++peopleIdx == 2) { // 2명 넣으면 다음 열로
+                    peopleIdx = 0;
+                    if (++colIdx == 4) { // 4열까지 채웠으면 다음 테이블로
+                        colIdx = 0;
+                        tableIdx++;
+                    }
+                }
             }
 
-            if (++peopleIdx == 2) {
-                peopleIdx = 0;
-                if (++tableIdx == tableCnt){
-                    tableIdx = 0;
+        } else {
+            int peopleIdx = 0;
+            int tableIdx = 0;
+            for (int i = 0; i < gameRecordList.size(); i++) {
+                GameRecord gameRecord = gameRecordList.get(i);
+                if (peopleIdx % 2 == 0) {
+                    recordTableList[tableIdx].getTeamAScoreList().add(gameRecord.getScore());
+                    recordTableList[tableIdx].getRecorderList().add(gameRecord.getUserAuth());
+                } else {
+                    recordTableList[tableIdx].getTeamBScoreList().add(gameRecord.getScore());
+                }
+
+                if (++peopleIdx == 2) {
+                    peopleIdx = 0;
+                    if (++tableIdx == tableCnt) {
+                        tableIdx = 0;
+                    }
                 }
             }
         }
@@ -451,6 +479,94 @@ public class GameService {
         return recordTableList;
     }
 
+    /**
+     * 게임 결과 반영
+     */
+    public GameResultResponse completeGame(Long gameId) {
+        GameResultResponse gameResultResponse = new GameResultResponse();
+        Game game = gameRepository.getGameById(gameId);
+        int teamCnt = game.getTeamCnt(); // 팀 개수
+
+        ArrayList<int[]>[] team = (ArrayList<int[]>[]) new ArrayList[teamCnt + 1];
+
+        for (int i = 1; i <= teamCnt; i++)
+            team[i] = new ArrayList<>();
+
+        RecordTable[] recordTableList = readRecord(gameId);
+
+        int[][] gameResult = new int[teamCnt][3];
+        int[][] gameScoreTable = new int[teamCnt][4];
+
+
+        for (int i = 0; i < recordTableList.length; i++) {
+            RecordTable recordTable = recordTableList[i];
+            int teamA = recordTableList[i].getTeamA();
+            int teamB = recordTableList[i].getTeamB();
+
+            int scoreA = recordTable.getTeamAScoreList().get(recordTable.getTeamAScoreList().size() - 1);
+            int scoreB = recordTable.getTeamBScoreList().get(recordTable.getTeamBScoreList().size() - 1);
+
+            gameScoreTable[i][0] = teamA;
+            gameScoreTable[i][1] = teamB;
+            gameScoreTable[i][2] = scoreA;
+            gameScoreTable[i][3] = scoreB;
+
+            ArrayList<GameParticipant> aTeam = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, teamA);
+            ArrayList<GameParticipant> bTeam = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, teamB);
+
+            if (scoreA > scoreB) {
+                gameResult[teamA - 1][0]++;
+                gameResult[teamB - 1][1]++;
+
+                updateSkillScore(aTeam, bTeam, false);
+            } else if (scoreA < scoreB) {
+                gameResult[teamA - 1][1]++;
+                gameResult[teamB - 1][0]++;
+
+                updateSkillScore(bTeam, aTeam, false);
+            } else { // 무승부일 경우
+                gameResult[teamA - 1][2]++;
+                gameResult[teamB - 1][2]++;
+
+                updateSkillScore(aTeam, bTeam, true);
+            }
+        }
+
+        gameResultResponse.setGameResult(gameResult);
+        gameResultResponse.setGameScoreTable(gameScoreTable);
+
+        return gameResultResponse;
+    }
+
+    /**
+     * 선수 전적 업데이트
+     */
+    public void updateSkillScore(ArrayList<GameParticipant> winners, ArrayList<GameParticipant> losers, boolean isTie) {
+
+        if (!isTie) {
+            for (GameParticipant winner : winners) {
+                Skill skill = skillRepository.getSkillByUserAuth(winner.getUserAuth());
+                skill.setWinCnt(skill.getWinCnt() + 1);
+                skillRepository.save(skill);
+            }
+            for (GameParticipant loser : losers) {
+                Skill skill = skillRepository.getSkillByUserAuth(loser.getUserAuth());
+                skill.setLoseCnt(skill.getLoseCnt() + 1);
+                skillRepository.save(skill);
+            }
+        } else {
+            for (GameParticipant tier : winners) {
+                Skill skill = skillRepository.getSkillByUserAuth(tier.getUserAuth());
+                skill.setTieCnt(skill.getTieCnt() + 1);
+                skillRepository.save(skill);
+            }
+            for (GameParticipant tier : losers) {
+                Skill skill = skillRepository.getSkillByUserAuth(tier.getUserAuth());
+                skill.setTieCnt(skill.getTieCnt() + 1);
+                skillRepository.save(skill);
+            }
+        }
+    }
 
     /**
      * 경기 리뷰 저장
@@ -460,22 +576,22 @@ public class GameService {
         // 1. 체육관 리뷰 저장
         GymReview gymReview = GymReview.builder()
                 .gymId(reviewRequest.getGymId())        // 체육관 ID
-                .userId(reviewRequest.getEmail())       // 유저 ID
+                .userId(userAuthRepository.getUserAuthByEmail(reviewRequest.getEmail()).getId())       // 유저 ID
                 .rate(reviewRequest.getRate())          // 평점
                 .date(LocalDateTime.now())              // 현재시간
                 .build();
+
         this.gymReviewRepository.save(gymReview);
 
         // 2. 사용자 리뷰 저장
         // 2-1. MVP
         UserAuth mvpUser = this.userAuthRepository.getUserAuthByEmail(reviewRequest.getMvp());
         Skill skill = this.skillRepository.getSkillByUserAuth(mvpUser);
+
         int mvpCnt = this.skillRepository.getSkillById(skill.getId()).getMvpCnt();
 
         // Update MVP Count
-        skill = Skill.builder()
-                .mvpCnt(mvpCnt + 1)
-                .build();
+        skill.setMvpCnt(mvpCnt + 1);
         this.skillRepository.save(skill);
 
         // 2-2. Manner
@@ -504,7 +620,6 @@ public class GameService {
 
     }
 
-
     /**
      * 경기 리뷰 작성 유무 확인
      */
@@ -512,31 +627,10 @@ public class GameService {
         String userId = userAuthRepository.getUserAuthByEmail(userEmail).getId();
         long gymId = gameRepository.getGameById(gameId).getGym().getId();
 
-        if (gymReviewRepository.getGymReviewByUserIdAndGymId(userId, gymId) != null)
+        if (gymReviewRepository.getGymReviewsByUserIdAndGymId(userId, gymId).size() > 0)
             return true;
 
         return false;
-    }
-
-
-    // 게임 참여자 목록 반환
-    public ArrayList<GameParticipant> getGameParticipantList(Long gameId) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameId(gameId);
-        return result;
-    }
-
-
-    // 한 게임에 대한 게임 기록들 반환
-    public ArrayList<GameRecord> getGameRecordList(Long gameId) {
-        ArrayList<GameRecord> result = gameRecordRepository.getGameRecordsByGameId(gameId);
-        return result;
-    }
-
-
-    // 한 게임에서 한 팀의 인원들 반환
-    public ArrayList<GameParticipant> getGameParticipant(Long gameId, int team) {
-        ArrayList<GameParticipant> result = gameParticipantRepository.getGameParticipantsByGameIdAndTeam(gameId, team);
-        return result;
     }
 
 }

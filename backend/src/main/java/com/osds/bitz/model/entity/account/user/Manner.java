@@ -25,6 +25,4 @@ public class Manner {
     @Column(nullable = false)
     private LocalDateTime date; // 기록날짜
 
-    private String recordId;
-
 }

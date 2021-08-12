@@ -209,11 +209,8 @@ public class UserService extends BaseAuthService {
      */
     public UserResponse readProfile(String email) {
         UserAuth userAuth = getUserAuthByEmail(email);
-
         UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(userAuth);
-
         Position position = positionRepository.getPositionByUserAuth(userAuth);
-
         FavoriteLocation favoriteLocation = favoriteLocationRepository.getFavoriteLocationByUserAuth(userAuth);
 
         // skill 점수 계산하기
@@ -252,19 +249,19 @@ public class UserService extends BaseAuthService {
     public double getSkillScore(Skill skill) {
         double skillScore = 50;
         double score = 0;
-        if(skill != null)
-            score = (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getMvpCnt() * 0.2);
+        if (skill != null)
+            score = (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getTieCnt() * 0.2) + (skill.getMvpCnt() * 0.2);
         return skillScore + score;
     }
 
     /**
      * readProfile() - 매너 점수 계산
      */
-    public double getMannerScore(ArrayList<Manner> manner){
+    public double getMannerScore(ArrayList<Manner> manner) {
         double mannerScore = 25;
         double score = 0;
-        if(manner != null){
-            for(Manner m : manner){
+        if (manner != null) {
+            for (Manner m : manner) {
                 score = score + m.getScore();
             }
             score = score / 10;
@@ -337,10 +334,10 @@ public class UserService extends BaseAuthService {
     /**
      * 비밀번호 찾기
      */
-    public UserAuth resetPassword(UserAuthRequest userAuthRequest) {
+    public UserAuth resetPassword(String email) {
 
         // 이메일로 해당 객체 찾아오기
-        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(userAuthRequest.getEmail());
+        UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(email);
 
         // 객체가 없는 경우 null로 return
         if (userAuth == null) return null;

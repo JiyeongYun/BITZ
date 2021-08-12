@@ -34,7 +34,6 @@ public class GymService {
      * 체육관 등록
      */
     public void createGym(GymRequest gymRequest) {
-        // TODO : DB에 잘 들어가고 서버 콘솔에 warn만 찍히나, 프론트에 406에러 발생
 
         // 관리자 이메일을 통해 businessAuth 객체를 받아온다.
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(gymRequest.getBusinessEmail());
@@ -67,7 +66,7 @@ public class GymService {
      * 로그인 로그 저장
      */
     public void createLoginlog(String email) {
-        // loginlog에 저장
+        // 비즈니스 계정 loginlog에 저장
         LoginLog loginLog = LoginLog.builder()
                 .email(email)
                 .isGeneral(false)
@@ -76,29 +75,18 @@ public class GymService {
     }
 
     /**
-     * 체육관 삭제
+     * 체육관 목록 조회
      */
-    public void deleteGym(Long gymId, String businessId) {
-        Gym gym = gymRepository.getGymById(gymId);
+    public List<Gym> getGymList(String businessEmail) {
 
-        // 비즈니스 아이디가 동일한 경우
-        if (gym.getBusinessAuth().getId().equals(businessId))
-            gymRepository.deleteById(gymId);
-    }
-
-    /**
-     * 체육관 목록
-     */
-    public List<Gym> getGymList(String businessId) {
-
-        BusinessAuth businessAuth = businessAuthRepository.getBusinessAuthById(businessId);
+        BusinessAuth businessAuth = businessAuthRepository.getBusinessAuthByEmail(businessEmail);
         List<Gym> result = gymRepository.getGymsByBusinessAuth(businessAuth);
 
         return result;
     }
 
     /**
-     * 하나의 체육관 조회
+     * 체육관 상세 정보 조회
      */
     public Gym getGymById(Long gymId) {
         Gym result = gymRepository.getGymById(gymId);
@@ -108,7 +96,7 @@ public class GymService {
     /**
      * 체육관 업데이트
      */
-    public void updateGym(GymUpdateRequest gymUpdateRequest) {
+    public Gym updateGym(GymUpdateRequest gymUpdateRequest) {
 
         String businessEmail = gymUpdateRequest.getBusinessEmail();
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessEmail);
@@ -130,7 +118,20 @@ public class GymService {
         gymUpdate.setScoreboard(gymUpdateRequest.getGym().isScoreboard());
         gymUpdate.setIntro(gymUpdateRequest.getGym().getIntro());
         gymUpdate.setNotice(gymUpdateRequest.getGym().getNotice());
-        gymRepository.save(gymUpdate);
+        return gymRepository.save(gymUpdate);
     }
+
+    /**
+     * 체육관 삭제
+     */
+    public boolean deleteGym(String businessId, Long gymId) {
+        Gym gym = gymRepository.getGymById(gymId);
+        if (businessId == null || gymId == null || !gym.getBusinessAuth().getId().equals(businessId)) {
+            return false;
+        }
+        gymRepository.deleteById(gymId);
+        return true;
+    }
+
 
 }
