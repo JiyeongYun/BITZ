@@ -162,9 +162,7 @@ public class GameController {
 
     @GetMapping("/review")
     @ApiOperation(value = "경기 리뷰 작성 유무 확인", notes = "경기 리뷰를 작성했었는지 확인합니다.")
-    public ResponseEntity readReview(@RequestBody Map<String, String> requestBody) {
-        String userEmail = requestBody.get("userEmail");
-        Long gameId = Long.parseLong(requestBody.get("gameId"));
+    public ResponseEntity readReview(@RequestParam(value = "userEmail") String userEmail, @RequestParam(value = "gameId") Long gameId) {
 
         if (gameService.readReview(userEmail, gameId))
             return new ResponseEntity(HttpStatus.NO_CONTENT);
