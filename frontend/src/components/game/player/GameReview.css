@@ -1,6 +1,6 @@
 .gameReview {
   color: #ffad4e;
-  top: 30vw;
+  top: 10vw;
 }
 
 .gameReview__input {
@@ -37,4 +37,12 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.gameReview__badge {
+  width: 30px;
+  position: relative;
+  top: 70px;
+  left: 75px;
+  z-index: 2;
 }

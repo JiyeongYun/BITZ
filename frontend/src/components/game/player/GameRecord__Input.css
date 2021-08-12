@@ -6,7 +6,7 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .modal__overlay {
@@ -14,6 +14,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
+  top: 0;
   z-index: 1;
 }
 
@@ -144,4 +145,9 @@
 .modal__switch_stateActivated {
   font-weight: bold;
   transition: 0.5s;
+}
+
+.quarter_record {
+  top: 50vh;
+  height: 300px;
 }
