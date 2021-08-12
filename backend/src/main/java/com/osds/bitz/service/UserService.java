@@ -252,19 +252,19 @@ public class UserService extends BaseAuthService {
     public double getSkillScore(Skill skill) {
         double skillScore = 50;
         double score = 0;
-        if(skill != null)
-            score = (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getMvpCnt() * 0.2);
+        if (skill != null)
+            score = (skill.getWinCnt() * 1.2) - (skill.getLoseCnt() * 1.0) + (skill.getTieCnt() * 0.2) + (skill.getMvpCnt() * 0.2);
         return skillScore + score;
     }
 
     /**
      * readProfile() - 매너 점수 계산
      */
-    public double getMannerScore(ArrayList<Manner> manner){
+    public double getMannerScore(ArrayList<Manner> manner) {
         double mannerScore = 25;
         double score = 0;
-        if(manner != null){
-            for(Manner m : manner){
+        if (manner != null) {
+            for (Manner m : manner) {
                 score = score + m.getScore();
             }
             score = score / 10;
