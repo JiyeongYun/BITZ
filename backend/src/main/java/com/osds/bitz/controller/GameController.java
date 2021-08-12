@@ -156,6 +156,7 @@ public class GameController {
     @PostMapping("/review")
     @ApiOperation(value = "경기 리뷰 저장", notes = "경기 리뷰를 저장합니다.")
     public ResponseEntity createReview(@RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) {
+        log.info("{}","리퀘스트 : " + reviewRequest);
         gameService.createReview(reviewRequest);
         return new ResponseEntity(HttpStatus.OK);
     }
