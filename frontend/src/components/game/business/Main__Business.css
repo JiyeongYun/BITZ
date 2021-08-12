@@ -105,6 +105,8 @@
 
 .MainBusiness section > article > .game_container > .game__btn {
   height: var(--btn-height);
+  line-height: var(--btn-height);
+  text-align: center;
   border-radius: 5px;
   background-color: var(--main-color);
   color: white;
@@ -152,6 +154,7 @@
   
   .MainBusiness section > article > .game_container > .game__btn {
     height: 90%;
+    line-height: 62.1px;
     font-size: var(--main-font-size);
   }
 }
