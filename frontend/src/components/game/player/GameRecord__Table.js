@@ -22,6 +22,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
   const addRecord = ()=>{
     setShowInput(true)
   }
+
   return (
     <div className="gameRecord__table">
       <table className="RecordTable">
@@ -36,7 +37,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
           <td>{aboutGame.gameData[recorder][quarter]}</td>
           </tr>))}
         { showInput ? <GameRecordInput game={game} setShowInput={setShowInput} team1={team1} team2={team2} /> : "" }
-        { aboutGame.gameInfo.gameState !== 4 ?
+        { aboutGame.gameState !== 4 ?
         <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>
         : ""
         }
