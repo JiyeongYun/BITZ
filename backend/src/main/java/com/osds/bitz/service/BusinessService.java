@@ -168,7 +168,7 @@ public class BusinessService extends BaseAuthService {
     /**
      * 마이페이지 정보 수정
      */
-    public void updateProfile(BusinessRequest businessRequest) throws IOException {
+    public void updateProfile(BusinessRequest businessRequest) {
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessRequest.getEmail());
         BusinessProfile businessProfile = this.businessProfileRepository.getBusinessProfileByBusinessAuth(businessAuth);
 
@@ -228,10 +228,10 @@ public class BusinessService extends BaseAuthService {
     /**
      * 비밀번호 찾기
      */
-    public BusinessAuth resetPassword(BusinessAuthRequest businessAuthRequest) {
+    public BusinessAuth resetPassword(String email) {
 
         // 이메일로 객체 찾아오기
-        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(businessAuthRequest.getEmail());
+        BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(email);
 
         if (businessAuth == null)
             return null;

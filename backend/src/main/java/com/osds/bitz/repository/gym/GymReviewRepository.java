@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 
 public interface GymReviewRepository extends JpaRepository<GymReview, Long> {
-    GymReview getGymReviewByUserIdAndGymId(String userId, Long gymId);
-
     ArrayList<GymReview> getGymReviewsByUserIdAndGymId(String userId, Long gymId);
 
     @Transactional

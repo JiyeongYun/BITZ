@@ -22,8 +22,8 @@ public class GameResponse {
 
     public GameResponse(Game game){
 
-        this.date = date;
-        this.startTime = startTime;
+        this.date = game.getDate();
+        this.startTime = game.getStartTime();
         this.endTime = endTime;
         this.minPeople = minPeople;
         this.maxPeople = maxPeople;
