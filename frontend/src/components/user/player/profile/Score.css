@@ -20,15 +20,27 @@
   font-size: var(--main-font-size);
 }
 
-.score__box > .manner > .manner__score > img {
-  width: 25px;
-  margin: var(--small-font-size) 3px;
+.score__box > .manner > .manner__score {
+  width: 200px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  margin: 16px 0 10px;
 }
 
 .score__box > .skill > .skill__score {
   display: flex;
   justify-content: center;
   position: relative;
+}
+
+.score__box > .skill > .skill__score > img {
+  position: absolute;
+  width: 13px;
+  top: 10px;
+  left: 0;
+  transform: translate( -40%, 0);
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
 }
 
 .score__box > .skill > .skill__score > .scorebox {
@@ -109,7 +121,7 @@
   }
   
   .score__box > .skill > .skill__score {
-    width: 100vw;
+    width: 200px;
   }
   
   .score__box > .skill > .skill__score > .scorebox:nth-child(1)::before {
@@ -117,7 +129,7 @@
     position: absolute;
     height: 28px;
     width:20px;
-    left: calc((100vw - 200px)/2);
+    left: 0;
     bottom: 0;
     transform: translate( -2px, -40%);
     background: url('../../../images/shooting.png') no-repeat center / contain;
@@ -128,7 +140,7 @@
     position: absolute;
     height: 28px;
     width:20px;
-    right: calc((100vw - 200px)/2);
+    right: 0;
     bottom: 0;
     transform: translate( -2px, -40%);
     background: url('../../../images/basketball_board.png') no-repeat center / contain;
