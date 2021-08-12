@@ -8,6 +8,7 @@ import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
 import com.osds.bitz.model.network.response.game.GameResponse;
+import com.osds.bitz.model.network.response.game.GameResultResponse;
 import com.osds.bitz.service.GameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,7 +75,7 @@ public class GameController {
 
     @GetMapping("/game/mygame")
     @ApiOperation(value = "예약한 게임 리스트 조회", notes = "사용자가 예약한 게임리스트를 조회합니다.")
-    public ResponseEntity<List<Game>> getMyGameList(@RequestParam(value="userEmail") String userEmail) {
+    public ResponseEntity<List<Game>> getMyGameList(@RequestParam(value = "userEmail") String userEmail) {
         List<Game> result = gameService.getMyGameList(userEmail);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -131,18 +132,25 @@ public class GameController {
 
     @PostMapping("/gamerecord")
     @ApiOperation(value = "게임 점수 기록", notes = "경기 기록을 저장합니다.")
-    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "게임 정보") RecordRequest recordRequest){
+    public ResponseEntity createRecord(@RequestBody @ApiParam(value = "게임 정보") RecordRequest recordRequest) {
         gameService.createRecord(recordRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("/gamerecord")
     @ApiOperation(value = "게임 점수 기록 조회", notes = "경기 기록을 조회합니다.")
-    public ResponseEntity<RecordTable[]> readRecord (@RequestParam(value="gameId") Long gameId) {
+    public ResponseEntity<RecordTable[]> readRecord(@RequestParam(value = "gameId") Long gameId) {
         RecordTable[] recordTableList = gameService.readRecord(gameId);
-        if(recordTableList == null)
+        if (recordTableList == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.OK).body(recordTableList);
+    }
+
+    @PostMapping("/gameresult")
+    @ApiOperation(value = "게임 결과 반영", notes = "끝난 경기의 결과를 반영합니다.")
+    public ResponseEntity<GameResultResponse> completeGame(@RequestBody Long gameId) {
+        GameResultResponse result = gameService.completeGame(gameId);
+        return new ResponseEntity<GameResultResponse>(result, HttpStatus.OK);
     }
 
     @PostMapping("/review")
