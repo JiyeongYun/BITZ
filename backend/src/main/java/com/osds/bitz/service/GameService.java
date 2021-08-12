@@ -373,6 +373,7 @@ public class GameService {
                 .team(recordRequest.getTeam())
                 .quarter(recordRequest.getQuarter())
                 .score(recordRequest.getScore())
+                .recordTime(LocalDateTime.now())
                 .userAuth(userAuth)
                 .gameId(recordRequest.getGameId())
                 .build();
@@ -382,6 +383,7 @@ public class GameService {
         Manner manner = Manner.builder()
                 .userAuth(userAuth)
                 .score(1)
+                .date(LocalDateTime.now())
                 .build();
         mannerRepository.save(manner);
 
