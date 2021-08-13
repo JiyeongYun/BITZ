@@ -138,6 +138,28 @@ const Teaming = (data,callback,errorCallback) => {
     .catch(errorCallback)
 }
  
+// PJW - 비즈니스 계정 메인페이지의 게임 리스트 요청
+const requsetBusinessGameList = (data,callback,errorCallback) => {
+    axios({
+      method: "GET",
+      url: BASE_URL + "/account/business/game/list",
+      params: data
+    })
+    .then(callback)
+    .catch(errorCallback)
+}
+
+// PJW - 게임 결과 저장
+const saveGameResult = (data,callback,errorCallback) => {
+  axios({
+    method: "POST",
+    url: BASE_URL + "/game/gameresult",
+    data: data
+  })
+  .then(callback)
+  .catch(errorCallback)
+}
+ 
 const GameApi = {
   requsetGameList: (data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
   registerGame: (data,callback,errorCallback)=>registerGame(data,callback,errorCallback),
@@ -151,6 +173,8 @@ const GameApi = {
   getGameRecord:(data,callback,errorCallback)=>getGameRecord(data,callback,errorCallback),
   RecordGame:(data,callback,errorCallback)=>RecordGame(data,callback,errorCallback),
   Teaming:(data,callback,errorCallback)=>Teaming(data,callback,errorCallback),
+  requsetBusinessGameList:(data,callback,errorCallback)=>requsetBusinessGameList(data,callback,errorCallback),
+  saveGameResult:(data,callback,errorCallback)=>saveGameResult(data,callback,errorCallback),
 }
 
 export default GameApi 

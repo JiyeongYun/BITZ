@@ -28,7 +28,6 @@ const GameRecord__Table = ({ team1, team2, game }) => {
   useEffect(()=>{
     GameApi.getGameRecord({gameId: aboutGame.gameInfo.id},
       (res)=>{
-        console.log(res.data)
         const data = {
           gameType: res.data.length, // 2: 2팀, 3: 3팀
           game1_team1_score: res.data[0].teamAScoreList,
@@ -41,13 +40,12 @@ const GameRecord__Table = ({ team1, team2, game }) => {
           game2_recorder: res.data[1].recorderList.map(element=>element.email),
           game3_recorder: res.data[2]? res.data[2].recorderList.map(element=>element.email):[]
         }
-        console.log(data)
         gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
       },
       (err)=>console.log(err)
       )
   },[aboutGame.gameInfo.id])
-  
+
   return (
     <div className="gameRecord__table">
       <table className="RecordTable">
@@ -62,12 +60,30 @@ const GameRecord__Table = ({ team1, team2, game }) => {
             <td>{quarter+1}</td>
             <td>{aboutGame.gameData[team1_score]?aboutGame.gameData[team1_score][quarter]:""}</td>
             <td>{aboutGame.gameData[team2_score]?aboutGame.gameData[team2_score][quarter]:""}</td>
-            <td>{aboutGame.gameData[recorder][quarter]}</td>
+            <td>{aboutGame.gameData[recorder]?aboutGame.gameData[recorder][quarter]:""}</td>
             </tr>))}
           { showInput ? <GameRecordInput game={game} setShowInput={setShowInput} team1={team1} team2={team2} /> : "" }
-          { aboutGame.gameState !== 4 ?
-          <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>
-          : <tr />
+          { (aboutGame.gameState !== 4&&
+          aboutGame.gameData.gameType===2?(
+            game==="game1"?(
+              aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length<4?(
+                <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>):(
+                <tr />)):(
+              (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length>=4&&aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length<8)?(
+                <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>):(
+                <tr />))) : (
+            game==="game1"?(
+              (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length)%3===0&&aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length<12?(
+                <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>):(
+                  <tr />)):(
+                game==="game2"?(
+                  (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length)%3===1&&aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length<12?(
+                    <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>):(
+                      <tr />)):(
+                        (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length)%3===2&&aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length<12?(
+                          <tr onClick={addRecord} className="gameRecord__button"><td colSpan="4">{ !showInput ? '추가' : '기록 중' }</td></tr>):(
+                          <tr />))
+              )))
           }
         </tbody>
       </table>
