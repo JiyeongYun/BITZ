@@ -76,8 +76,8 @@
 }
 
 .gym__footer {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   padding: 50px 0;
   display: flex;
 }
@@ -100,7 +100,7 @@
 }
 
 .gym__footer > .right {
-  border-left: 1px solid black;
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .gym__footer > .right > ul {
@@ -113,13 +113,79 @@
 
 .gymInfo .reservation__btn {
   display: block;
-  margin: 50px auto 0;
+  margin: 50px auto 50px;
   width: 50%;
-  height: 40px;
+  height: var(--btn-height);
   border: none;
   border-radius: 5px;
   background-color: #F28A2E;
   color: white;
   font-size: 18px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .gymInfo {
+    margin-top: var(--main-margin-size);
+  }
+  
+  .gymInfo > p {
+    margin-left: var(--main-margin-size);
+    font-size: var(--large-font-size);
+    line-height: 200%;
+  }
+  
+  .facilities__container {
+    flex-wrap: wrap;
+    margin: var(--mid-margin-size) 0 var(--mid-margin-size);
+    row-gap: 20px;
+  }
+  
+  .gym__footer {
+    flex-direction: column;
+    padding: var(--main-margin-size) 0;
+  }
+  
+  .gym__footer > div {
+    width: 90%;
+    margin-left: var(--main-margin-size);
+    padding: -0;
+  }
+  
+  .gym__footer > div > p {
+    font-size: var(--large-font-size);
+    margin-bottom: 7px;
+  }
+
+  .gym__footer > div:nth-child(2) > p {
+    margin-left: var(--main-margin-size);
+  }
+  
+  .gym__footer > .right {
+    margin-left: 0 !important;
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    padding-top: var(--main-margin-size);
+    margin-top: var(--main-margin-size);
+  }
+  
+  .gym__footer > .right > ul {
+    list-style: none;
+  }
+  
+  .gym__footer > .right > ul:nth-child(2) {
+    margin-bottom: var(--main-margin-size);
+  }
+  
+  .gymInfo .reservation__btn {
+    width: 90%;
+    font-size: var(--main-font-size);
+  }
+
+  .gym__footer li {
+    margin-left: var(--large-margin-size);
+    margin-bottom: 5px;
+  }
+  
 }
