@@ -38,7 +38,7 @@ const GameInfo = () => {
       </div>
       <div className="gyminfo">
         <p id="gymname">{aboutGame.gameInfo.gym.name}</p>
-        <p id="gymaddress">{aboutGame.gameInfo.gym.address} | <button onClick={copyAddress}>주소복사</button></p> 
+        <p id="gymaddress">{aboutGame.gameInfo.gym.sido} {aboutGame.gameInfo.gym.gugun} {aboutGame.gameInfo.gym.address} | <button onClick={copyAddress}>주소복사</button></p> 
       </div>
       <div className="gameuser">
         <p>모집 인원 {aboutGame.gameInfo.minPeople}~{aboutGame.gameInfo.maxPeople}명</p>
