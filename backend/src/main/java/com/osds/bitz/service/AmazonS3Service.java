@@ -11,6 +11,7 @@ import com.osds.bitz.model.entity.img.BusinessProfileImage;
 import com.osds.bitz.model.entity.img.BusinessRegistrationImage;
 import com.osds.bitz.model.entity.img.GymImage;
 import com.osds.bitz.model.entity.img.UserProfileImage;
+import com.osds.bitz.model.enumclass.DirectoryName;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.gym.GymRepository;
@@ -72,7 +73,7 @@ public class AmazonS3Service {
      * 파일 업로드
      */
     // MultipartFile을 File객체로 변환
-    public void upload(String idxKey, MultipartFile multipartFile, String dirName) throws IOException {
+    public void upload(String idxKey, MultipartFile multipartFile, DirectoryName dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
 
@@ -92,9 +93,9 @@ public class AmazonS3Service {
     }
 
     // S3로 파일 업로드
-    private void upload(String idxKey, File uploadFile, String dirName) {
+    private void upload(String idxKey, File uploadFile, DirectoryName dirName) {
         String dbFileName = UUID.randomUUID() + uploadFile.getName();
-        String fileName = dirName + "/" + dbFileName;   // S3에 저장된 파일 이름
+        String fileName = dirName.toString() + "/" + dbFileName;   // S3에 저장된 파일 이름
         putS3(uploadFile, fileName); // s3로 업로드
         removeNewFile(uploadFile);
 
@@ -119,9 +120,9 @@ public class AmazonS3Service {
 
 
     // userprofileimage db에 내용 채우기
-    private void createImage(String dirName, String idxKey, String dbFileName) {
+    private void createImage(DirectoryName dirName, String idxKey, String dbFileName) {
 
-        if (dirName.equals("userprofile")) { // 유저 프로필 이미지
+        if (dirName == DirectoryName.userprofile) { // 유저 프로필 이미지
             // 이메일로 유저 객체 찾아오기
             UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(idxKey);
 
@@ -132,7 +133,7 @@ public class AmazonS3Service {
                     .build();
             this.userProfileImageRepository.save(userProfileImage);
 
-        } else if (dirName.equals("businessauth")) { // 사업자등록증  이미지
+        } else if (dirName == DirectoryName.businessauth) { // 사업자등록증  이미지
             // 이메일로 사업자 객체 찾아오기
             BusinessAuth businessAuth = businessAuthRepository.getBusinessAuthByEmail(idxKey);
 
@@ -142,7 +143,7 @@ public class AmazonS3Service {
                     .url(dbFileName)
                     .build();
             this.businessRegistrationImageRepository.save(businessRegistrationImage);
-        } else if (dirName.equals("businessprofile")) { // 사업자 프로필 이미지
+        } else if (dirName == DirectoryName.businessprofile) { // 사업자 프로필 이미지
             // 이메일로 사업자 객체 찾아오기
             BusinessAuth businessAuth = businessAuthRepository.getBusinessAuthByEmail(idxKey);
 
@@ -168,23 +169,23 @@ public class AmazonS3Service {
     /**
      * 파일 출력
      */
-    public ResponseEntity<byte[]> get(String dirName, String idxKey) throws IOException {
+    public ResponseEntity<byte[]> get(DirectoryName dirName, String idxKey) throws IOException {
         String fileName = "";
 
-        if (dirName.equals("userprofile")) { // 유저 프로필 이미지
+        if (dirName == DirectoryName.userprofile) { // 유저 프로필 이미지
             // 이메일로 유저 정보 얻어오기
             UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(idxKey);
 
             // 유저 객체를 통해 파일 url 받아오기
             fileName = userProfileImageRepository.getUserProfileImageByUserAuth(userAuth).getUrl();
 
-        } else if (dirName.equals("businessauth")) { // 사업자등록증  이미지
+        } else if (dirName == DirectoryName.businessauth) { // 사업자등록증  이미지
             // 이메일로 사업자 정보 얻어오기
             BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(idxKey);
 
             // 사업자 객체를 통해 파일 url 받아오기
             fileName = businessRegistrationImageRepository.getBusinessRegistrationImageByBusinessAuth(businessAuth).getUrl();
-        } else if (dirName.equals("businessprofile")) { // 사업자 프로필 이미지
+        } else if (dirName == DirectoryName.businessprofile) { // 사업자 프로필 이미지
             // 이메일로 사업자 객체 얻어오기
             BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(idxKey);
 
@@ -198,7 +199,7 @@ public class AmazonS3Service {
             fileName = gymImageRepository.getGymImageByGym(gym).getUrl();
         }
 
-        S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(bucket + "/" + dirName, fileName));
+        S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(bucket + "/" + dirName.toString(), fileName));
         S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
         byte[] bytes = IOUtils.toByteArray(s3ObjectInputStream);
 
@@ -214,17 +215,17 @@ public class AmazonS3Service {
     /**
      파일 수정
      */
-    public void update(String dirName, MultipartFile multipartFile, String idxKey) throws AmazonServiceException, IOException {
+    public void update(DirectoryName dirName, MultipartFile multipartFile, String idxKey) throws AmazonServiceException, IOException {
         delete(dirName,idxKey);
         upload(idxKey, multipartFile, dirName);
     }
     /**
      * 파일 삭제
      */
-    public void delete(String dirName, String idxKey) throws AmazonServiceException {
+    public void delete(DirectoryName dirName, String idxKey) throws AmazonServiceException {
         String fileName = "";
 
-        if (dirName.equals("userprofile")) { // 유저 프로필 이미지
+        if (dirName == DirectoryName.userprofile) { // 유저 프로필 이미지
             // 이메일로 유저 정보 얻어오기
             UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(idxKey);
 
@@ -234,7 +235,7 @@ public class AmazonS3Service {
             // DB에 이미지 객체 삭제
             this.userProfileImageRepository.deleteAllByUserAuth(userAuth);
 
-        } else if (dirName.equals("businessauth")) { // 사업자등록증  이미지
+        } else if (dirName == DirectoryName.businessauth) { // 사업자등록증  이미지
             // 이메일로 사업자 정보 얻어오기
             BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(idxKey);
 
@@ -243,7 +244,7 @@ public class AmazonS3Service {
 
             // DB에 이미지 객체 삭제
             this.businessRegistrationImageRepository.deleteAllByBusinessAuth(businessAuth);
-        } else if (dirName.equals("businessprofile")) { // 사업자 프로필 이미지
+        } else if (dirName == DirectoryName.businessprofile) { // 사업자 프로필 이미지
             // 이메일로 사업자 객체 얻어오기
             BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(idxKey);
 
@@ -264,6 +265,6 @@ public class AmazonS3Service {
         }
 
         // S3객체 삭제
-        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket + "/" + dirName, fileName));
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket + "/" + dirName.toString(), fileName));
     }
 }

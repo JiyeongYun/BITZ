@@ -115,7 +115,6 @@ public class GameService {
         Game game = this.gameRepository.getGameById(gameId);
         ArrayList<GameParticipant> gameParticipantList = gameParticipantRepository.getGameParticipantsByGameId(gameId);
         BusinessProfile businessProfile = businessProfileRepository.getBusinessProfileByBusinessAuth(game.getGym().getBusinessAuth());
-        businessProfile.setBusinessRegistration(null);
         businessProfile.setBusinessAuth(null);
 
         for (int i = 0; i < gameParticipantList.size(); i++) // 중요 정보 제거

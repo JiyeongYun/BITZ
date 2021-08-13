@@ -26,6 +26,4 @@ public class BusinessAuthRequest {
 
     private String account;
 
-    private MultipartFile businessRegistration;
-
 }
