@@ -47,7 +47,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
       GameApi.RecordGame({
         "gameId": aboutGame.gameInfo.id,
         "quarter": aboutGame.gameData[`${game}_recorder`].length+1,
-        "score": scores.team1_score,
+        "score": (modalSwitch? parseInt(scores.team1_score)-aboutGame.gameData[team1_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team1_score)),
         "team": teamNameTranslater[team1],
         "userEmail": value.isLogin
       },
@@ -57,7 +57,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
           GameApi.RecordGame({
             "gameId": aboutGame.gameInfo.id,
             "quarter": aboutGame.gameData[`${game}_recorder`].length+1,
-            "score": scores.team2_score,
+            "score": (modalSwitch? parseInt(scores.team2_score)-aboutGame.gameData[team2_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team2_score)),
             "team": teamNameTranslater[team2],
             "userEmail": value.isLogin
           },

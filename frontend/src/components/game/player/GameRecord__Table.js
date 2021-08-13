@@ -16,7 +16,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
   // 쿼터 데이터
   const [quarters, setQuaters] = useState([])
   useEffect(()=>{
-    setQuaters([...Array(aboutGame.gameData[recorder].length).keys()].map(key => key + 1))
+    setQuaters([...Array(aboutGame.gameData[recorder].length).keys()].map(key => key))
   },[aboutGame])
 
   // 입력 버튼 클릭
@@ -28,6 +28,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
   useEffect(()=>{
     GameApi.getGameRecord({gameId: aboutGame.gameInfo.id},
       (res)=>{
+        console.log(res.data)
         const data = {
           gameType: res.data.length, // 2: 2팀, 3: 3팀
           game1_team1_score: res.data[0].teamAScoreList,
@@ -36,10 +37,11 @@ const GameRecord__Table = ({ team1, team2, game }) => {
           game2_team2_score: res.data[1].teamBScoreList,
           game3_team1_score: res.data[2]? res.data[2].teamBScoreList:[], // res.data는 무조건 사전순 (teamA=> A, teamB=> C)
           game3_team2_score: res.data[2]? res.data[2].teamAScoreList:[],
-          game1_recorder: res.data[0].recorderList, // 2팀 게임은 game1만 사용
-          game2_recorder: res.data[1].recorderList,
-          game3_recorder: res.data[2]? res.data[2].recorderList:[]
+          game1_recorder: res.data[0].recorderList.map(element=>element.email), // 2팀 게임은 game1만 사용
+          game2_recorder: res.data[1].recorderList.map(element=>element.email),
+          game3_recorder: res.data[2]? res.data[2].recorderList.map(element=>element.email):[]
         }
+        console.log(data)
         gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
       },
       (err)=>console.log(err)
@@ -58,8 +60,8 @@ const GameRecord__Table = ({ team1, team2, game }) => {
         <tbody>
           { quarters.map(quarter=>(<tr>
             <td>{quarter+1}</td>
-            <td>{aboutGame.gameData[team1_score][quarter]}</td>
-            <td>{aboutGame.gameData[team2_score][quarter]}</td>
+            <td>{aboutGame.gameData[team1_score]?aboutGame.gameData[team1_score][quarter]:""}</td>
+            <td>{aboutGame.gameData[team2_score]?aboutGame.gameData[team2_score][quarter]:""}</td>
             <td>{aboutGame.gameData[recorder][quarter]}</td>
             </tr>))}
           { showInput ? <GameRecordInput game={game} setShowInput={setShowInput} team1={team1} team2={team2} /> : "" }
