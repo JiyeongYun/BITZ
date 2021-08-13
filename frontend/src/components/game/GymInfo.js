@@ -112,7 +112,6 @@ const GymInfo = ({ isBusiness }) => {
           <p>체육관 리뷰</p>
           <ul>
             <li>시설</li>
-            <li>친절</li>
           </ul>
         </div>
       </div>

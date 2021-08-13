@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }
 
 .MainBusiness > div {
@@ -22,49 +23,94 @@
   margin: 0px 5px 0px 5px;
 }
 
-.MainBusiness__DateName {
-  position: relative;
+.MainBusiness section > article > .date {
+  width: 100%;
   height: var(--btn-height);
   line-height: var(--btn-height);
+  font-size: var(--mid-font-size);
+  font-weight: bold;
   background-color: var(--dark-blue);
   color: white;
   text-align: center;
+  margin: var(--mid-margin-size) 0 0;
 }
 
-.MainBusiness__DateName_Today {
+.MainBusiness section > article > .today {
   background-color: var(--main-color);
 }
 
-.MainBusiness__Today {
-  position: absolute;
-  left: 10px;
+
+
+.MainBusiness section > article > .game_container {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--main-font-size);
+  border-bottom: 1px solid black;
 }
 
-.MainBusiness__toggle_game_list {
-  cursor: pointer;
+.MainBusiness section > article > .game_container > .game__time,
+.MainBusiness section > article > .game_container > .gym__info {
+  flex: 2;
 }
 
-.MainBusiness__allGameList {
-  margin: var(--large-margin-size) 0;
+.MainBusiness section > article > .game_container > .game__time {
+  text-align: center;
+  font-size: var(--large-font-size);
 }
 
-.MainBusiness__DailyGame {
-  height: 120px;
+.MainBusiness section > article > .game_container > .gym__info > h5 {
+  font-size: var(--main-font-size);
+  margin-bottom: var(--small-margin-size);
 }
 
-.MainBusiness__game__participants {
-  display: inline-block;
-  width: 400px;
+.MainBusiness section > article > .game_container > .people__info > .max_people,
+.MainBusiness section > article > .game_container > .people__info > .min_people {
+  margin: 0 auto;
+  height: 20px;
+  width: fit-content;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.MainBusiness section > article > .game_container > .people__info > .max_people {
+  background-color: blue;
+  margin-bottom: 3px;
+}
+
+.MainBusiness section > article > .game_container > .people__info > .min_people {
+  background-color: red;
+}
+
+.MainBusiness section > article > .game_container > .participant {
+  flex: 3;
+  font-size: var(--mid-font-size);
+  text-align: center;
+}
+
+.MainBusiness section > article > .game_container > .participant span {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: var(--large-font-size);
+}
+
+.MainBusiness section > article > .game_container > .people__info,
+.MainBusiness section > article > .game_container > .game__btn {
+  flex: 1;
+}
+
+.MainBusiness section > article > .game_container > .game__btn {
   height: var(--btn-height);
   line-height: var(--btn-height);
   text-align: center;
-  text-decoration: none;
-  font-size: var(--main-font-size);
-  cursor: pointer;
-}
-
-.gameList__state__button_Complete {
-  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
 }
 
 @media screen and (max-width: 1024px) {
@@ -76,48 +122,39 @@
     font-size: var(--main-font-size);
   }
 
-  .MainBusiness__DateName {
-    font-size: var(--mid-font-size);
-    margin: var(--main-margin-size) 0 var(--small-margin-size);
-  }
-  
-  .MainBusiness__allGameList {
-    margin: var(--mid-margin-size) 0;
-  }
-  
-  .gameList__game__Time {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    padding-right: 5px;
-  }
-
-  .MainBusiness__DailyGame {
-    height: 70px;
-  }
-
-  .gameList__game__info {
-    text-align: center;
-    padding-right: 5px;
-  }
-
-  .gameList__game__info > .gameList__game__location {
-    display: none;
-  }
-  
-  .gameList__content > .MainBusiness__game__personnel {
-    display: none;
-  }
-  
-  .MainBusiness__game__participants {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: auto;
-    height: 100%;
-    line-height: var(--btn-height);
+  .MainBusiness section > article > .game_container {
     font-size: var(--small-font-size);
+  }
+  
+  .MainBusiness section > article > .game_container > .game__time {
+    flex: 1;
+  }
+
+  .MainBusiness section > article > .game_container > .gym__info {
+    flex: 2.5;
+  }
+  
+  .MainBusiness section > article > .game_container > .game__time {
+    font-size: var(--main-font-size);
+  }
+
+  .MainBusiness section > article > .game_container > .people__info {
+    display: none;
+  }
+  
+  .MainBusiness section > article > .game_container > .participant {
+    flex: 3;
+    font-size: var(--main-font-size);
+    text-align: center;
+  }
+  
+  .MainBusiness section > article > .game_container > .participant span {
+    font-size: var(--mid-font-size);
+  }
+  
+  .MainBusiness section > article > .game_container > .game__btn {
+    height: 90%;
+    line-height: 62.1px;
+    font-size: var(--main-font-size);
   }
 }

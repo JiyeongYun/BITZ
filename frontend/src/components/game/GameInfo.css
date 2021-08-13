@@ -17,7 +17,7 @@
 }
 
 .gameInfo > .gyminfo > #gymname {
-  color: #ffad4e;
+  color: var(--main-color);
   font-weight: bold;
 }
 
@@ -41,4 +41,36 @@
 .participants {
   display: flex;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1024px) {
+  .gameInfo {
+    margin-right: 0px;
+  }
+  
+  .gameInfo > div {
+    margin-bottom: var(--main-margin-size);
+    margin-left: var(--main-margin-size);
+  }
+  
+  .gameInfo > .gamedate {
+    font-size: var(--large-font-size);
+  }
+  
+  .gameInfo > .gyminfo {
+    font-size : var(--main-font-size);
+  }
+  .gameInfo > .gameuser > p {
+    font-size: var(--main-font-size);
+  }
+  
+  .gameInfo > .gameuser > p > span {
+    font-size: var(--large-font-size);
+  }
+  
+  .participants {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
 }
