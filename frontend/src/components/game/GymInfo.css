@@ -135,6 +135,10 @@
     line-height: 200%;
   }
   
+  .gymInfo > p > span {
+    display: inline-block;
+  }
+  
   .facilities__container {
     flex-wrap: wrap;
     margin: var(--mid-margin-size) 0 var(--mid-margin-size);
