@@ -5,19 +5,27 @@ import GameApi from 'api/GameApi';
 
 const TeamInfo = () => {
   const gameStoreData = useContext(gameStore);
-  const { aboutGame } = gameStoreData;
+  const { aboutGame, gameDispatch } = gameStoreData;
     
   const members = aboutGame.gameParticipantDetails
 
   
   useEffect(()=>{
-    if (aboutGame.gameState>=1) {
+    if (aboutGame.gameState===1) {
       GameApi.Teaming({gameId: aboutGame.gameInfo.id},
-        (res)=>{console.log(res.data)},
+        ()=>{
+          GameApi.requsetGame({gameId: aboutGame.gameInfo.id},
+            res => {
+              // 해당 날짜에 게임 리스트를 data에 담음
+              gameDispatch({ type: "FETCH_GAME_DATA", value: res.data })
+            },
+            err => console.log(err)
+            )
+        },
         (err)=>{console.log(err)}
         )
       }
-  },[])
+  },[aboutGame.gameInfo.id])
   
   // 참가자의 포지션 표시
   useEffect(() => {

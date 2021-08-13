@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GameReview from "./GameReview";
 import "./GameResult.css"
 import { gameStore } from 'store/gameStore';
@@ -16,17 +16,25 @@ const GameResult = () => {
 
   // 게임 리뷰가 존재하는지 확인
   if (value.isLogin && !closeReview) {
-    GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), userEmail: value.isLogin},
+    GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), email: value.isLogin},
     (res)=>{
       if (res.status===204) { // 존재 하는 경우
         setShowReview(false)
       } else if (res.status===200) { // 존재하지 않는 경우
+        console.log('show!')
         setShowReview(true)
       }
     },
     (error)=>console.log(error)  
     )
   }
+
+  useEffect(()=>{
+    GameApi.saveGameResult({gameId: aboutGame.gameInfo.id},
+    res=>console.log(res.data),
+    err=>console.log(err)
+    )
+  },[])
 
   // 점수 합산 => 누적합 계산
   const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)

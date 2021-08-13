@@ -46,7 +46,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
       // team1 점수 기록
       GameApi.RecordGame({
         "gameId": aboutGame.gameInfo.id,
-        "quarter": aboutGame.gameData[`${game}_recorder`].length+1,
+        "quarter": (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length+1),
         "score": (modalSwitch? parseInt(scores.team1_score)-aboutGame.gameData[team1_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team1_score)),
         "team": teamNameTranslater[team1],
         "userEmail": value.isLogin
@@ -56,16 +56,36 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
           // team2 점수 기록
           GameApi.RecordGame({
             "gameId": aboutGame.gameInfo.id,
-            "quarter": aboutGame.gameData[`${game}_recorder`].length+1,
+            "quarter": (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length+1),
             "score": (modalSwitch? parseInt(scores.team2_score)-aboutGame.gameData[team2_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team2_score)),
             "team": teamNameTranslater[team2],
             "userEmail": value.isLogin
           },
             res=>{
               console.log(res.data)
+              GameApi.getGameRecord({gameId: aboutGame.gameInfo.id},
+                (res)=>{
+                  console.log(res.data)
+                  const data = {
+                    gameType: res.data.length, // 2: 2팀, 3: 3팀
+                    game1_team1_score: res.data[0].teamAScoreList,
+                    game1_team2_score: res.data[0].teamBScoreList,
+                    game2_team1_score: res.data[1].teamAScoreList,
+                    game2_team2_score: res.data[1].teamBScoreList,
+                    game3_team1_score: res.data[2]? res.data[2].teamBScoreList:[], // res.data는 무조건 사전순 (teamA=> A, teamB=> C)
+                    game3_team2_score: res.data[2]? res.data[2].teamAScoreList:[],
+                    game1_recorder: res.data[0].recorderList.map(element=>element.email), // 2팀 게임은 game1만 사용
+                    game2_recorder: res.data[1].recorderList.map(element=>element.email),
+                    game3_recorder: res.data[2]? res.data[2].recorderList.map(element=>element.email):[]
+                  }
+                  console.log(data)
+                  gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
+                },
+                (err)=>console.log(err)
+                )
               // 2번의 Axios 요청이 성공적이면 종료
               alert('기록해주셔서 감사합니다.')
-              gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
+              // gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
               setShowInput(false)
             },
             err=>console.log(err)  

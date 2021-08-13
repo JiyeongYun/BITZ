@@ -33,6 +33,8 @@ function Main__Business ({history}) {
       res => {
         if(res.status === 200) {
           history.push('/registergym')
+        } else {
+          
         }
       },
       err => console.log(err)
@@ -45,7 +47,7 @@ function Main__Business ({history}) {
       date : today,
     }
 
-    GameApi.myGameList(data,
+    GameApi.requsetBusinessGameList(data,
       res => {
         setGameLists(res.data)
       },
@@ -61,13 +63,14 @@ function Main__Business ({history}) {
     setToggleGameList(!toggleGameList)
   }
 
-  // 게임 관리 상세 페이지
-  const manageGame = () => {
-    history.push({
-      pathname: '/detail/28',
-      state: {isBusiness: true}
-    })
-  }
+  // // 게임 관리 상세 페이지
+  // const manageGame = (event) => {
+  //   console.log
+  //   history.push({
+  //     pathname: '/detail/28',
+  //     state: {isBusiness: true}
+  //   })
+  // }
 
   gameLists.sort((a,b) => {
     const result = Number(String(a.startTime).slice(0, 2)) - Number(String(b.startTime).slice(0, 2))
@@ -118,7 +121,7 @@ function Main__Business ({history}) {
                         <p>모집 인원 : <span>{game.participant}</span>/{game.maxPeople}</p>
                         <p>입금 확인 요청 : <span>{game.participant}</span>명</p>
                       </div>
-                      <Link to={"/detail/"+ game.id} className="game__btn">모집 중</Link>
+                      <Link to={{pathname:"/detail/"+ game.id, state: {isBusiness: true}}} className="game__btn">모집 중</Link>
                     </div>
                   )
                 }
@@ -145,7 +148,7 @@ function Main__Business ({history}) {
                         <p>모집 인원 : <span>{game.participant}</span>/{game.maxPeople}</p>
                         <p>입금 확인 요청 : <span>{game.participant}</span>명</p>
                       </div>
-                      <Link to={"/detail/"+ game.id} className="game__btn">모집 중</Link>
+                      <Link to={{pathname:"/detail/"+ game.id, state: {isBusiness: true}}} className="game__btn">모집 중</Link>
                     </div>
                   )
                 }
@@ -172,7 +175,7 @@ function Main__Business ({history}) {
                         <p>모집 인원 : <span>{game.participant}</span>/{game.maxPeople}</p>
                         <p>입금 확인 요청 : <span>{game.participant}</span>명</p>
                       </div>
-                      <Link to={"/detail/"+ game.id} className="game__btn">모집 중</Link>
+                      <Link to={{pathname:"/detail/"+ game.id, state: {isBusiness: true}}} className="game__btn">모집 중</Link>
                     </div>
                   )
                 }
