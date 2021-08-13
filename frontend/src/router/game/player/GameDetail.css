@@ -6,6 +6,7 @@
 .detail__top {
   display: flex;
   justify-content: space-around;
+  height: 400px;
 }
 
 .gameInfo {
@@ -17,9 +18,25 @@
 }
 
 .detail__top > .gympicture > img {
-  max-width: 600px;
-  max-height: 400px;
-  width: 100%;
-  object-fit: scale-down;
-  object-position: top right;
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+@media screen and (max-width: 1024px) {
+  .gameDetail {
+    width: 100vw;
+  }
+  
+  .detail__top {
+    flex-direction: column-reverse;
+    height: fit-content;
+  }
+  
+  .detail__top > .gympicture > img {
+    width: 100%;
+    height: inherit;
+  }
+  
 }
