@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity(name = "userprofileimage")
 @Builder
-public class Userprofileimage {
+public class UserProfileImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 이미지 ID
