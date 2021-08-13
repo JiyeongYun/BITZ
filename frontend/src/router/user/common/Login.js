@@ -45,8 +45,8 @@ function Login({ history }) {
         data,
         (res) => {
           const { data } = res; // 유저 정보
-          localStorage.setItem('currentUser', JSON.stringify(data));
-          dispatch({ type: "LOGIN", value: data.email })
+          localStorage.setItem('currentUser', JSON.stringify({email}));
+          dispatch({ type: "LOGIN", value: email })
           history.push('/')
         },
         (error) => {
@@ -58,8 +58,8 @@ function Login({ history }) {
         data,
         (res) => {
           const { data } = res; // 유저 정보
-          localStorage.setItem('currentUserbusiness', JSON.stringify(data));
-          dispatch({ type: "LOGIN", value: data.email })
+          localStorage.setItem('currentUserbusiness', JSON.stringify({email}));
+          dispatch({ type: "LOGIN", value: email })
           history.push('/')
         },
         (error) => {

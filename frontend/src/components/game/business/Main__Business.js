@@ -79,7 +79,7 @@ function Main__Business ({history}) {
   const manageGame = (event) => {
     console.log(event.target.value)
     history.push({
-      pathname: '/detail/1',
+      pathname: '/detail/28',
       state: {isBusiness: true}
     })
   }

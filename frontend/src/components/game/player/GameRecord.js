@@ -14,6 +14,7 @@ const GameRecord = () => {
       { aboutGame.gameData.gameType === 2 ? ( // 2팀 경기
       <div className="gameRecord__2">
         <GameRecordTable team1='A' team2='B' game='game1' />
+        <GameRecordTable team1='A' team2='B' game='game2' />
       </div>
       ):( // 3팀 경기
       <div className="gameRecord__3">

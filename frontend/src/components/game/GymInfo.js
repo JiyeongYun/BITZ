@@ -40,6 +40,10 @@ const GymInfo = ({ isBusiness }) => {
   });
 
   const reserveGame = () => {
+    console.log({
+      "userEmail": isLogin,
+      "gameId": params.gameId
+      })
     GameApi.reserveGame({
       "userEmail": isLogin,
       "gameId": params.gameId

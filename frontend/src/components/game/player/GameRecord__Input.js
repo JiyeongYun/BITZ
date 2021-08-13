@@ -7,7 +7,9 @@ import GameApi from 'api/GameApi';
 const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame, gameDispatch } = gameStoreData;
-  console.log(aboutGame.gameInfo.id)
+
+  // A, B, C로 props 되는 team name을 1,2,3으로 변환
+  const teamNameTranslater = {"A": 1, "B": 2, "C": 3}
 
   const globalState = useContext(store);
   const { value } = globalState;
@@ -41,20 +43,36 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
         unKnown_bugFix: aboutGame.gameData[recorder].length // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
       }
 
-      // GameApi.RecordGame({
-      //   "gameId": aboutGame.gameInfo.id,
-      //   "quarter": 0,
-      //   "score": 13,
-      //   "team": 0,
-      //   "userEmail": value.isLogin
-      // },
-      //   res=>console.log(res.data),
-      //   err=>console.log(err)  
-      // )
-
-      gameDispatch({ type: "UPADTE_GAME_SCORE", value: data
-    })
-      setShowInput(false)
+      // team1 점수 기록
+      GameApi.RecordGame({
+        "gameId": aboutGame.gameInfo.id,
+        "quarter": aboutGame.gameData[`${game}_recorder`].length+1,
+        "score": scores.team1_score,
+        "team": teamNameTranslater[team1],
+        "userEmail": value.isLogin
+      },
+        res=>{
+          console.log(res.data)
+          // team2 점수 기록
+          GameApi.RecordGame({
+            "gameId": aboutGame.gameInfo.id,
+            "quarter": aboutGame.gameData[`${game}_recorder`].length+1,
+            "score": scores.team2_score,
+            "team": teamNameTranslater[team2],
+            "userEmail": value.isLogin
+          },
+            res=>{
+              console.log(res.data)
+              // 2번의 Axios 요청이 성공적이면 종료
+              alert('기록해주셔서 감사합니다.')
+              gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
+              setShowInput(false)
+            },
+            err=>console.log(err)  
+          )
+        },
+        err=>console.log(err)  
+      )
     }
   }
   // PJW - Modal 창 닫기

@@ -1,9 +1,12 @@
 import GameApi from 'api/GameApi'
 import GymApi from 'api/GymApi'
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
+import { store } from 'store/store'
 import './GameRegister.css'
 
 const GameRegister = () => {
+  const globalState = useContext(store);
+  const { value } = globalState;
   // 오늘 날짜
   const today = new Date()
 
@@ -26,9 +29,9 @@ const GameRegister = () => {
 
   // 로그인 한 비즈니스 유저의 체육관 표시
   useEffect(() => {
-    const businessId = JSON.parse(localStorage.getItem('currentUserbusiness')).id
+    const businessEmail = value.isLogin
 
-    const data = {businessId,}
+    const data = {businessEmail}
     GymApi.myGymList(
       data,
       res => {
