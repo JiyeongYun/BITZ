@@ -64,7 +64,7 @@ function Main__Business ({history}) {
   // 게임 관리 상세 페이지
   const manageGame = () => {
     history.push({
-      pathname: '/detail/1',
+      pathname: '/detail/28',
       state: {isBusiness: true}
     })
   }

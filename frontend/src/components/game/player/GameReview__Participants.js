@@ -103,7 +103,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           <p>A팀</p>
           <div className="members">
             {members.map((member, idx) => {
-              return member.team === 0? (
+              return member.team === 1? (
                 <div className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">
                     { reviewType==="manner"&&(reviewScore.manner.includes(`${idx}`))? 
@@ -143,7 +143,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           <p>B팀</p>
           <div className="members">
             {members.map((member, idx) => {
-              return member.team === 1? (
+              return member.team === 2? (
                 <div className={`member ${reviewType}${idx}`}>
                 <div className="Participants__selected">
                   { reviewType==="manner"&&(reviewScore.manner.includes(`${idx}`))? 
@@ -183,7 +183,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           <p>C팀</p>
           <div className="members">
             {members.map((member, idx) => {
-              return member.team === 2? (
+              return member.team === 3? (
                 <div className={`member ${reviewType}${idx}`}>
                 <div className="Participants__selected">
                   { reviewType==="manner"&&(reviewScore.manner.includes(`${idx}`))? 

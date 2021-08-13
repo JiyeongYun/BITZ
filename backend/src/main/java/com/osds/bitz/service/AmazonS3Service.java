@@ -5,16 +5,13 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
 
 import com.osds.bitz.model.entity.account.business.BusinessAuth;
-import com.osds.bitz.model.entity.account.business.BusinessProfile;
 import com.osds.bitz.model.entity.account.user.UserAuth;
-import com.osds.bitz.model.entity.account.user.UserProfile;
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.img.BusinessProfileImage;
 import com.osds.bitz.model.entity.img.BusinessRegistrationImage;
 import com.osds.bitz.model.entity.img.GymImage;
 import com.osds.bitz.model.entity.img.UserProfileImage;
 import com.osds.bitz.repository.account.business.BusinessAuthRepository;
-import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.account.user.UserAuthRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import com.osds.bitz.repository.img.BusinessProfileImageRepository;
@@ -67,9 +64,6 @@ public class AmazonS3Service {
 
     @Autowired
     private GymRepository gymRepository;
-
-    @Autowired
-    private BusinessProfileRepository businessProfileRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
@@ -220,11 +214,56 @@ public class AmazonS3Service {
     /**
      파일 수정
      */
-
+    public void update(String dirName, MultipartFile multipartFile, String idxKey) throws AmazonServiceException, IOException {
+        delete(dirName,idxKey);
+        upload(idxKey, multipartFile, dirName);
+    }
     /**
      * 파일 삭제
      */
-//    public void delete(String dirName, String fileName) throws AmazonServiceException {
-//        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket + "/" + dirName, fileName));
-//    }
+    public void delete(String dirName, String idxKey) throws AmazonServiceException {
+        String fileName = "";
+
+        if (dirName.equals("userprofile")) { // 유저 프로필 이미지
+            // 이메일로 유저 정보 얻어오기
+            UserAuth userAuth = this.userAuthRepository.getUserAuthByEmail(idxKey);
+
+            // 유저 객체를 통해 파일 url 받아오기
+            fileName = userProfileImageRepository.getUserProfileImageByUserAuth(userAuth).getUrl();
+
+            // DB에 이미지 객체 삭제
+            this.userProfileImageRepository.deleteAllByUserAuth(userAuth);
+
+        } else if (dirName.equals("businessauth")) { // 사업자등록증  이미지
+            // 이메일로 사업자 정보 얻어오기
+            BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(idxKey);
+
+            // 사업자 객체를 통해 파일 url 받아오기
+            fileName = businessRegistrationImageRepository.getBusinessRegistrationImageByBusinessAuth(businessAuth).getUrl();
+
+            // DB에 이미지 객체 삭제
+            this.businessRegistrationImageRepository.deleteAllByBusinessAuth(businessAuth);
+        } else if (dirName.equals("businessprofile")) { // 사업자 프로필 이미지
+            // 이메일로 사업자 객체 얻어오기
+            BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(idxKey);
+
+            // 사업자 객체를 통해 파일 url 받아오기
+            fileName = businessProfileImageRepository.getBusinessProfileImageByBusinessAuth(businessAuth).getUrl();
+
+            // DB에 이미지 객체 삭제
+            this.businessProfileImageRepository.deleteAllByBusinessAuth(businessAuth);
+        } else { // 체육관 이미지
+            // 체육관 아이디로 체육관 정보 얻어오기
+            Gym gym = gymRepository.getGymById(Long.parseLong(idxKey));
+
+            // 체육관 객체를 통해 파일 url 받아오기
+            fileName = gymImageRepository.getGymImageByGym(gym).getUrl();
+
+            // DB에 이미지 객체 삭제
+            this.gymImageRepository.deleteAllByGym(gym);
+        }
+
+        // S3객체 삭제
+        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket + "/" + dirName, fileName));
+    }
 }

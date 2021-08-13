@@ -5,7 +5,7 @@ import { store } from "store/store";
 import "./GameReview.css"
 import GameReviewParticipants from "./GameReview__Participants";
 
-const GameReview = ({ setShowReview }) => {
+const GameReview = ({ setShowReview, setCloseReview }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
   const globalState = useContext(store);
@@ -31,6 +31,7 @@ const GameReview = ({ setShowReview }) => {
   // PJW - Modal 창 닫기
   const closeModal = () => {
     setShowReview(false)
+    setCloseReview(true)
   }
   // PJW - 리뷰 등록 (미완성)
   const registerReview = () => {
