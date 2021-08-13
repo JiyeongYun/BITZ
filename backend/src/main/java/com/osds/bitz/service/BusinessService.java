@@ -16,15 +16,12 @@ import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,14 +56,6 @@ public class BusinessService extends BaseAuthService {
             businessAuthId = generateRandomNumber(false);
         }
 
-        // 파일 로컬에 저장
-        File targetFile = new File("src/main/resources/static/imgs/" + businessAuthRequest.getBusinessRegistration().getOriginalFilename());
-        try {
-            InputStream fileStream = businessAuthRequest.getBusinessRegistration().getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);
-        } catch (IOException e) {
-        }
-
         BusinessAuth businessAuth = BusinessAuth.builder()
                 .id(businessAuthId)
                 .email(businessAuthRequest.getEmail())
@@ -79,7 +68,6 @@ public class BusinessService extends BaseAuthService {
                 .phone(businessAuthRequest.getPhone())
                 .bank(businessAuthRequest.getBank())
                 .account(businessAuthRequest.getAccount())
-                .businessRegistration(businessAuthRequest.getBusinessRegistration().getBytes())
                 .businessAuth(businessAuth)
                 .build();
 
