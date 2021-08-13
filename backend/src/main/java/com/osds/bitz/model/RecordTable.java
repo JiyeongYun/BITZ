@@ -12,6 +12,6 @@ public class RecordTable {
     private int teamB;
     private ArrayList<Integer> teamAScoreList;
     private ArrayList<Integer> teamBScoreList;
-    private ArrayList<UserAuth> recorderList;
+    private ArrayList<String> recorderList;
 
 }
