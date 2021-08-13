@@ -444,8 +444,8 @@ public class GameService {
                 if (peopleIdx % 2 == 0) {
                     recordTableList[tableIdx].getTeamAScoreList().add(gameRecord.getScore());
                     UserAuth recorder = gameRecord.getUserAuth();
-                    recorder.setPassword(null);
-                    recordTableList[tableIdx].getRecorderList().add(recorder);
+                    UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(recorder);
+                    recordTableList[tableIdx].getRecorderList().add(userProfile.getName());
                 } else {
                     recordTableList[tableIdx].getTeamBScoreList().add(gameRecord.getScore());
                 }
@@ -466,8 +466,8 @@ public class GameService {
                 if (peopleIdx % 2 == 0) {
                     recordTableList[tableIdx].getTeamAScoreList().add(gameRecord.getScore());
                     UserAuth recorder = gameRecord.getUserAuth();
-                    recorder.setPassword(null);
-                    recordTableList[tableIdx].getRecorderList().add(recorder);
+                    UserProfile userProfile = userProfileRepository.getUserProfileByUserAuth(recorder);
+                    recordTableList[tableIdx].getRecorderList().add(userProfile.getName());
                 } else {
                     recordTableList[tableIdx].getTeamBScoreList().add(gameRecord.getScore());
                 }
