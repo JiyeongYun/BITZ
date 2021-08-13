@@ -289,7 +289,8 @@ public class GameService {
             for (int j = 0; j < team.get(i).length; j++) {
                 UserSkill userSkill = team.get(i)[j];
                 UserAuth userAuth = this.userAuthRepository.getUserAuthById(userSkill.userId);
-                GameParticipant gameParticipant = this.gameParticipantRepository.getGameParticipantByUserAuth(userAuth);
+
+                GameParticipant gameParticipant = this.gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
                 gameParticipant.setId(gameParticipant.getId());
                 gameParticipant.setTeam(i + 1);
                 this.gameParticipantRepository.save(gameParticipant);
