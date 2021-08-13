@@ -67,25 +67,26 @@ const GameStateProvider = ({children}) => {
         return {...state, gameState}
       // 쿼터별 점수 등록
       case 'UPADTE_GAME_SCORE':
-        if (action.value.unKnown_bugFix === state.gameData[action.value.recorder].length) { // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
-          const updated_team1_score = state.gameData[action.value.team1]
-          updated_team1_score.push(action.value.team1_score)
-          const updated_team2_score = state.gameData[action.value.team2]
-          updated_team2_score.push(action.value.team2_score)
-          const updated_recorder = state.gameData[action.value.recorder]
-          updated_recorder.push(action.value.current_recorder)
+        // if (action.value.unKnown_bugFix === state.gameData[action.value.recorder].length) { // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
+          // const updated_team1_score = state.gameData[action.value.team1]
+          // updated_team1_score.push(action.value.team1_score)
+          // const updated_team2_score = state.gameData[action.value.team2]
+          // updated_team2_score.push(action.value.team2_score)
+          // const updated_recorder = state.gameData[action.value.recorder]
+          // updated_recorder.push(action.value.current_recorder)
           
-          return {
-            ...state,
-            gameData: {
-              ...state.gameData,
-              [action.value.team1]: updated_team1_score,
-              [action.value.team2]: updated_team2_score,
-              [action.value.recorder]: updated_recorder
-            }
-          }
-        }
-        return state
+          // return {
+          //   ...state,
+          //   gameData: {
+          //     ...state.gameData,
+          //     [action.value.team1]: updated_team1_score,
+          //     [action.value.team2]: updated_team2_score,
+          //     [action.value.recorder]: updated_recorder
+          //   }
+          // }
+        // }
+        // return state
+        return {...state, gameData: action.value}
       // 경기 참여자 상세 정보 받기
       case 'FETCH_PARTICIPANTS_DETAIL':
         const { gameParticipantDetails } = state

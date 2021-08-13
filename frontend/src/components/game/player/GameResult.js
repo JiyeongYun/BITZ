@@ -12,9 +12,11 @@ const GameResult = () => {
   const { value } = globalState;
   // 리뷰 등록 컴포넌트 display 여부
   const [showReview, setShowReview] = useState(false)
+  const [closeReview, setCloseReview] = useState(false)
 
   // 게임 리뷰가 존재하는지 확인
-  GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), userEmail: value.isLogin},
+  if (value.isLogin && !closeReview) {
+    GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), userEmail: value.isLogin},
     (res)=>{
       if (res.status===204) { // 존재 하는 경우
         setShowReview(false)
@@ -23,7 +25,8 @@ const GameResult = () => {
       }
     },
     (error)=>console.log(error)  
-  )
+    )
+  }
 
   // 점수 합산 => 누적합 계산
   const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
@@ -44,7 +47,7 @@ const GameResult = () => {
   return (
     <div>
       { showReview ? (
-        <GameReview setShowReview={setShowReview} />
+        <GameReview setShowReview={setShowReview} setCloseReview={setCloseReview} />
         ) : ("")}
       <div>
         결과
