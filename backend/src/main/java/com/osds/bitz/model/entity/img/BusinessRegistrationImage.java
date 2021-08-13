@@ -11,9 +11,9 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "businessprofileimage")
+@Entity(name = "businessregistrationimage")
 @Builder
-public class Businessprofileimage {
+public class BusinessRegistrationImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 이미지 ID

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity(name = "gymimage")
 @Builder
-public class Gymimage {
+public class GymImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 이미지 ID
