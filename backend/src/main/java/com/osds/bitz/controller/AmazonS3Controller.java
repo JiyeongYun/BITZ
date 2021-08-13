@@ -62,7 +62,7 @@ public class AmazonS3Controller {
      */
     @PostMapping("/userprofile/get")
     @ApiOperation(value = "사용자 프로필 이미지 출력", notes = "사용자 프로필 이미지를 AMAZON S3에서 출력합니다.")
-    public ResponseEntity getGym(@RequestParam("email") String email) throws IOException {
+    public ResponseEntity getUserProfile(@RequestParam("email") String email) throws IOException {
         return amazonS3Service.get("userprofile", email);
     }
 
@@ -80,24 +80,69 @@ public class AmazonS3Controller {
 
     @PostMapping("/gym/get")
     @ApiOperation(value = "체육관 이미지 출력", notes = "체육관 이미지를 AMAZON S3에서 출력합니다.")
-    public ResponseEntity getGym(@RequestParam(value = "gymId") String gymId, @RequestParam("images") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity getGym(@RequestParam(value = "gymId") String gymId) throws IOException {
         return amazonS3Service.get("gym", gymId);
     }
 
     /**
      * 파일 수정
      */
-    //@PutMapping("/userprofile")
+    @PutMapping("/userprofile/update")
+    @ApiOperation(value = "사용자 프로필 이미지 수정", notes = "사용자 프로필 이미지를 AMAZON S3에서 수정합니다.")
+    public ResponseEntity updateUserProfile(@RequestParam(value = "email") String email, @RequestParam("images") MultipartFile multipartFile) throws IOException {
+        amazonS3Service.update("userprofile", multipartFile, email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/businessauth/update")
+    @ApiOperation(value = "사업자등록증 이미지 수정", notes = "사업자등록증 이미지를 AMAZON S3에서 수정합니다.")
+    public ResponseEntity updateBusinessAuth(@RequestParam(value = "email") String email, @RequestParam("images") MultipartFile multipartFile) throws IOException {
+        amazonS3Service.update("businessauth", multipartFile, email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/businessprofile/update")
+    @ApiOperation(value = "사업자 프로필 이미지 수정", notes = "사업자 프로필 이미지를 AMAZON S3에서 수정합니다.")
+    public ResponseEntity updateBusinessProfile(@RequestParam(value = "email") String email, @RequestParam("images") MultipartFile multipartFile) throws IOException {
+        amazonS3Service.update("businessprofile", multipartFile, email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/gym/update")
+    @ApiOperation(value = "체육관 이미지 수정", notes = "체육관 이미지를 AMAZON S3에서 수정합니다.")
+    public ResponseEntity updateGym(@RequestParam(value = "gymId") String gymId, @RequestParam("images") MultipartFile multipartFile) throws IOException {
+        amazonS3Service.update("gym", multipartFile, gymId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     /**
      파일 삭제
      */
-//    @DeleteMapping("/userprofile")
-//    @ApiOperation(value = "사용자 프로필 이미지 삭제", notes = "사용자 프로필 이미지를 AMAZON S3에서 삭제합니다.")
-//    public String deleteUserProfile(@RequestParam("email") String email) throws IOException {
-//        String url = "2a6bb495-3984-40d5-9ff5-75775a727e11emogi_se.jpg"; // 테이블 구축 전 임시로
-//        log.info("url{}:", url);
-//        amazonS3Service.delete("userprofile", url);
-//        return "삭제 성공";
-//    }
+    @DeleteMapping("/userprofile/delete")
+    @ApiOperation(value = "사용자 프로필 이미지 삭제", notes = "사용자 프로필 이미지를 AMAZON S3에서 삭제합니다.")
+    public ResponseEntity deleteUserProfile(@RequestParam("email") String email) throws IOException {
+        amazonS3Service.delete("userprofile", email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/businessauth/delete")
+    @ApiOperation(value = "사업자등록증 이미지 삭제", notes = "사용자등록증 이미지를 AMAZON S3에서 삭제합니다.")
+    public ResponseEntity deleteBusinessAuth(@RequestParam("email") String email) throws IOException {
+        amazonS3Service.delete("businessauth", email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/businessprofile/delete")
+    @ApiOperation(value = "사업자 프로필 이미지 삭제", notes = "사업자 프로필 이미지를 AMAZON S3에서 삭제합니다.")
+    public ResponseEntity deleteBusinessProfile(@RequestParam("email") String email) throws IOException {
+        amazonS3Service.delete("businessprofile", email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/gym/delete")
+    @ApiOperation(value = "체육관 이미지 삭제", notes = "체육관 이미지를 AMAZON S3에서 삭제합니다.")
+    public ResponseEntity deleteGym(@RequestParam("gymId") String gymId) throws IOException {
+        amazonS3Service.delete("gym", gymId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
