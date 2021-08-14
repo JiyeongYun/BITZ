@@ -6,15 +6,21 @@ import './Profile.css';
 import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
 import UserApi from 'api/UserApi';
+import ImgApi from 'api/ImgApi';
+import userEvent from '@testing-library/user-event';
 
 const Profile = ({ history }) => {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { value, dispatch } = globalState;
+  const isLogin = value.isLogin
   const { userKind, userObj } = value; // 플레이어, 비즈니스 구분용 전역 State
 
   // 유저 정보가 담긴 State
   const [userData, setUserData] = useState({email: "", birth: ""})
+  const [imgUrl, setImgUrl] = useState(null)
+  const [files, setFiles] = useState(null)
+  const [imgupdate, setImgupdate] = useState(true)
 
   const onLogout = () => {
     localStorage.removeItem("currentUser")
@@ -23,7 +29,7 @@ const Profile = ({ history }) => {
     history.push('/')
   };
   
-
+  
   // 유저 정보를 DB에서 가져오기
   useEffect(() => {
     if (userKind === 'player') {
@@ -32,6 +38,16 @@ const Profile = ({ history }) => {
         params,
         res => {
           setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+      ImgApi.getUserImg(
+        params,
+        res => {
+          const url = window.URL.createObjectURL(new Blob([res.data]))
+          setImgUrl(url)
         },
         err => {
           console.log(err)
@@ -47,9 +63,9 @@ const Profile = ({ history }) => {
         err => {
           console.log(err)
         }
-      )
-    }
-  }, [value.isLogin, userKind])
+        )
+      }
+    }, [value.isLogin, userKind, imgupdate])
 
   // 회원 탈퇴
   const removeUser = () => {
@@ -88,10 +104,84 @@ const Profile = ({ history }) => {
     }
   }
 
-  return (
-    <div className="profile__div">
+  // 프로필 사진 업데이트
+  const uploadImg = (e) => {
+    e.preventDefault()
+    const file = e.target.files[0]
+    setFiles(file)
+  }
+
+  // 프로필 사진 업로드
+  const submitImg = (e) => {
+    e.preventDefault()
+    if (files) {
+      const formData = new FormData()
+      formData.append("images", files, files.name)
+      formData.append("email", isLogin)
+  
+      if (imgUrl) {
+        ImgApi.updateUserImg(
+          formData,
+          res => {
+            alert('프로필 사진이 수정 되었습니다.')
+            setImgupdate(!imgupdate)
+          }, err => {
+            console.log(err.response)
+          }
+        )
+      } else {
+        ImgApi.uploadUserImg(
+          formData,
+          res => {
+            alert('프로필 사진이 업로드 되었습니다.')
+            setImgupdate(!imgupdate)
+          },
+          err => {
+            console.log(err.response)
+          }
+          )
+        }
+      } else {
+        alert("파일을 등록해주세요.")
+      }
+    }
+    
+    // 프로필 사진 업로드 보여주기
+    const showUpload = () => {
+      const select = document.querySelector('.profile_img_update')
+      if (select.style.display === "block") {
+        select.style.display = "none"
+      } else {
+        select.style.display = "block"
+      }
+    }
+    
+    // 프로필 사진 삭제
+    const deleteImg = () => {
+      ImgApi.deleteUserImg(
+        {email: isLogin},
+        res => {
+          alert("프로필 이미지가 삭제되었습니다.")
+          setImgupdate(!imgupdate)
+          setImgUrl(null)
+        },
+        err => {
+          console.log(err)
+        }
+        )
+      }
+      
+      return (
+        <div className="profile__div">
       <div className="user__profile">
-        <img src="/images/KOW.png" alt="profile" />
+        {imgUrl?<img src={imgUrl} alt="profile" onClick={showUpload} />:<img onClick={showUpload} src="/images/profile.png"/>}
+        <div className="profile_img_update">
+          <form name="img" encType="multipart/form-data" onSubmit={submitImg}>
+            <input onChange={uploadImg} type="file" id="profile_img" className="img_upload" accept="image/*" />
+            <button>업로드</button>
+          </form>
+          <button onClick={deleteImg}>삭제</button>
+        </div>
         <p id="nickname">{userData.nickname}</p>
         <p id="email">{userData.email}</p>
         <p id="email">{userData.phone}</p>
