@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RegisterBusinessValidation from 'components/user/business/register/RegisterBusinessValidation';
 import './RegisterBusiness.css';
 import UserApi from 'api/UserApi';
+import ImgApi from 'api/ImgApi';
 
 function RegisterBusiness({history}) {
   // State ***************************************************************
@@ -109,31 +110,44 @@ function RegisterBusiness({history}) {
 
   // JHW - 회원가입 버튼 클릭
   const onRegister = () => {
-    const formData = new FormData();
-    
+    let birth = ""
     if (values.birthDay.length === 1) {
-      formData.append('birth', values.birthYear + values.birthMonth + "0" + values.birthDay);
-    } else { formData.append('birth', values.birthYear + values.birthMonth + values.birthDay); }
-    formData.append('email', values.email);
-    formData.append('name', values.name);
-    formData.append('password', values.password);
-    formData.append('phone', values.phoneNumber);
-    formData.append('businessRegistration', values.file);
-    formData.append('bank', values.bank);
-    formData.append('account', values.account);
-
-
+      const birth_ = values.birthYear + values.birthMonth + "0" + values.birthDay
+      birth = birth_
+    } else {
+      const birth_ = values.birthYear + values.birthMonth + values.birthDay
+      birth = birth_
+    }
+    const data = {
+      email: values.email,
+      name: values.name,
+      password: values.password,
+      phone: values.phoneNumber,
+      bank: values.bank,
+      account: values.account,
+      birth,
+    }
+    
+    const ImgData = new FormData()
+    ImgData.append("email", values.email)
+    ImgData.append("images", values.file, values.file.name)
+    
     UserApi.requestBusinessJoin(
-      formData,
-      {
-        'content-type': 'multipart/form-data',
-      }, 
+      data,
       res => {
-        alert("회원가입이 완료되었습니다!")
-        history.push("/accounts/login")
+        ImgApi.uploadRegImg(
+          ImgData,
+          res => {
+            alert("회원가입이 완료되었습니다!")
+            history.push("/accounts/login")
+          },
+          err => {
+            console.log(err)
+          }
+        )
       },
       err => {
-        console.log(err)
+        console.log(err.response)
       }
     );    
   }; // onRegister End
