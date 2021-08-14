@@ -140,8 +140,8 @@ public class GameController {
 
     @PostMapping("/gameresult")
     @ApiOperation(value = "게임 결과 반영", notes = "끝난 경기의 결과를 반영합니다.")
-    public ResponseEntity<GameResultResponse> completeGame(@RequestBody Long gameId) {
-        GameResultResponse response = gameService.completeGame(gameId);
+    public ResponseEntity<GameResultResponse> completeGame(@RequestBody Map<String,Long> requestBody) {
+        GameResultResponse response = gameService.completeGame(requestBody.get("gameId"));
         if (response == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.OK).body(response);
