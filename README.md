@@ -19,7 +19,7 @@
   - AWS EC2를 통해 DB, Frontend, Backend 배포
   - BITZ 배포 (클라우드 서버 ver) - 경기장 등록, 픽업 게임 등록(백엔드), 일반 사용자/비즈니스 사용자 프로필 출력(백엔드)
 
-:white_large_square: ver_0.3_2021.08.13 **(현재 배포 버전)**
+:white_check_mark: ver_0.3_2021.08.13 **(현재 배포 버전)**
   - AWS S3 구축
   - 경기장 CRUD / 게임 CRUD
   - 일반/관리자 계정 관련 추가 기능
