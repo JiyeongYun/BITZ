@@ -31,7 +31,7 @@ public class BusinessController {
 
     @PostMapping("/businessauth")
     @ApiOperation(value = "회원가입", notes = "회원의 정보를 DB에 저장합니다.")
-    public ResponseEntity<BusinessAuthResponse> createBusiness(@ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws IOException {
+    public ResponseEntity<BusinessAuthResponse> createBusiness(@RequestBody @ApiParam(value = "회원 정보") BusinessAuthRequest businessAuthRequest) throws IOException {
         businessService.createBusiness(businessAuthRequest);
         return new ResponseEntity(HttpStatus.CREATED);
     }
