@@ -29,9 +29,11 @@ public class GymController {
 
     @PostMapping("/gym")
     @ApiOperation(value = "체육관 등록", notes = "체육관의 정보를 DB에 저장합니다.")
-    public ResponseEntity<GymResponse> createGym(@RequestBody @ApiParam(value = "체육관 정보") GymRequest gymRequest) {
-        gymService.createGym(gymRequest);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<Long> createGym(@RequestBody @ApiParam(value = "체육관 정보") GymRequest gymRequest) {
+        Gym gym = gymService.createGym(gymRequest);
+        if(gym == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.CREATED).body(gym.getId());
     }
 
     @GetMapping("/gymlist")
