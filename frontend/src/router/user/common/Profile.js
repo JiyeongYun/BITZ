@@ -63,9 +63,19 @@ const Profile = ({ history }) => {
         err => {
           console.log(err)
         }
-        )
-      }
-    }, [value.isLogin, userKind, imgupdate])
+      )
+      ImgApi.getBusImg(
+        params,
+        res => {
+          const url = window.URL.createObjectURL(new Blob([res.data]))
+          setImgUrl(url)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+  }, [value.isLogin, userKind, imgupdate])
 
   // 회원 탈퇴
   const removeUser = () => {
@@ -120,31 +130,54 @@ const Profile = ({ history }) => {
       formData.append("email", isLogin)
   
       if (imgUrl) {
-        ImgApi.updateUserImg(
-          formData,
-          res => {
-            alert('프로필 사진이 수정 되었습니다.')
-            setImgupdate(!imgupdate)
-          }, err => {
-            console.log(err.response)
-          }
-        )
-      } else {
-        ImgApi.uploadUserImg(
-          formData,
-          res => {
-            alert('프로필 사진이 업로드 되었습니다.')
-            setImgupdate(!imgupdate)
-          },
-          err => {
-            console.log(err.response)
-          }
+        if (userKind==="player") {
+          ImgApi.updateUserImg(
+            formData,
+            res => {
+              alert('프로필 사진이 수정 되었습니다.')
+              setImgupdate(!imgupdate)
+            }, err => {
+              console.log(err.response)
+            }
+          )
+        } else if (userKind === "business") {
+          ImgApi.updateBusImg(
+            formData,
+            res => {
+              alert('프로필 사진이 수정 되었습니다.')
+              setImgupdate(!imgupdate)
+            }, err => {
+              console.log(err.response)
+            }
           )
         }
       } else {
-        alert("파일을 등록해주세요.")
+        if (userKind==="player") {
+          ImgApi.uploadUserImg(
+            formData,
+            res => {
+              alert('프로필 사진이 업로드 되었습니다.')
+              setImgupdate(!imgupdate)
+            }, err => {
+              console.log(err.response)
+            }
+          )
+        } else if (userKind === "business") {
+          ImgApi.uploadBusImg(
+            formData,
+            res => {
+              alert('프로필 사진이 업로드 되었습니다.')
+              setImgupdate(!imgupdate)
+            }, err => {
+              console.log(err.response)
+            }
+          )
+        }
       }
+    } else {
+       alert("파일을 등록해주세요.")
     }
+  }
     
     // 프로필 사진 업로드 보여주기
     const showUpload = () => {
@@ -158,18 +191,32 @@ const Profile = ({ history }) => {
     
     // 프로필 사진 삭제
     const deleteImg = () => {
-      ImgApi.deleteUserImg(
-        {email: isLogin},
-        res => {
-          alert("프로필 이미지가 삭제되었습니다.")
-          setImgupdate(!imgupdate)
-          setImgUrl(null)
-        },
-        err => {
-          console.log(err)
-        }
+      if (userKind === 'player') {
+        ImgApi.deleteUserImg(
+          {email: isLogin},
+          res => {
+            alert("프로필 이미지가 삭제되었습니다.")
+            setImgupdate(!imgupdate)
+            setImgUrl(null)
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      } else if (userKind === 'business') {
+        ImgApi.deleteBusImg(
+          {email: isLogin},
+          res => {
+            alert("프로필 이미지가 삭제되었습니다.")
+            setImgupdate(!imgupdate)
+            setImgUrl(null)
+          },
+          err => {
+            console.log(err)
+          }
         )
       }
+    }
       
       return (
         <div className="profile__div">
