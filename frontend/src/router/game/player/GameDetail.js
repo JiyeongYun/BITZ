@@ -11,9 +11,13 @@ import GameApi from 'api/GameApi';
 import UserApi from 'api/UserApi';
 import { store } from 'store/store';
 import GameDetail__Business from 'components/game/business/GameDetail__Business';
+import ImgApi from 'api/ImgApi';
 
 const GameDetail = ({ match, location }) => {
-  // PJW - GameData Fetch (현재 백엔드, DB 작업이 진행 중이라 임시로 DummyData 사용)
+  // KOW - 체육관 사진 url 담을 State
+  const [imgUrl, setImgUrl] = useState("")
+
+  
   // PJW - 시간에 따른 컴포넌트 구성 변경
   const gameStoreData = useContext(gameStore);
   const globalState = useContext(store);
@@ -23,6 +27,23 @@ const GameDetail = ({ match, location }) => {
   // 체육관 소유주의 비즈니스 계정인지 확인
   const isBusiness = (location.state && aboutGame.gameInfo.gym.businessAuth.email===value.isLogin)? location.state.isBusiness : false
   
+  // KOW - 체육관 사진을 가져오는 함수
+  useEffect(() => {
+    const params = {
+      gymId: aboutGame.gameInfo.gym.id,
+    }
+    ImgApi.getGymImg(
+      params,
+      res => {
+        const url = window.URL.createObjectURL(new Blob([res.data]))
+        setImgUrl(url)
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }, [aboutGame])
+ 
   useEffect(()=>{
     GameApi.requsetGame(params,
       res => {
@@ -61,7 +82,7 @@ const GameDetail = ({ match, location }) => {
       <div className="detail__top">
         {aboutGame.gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
-          <img src={'/images/basketball__court.jpg'} alt="gym" />
+          <img src={imgUrl} alt="gym" />
         </div>
       </div>
       {/* 예약 페이지 */}

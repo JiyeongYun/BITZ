@@ -21,23 +21,35 @@ const GymInfo = ({ isBusiness }) => {
   useEffect(() => {
     if (!water) {
       document.querySelector('#water').classList.add('no')
+    } else {
+      document.querySelector('#water').classList.remove('no')
     }
     if (!shower) {
       document.querySelector('#shower').classList.add('no');
+    } else {
+      document.querySelector('#shower').classList.remove('no')
     }
     if (!scoreboard) {
       document.querySelector('#scoreboard').classList.add('no');
+    } else {
+      document.querySelector('#scoreboard').classList.remove('no')
     }
     if (!parking) {
       document.querySelector('#parking').classList.add('no');
+    } else {
+      document.querySelector('#parking').classList.remove('no')
     }
     if (!basketball) {
       document.querySelector('#basketball').classList.add('no');
+    } else {
+      document.querySelector('#basketball').classList.remove('no')
     }
     if (!airconditional) {
       document.querySelector('#airconditioner').classList.add('no');
+    } else {
+      document.querySelector('#airconditioner').classList.remove('no')
     }
-  });
+  }, [gameStoreData]);
 
   const reserveGame = () => {
     console.log({

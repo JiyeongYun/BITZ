@@ -13,16 +13,10 @@ const GameInfo = () => {
   time.setTime(aboutGame.gameInfo.date)
   const day = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
 
-  // 체육관 정보
-  const gymInfo = {
-    name: "역삼 싸피 체육관",
-    address: "서울시 강남구 역삼동 테헤란로 212"
-  }
-
   // 복사
   const copyAddress = () => {
     const textarea = document.createElement("textarea")
-    textarea.value = gymInfo.address
+    textarea.value = aboutGame.gameInfo.gym.sido + " " + aboutGame.gameInfo.gym.gugun + " " + aboutGame.gameInfo.gym.address
     document.body.appendChild(textarea)
     textarea.select()
     document.execCommand("copy")
