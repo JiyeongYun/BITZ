@@ -6,12 +6,12 @@ const initialState = {
   gameInfo: {
     startTime: "00:00:00",
     endTime: "00:00:00",
-    // 0: 예약 페이지, 1: 게임 1시간 전 팀 정보 페이지, 2: 게임 시작 중, 3: 게임 종료(1시간 동안 기록 가능), 4: 게임 종료(Data Fix)
     gym: {
       businessAuth: {},
     },
     date: 10000000000000,
   },
+  // 0: 예약 페이지, 1: 게임 1시간 전 팀 정보 페이지, 2: 게임 시작 중, 3: 게임 종료(1시간 동안 기록 가능), 4: 게임 종료(Data Fix)
   gameState: 0,
   // 참가자
   gameParticipantList: [],
