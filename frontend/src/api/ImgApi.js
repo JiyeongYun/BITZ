@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
-const BASE_URL = 'http://127.0.0.1:8080'
+const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
+// const BASE_URL = 'http://127.0.0.1:8080'
  
 // KOW - 사용자 프로필 이미지 저장
 const uploadUserImg = (data, callback, errorCallback) => {
