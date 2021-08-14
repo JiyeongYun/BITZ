@@ -184,24 +184,6 @@
   cursor: pointer;
 }
 
-.gym__container > .registerGymForm__div > .gympicture__box > .gympictures {
-  display: flex;
-  flex-wrap: wrap;
-  width: 400px;
-  gap: var(--main-margin-size);
-}
-
-.gym__container > .registerGymForm__div > .gympicture__box > .gympictures > .gympicture {
-  width: 100px;
-  height: 70px;
-  border: 1px dashed rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--grey-color);
-}
-
 .gym__container > .registerGymForm__div > button {
   display: block;
   width: 200px;

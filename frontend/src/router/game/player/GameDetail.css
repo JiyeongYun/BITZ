@@ -20,8 +20,8 @@
 .detail__top > .gympicture > img {
   width: 600px;
   height: 400px;
-  object-fit: cover;
-  object-position: bottom;
+  object-fit: contain;
+  object-position: right top;
 }
 
 @media screen and (max-width: 1024px) {
