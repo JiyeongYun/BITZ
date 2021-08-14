@@ -40,12 +40,11 @@ const requestJoin = (data, callback, errorCallback) => {
 }; // requestJoin End
 
 // JHW - 비즈니스 회원가입 axios 요청
-const requestBusinessJoin = (data, headers, callback, errorCallback) => {
+const requestBusinessJoin = (data, callback, errorCallback) => {
   axios({
     method: 'post',
     url: BASE_URL + '/account/business/businessauth',
     data: data,
-    headers: headers,
   })
     .then(callback)
     .catch(errorCallback);
