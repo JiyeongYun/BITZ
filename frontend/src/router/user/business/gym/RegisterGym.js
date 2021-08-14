@@ -4,6 +4,7 @@ import './RegisterGym.css';
 import { useHistory  } from 'react-router-dom';
 import { store } from 'store/store.js';
 import { locations } from 'store/location.js'
+import ImgApi from 'api/ImgApi';
 
 //  비즈니스 유저가 체육관 등록하는 페이지
 const RegisterGym = () => {
@@ -32,8 +33,7 @@ const RegisterGym = () => {
   const [gugun, setGugun] = useState(null)
   
   const onAddGymPhoto = (event) => {
-    const newPictures = pictures;
-    setPictures(newPictures.push(event.target.files[0]));
+    setPictures(event.target.files[0]);
   };
 
   // 체육관 시설 클릭 시 css를 변경해주는 함수
@@ -94,22 +94,6 @@ const RegisterGym = () => {
 
   // '체육관 등록' 버튼을 누르면 체육관 정보를 백엔드로 보내는 함수
   const registerGym = () => {
-    // // 파일 데이터 보낼 때 다시 생각하기
-    // const formData = new FormData();
-    // formData.append('address', address);
-    // formData.append('airconditional', airconditioner);
-    // formData.append('businessEmail', value.isLogin);
-    // formData.append('basketball', basketball);
-    // formData.append('courtLength', courtLength);
-    // formData.append('courtWidth', courtWidth);
-    // formData.append('gugun', "마포구");
-    // formData.append('name', gymName);
-    // // formData.append('desc', desc);
-    // formData.append('parking', parking);
-    // formData.append('scoreboard', scoreboard);
-    // formData.append('shower', shower);
-    // formData.append('sido', "서울시");
-    // formData.append('water', water);
     
     const formData = {
       address,
@@ -128,15 +112,24 @@ const RegisterGym = () => {
       intro,
       notice,
     }
+
+    const imgData = new FormData()
+    imgData.append('images', pictures, pictures.name)
     
     GymApi.requestGymRegister(
       formData,
-      {
-        'content-type': 'multipart/form-data',
-      }, 
       res => {
-        alert("체육관이 등록되었습니다!")
-        history.push("/")
+        imgData.append("gymId", res.data)
+        ImgApi.uploadGymImg(
+          imgData,
+          res => {
+            alert("체육관이 등록되었습니다!")
+            history.push("/")
+          },
+          err => {
+            console.log(err)
+          }
+        )
       },
       err => {
         console.log('에러발생', err)
@@ -240,17 +233,7 @@ const RegisterGym = () => {
           </div>
           <div className="gympicture__box">
             <h4>체육관 사진</h4>
-            <div className="gympictures">
-              <div className="gympicture" >
-                <label
-                  className="gympictures__button"
-                  htmlFor="real-upload"
-                >
-                  <p>+</p>
-                </label>
-                <input type="file" id="real-upload" className="upload-hidden" accept="image/*" onChange={onAddGymPhoto} />
-              </div>
-            </div>
+            <input type="file" accept="image/*" onChange={onAddGymPhoto} />
           </div>
           <button className="registergym__btn" onClick={registerGym}>체육관 등록</button>
         </div>

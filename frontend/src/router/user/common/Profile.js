@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
 import UserApi from 'api/UserApi';
 import ImgApi from 'api/ImgApi';
-import userEvent from '@testing-library/user-event';
 
 const Profile = ({ history }) => {
   // 전역 상태 관리 (store)
