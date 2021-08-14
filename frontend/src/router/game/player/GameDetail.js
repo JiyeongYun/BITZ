@@ -24,8 +24,12 @@ const GameDetail = ({ match, location }) => {
   const { value } = globalState;
   const { aboutGame, gameDispatch } = gameStoreData;
   const { params } = match
-  // 체육관 소유주의 비즈니스 계정인지 확인
+
+  // State
+  // (1) 체육관 소유주의 비즈니스 계정인지 확인 => Gyminfo의 예약 버튼 삭제 & GameDetail_Business 컴포넌트 접근 여부
   const isBusiness = (location.state && aboutGame.gameInfo.gym.businessAuth.email===value.isLogin)? location.state.isBusiness : false
+  // (2) 게임 시작 이후 참가자가 아니면 접근 제한
+  const [isParticipant, setIsParticipant] = useState(false)
   
   // KOW - 체육관 사진을 가져오는 함수
   useEffect(() => {
@@ -44,20 +48,26 @@ const GameDetail = ({ match, location }) => {
     )
   }, [aboutGame])
  
+
+  // useEffect
   useEffect(()=>{
+    // (1) 현재 게임 상태 업데이트
+    // 0: 예약 페이지, 1: 게임 1시간 전 팀 정보 페이지, 2: 게임 시작 중, 3: 게임 종료(1시간 동안 기록 가능), 4: 게임 종료(Data Fix)
+    gameDispatch({ type: "UPDATE_GAME_STATE"})
+
+    // (2) Game 관련 정보 저장
     GameApi.requsetGame(params,
       res => {
-        // 해당 날짜에 게임 리스트를 data에 담음
+        // aboutGame 업데이트
         gameDispatch({ type: "FETCH_GAME_DATA", value: res.data })
       },
       err => console.log(err)
       )
-    },[gameDispatch])
-    // 픽업 게임 상세 내역 보여주는 컴포넌트
+    },[gameDispatch, params])
     
-  const [isParticipant, setIsParticipant] = useState(false) // 게임 시작 이후 참가자가 아니면 접근 제한
-  
+  // (3) Game 참감자 세부 정보 저장
   useEffect(()=>{
+    // forEach문으로 한 명씩 세부 데이터 저장
     aboutGame.gameParticipantList.forEach((member, idx)=>{
       UserApi.myprofile({email: member.userAuth.email},
         (res) => {
@@ -67,15 +77,13 @@ const GameDetail = ({ match, location }) => {
           console.log(error)
         })
 
+        // (4) 로그인한 플레이어 유저가 참여자 중 한 명이라면 세부 데이터 접근 허용
         if (member.userAuth.email===value.isLogin && value.userKind === 'player') {
           setIsParticipant(true)
         }
       })
-    },[aboutGame.gameParticipantList])
-
-  useEffect(()=>{
-    gameDispatch({ type: "UPDATE_GAME_STATE"})
-  },[aboutGame.gameInfo])
+    },[gameDispatch, aboutGame.gameParticipantList])
+    
   
   return (
     <div className="gameDetail">

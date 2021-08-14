@@ -6,6 +6,7 @@ import { gameStore } from 'store/gameStore';
 const GameRecord = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
+  
   return (
     <div className="gameRecord">
       <div>
