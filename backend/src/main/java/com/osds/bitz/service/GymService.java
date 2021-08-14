@@ -33,7 +33,7 @@ public class GymService {
     /**
      * 체육관 등록
      */
-    public void createGym(GymRequest gymRequest) {
+    public Gym createGym(GymRequest gymRequest) {
 
         // 관리자 이메일을 통해 businessAuth 객체를 받아온다.
         BusinessAuth businessAuth = this.businessAuthRepository.getBusinessAuthByEmail(gymRequest.getBusinessEmail());
@@ -59,7 +59,7 @@ public class GymService {
         if (businessService.readLoginLog(businessAuth.getEmail()))
             createLoginlog(businessAuth.getEmail());
 
-        this.gymRepository.save(gym);
+        return this.gymRepository.save(gym);
     }
 
     /**
