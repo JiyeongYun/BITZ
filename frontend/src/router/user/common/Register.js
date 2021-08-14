@@ -45,7 +45,7 @@ function Register(props) {
       <stateSubmitContext.Provider value={stateSubmit}>
         <div className="register__container">
           <p>농구에 미치고 싶다면?</p>
-          <p><img src="/images/logo.png" alt="logo" />에 <span>가입</span>하라!</p>
+          <p>지금 바로 BITZ에 가입하세요!</p>
           <br/>
           <br/>
           <div className="register__userKind">

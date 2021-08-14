@@ -76,7 +76,8 @@ function Login({ history }) {
 
   return (
     <div className="loginForm">
-      <img className="login__logo" src="/images/logo.png" alt="logo" />
+      <p>농구에 미치고 싶다면?</p>
+      <p>지금 바로 BITZ에 <strong>로그인</strong>하세요!</p>
       <form onSubmit={onSubmit}>
         {/* radio 버튼은 부트스트랩 필요할 듯 */}
         <div className="userKind">
