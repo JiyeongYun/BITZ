@@ -58,10 +58,6 @@ const GameDetail = ({ match, location }) => {
   
   return (
     <div className="gameDetail">
-      <button onClick={()=>{GameApi.saveGameResult(parseInt(aboutGame.gameInfo.id),
-    res=>console.log(res.data),
-    err=>console.log(err)
-    )}}>zz</button>
       <div className="detail__top">
         {aboutGame.gameState===0?<GameInfo />:<GameInfo2 />}
         <div className="gympicture">
