@@ -16,6 +16,15 @@ function GameDetail__Business () {
     ON_DEPOSIT : "입금중"
   }
 
+  // 미리보기 - 인원관리
+  const [manageMode, setManageMode] = useState(true)
+  const switchManageMode = () => {
+    setManageMode(true)
+  }
+  const switchPreviewMode = () => {
+    setManageMode(false)
+  }
+
   // PJW - 입금 확인 버튼
   const ConfirmReservation = (event) => {
     const data = {
@@ -48,6 +57,7 @@ function GameDetail__Business () {
     )
   }
 
+  // PJW - 업데이트 한 정보를 다시 받아오는 콜백 함수 (최신화)
   const RenewData = () => {
     GameApi.requsetGame({gameId},
       res => {
@@ -56,15 +66,6 @@ function GameDetail__Business () {
       },
       err => console.log(err)
     )
-  }
-
-  // 미리보기 - 인원관리
-  const [manageMode, setManageMode] = useState(true)
-  const switchManageMode = () => {
-    setManageMode(true)
-  }
-  const switchPreviewMode = () => {
-    setManageMode(false)
   }
     
   return (

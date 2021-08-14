@@ -7,25 +7,25 @@ import GameApi from 'api/GameApi.js';
 const GameRecord__Table = ({ team1, team2, game }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame, gameDispatch } = gameStoreData;
-  // 모달 창 display 여부
+
+  // State
+  // (1) - 모달 창 display 여부
   const [showInput, setShowInput] = useState(false)
-  // indexing을 위한 naming
+  // (2) - indexing을 위한 naming
   const team1_score = game+'_team1_score'
   const team2_score = game+'_team2_score'
   const recorder = game+'_recorder'
-  // 쿼터 데이터
+  // (3) - 쿼터 데이터
   const [quarters, setQuaters] = useState([])
+
+  // useEffect
   useEffect(()=>{
+    // (1) - 쿼터 데이터 세팅
     setQuaters([...Array(aboutGame.gameData[recorder].length).keys()].map(key => key))
-  },[aboutGame])
-
-  // 입력 버튼 클릭
-  // 동시 입력 처리 필요
-  const addRecord = ()=>{
-    setShowInput(true)
-  }
+  },[aboutGame.gameData])
 
   useEffect(()=>{
+    // (2) 게임 정보 조회 API
     GameApi.getGameRecord({gameId: aboutGame.gameInfo.id},
       (res)=>{
         const data = {
@@ -45,6 +45,12 @@ const GameRecord__Table = ({ team1, team2, game }) => {
       (err)=>console.log(err)
       )
   },[aboutGame.gameInfo.id])
+
+  // 입력 버튼 클릭
+  // (백에서 동시 입력으로 인한 중복 저장이 불가능하게 처리 필요)
+  const addRecord = ()=>{
+    setShowInput(true)
+  }
 
   return (
     <div className="gameRecord__table">

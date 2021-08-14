@@ -38,12 +38,15 @@ const GymInfo = ({ isBusiness }) => {
       document.querySelector('#airconditioner').classList.add('no');
     }
   });
+  
+  // PJW - 예약 완료 여부 확인
+  const [isFull, setIsFull] = useState(false)
+  useEffect(()=>{
+    setIsFull(aboutGame.gameParticipantList.length === aboutGame.gameInfo.maxPeople)
+  },[aboutGame.gameParticipantList, aboutGame.gameInfo])
 
+  // PJW - 예약하기 버튼 클릭
   const reserveGame = () => {
-    console.log({
-      "userEmail": isLogin,
-      "gameId": params.gameId
-      })
     GameApi.reserveGame({
       "userEmail": isLogin,
       "gameId": params.gameId
@@ -54,12 +57,6 @@ const GymInfo = ({ isBusiness }) => {
       (error)=>{console.log(error)}
     )
   }
-
-  // PJW - 예약 완료 여부 확인
-  const [isFull, setIsFull] = useState(false)
-  useEffect(()=>{
-    setIsFull(aboutGame.gameParticipantList.length === aboutGame.gameInfo.maxPeople)
-  },[aboutGame.gameParticipantList, aboutGame.gameInfo])
 
   // PJW - 로그인 없이 예약하기 버튼을 눌렀음
   const needLogin = () => {

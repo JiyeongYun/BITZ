@@ -7,17 +7,18 @@ import GameApi from 'api/GameApi';
 const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame, gameDispatch } = gameStoreData;
+  const globalState = useContext(store);
+  const { value } = globalState;
 
   // A, B, C로 props 되는 team name을 1,2,3으로 변환
   const teamNameTranslater = {"A": 1, "B": 2, "C": 3}
-
-  const globalState = useContext(store);
-  const { value } = globalState;
+  
   // 이 컴포넌트가 어떤 게임의 입력창인지 지정
   const team1_score = game+'_team1_score'
   const team2_score = game+'_team2_score'
   const recorder = game+'_recorder'
-  // States
+
+  // State
   const [scores, setScores] = useState({
     team1_score: '',
     team2_score: '',
