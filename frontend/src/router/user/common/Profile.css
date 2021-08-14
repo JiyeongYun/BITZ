@@ -5,16 +5,38 @@
   align-items: center;
 }
 
+.profile__div > .user__profile > .profile_img_update {
+  display: none;
+}
+
+.profile__div > .user__profile > .profile_img_update > form >.img_upload {
+  
+}
+
+.profile__div > .user__profile > .profile_img_update > form > button {
+  margin-left: var(--small-margin-size);
+  cursor: pointer;
+  font-size: var(--main-font-size);
+  border: none;
+  padding: 2px 4px;
+  height: var(--btn-height);
+  border-radius: 5px;
+  background-color: var(--main-color);
+  color: white;
+}
+
 .user__profile {
   text-align: center;
 }
 
 .user__profile > img {
   width: 100px;
+  height: 100px;
   border: 1px solid black;
   border-radius: 50%;
   object-fit: scale-down;
   object-position: center;
+  cursor: pointer;
 }
 
 .user__profile > #nickname {
