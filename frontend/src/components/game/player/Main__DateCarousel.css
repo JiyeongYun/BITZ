@@ -33,11 +33,11 @@
 }
 
 .day_red {
-  color: red;
+  color: var(--red);
 }
 
 .day_blue {
-  color: blue;
+  color: var(--blue);
 }
 
 .day_select {
@@ -60,6 +60,7 @@
   left: 7vw;
   width: 1.5vw;
 }
+
 .carouselArrow:hover {
   z-index: 1;
   cursor: pointer;

@@ -19,11 +19,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px
+  height: 100px;
+  gap: var(--main-margin-size);
 }
 .gameList__game__Time {
   font-size: var(--mid-font-size);
-  padding: var(--main-margin-size);
 }
 
 .gameList__game__Time > .gameList__start {
@@ -103,9 +103,8 @@
   }
   
   .gameList__game__name {
-    font-size: var(--main-font-size);
-    font-weight: bold;
-    margin-bottom: var(--small-margin-size);
+    font-size: var(--small-font-size);
+    margin-bottom: 5px;
   }
   
   .gameList__game__info > .gameList__game__location > span {
@@ -118,10 +117,7 @@
   
   .gameList__state__button {
     display: inline-block;
-    width: 30px;
-    height: 60px;
-    line-height: 25px;
-    padding: 0 1px;
+    width: 70px;
     font-size: var(--small-font-size);
   }
   .gameList__state__button {
