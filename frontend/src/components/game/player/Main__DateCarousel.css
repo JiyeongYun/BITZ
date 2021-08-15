@@ -42,7 +42,17 @@
 
 .day_select {
   color: var(--main-color);
-  transform: scale(1.5);
+}
+
+.day_select::after {
+  position: absolute;
+  top: 30px;
+  transform: translate( -50%, 0);
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: var(--main-color);
+  border-radius: 50%;
 }
 
 .carouselArrow {
@@ -74,10 +84,15 @@
     margin-right: 0;
   }
   
+  .day_select::after {
+    top: 5px;
+    transform: none;
+  }
+  
   .main__dateCarousel__element {
     font-size: var(--small-font-size);
   }
-
+  
   .carouselArrow__left {
     left: 0;
   }

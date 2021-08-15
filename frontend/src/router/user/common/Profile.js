@@ -42,7 +42,7 @@ const Profile = ({ history }) => {
           setUserData(res.data)
         },
         err => {
-          console.log(err)
+          console.log(err.response)
         }
       )
       ImgApi.getUserImg(
