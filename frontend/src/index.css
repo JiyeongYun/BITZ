@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 a {
@@ -22,25 +23,26 @@ body {
 
 :root {
     /* 색상 정보 */
-    --main-color: #1CB468;
-    --dark-orange: #f28a2e;
-    --grey-color: #f8f8f8;
-    --dark-blue: #0a1840;
+    --main-color: #00AB55;
+    --orange: #FF7A00;
+    --red: #FF4842;
+    --yellow: #FFC107;
+    --blue: #1890FF;
 
     /* 폰트 사이트 */
-    --small-font-size: 10px;
-    --main-font-size: 12px;
-    --mid-font-size: 14px;
+    --small-font-size: 12px;
+    --main-font-size: 14px;
+    --mid-font-size: 16px;
     --large-font-size: 18px;
-    --xlarge-font-size: 24px;
-    --xxlarge-font-size: 36px;
+    --xlarge-font-size: 21px;
+    --xxlarge-font-size: 24px;
 
     /* margin, padding */
-    --small-margin-size: 6px;
-    --main-margin-size: 12px;
-    --mid-margin-size: 24px;
-    --large-margin-size: 30px;
-    --xlarge-margin-size: 54px;
+    --small-margin-size: 12px;
+    --main-margin-size: 16px;
+    --mid-margin-size: 21px;
+    --large-margin-size: 36px;
+    --xlarge-margin-size: 48px;
 
     /* 버튼 크기 */
     --btn-height: 30px;
