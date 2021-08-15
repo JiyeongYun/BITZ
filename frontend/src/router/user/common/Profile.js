@@ -18,8 +18,11 @@ const Profile = ({ history }) => {
   // 유저 정보가 담긴 State
   const [userData, setUserData] = useState({email: "", birth: ""})
   const [imgUrl, setImgUrl] = useState(null)
+  const [regUrl, setRegUrl] = useState(null)
   const [files, setFiles] = useState(null)
+  const [regFiles, setRegFiles] = useState("")
   const [imgupdate, setImgupdate] = useState(true)
+  const [updateReg, setUpdateReg] = useState(true)
 
   const onLogout = () => {
     localStorage.removeItem("currentUser")
@@ -178,47 +181,89 @@ const Profile = ({ history }) => {
     }
   }
     
-    // 프로필 사진 업로드 보여주기
-    const showUpload = () => {
-      const select = document.querySelector('.profile_img_update')
-      if (select.style.display === "block") {
-        select.style.display = "none"
-      } else {
-        select.style.display = "block"
-      }
+  // 프로필 사진 업로드 보여주기
+  const showUpload = () => {
+    const select = document.querySelector('.profile_img_update')
+    if (select.style.display === "block") {
+      select.style.display = "none"
+    } else {
+      select.style.display = "block"
     }
-    
-    // 프로필 사진 삭제
-    const deleteImg = () => {
-      if (userKind === 'player') {
-        ImgApi.deleteUserImg(
-          {email: isLogin},
-          res => {
-            alert("프로필 이미지가 삭제되었습니다.")
-            setImgupdate(!imgupdate)
-            setImgUrl(null)
-          },
-          err => {
-            console.log(err)
-          }
-        )
-      } else if (userKind === 'business') {
-        ImgApi.deleteBusImg(
-          {email: isLogin},
-          res => {
-            alert("프로필 이미지가 삭제되었습니다.")
-            setImgupdate(!imgupdate)
-            setImgUrl(null)
-          },
-          err => {
-            console.log(err)
-          }
-        )
-      }
+  }
+  
+  // 프로필 사진 삭제
+  const deleteImg = () => {
+    if (userKind === 'player') {
+      ImgApi.deleteUserImg(
+        {email: isLogin},
+        res => {
+          alert("프로필 이미지가 삭제되었습니다.")
+          setImgupdate(!imgupdate)
+          setImgUrl(null)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    } else if (userKind === 'business') {
+      ImgApi.deleteBusImg(
+        {email: isLogin},
+        res => {
+          alert("프로필 이미지가 삭제되었습니다.")
+          setImgupdate(!imgupdate)
+          setImgUrl(null)
+        },
+        err => {
+          console.log(err)
+        }
+      )
     }
+  }
+
+  // 사업자 등록증 가져오기
+  useEffect(() => {
+    ImgApi.getRegImg(
+      {email: isLogin},
+      res => {
+        const url = window.URL.createObjectURL(new Blob([res.data]))
+        setRegUrl(url)
+      },
+      err => console.log(err)
+    )
+  }, [updateReg])
+
+  // 사업자 등록증 수정
+  const updateRegImg = () => {
+    if (regFiles) {
+      const formData = new FormData()
+      formData.append("images", regFiles, regFiles.name)
+      formData.append("email", isLogin)
+
+      ImgApi.updateRegImg(
+        formData,
+        res => {
+          alert("사업자 등록증이 수정되었습니다.")
+          setUpdateReg(!updateReg)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    } else alert("파일을 등록해주세요.")
+  }
+
+  // 사업자 등록증 파일 onChange
+  const uploadReg = (e) => {
+    setRegFiles(e.target.files[0])
+  }
+
+  // 사업자 등록증 삭제
+  const deleteRegImg = () => {
+
+  }
       
-      return (
-        <div className="profile__div">
+  return (
+    <div className="profile__div">
       <div className="user__profile">
         {imgUrl?<img src={imgUrl} alt="profile" onClick={showUpload} />:<img onClick={showUpload} src="/images/profile.png"/>}
         <div className="profile_img_update">
@@ -248,6 +293,14 @@ const Profile = ({ history }) => {
             <p>계좌 번호 : {userData.account}</p>
           </div>
           <MyGym gyminfo={userData.gymProfile}/>
+          <div classNmae="business_registration">
+            <img src={regUrl} alt="registration_img" />
+            <div>
+              <input type="file" accept="image/*" onChange={uploadReg} />
+              <button onClick={updateRegImg}>수정</button>
+              <button onClick={deleteRegImg}>삭제</button>
+            </div>
+          </div>
         </>
       )}
       {/* <hr/> */}
