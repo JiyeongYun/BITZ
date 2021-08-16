@@ -1,36 +1,41 @@
 .game_register_container {
     margin: 0 auto;
-    width: 600px;
+    width: 50vw;
     font-size: var(--main-font-size);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: var(--large-margin-size);
-    margin-bottom: var(--xlarge-margin-size);
+    margin: var(--xlarge-margin-size) auto;
 }
 
 .game_register_container > h1 {
-    text-align: center;
+    text-align: start;
+    text-decoration: underline;
+    text-underline-position: under;
+    font-weight: normal;
     margin-bottom: var(--xxlarge-margin-size);
     color: var(--main-color)
 }
 
 .game_register_container > .game__container > div {
-    margin: var(--xlarge-margin-size) 0;
+    margin: var(--large-margin-size) 0;
 }
 
 .game__container > div > h4 {
-    margin-bottom: var(--main-margin-size);
+    margin-bottom: var(--small-margin-size);
     font-size: var(--mid-font-size);
 }
 
 .game__container > div input {
     width: 100px;
     height: var(--btn-height);
-    border: 1px solid var(--main-color);
+    border: 1px solid var(--grey);
     border-radius: 5px;
     background-color: var(--grey-color);
     text-align: end;
     padding-right: var(--small-margin-size);
+}
+
+.game__container > .date_select_box > input {
+    width: 200px;
+    text-align: center;
 }
 
 .game__container > div input ~ span {
@@ -39,6 +44,7 @@
 
 .game__container > .gym_select_box > select {
     width: 200px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .game__container > .gym_select_box > select:focus {

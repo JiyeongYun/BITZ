@@ -28,7 +28,7 @@
   width: 100%;
   height: var(--btn-height);
   line-height: var(--btn-height);
-  font-size: var(--small-font-size);
+  font-size: var(--main-font-size);
   font-weight: bold;
   background-color: var(--grey);
   color: white;
@@ -36,6 +36,7 @@
   margin: var(--mid-margin-size) 0 0;
   border-radius: 5px;
   margin-bottom: var(--main-margin-size);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .MainBusiness section > article > .today {
@@ -61,7 +62,7 @@
 }
 
 .MainBusiness section > article > .game_container > .game__time {
-  text-align: center;
+  text-align: start;
   font-size: var(--large-font-size);
 }
 
@@ -151,6 +152,7 @@
   
   .MainBusiness section > article > .game_container > .game__time {
     font-size: var(--small-font-size);
+    text-align: center;
   }
 
   .MainBusiness section > article > .game_container > .people__info {
@@ -169,5 +171,6 @@
   
   .MainBusiness section > article > .game_container > .game__btn {
     font-size: var(--small-font-size);
+    padding: 0 5px;
   }
 }
