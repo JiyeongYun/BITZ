@@ -1,7 +1,7 @@
 .MainBusiness {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   min-height: 100vh;
 }
@@ -21,18 +21,21 @@
 
 .MainBusiness__top_links div {
   margin: 0px 5px 0px 5px;
+  color: var(--main-color);
 }
 
 .MainBusiness section > article > .date {
   width: 100%;
   height: var(--btn-height);
   line-height: var(--btn-height);
-  font-size: var(--mid-font-size);
+  font-size: var(--small-font-size);
   font-weight: bold;
-  background-color: var(--dark-blue);
+  background-color: var(--grey);
   color: white;
   text-align: center;
   margin: var(--mid-margin-size) 0 0;
+  border-radius: 5px;
+  margin-bottom: var(--main-margin-size);
 }
 
 .MainBusiness section > article > .today {
@@ -49,6 +52,7 @@
   align-items: center;
   font-size: var(--main-font-size);
   border-bottom: 1px solid black;
+  gap: 10px;
 }
 
 .MainBusiness section > article > .game_container > .game__time,
@@ -63,7 +67,12 @@
 
 .MainBusiness section > article > .game_container > .gym__info > h5 {
   font-size: var(--main-font-size);
-  margin-bottom: var(--small-margin-size);
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+.MainBusiness section > article > .game_container > .gym__info > p {
+  font-size: var(--small-font-size);
 }
 
 .MainBusiness section > article > .game_container > .people__info > .max_people,
@@ -78,12 +87,12 @@
 }
 
 .MainBusiness section > article > .game_container > .people__info > .max_people {
-  background-color: blue;
+  background-color: var(--blue);
   margin-bottom: 3px;
 }
 
 .MainBusiness section > article > .game_container > .people__info > .min_people {
-  background-color: red;
+  background-color: var(--red);
 }
 
 .MainBusiness section > article > .game_container > .participant {
@@ -121,7 +130,7 @@
   .MainBusiness__top {
     font-size: var(--main-font-size);
   }
-
+  
   .MainBusiness section > article > .game_container {
     font-size: var(--small-font-size);
   }
@@ -129,13 +138,19 @@
   .MainBusiness section > article > .game_container > .game__time {
     flex: 1;
   }
-
+  
   .MainBusiness section > article > .game_container > .gym__info {
     flex: 2.5;
   }
   
+  .MainBusiness section > article > .game_container > .gym__info > h5 {
+    font-size: var(--small-font-size);
+    margin-bottom: 5px;
+    font-weight: normal;
+  }
+  
   .MainBusiness section > article > .game_container > .game__time {
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
   }
 
   .MainBusiness section > article > .game_container > .people__info {
@@ -144,17 +159,15 @@
   
   .MainBusiness section > article > .game_container > .participant {
     flex: 3;
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
     text-align: center;
   }
   
   .MainBusiness section > article > .game_container > .participant span {
-    font-size: var(--mid-font-size);
+    font-size: var(--main-font-size);
   }
   
   .MainBusiness section > article > .game_container > .game__btn {
-    height: 90%;
-    line-height: 62.1px;
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
   }
 }

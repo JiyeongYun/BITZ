@@ -23,11 +23,12 @@ body {
 
 :root {
     /* 색상 정보 */
-    --main-color: #00AB55;
+    --main-color: #15C06A;
     --orange: #FF7A00;
     --red: #FF4842;
     --yellow: #FFC107;
     --blue: #1890FF;
+    --grey: #CACACA;
 
     /* 폰트 사이트 */
     --small-font-size: 12px;

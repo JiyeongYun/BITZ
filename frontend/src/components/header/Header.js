@@ -127,7 +127,7 @@ function Header() {
                 <hr />
                 <div className="link_list">
                   {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
-                  <Link to={`/accounts/profile/`+userData.email}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
+                  <Link to={`/accounts/profile/`+userData.email} onClick={showMenu}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
                 </div>
                 <button onClick={onLogout}>로그아웃</button>
               </div>
