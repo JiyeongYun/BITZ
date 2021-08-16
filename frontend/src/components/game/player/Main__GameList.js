@@ -39,7 +39,7 @@ export default function Main__GameList() {
                   {game.gameInfo.gym.sido + " " + game.gameInfo.gym.gugun} <span>| 코트 규격: {game.gameInfo.gym.courtLength + "m * " + game.gameInfo.gym.courtWidth +"m"}</span>
                 </div>
                 <div className="gameList__game__personnel">
-                  {"인원모집: " + game.gameInfo.minPeople + " ~ " + game.gameInfo.maxPeople + " 명"}
+                  {"최소인원 : " + game.gameInfo.minPeople + " | 최대인원 : " + game.gameInfo.maxPeople}
                 </div>
               </div>
 

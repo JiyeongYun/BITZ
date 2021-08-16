@@ -1,153 +1,101 @@
-.match__container {
-  text-align: center;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+.score__container {
+  width: 500px;
+  border-right: 1px solid var(--grey);
 }
 
-.score__box {
+.match__container {
+  width: 500px;
   display: flex;
   justify-content: space-around;
-  width: 500px;
-  margin-top: var(--mid-margin-size);
 }
 
-.score__box > div > p:nth-child(1) {
-  font-size: var(--mid-font-size);
-  font-weight: bold;
-  margin-bottom: var(--small-margin-size);
-}
-
-.score__box > div > p:nth-child(2) {
-  font-size: var(--main-font-size);
-}
-
-.score__box > .manner > .manner__score {
+.match__container > div {
   width: 200px;
-  height: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  margin: 16px 0 10px;
-}
-
-.score__box > .skill > .skill__score {
+  height: 130px;
+  border-radius: 10px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  position: relative;
+  font-size: var(--main-font-size);
+  box-shadow: 0 3px 2px var(--grey);
 }
 
-.score__box > .skill > .skill__score > img {
-  position: absolute;
-  width: 13px;
-  top: 10px;
-  left: 3%;
-  transform: translate( -40%, 0);
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  border-radius: 50%;
+.match__container > .manner_box {
+  background-color: #C8FACD;
+  color: #005249;
 }
 
-.score__box > .skill > .skill__score > .scorebox {
+.match__container > .score_box {
+  background-color: #D0F2FF;
+  color: #04297A ;
+}
+
+.match__container > div > .logo {
   width: 50px;
-  height: 30px;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  margin: var(--small-font-size) 0;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
 }
 
-.score__box > .skill > .skill__score > .scorebox:nth-child(1) {
-  border-left: 1px solid black;
+.match__container > div > p:nth-child(2) {
+  font-weight: bold;
+  font-size: var(--mid-font-size);
+  margin: 2px 0;
 }
 
-.score__box > .skill > .skill__score > .scorebox:nth-child(1)::before {
-  content:"";
-  position: absolute;
-  height: 28px;
-  width:20px;
-  left: 0;
-  bottom: 0;
-  transform: translate( -2px, -40%);
-  background: url('../../../images/shooting.png') no-repeat center / contain;
+.match__container > .manner_box > .logo {
+  background-color: #A4E3B7;
 }
 
-.score__box > .skill > .skill__score > .scorebox:nth-child(2) {
-  background-color: #FFDDBF;
+.match__container > .score_box > .logo {
+  background-color: #AED7F3;
 }
 
-.score__box > .skill > .skill__score > .scorebox:nth-child(3) {
-  background-color: #F8B377;
+.match__container > div > .logo > img {
+  width: 25px;
+  height: 25px;
+  transform: translate(0, 40%);
 }
 
-.score__box > .skill > .skill__score > .scorebox:nth-child(4) {
-  border-right: 1px solid black;
-  background-color: #EF9545;
+.match_result {
+  margin-top: var(--large-margin-size);
+  text-align: center;
 }
 
-
-.score__box > .skill > .skill__score > .scorebox:nth-child(4)::before {
-  content:"";
-  position: absolute;
-  height: 28px;
-  width:20px;
-  right: 0;
-  bottom: 0;
-  transform: translate( -2px, -50%);
-  background: url('../../../images/basketball_board.png') no-repeat center / contain;
-}
-
-.match__result > h2 {
-  font-size: var(--xlarge-font-size);
-  margin: var(--mid-margin-size) 0;
+.match_result > h3 {
+  font-size: var(--large-font-size);
+  font-weight: normal;
+  color: var(--main-color);
 }
 
 @media screen and (max-width: 1024px) {
-  .match__container {
-    width: 100vw;
-    text-align: center;
+  .score__container {
+    width: 90%;
     border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .score__box {
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100vw;
-    margin-top: var(--mid-margin-size);
+    border-bottom: 1px solid var(--grey);
+    margin: 0 auto;
   }
 
-  .score__box > div > p:nth-child(1) {
-    margin-bottom: 2px;
+  .match__container {
+    width: 100%;
   }
   
-  .score__box > .manner > .manner__score > img {
-    width: 20px;
+  .match__container > div {
+    width: 48%;
+    height: 110px;
+    font-size: var(--small-font-size);
   }
   
-  .score__box > .skill > .skill__score {
-    width: 200px;
+  .match__container > div > .logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
   }
   
-  .score__box > .skill > .skill__score > .scorebox:nth-child(1)::before {
-    content:"";
-    position: absolute;
-    height: 28px;
-    width:20px;
-    left: 0;
-    bottom: 0;
-    transform: translate( -2px, -40%);
-    background: url('../../../images/shooting.png') no-repeat center / contain;
+  .match__container > div > p:nth-child(2) {
+    font-size: var(--main-font-size);
   }
   
-  .score__box > .skill > .skill__score > .scorebox:nth-child(4)::before {
-    content:"";
-    position: absolute;
-    height: 28px;
-    width:20px;
-    right: 0;
-    bottom: 0;
-    transform: translate( -2px, -40%);
-    background: url('../../../images/basketball_board.png') no-repeat center / contain;
-  }
-  
-  .match__result > h2 {
-    font-size: var(--large-font-size);
-    margin: var(--mid-margin-size) 0;
-  }
 }

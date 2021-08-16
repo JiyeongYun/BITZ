@@ -70,13 +70,13 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
       <div className="phone">
         <p>핸드폰 번호</p>
         <form className="phoneForm" name="phoneForm">
-          <input type="text" name="phone" disabled={isUpdate?false:true} onChange={onChange} value={userData.phone?userData.phone : ""} />
+          <input type="text" className="done" name="phone" disabled={isUpdate?false:true} onChange={onChange} value={userData.phone?userData.phone : ""} />
         </form>
       </div>
       <div className="height">
         <p>신장</p>
         <form className="heightForm" name="heightForm">
-          <input type="text" name="height" disabled={isUpdate?false:true} onChange={onChange} value={userData.height?userData.height : ""} /><span>cm</span>
+          <input type="text" className="done" name="height" disabled={isUpdate?false:true} onChange={onChange} value={userData.height?userData.height : ""} />
         </form>
       </div>
       <div className="position">
@@ -140,7 +140,7 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
           </div>
         </div>
       </div>
-      <button className="save__btn" onClick={onClickBtn}>{isUpdate? '저장':'수정'}</button>
+      <button className="save__btn" onClick={onClickBtn}>{isUpdate? '저장하기':'수정하기'}</button>
       {isUpdate ? <button className="save__btn" onClick={toggleIsUpdate}>취소</button>:null}
     </div>
   );
