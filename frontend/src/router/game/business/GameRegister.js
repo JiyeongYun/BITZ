@@ -157,9 +157,9 @@ const GameRegister = () => {
           </div> */}
           <Stack>
             <Box direction="row" justify="between">
-              {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(value => (
+              {[12, 13, 14, 15, 16, 17, 18].map(value => (
                 <Box key={value} pad="small" border={false}>
-                  <Text style={{ fontFamily: 'monospace' }}>
+                  <Text>
                     {value}
                   </Text>
                 </Box>
@@ -168,8 +168,8 @@ const GameRegister = () => {
             <RangeSelector
               direction="horizontal"
               invert={false}
-              min={10}
-              max={20}
+              min={12}
+              max={18}
               size="full"
               round="small"
               values={people}
