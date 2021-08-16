@@ -24,6 +24,8 @@
 }
 .gameList__game__Time {
   font-size: var(--mid-font-size);
+  color: var(--orange);
+  font-weight: bold;
 }
 
 .gameList__game__Time > .gameList__start {

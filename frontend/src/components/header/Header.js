@@ -3,14 +3,19 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import { store } from 'store/store.js'; // store import (store)
 import ImgApi from 'api/ImgApi';
+import UserApi from 'api/UserApi';
 
-function Header(props) {
+function Header() {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
+  const { value, dispatch } = globalState;
   const [isScrollTop, setIsScrollTop] = useState(true)
 
   // 프로필 이미지 State
   const [imgUrl, setImgUrl] = useState(null)
+
+  // 유저 정보 State
+  const [userData, setUserData] = useState([])
   
   // const [offcanvas, setOffcanvas] = useState(false)
   // const toggleCanvas = () => {
@@ -36,9 +41,11 @@ function Header(props) {
     };
   }, [isScrollTop, handleScroll]);
 
+  // 사진을 가져오는 함수
   useEffect(() => {
-    const params = {email : globalState.value.isLogin}
-    if (globalState.value.userKind === "player" ) {
+    const params = {email : value.isLogin}
+    if (value.userKind === "player" ) {
+
       ImgApi.getUserImg(
         params,
         res => {
@@ -49,7 +56,18 @@ function Header(props) {
           console.log(err)
         }
       )
-    } else if (globalState.value.userKind === "business" ) {
+
+      UserApi.myprofile(
+        params,
+        res => {
+          setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    } else if (value.userKind === "business" ) {
+
       ImgApi.getBusImg(
         params,
         res => {
@@ -60,8 +78,36 @@ function Header(props) {
           console.log(err)
         }
       )
+
+      UserApi.BusMyProfile(
+        params,
+        res => {
+          setUserData(res.data)
+        },
+        err => {
+          console.log(err)
+        }
+      )
     }
-  }, [globalState.value.isLogin, globalState.value.userKind])
+  }, [value.isLogin, value.userKind])
+
+  // 로그아웃 함수
+  const onLogout = () => {
+    localStorage.removeItem("currentUser")
+    localStorage.removeItem("currentUserbusiness")
+    dispatch({ type: "LOGIN", value: "" })
+    window.location.href="/accounts/login"
+  };
+
+  // 메뉴 보여주기
+  const showMenu = () => {
+    let menu = document.querySelector(".right_side > .profile_info").style
+    if (menu.display === 'block') {
+      menu.display = 'none' 
+    } else {
+      menu.display = 'block'
+    }
+  }
 
   return (
     <div className={isScrollTop ? "header__container" : "header__container header__shadow"}>
@@ -70,10 +116,22 @@ function Header(props) {
           <img className="header__symbol" src="/images/symbol.png" alt="logo" />
         </Link>
         <div className="header__icons">
-          {globalState.value.isLogin ? (
-            <Link to={`/accounts/profile/${globalState.value.isLogin}`}>
-              <img src={imgUrl} alt="my_profile" />
-            </Link>
+          {value.isLogin ? (
+            <div className="right_side">
+              <img src={imgUrl} alt="my_profile" onClick={showMenu} />
+              <div className="profile_info">
+                <div className="user__info">
+                  <p>{userData.name}님</p>
+                  <p>{userData.email}</p>
+                </div>
+                <hr />
+                <div className="link_list">
+                  {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
+                  <Link to={`/accounts/profile/`+userData.email}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
+                </div>
+                <button onClick={onLogout}>로그아웃</button>
+              </div>
+            </div>
           ) : (
             <Link to="/accounts/login">
               <p className="icon">로그인</p>
