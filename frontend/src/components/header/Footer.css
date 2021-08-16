@@ -4,10 +4,10 @@ footer {
     /* margin-top: var(--main-margin-size); */
     display: flex;
     justify-content: center;
-    height: 10vh;
     position: relative;
     bottom: 0;
     color: white;
+    height: 100px;
 }
 
 footer > .contributer {

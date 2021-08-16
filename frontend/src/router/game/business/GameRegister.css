@@ -18,6 +18,49 @@
     justify-content: space-around !important;
 }
 
+.people_select_box > .min_people,
+.people_select_box > .max_people {
+    position: relative;
+    width: fit-content;
+}
+
+.people_select_box > .min_people > input,
+.people_select_box > .max_people > input {
+    text-align: center;
+    appearance: none;
+    width: 200px;
+}
+
+.people_select_box > .min_people > span:nth-child(2),
+.people_select_box > .max_people > span:nth-child(2) {
+    content: "-";
+    text-align: center;
+    color: var(--main-color);
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+.people_select_box > .min_people > span:nth-child(3),
+.people_select_box > .max_people > span:nth-child(3) {
+    content: "-";
+    text-align: center;
+    color: var(--main-color);
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
 .game_register_container {
     margin: 0 auto;
     width: 50vw;
@@ -46,7 +89,6 @@
 }
 
 .game__container > div input {
-    width: 50px;
     height: var(--btn-height);
     border: 1px solid var(--grey);
     border-radius: 5px;
@@ -58,10 +100,12 @@
 .game__container > .date_select_box > input {
     width: 200px;
     text-align: center;
+    
 }
 
-.game__container > div input ~ span {
+.game__container > div:nth-child(3) input ~ span {
     margin: 0 var(--small-margin-size);
+    color: var(--main-color);
 }
 
 .game__container > .gym_select_box > select {
@@ -94,6 +138,7 @@
 
 .fee_select_box > input {
     width: 200px !important;
+    appearance: none !important;
 }
 
 .game__container > button {

@@ -3,7 +3,6 @@ import GymApi from 'api/GymApi'
 import React, {useContext, useEffect, useState} from 'react'
 import { store } from 'store/store'
 import './GameRegister.css'
-import { Stack, Box, Text, RangeSelector } from 'grommet'
 
 const GameRegister = () => {
   const globalState = useContext(store);
@@ -18,7 +17,8 @@ const GameRegister = () => {
   const [startMinute, setStartMinute] = useState(null)
   const [finishHour, setFinishHour] = useState(null)
   const [finishMinute, setFinishMinute] = useState(null)
-  const [people, setPeople] = useState([12, 15])
+  const [maxPeople, setMaxPeople] = useState(15)
+  const [minPeople, setMinPeople] = useState(12)
   const [fee, setFee] = useState(null)
 
   // 체육관 목록
@@ -50,16 +50,18 @@ const GameRegister = () => {
       setGymName(value)
     } else if (id === "date") {
       setDate(value)
-    } else if (id === "startHour") {
-      setStartHour(value)
-    } else if (id === "startMinute") {
-      setStartMinute(value)
-    } else if (id === "finishHour") {
-      setFinishHour(value)
-    } else if (id === "finishMinute") {
-      setFinishMinute(value)
+    } else if (id === "startTime") {
+      setStartHour(value.slice(0,2))
+      setStartMinute(value.slice(3,5))
+    } else if (id === "finishTime") {
+      setFinishHour(value.slice(0,2))
+      setFinishMinute(value.slice(3,5))
     } else if (id === "fee") {
       setFee(value)
+    } else if (id === "minPeople") {
+      setMinPeople(value)
+    } else if (id === "maxPeople") {
+      setMaxPeople(value)
     }
     handleClass(value, id)
   }
@@ -85,11 +87,11 @@ const GameRegister = () => {
       date,
       startTime: startHour_ + ":" + startMinute_ + ":00",
       endTime: finishHour_ + ":" + finishMinute_ + ":00",
-      maxPeople: Number(people[0]),
-      minPeople: Number(people[1]),
+      maxPeople,
+      minPeople,
       participationFee: Number(fee),
     }
-    
+    console.log(data)
     GameApi.registerGame(
       data,
       res => {
@@ -129,33 +131,23 @@ const GameRegister = () => {
           <div className="time_container">
             <div className="start_time">
               <h5>시작 시간</h5>
-              <input type="text" id="startHour" className="btn" onChange={onChange} />
-              <span>:</span>
-              <input type="text" id="startMinute" className="btn" onChange={onChange} />
+              <input type="time" id="startTime" className="btn" onChange={onChange} />
             </div>
             <p>~</p>
             <div className="finish_time">
               <h5>종료 시간</h5>
-              <input type="text" id="finishHour" className="btn" onChange={onChange} />
-              <span>:</span>
-              <input type="text" id="finishMinute" className="btn" onChange={onChange} />
+              <input type="time" id="finishTime" className="btn" onChange={onChange} />
             </div>
           </div>
         </div>
         <div className="people_select_box">
-          <h4>최소 인원과 최대 인원을 정해주세요</h4>
-          {/* <div className="people_container">
-            <div className="min_people">
-              <h5>최소 인원</h5>
-              <input type="number" id="minPeople" onChange={onChange} /><span>명</span>
-            </div>
-            <p>~</p>
-            <div className="max_people">
-              <h5>최대 인원</h5>
-              <input type="number" id="maxPeople" onChange={onChange} /><span>명</span>
-            </div>
-          </div> */}
-          <Stack>
+          <h4>최소 인원을 정해주세요</h4>
+          <div className="min_people">
+            <input type="number" id="minPeople" onChange={onChange} value={minPeople}/>
+            <span onClick={() => setMinPeople(Number(minPeople)-1)}>-</span>
+            <span onClick={() => setMinPeople(Number(minPeople)+1)}>+</span>
+          </div>
+          {/* <Stack>
             <Box direction="row" justify="between">
               {[12, 13, 14, 15, 16, 17, 18].map(value => (
                 <Box key={value} pad="small" border={false}>
@@ -175,7 +167,15 @@ const GameRegister = () => {
               values={people}
               onChange={values => setPeople(values)}
             />
-          </Stack>
+          </Stack> */}
+        </div>
+        <div className="people_select_box">
+          <h4>최대 인원을 정해주세요</h4>
+          <div className="max_people">
+            <input type="number" id="maxPeople" onChange={onChange} value={maxPeople} min={`${minPeople}`} max="18" />
+            <span onClick={() => setMaxPeople(Number(maxPeople)-1)}>-</span>
+            <span onClick={() => setMaxPeople(Number(maxPeople)+1)}>+</span>
+          </div>
         </div>
         <div className="fee_select_box">
           <h4>인당 요금을 정해주세요</h4>

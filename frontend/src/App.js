@@ -19,7 +19,6 @@ import { GameStateProvider } from 'store/gameStore.js';
 import { store } from 'store/store';
 import GameReservation from 'router/game/player/GameReservation';
 import {Grommet} from 'grommet';
-import { withStyles } from '@material-ui/core/styles';
 
 function App() {
   
