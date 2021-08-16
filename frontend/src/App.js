@@ -18,6 +18,8 @@ import GameRegister from './router/game/business/GameRegister';
 import { GameStateProvider } from 'store/gameStore.js';
 import { store } from 'store/store';
 import GameReservation from 'router/game/player/GameReservation';
+import {Grommet} from 'grommet';
+import { withStyles } from '@material-ui/core/styles';
 
 function App() {
   
@@ -49,33 +51,35 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        {/* <Header toggleCanvas={toggleCanvas} userObj={userObj} /> */}
-        <Header toggleCanvas={toggleCanvas} />
-        <div
-          className={offcanvas ? 'grey__canvas grey__canvas__show' : 'grey__canvas'}
-          onClick={toggleCanvas}
-        ></div>
-        <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
-          <OffCanvas toggleCanvas={toggleCanvas}/>
-        </div>
-        <Route path="/" exact={true} component={MainPage} />
-        <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
-        <Route path="/accounts/login" exact={true} component={Login} />
-        <Route path="/accounts/register" exact={true} component={Register}></Route>
-        <Route path="/accounts/profile/:email" exact={true} component={Profile} />
-        <Route path="/accounts/profile/:email/update" exact={true} component={UpdateProfile} />
-        <Route path="/accounts/find_password" exact={true} component={FindPassword} />
-        <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
-        {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
-        <GameStateProvider>
-          <Route path="/detail/:gameId" exact={true} component={Detail} />
-          <Route path="/detail/:gameId/reservation" exact={true} component={GameReservation} />
-        </GameStateProvider>
-        <Route path="/match/mygames" exact={true} component={MyGame} />
-        <Route path="/match/register" exact={true} component={GameRegister} />
-        <Footer />
-      </BrowserRouter>
+      <Grommet plain>
+        <BrowserRouter>
+          {/* <Header toggleCanvas={toggleCanvas} userObj={userObj} /> */}
+          <Header toggleCanvas={toggleCanvas} />
+          <div
+            className={offcanvas ? 'grey__canvas grey__canvas__show' : 'grey__canvas'}
+            onClick={toggleCanvas}
+            ></div>
+          <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
+            <OffCanvas toggleCanvas={toggleCanvas}/>
+          </div>
+          <Route path="/" exact={true} component={MainPage} />
+          <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
+          <Route path="/accounts/login" exact={true} component={Login} />
+          <Route path="/accounts/register" exact={true} component={Register}></Route>
+          <Route path="/accounts/profile/:email" exact={true} component={Profile} />
+          <Route path="/accounts/profile/:email/update" exact={true} component={UpdateProfile} />
+          <Route path="/accounts/find_password" exact={true} component={FindPassword} />
+          <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
+          {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
+          <GameStateProvider>
+            <Route path="/detail/:gameId" exact={true} component={Detail} />
+            <Route path="/detail/:gameId/reservation" exact={true} component={GameReservation} />
+          </GameStateProvider>
+          <Route path="/match/mygames" exact={true} component={MyGame} />
+          <Route path="/match/register" exact={true} component={GameRegister} />
+          <Footer />
+        </BrowserRouter>
+      </Grommet>
     </div>
   );
 }

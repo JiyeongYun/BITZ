@@ -26,9 +26,14 @@ body {
     border: 1px solid var(--main-color) !important;
 }
 
+.btn:focus {
+    border: 1px solid var(--main-color) !important;
+}
+
 :root {
     /* 색상 정보 */
     --main-color: #15C06A;
+    --main-color-op: rgba(21, 192, 106, .4);
     --orange: #FF7A00;
     --red: #FF4842;
     --yellow: #FFC107;

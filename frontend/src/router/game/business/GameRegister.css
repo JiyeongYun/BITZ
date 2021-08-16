@@ -1,3 +1,15 @@
+.gVdmEl {
+    max-width: 350px;
+}
+
+.ikiVZk {
+    background-color: var(--main-color-op) !important;
+}
+
+.iWUJHN {
+    background-color: var(--main-color) !important;
+}
+
 .game_register_container {
     margin: 0 auto;
     width: 50vw;
@@ -20,7 +32,9 @@
 
 .game__container > div > h4 {
     margin-bottom: var(--small-margin-size);
-    font-size: var(--mid-font-size);
+    font-size: var(--main-font-size);
+    color: var(--main-color);
+    font-weight: normal;
 }
 
 .game__container > div input {
@@ -99,21 +113,10 @@
     
     .game__container > div > h4 {
         margin-bottom: var(--small-margin-size);
-        font-size: var(--mid-font-size);
-    }
-    
-    .game__container > div input {
-        width: 20%;
-        max-width: 100px;
     }
     
     .game__container > div input ~ span {
         margin: 0 var(--main-margin-size);
-    }
-
-    .game__container > .gym_select_box > select {
-        width: 90%;
-        max-width: 300px;
     }
 
     .time_select_box > .time_container input,
