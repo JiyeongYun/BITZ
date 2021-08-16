@@ -11,8 +11,72 @@
 	width: 70px;
 }
 
-.header__icons > a > img {
+.header__icons > .right_side > img {
 	width: 50px;
+	cursor: pointer;
+}
+
+.header__icons > .right_side {
+	position: relative;
+}
+
+.header__icons > .right_side > .profile_info {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: white;
+	border-radius: 10px;
+	position: absolute;
+	right: 0;
+	display: none;
+}
+
+.header__icons > .right_side > .profile_info > hr {
+	border: none;
+	border-top: 1px solid rgba(0, 0, 0, 0.2);
+	margin: 0 auto;
+}
+
+.header__icons > .right_side > .profile_info > div{
+	margin: var(--main-margin-size) 10%;
+	margin-right: var(--xlarge-margin-size);
+}
+
+.header__icons > .right_side > .profile_info > .user__info > p:nth-child(1) {
+	font-size: var(--mid-font-size);
+}
+
+.header__icons > .right_side > .profile_info > .user__info > p:nth-child(2) {
+	font-size: var(--main-font-size);
+}
+
+.header__icons > .right_side > .profile_info > .link_list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--small-margin-size);
+}
+
+.header__icons > .right_side > .profile_info > .link_list > a {
+	font-size: var(--main-font-size);
+	display: flex;
+	gap: var(--small-margin-size);
+	align-items: center;
+	width: 150px;
+}
+
+.header__icons > .right_side > .profile_info > .link_list > a > img{
+	width: 30px;
+	margin-right: var(--main-margin-size);
+}
+
+.header__icons > .right_side > .profile_info > button {
+	display: block;
+	height: var(--btn-height);
+	background-color: white;
+	font-size: var(--main-font-size);
+	font-weight: bold;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	width: 80%;
+	margin: 0 auto var(--main-margin-size);
 }
 
 .header__shadow {
@@ -115,11 +179,8 @@
 	.header__symbol {
 		width: 50px;
 	}
-	.header__icons > a {
-		font-size: var(--main-font-size);
-	}
 
-	.header__icons > a > img {
+	.header__icons > .right_side > img {
 		width: 40px;
 	}
 }

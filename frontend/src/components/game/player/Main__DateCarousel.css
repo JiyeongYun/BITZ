@@ -33,16 +33,26 @@
 }
 
 .day_red {
-  color: red;
+  color: var(--red);
 }
 
 .day_blue {
-  color: blue;
+  color: var(--blue);
 }
 
 .day_select {
   color: var(--main-color);
-  transform: scale(1.5);
+}
+
+.day_select::after {
+  position: absolute;
+  top: 30%;
+  transform: translate( -50%, 0);
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: var(--main-color);
+  border-radius: 50%;
 }
 
 .carouselArrow {
@@ -50,6 +60,7 @@
   left: 7vw;
   width: 1.5vw;
 }
+
 .carouselArrow:hover {
   z-index: 1;
   cursor: pointer;
@@ -74,10 +85,15 @@
     margin-right: 0;
   }
   
+  .day_select::after {
+    top: 5px;
+    transform: none;
+  }
+  
   .main__dateCarousel__element {
     font-size: var(--small-font-size);
   }
-
+  
   .carouselArrow__left {
     left: 0;
   }

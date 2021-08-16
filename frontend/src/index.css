@@ -21,13 +21,25 @@ body {
     min-height: 80vh;
 }
 
+.done {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--main-color) !important;
+}
+
+.btn:focus {
+    border: 1px solid var(--main-color) !important;
+}
+
 :root {
     /* 색상 정보 */
     --main-color: #00AB55;
+    --main-color-op: rgba(21, 192, 106, .4);
     --orange: #FF7A00;
     --red: #FF4842;
     --yellow: #FFC107;
     --blue: #1890FF;
+    --grey: #CACACA;
+    --bright-grey: #F2F2F2;
 
     /* 폰트 사이트 */
     --small-font-size: 12px;
