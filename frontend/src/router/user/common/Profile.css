@@ -6,10 +6,11 @@
 }
 
 .profile__div > .user__profile {
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: var(--bright-grey);
   width: 60%;
   padding: var(--main-margin-size) 0;
+  box-shadow: 0px 3px 2px var(--grey);
 }
 
 .profile__div > .user__profile > .profile_img_update {
@@ -87,13 +88,12 @@
 .save__btn {
   cursor: pointer;
   font-size: var(--main-font-size);
-  width: 100px;
-  color: white;
-  background-color: var(--dark-blue);
+  color: var(--main-color);
   border: none;
-  border-radius: 5px;
-  height: var(--btn-height);
+  background-color: white;
   margin: var(--main-margin-size);
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
 .user__profile > .businessAccount {

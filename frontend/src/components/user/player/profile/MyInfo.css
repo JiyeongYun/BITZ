@@ -4,16 +4,19 @@
 }
 
 .MyInfo > h2 {
-  font-size: var(--xlarge-font-size);
-  margin: var(--mid-margin-size) 0;
+  font-size: var(--large-font-size);
+  margin-bottom: var(--mid-margin-size);
+  color: var(--main-color);
+  font-weight: normal;
 }
 
 .phone > p,
 .height > p,
 .position > p,
 .location > p {
-  font-weight: bold;
   margin: var(--large-margin-size) 0 0;
+  color: var(--main-color);
+  font-size: var(--mid-font-size);
 }
 
 .phoneForm > input {
@@ -22,9 +25,9 @@
   background-color: var(--grey-color);
   width: 120px;
   height: var(--btn-height);
-  margin-top: var(--main-font-size);
-  text-align: end;
-  padding-right: var(--main-margin-size);
+  margin-top: 5px;
+  text-align: center;
+  font-size: var(--small-font-size);
 }
 
 .heightForm > input {
@@ -33,14 +36,9 @@
   background-color: var(--grey-color);
   width: 120px;
   height: var(--btn-height);
-  margin-top: var(--main-font-size);
-  text-align: end;
-  padding-right: var(--main-margin-size);
-}
-
-.heightForm > span {
-  position: absolute;
-  transform: translate(20%, 70%);
+  margin-top: 5px;
+  text-align: center;
+  font-size: var(--small-font-size);
 }
 
 .positionForm > input {
@@ -48,15 +46,16 @@
 }
 
 .positionForm > span {
-  font-size: var(--main-font-size);
+  font-size: var(--small-font-size);
   margin:  var(--main-margin-size) var(--main-margin-size) 0;
   display: inline-block;
-  border: 1px solid var(--main-color);
   border-radius: 5px;
   width: 70px;
   height: var(--btn-height);
-  line-height: var(--btn-height);
-  background-color: var(--grey-color);
+  line-height: 28px;
+  border: 1px solid var(--grey);
+  color: var(--grey);
+  cursor: default;
 }
 
 .positionForm > .checked {
@@ -68,34 +67,36 @@
   margin: var(--small-margin-size) 0 0;
 }
 
-.location__box > span {
-  line-height: 70px;
-}
-
 .location > .location__box {
   margin-top: var(--main-margin-size);
 }
 
-.location > .location__box > div {
-  display: flex;
-  font-size: var(--main-font-size);
-  align-items: center;
-  justify-content: center;
-  margin: var(--small-margin-size) 0;
+.location > .location__box p {
+  width: 70px;
+  color: var(--main-color);
+  margin: 0 var(--main-margin-size);
+  height: var(--btn-height);
+  line-height: 28px;
+  font-size: var(--small-font-size);
 }
 
-.location > .location__box > div > div {
+.location > .location__box > div {
   display: flex;
+  font-size: var(--small-font-size);
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--small-margin-size);
 }
 
 .location > .location__box > div > div > p {
-  height: var(--btn-height);
-  line-height: var(--btn-height);
+  display: inline-block;
   border: 1px solid var(--main-color);
   border-radius: 5px;
-  width: 70px;
-  margin: 0 var(--main-margin-size);
-  background-color: var(--grey-color);
+}
+
+.MyInfo > .save__btn {
+  height: var(--btn-height);
+  width: 100px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -113,11 +114,11 @@
   .position > p,
   .location > p {
     margin: var(--mid-margin-size) 0 0;
-    font-size: var(--mid-font-size);
+    font-size: var(--main-font-size);
   }
   .location > .location__box > div {
     display: flex;
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
     align-items: center;
     justify-content: center;
     margin: var(--small-margin-size) 0;
