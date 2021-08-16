@@ -5,12 +5,15 @@
   align-items: center;
 }
 
-.profile__div > .user__profile > .profile_img_update {
-  display: none;
+.profile__div > .user__profile {
+  border-radius: 5px;
+  background-color: var(--bright-grey);
+  width: 60%;
+  padding: var(--main-margin-size) 0;
 }
 
-.profile__div > .user__profile > .profile_img_update > form >.img_upload {
-  
+.profile__div > .user__profile > .profile_img_update {
+  display: none;
 }
 
 .profile__div > .user__profile > .profile_img_update > form > button {
@@ -32,7 +35,6 @@
 .user__profile > img {
   width: 100px;
   height: 100px;
-  border: 1px solid black;
   border-radius: 50%;
   object-fit: scale-down;
   object-position: center;
@@ -42,17 +44,19 @@
 .user__profile > #nickname {
   margin-top: var(--main-margin-size);
   font-size: var(--large-font-size);
-  font-weight: bold;
 }
 
 .user__profile > #email,
 .user__profile > #birth {
   font-size: var(--mid-font-size);
-  color: var(--main-color);
 }
 
 .user__profile > #birth {
   margin-bottom: var(--main-margin-size);;
+}
+
+.user__profile > .businessAccount {
+  margin-top: var(--main-margin-size);;
 }
 
 .left_right_profile {
@@ -62,7 +66,7 @@
 }
 
 .accountSetting {
-  background-color: var(--grey-color);
+  background-color: var(--bright-grey);
   width: 100%;
   text-align: center;
   margin-top: var(--main-margin-size);
@@ -71,6 +75,8 @@
 
 .accountSetting > h2{
   margin: var(--mid-margin-size) 0;
+  color: var(--main-color);
+  font-weight: normal;
 }
 
 .accountSetting span {
@@ -90,8 +96,8 @@
   margin: var(--main-margin-size);
 }
 
-.profile__div > .businessAccount {
-  margin: var(--small-margin-size) 0;
+.user__profile > .businessAccount {
+  margin: var(--small-margin-size) 0 0;
   font-size: var(--mid-font-size);
   text-align: center;
 }
@@ -106,17 +112,23 @@
     width: 100vw;
   }
   
+  .profile__div > .user__profile {
+    width: 90%;
+  }
+  
   .user__profile > img {
-    width: 70px
+    width: 70px;
+    height: 70px;
   }
   
   .user__profile > #nickname {
-    font-size: var(--mid-font-size);
+    margin-top: var(--small-margin-size);
+    font-size: var(--main-font-size);
   }
   
   .user__profile > #email,
   .user__profile > #birth {
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
   }
   
   .left_right_profile {
@@ -136,9 +148,9 @@
     margin: 0 var(--main-margin-size);
   }
   
-  .profile__div > .businessAccount {
-    margin: var(--small-margin-size) 0;
-    font-size: var(--mid-font-size);
+  .user__profile > .businessAccount {
+    margin-top: var(--small-margin-size);
+    font-size: var(--small-font-size);
     text-align: center;
   }
   

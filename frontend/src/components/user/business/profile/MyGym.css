@@ -8,21 +8,21 @@
   justify-content: space-between;
   color: var(--main-color);
   font-size: var(--xlarge-font-size);
+  margin-bottom: var(--large-margin-size);
 }
 
 .mygym > .mygym__container > h3 {
-  font-weight: normal;
-  color: black;
+  font-weight: normal !important;
+  color: var(--main-color);
 }
 
 .mygym > .mygym__container > button {
-  width: var(--btn-height);
-  height: var(--btn-height);
+  border: none;
   background-color: white;
-  color: black;
-  border: 1px solid black;
-  border-radius: 15px;
-  font-size: var(--xlarge-font-size);
+  text-decoration: underline;
+  text-underline-position: under;
+  font-size: var(--main-font-size);
+  color: var(--main-color);
   cursor: pointer;
 }
 
@@ -79,13 +79,7 @@
     font-size: var(--mid-font-size);
   }
   
-  .mygym > .mygym__container > h3 {
-    font-weight: bold;
-  }
-  
   .mygym > .mygym__container > button {
-    width: 20px;
-    height: 20px;
-    font-size: var(--mid-font-size);
+    font-size: var(--small-font-size);
   }
 }

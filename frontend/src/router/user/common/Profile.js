@@ -273,10 +273,17 @@ const Profile = ({ history }) => {
           </form>
           <button onClick={deleteImg}>삭제</button>
         </div>
-        <p id="nickname">{userData.nickname}</p>
+        <p id="nickname">{userData.name}</p>
         <p id="email">{userData.email}</p>
-        <p id="email">{userData.phone}</p>
-        <p id="birth">{userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
+        {userKind === "player" && (
+          <p id="birth">{userData.birth.slice(0,4)}.{userData.birth.slice(4,6)}.{userData.birth.slice(6)}</p>
+        )}
+        {userKind==="business" && (
+          <div className="businessAccount">
+            <p>{userData.bank}</p>
+            <p>{userData.account}</p>
+          </div>
+        )}
       </div>
       {/* 유저가 플레이어일 경우 */}
       {userKind==='player' && (
@@ -288,10 +295,6 @@ const Profile = ({ history }) => {
       {/* 유저가 비즈니스일 경우 */}
       {userKind==="business" && (
         <>
-          <div className="businessAccount">
-            <p>은행 : {userData.bank}</p>
-            <p>계좌 번호 : {userData.account}</p>
-          </div>
           <MyGym gyminfo={userData.gymProfile}/>
           <div classNmae="business_registration">
             <img src={regUrl} alt="registration_img" />

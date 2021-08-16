@@ -117,21 +117,37 @@ function Header() {
         </Link>
         <div className="header__icons">
           {value.isLogin ? (
-            <div className="right_side">
-              <img src={imgUrl} alt="my_profile" onClick={showMenu} />
-              <div className="profile_info">
-                <div className="user__info">
-                  <p>{userData.name}님</p>
-                  <p>{userData.email}</p>
+            imgUrl?
+              <div className="right_side">
+                <img src={imgUrl} alt="my_profile" onClick={showMenu} />
+                <div className="profile_info">
+                  <div className="user__info">
+                    <p>{userData.name}님</p>
+                    <p>{userData.email}</p>
+                  </div>
+                  <hr />
+                  <div className="link_list">
+                    {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
+                    <Link to={`/accounts/profile/`+userData.email} onClick={showMenu}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
+                  </div>
+                  <button onClick={onLogout}>로그아웃</button>
                 </div>
-                <hr />
-                <div className="link_list">
-                  {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
-                  <Link to={`/accounts/profile/`+userData.email} onClick={showMenu}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
-                </div>
-                <button onClick={onLogout}>로그아웃</button>
               </div>
-            </div>
+            : <div className="right_side">
+                <img src="/images/profile.png" alt="my_profile" onClick={showMenu} />
+                <div className="profile_info">
+                  <div className="user__info">
+                    <p>{userData.name}님</p>
+                    <p>{userData.email}</p>
+                  </div>
+                  <hr />
+                  <div className="link_list">
+                    {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
+                    <Link to={`/accounts/profile/`+userData.email} onClick={showMenu}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
+                  </div>
+                  <button onClick={onLogout}>로그아웃</button>
+                </div>
+              </div>
           ) : (
             <Link to="/accounts/login">
               <p className="icon">로그인</p>

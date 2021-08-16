@@ -12,8 +12,8 @@ const MyGym = ({gyminfo}) => {
   return (
     <div className="mygym">
       <div className="mygym__container">
-        <h3>내 체육관</h3>
-        <button onClick={onAddGym}>+</button>
+        <h3>나의 체육관</h3>
+        <button onClick={onAddGym}>추가하기</button>
       </div>
       <div className="mygym__list">
         <div className="list__title">
