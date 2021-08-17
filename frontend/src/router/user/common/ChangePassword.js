@@ -107,8 +107,6 @@ function ChangePassword({ history }) {
     }
   }; // onChangePassword End
 
-  } // onChangePassword End
-
   // input 값 입력 시 done 클래스 추가
   const handleInput = (id, value) => {
     if (value) {
@@ -118,7 +116,7 @@ function ChangePassword({ history }) {
     }
   }
 
-  return(
+  return (
     <div className="changePassword">
       <h4>비밀번호 변경</h4>
       <div className="changePasswordForm registerForm__center">
