@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import ChangePasswordValidation from "components/user/common/ChangePasswordValidation.js" // 유효성 검사 함수
-import "./ChangePassword.css" // Register.css의 내용을 많이 차용함 (Form이 비슷하기 때문)
-import UserApi from "api/UserApi";
+import React, { useContext, useEffect, useState } from 'react';
+import ChangePasswordValidation from 'components/user/common/ChangePasswordValidation.js'; // 유효성 검사 함수
+import './ChangePassword.css'; // Register.css의 내용을 많이 차용함 (Form이 비슷하기 때문)
+import UserApi from 'api/UserApi';
 import { store } from 'store/store.js'; // store import (store)
 
 function ChangePassword({ history }) {
@@ -12,43 +12,41 @@ function ChangePassword({ history }) {
   // State ***************************************************************
   // 입력 데이터
   const [values, setValues] = useState({
-    password: "",
-    newPassword: "",
-    newPasswordConfirm: "",
-  })
+    password: '',
+    newPassword: '',
+    newPasswordConfirm: '',
+  });
   // 유효성 검사 결과
   const [errors, setErrors] = useState({
     password: true,
     newPassword: true,
     newPasswordConfirm: true,
-  })
+  });
   // 최초 입력 확인
   const [isFirst, setIsFirst] = useState({
     password: true,
     newPassword: true,
     newPasswordConfirm: true,
-  })
+  });
   // 값을 모두 입력했는지 검증
-  const [isValidated, setIsValidated] = useState(false)
-
+  const [isValidated, setIsValidated] = useState(false);
 
   // useEffect ***************************************************************
   // PJW - 데이터 유효성 검증
-  useEffect(()=>{
-    setErrors({...ChangePasswordValidation(values, isFirst)})
-  }, [values, isFirst])
+  useEffect(() => {
+    setErrors({ ...ChangePasswordValidation(values, isFirst) });
+  }, [values, isFirst]);
   // 데이터 유효성 검증 End
 
   // 전체 데이터 유효성 검사
-  useEffect(()=>{
-    let check = true
-    Object.values(errors).forEach(value=>{
-      check = check && !value
-    })
-    setIsValidated(check)
-  }, [errors])
+  useEffect(() => {
+    let check = true;
+    Object.values(errors).forEach((value) => {
+      check = check && !value;
+    });
+    setIsValidated(check);
+  }, [errors]);
   // 전체 데이터 유효성 검사 End
-
 
   // methods ***************************************************************
   // PJW - 데이터 입력 시 값 업데이트
@@ -65,16 +63,16 @@ function ChangePassword({ history }) {
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
   const updateIsFirst = (event) => {
-    setIsFirst({...isFirst, [event.target.name]: false})
-  } // updateIsFirst End
+    setIsFirst({ ...isFirst, [event.target.name]: false });
+  }; // updateIsFirst End
 
   // PJW - Focus out 시 유효성 검사
   const lateValidateValue = (event) => {
-    const name = event.target.name
-    if (name==="newPasswordConfirm") {
-      setIsFirst({ ...isFirst, [name]: true});
+    const name = event.target.name;
+    if (name === 'newPasswordConfirm') {
+      setIsFirst({ ...isFirst, [name]: true });
     }
-  } // lateValidateValue End
+  }; // lateValidateValue End
 
   // PJW - 비밀번호 변경
   const onChangePassword = () => {
@@ -82,31 +80,32 @@ function ChangePassword({ history }) {
       email: isLogin,
       newPassword: values.newPassword,
       password: values.password,
-    }
+    };
 
     if (userKind === 'player') {
       UserApi.changePassword(
         data,
         () => {
-          alert('비밀번호가 변경되었습니다!')
-          history.push(`/accounts/profile/${isLogin}`)
+          alert('비밀번호가 변경되었습니다!');
+          history.push(`/accounts/profile/${isLogin}`);
         },
         () => {
           alert('비밀번호를 확인해주세요.');
         }
-      )
+      );
     } else if (userKind === 'business') {
       UserApi.changeBusPassword(
         data,
         () => {
-          alert('비밀번호가 변경되었습니다!')
-          history.push(`/accounts/profile/${isLogin}`)
+          alert('비밀번호가 변경되었습니다!');
+          history.push(`/accounts/profile/${isLogin}`);
         },
         () => {
           alert('비밀번호를 확인해주세요.');
         }
-      )
+      );
     }
+  }; // onChangePassword End
 
   } // onChangePassword End
 
@@ -148,13 +147,17 @@ function ChangePassword({ history }) {
         <button
           type="sumbit"
           onClick={onChangePassword}
-          className={isValidated ? "registerForm__button register__button": "disabled registerForm__button register__button"}>
-            비밀번호 변경
+          className={
+            isValidated
+              ? 'registerForm__button register__button'
+              : 'disabled registerForm__button register__button'
+          }
+        >
+          비밀번호 변경
         </button>
-
       </div>
     </div>
-  )
+  );
 }
 
 export default ChangePassword;
