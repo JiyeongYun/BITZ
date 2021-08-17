@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import './Login.css';
-import { Link } from 'react-router-dom';
-import UserApi from 'api/UserApi.js';
-import { store } from 'store/store.js'; // store import (store)
+import React, { useContext, useEffect, useState } from "react";
+import "./Login.css";
+import { Link } from "react-router-dom";
+import UserApi from "api/UserApi.js";
+import { store } from "store/store.js"; // store import (store)
 
 function Login({ history }) {
   // 전역 상태 관리 (store)
@@ -10,80 +10,76 @@ function Login({ history }) {
   const { dispatch } = globalState;
   const { userKind } = globalState.value;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
-    dispatch({ type: "SELECT_USER_KIND", value:"player"})
-  }, [dispatch])
+    dispatch({ type: "SELECT_USER_KIND", value: "player" });
+  }, [dispatch]);
 
   const onChange = (event) => {
     const {
       target: { name, value },
     } = event;
-    if (name === 'email') {
+    if (name === "email") {
       setEmail(value);
     }
-    if (name === 'password') {
+    if (name === "password") {
       setPassword(value);
     }
 
-    if (name === 'userKind') {
+    if (name === "userKind") {
       // userKind 전역 상태 관리 (store)
-      dispatch({ type: "SELECT_USER_KIND", value })
+      dispatch({ type: "SELECT_USER_KIND", value });
     }
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (email.length === 0 || password.length === 0) alert('입력하세요');
+    if (email.length === 0 || password.length === 0) alert("입력하세요");
     let data = { email, password };
 
-    if (userKind === 'player') {
+    if (userKind === "player") {
       UserApi.requestLogin(
         data,
         (res) => {
           const { data } = res; // 유저 정보
-          localStorage.setItem('currentUser', JSON.stringify({email}));
-          dispatch({ type: "LOGIN", value: email })
-          history.push('/')
+          localStorage.setItem("currentUser", JSON.stringify({ email }));
+          dispatch({ type: "LOGIN", value: email });
+          history.push("/");
         },
         (error) => {
-          alert('아이디나 비밀번호를 확인해주세요.');
+          alert("아이디나 비밀번호를 확인해주세요.");
         }
       );
-    } else if (userKind === 'business') {
+    } else if (userKind === "business") {
       UserApi.requestBusinessLogin(
         data,
         (res) => {
           const { data } = res; // 유저 정보
-          localStorage.setItem('currentUserbusiness', JSON.stringify({email}));
-          dispatch({ type: "LOGIN", value: email })
-          history.push('/')
+          localStorage.setItem("currentUserbusiness", JSON.stringify({ email }));
+          dispatch({ type: "LOGIN", value: email });
+          history.push("/");
         },
         (error) => {
           console.log(error);
-          alert('아이디나 비밀번호를 확인해주세요.');
+          alert("아이디나 비밀번호를 확인해주세요.");
         }
       );
     }
   };
 
-  const onGoogleLogin = () => {
-    alert('구글 계정으로 로그인');
-  };
-
   return (
     <div className="loginForm">
       <p>농구에 미치고 싶다면?</p>
-      <p>지금 바로 BITZ에 <strong>로그인</strong>하세요!</p>
+      <p>지금 바로 <span>BITZ</span>에 로그인하세요!</p>
       <form onSubmit={onSubmit}>
         {/* radio 버튼은 부트스트랩 필요할 듯 */}
         <div className="userKind">
           <label
             className={
-              userKind === 'player' ? 'userKindRadio selected' : 'userKindRadio unselected'
+              userKind === "player" ? "userKindRadio selected" : "userKindRadio unselected"
             }
           >
             <input type="radio" value="player" name="userKind" onClick={onChange} />
@@ -91,7 +87,7 @@ function Login({ history }) {
           </label>
           <label
             className={
-              userKind === 'business' ? 'userKindRadio selected' : 'userKindRadio unselected'
+              userKind === "business" ? "userKindRadio selected" : "userKindRadio unselected"
             }
           >
             <input type="radio" value="business" name="userKind" onClick={onChange} />
@@ -99,14 +95,10 @@ function Login({ history }) {
           </label>
         </div>
         <div className="emailbox">
-          이메일
-          <br />
-          <input type="email" onChange={onChange} name="email" />
+          <input type="email" onChange={onChange} name="email" placeholder="Email address" />
         </div>
         <div className="passwordbox">
-          비밀번호
-          <br />
-          <input type="password" onChange={onChange} name="password" />
+          <input type="password" onChange={onChange} name="password" placeholder="Password"/>
         </div>
         <div className="userHelp">
           <Link to="/accounts/find_password">비밀번호 찾기</Link>
@@ -114,10 +106,6 @@ function Login({ history }) {
         </div>
         <button type="sumbit">로그인</button>
       </form>
-      <button className="googleLogin" onClick={onGoogleLogin}>
-        <img src="/images/google_logo.png" alt="sns_logo" id="google__logo" />
-        <span>구글 계정으로 로그인</span>
-      </button>
     </div>
   );
 }

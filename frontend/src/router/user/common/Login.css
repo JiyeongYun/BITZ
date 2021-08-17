@@ -1,8 +1,21 @@
 .loginForm {
+  margin-top: var(--large-margin-size);
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 80vh;
+}
+
+.loginForm > p {
+  display: inline-block;
+  text-align: start;
+  width: 300px;
+  font-size: var(--main-font-size);
+}
+
+.loginForm > p > span {
+  color: var(--main-color);
+  font-weight: bold;
 }
 
 .login__logo {
@@ -10,10 +23,11 @@
 }
 
 .userKind {
+  margin-top: var(--large-margin-size);
   display: flex;
   justify-content: space-around;
-  margin-bottom: var(--large-margin-size);
-  font-size: var(--mid-font-size);
+  margin-bottom: 20px;
+  font-size: var(--main-font-size);
 }
 
 .userKindRadio > input {
@@ -29,119 +43,115 @@
   text-align: center;
 }
 
-.userKind > label:hover > span{
-  font-size: var(--large-font-size);
-  font-weight: bold;
+.userKind > label:hover > span {
+  font-size: var(--main-font-size);
 }
 
-.userKind > label > span{
-  transition: font-size .5s;
+.userKind > label > span {
+  transition: font-size 0.5s;
 }
 
 .userKind > .selected {
-  font-weight: bold;
-  font-size: var(--large-font-size);
+  font-size: var(--main-font-size);
   color: var(--main-color);
 }
 
 /* 애니메이션 관련 css 시작*/
 .userKind > label:nth-child(1).selected::before {
-  content:"";
+  content: "";
   width: 1px;
   height: 100%;
   border-left: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   left: 0;
-  animation: height .2s;
+  animation: height 0.2s;
   animation-fill-mode: forwards;
 }
 
 .userKind > label:nth-child(1).selected::after {
-  content:"";
+  content: "";
   width: 100%;
   height: 1px;
   border-top: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   left: 0;
-  animation: width .2s .2s;
+  animation: width 0.2s 0.2s;
   animation-fill-mode: backwards;
 }
 
 .userKind > label:nth-child(1).selected > span::after {
-  content:"";
+  content: "";
   width: 1px;
   height: 100%;
   border-right: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   right: 0;
-  animation: height .2s .4s;
+  animation: height 0.2s 0.4s;
   animation-fill-mode: backwards;
 }
 
 .userKind > label:nth-child(2).unselected::before {
-  content:"";
+  content: "";
   width: 100%;
   height: 1px;
   border-bottom: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   left: 0;
-  animation: width .2s .6s;
+  animation: width 0.2s 0.6s;
   animation-fill-mode: backwards;
 }
 
 .userKind > label:nth-child(2).selected::before {
-  content:"";
+  content: "";
   width: 1px;
   height: 100%;
   border-right: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   right: 0;
-  animation: height .2s;
+  animation: height 0.2s;
   animation-fill-mode: forwards;
 }
 
 .userKind > label:nth-child(2).selected::after {
-  content:"";
+  content: "";
   width: 100%;
   height: 1px;
   border-top: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   right: 0;
-  animation: width .2s .2s;
+  animation: width 0.2s 0.2s;
   animation-fill-mode: backwards;
 }
 
 .userKind > label:nth-child(2).selected > span::after {
-  content:"";
+  content: "";
   width: 1px;
   height: 100%;
   border-left: 2px solid var(--main-color);
   position: absolute;
   top: 0;
   left: 0;
-  animation: height .2s .4s;
+  animation: height 0.2s 0.4s;
   animation-fill-mode: backwards;
 }
 
 .userKind > label:nth-child(1).unselected::before {
-  content:"";
+  content: "";
   width: 100%;
   height: 1px;
   border-bottom: 2px solid var(--main-color);
   position: absolute;
   bottom: 0;
   right: 0;
-  animation: width .2s .6s;
+  animation: width 0.2s 0.6s;
   animation-fill-mode: backwards;
 }
-
-
 
 @keyframes width {
   from {
@@ -160,22 +170,22 @@
     height: 100%;
   }
 }
+
 /* 애니메이션 관련 css 끝*/
 
 .emailbox,
 .passwordbox {
-  margin: var(--mid-margin-size) 0 var(--main-margin-size);
   font-size: var(--mid-font-size);
+  margin-top: 15px;
 }
 
 .emailbox > input,
-.passwordbox > input
-{
+.passwordbox > input {
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: var(--grey-color);
   width: 100%;
-  height: var(--btn-height);
+  height: 40px;
   padding-left: var(--small-margin-size);
   margin-top: var(--small-margin-size);
 }
@@ -184,8 +194,9 @@
   display: flex;
   justify-content: space-between;
   font-weight: lighter;
-  font-size: var(--main-font-size);
-  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  color: var(--main-color);
+  margin-top: 20px;
 }
 
 .userHelp > a:hover {
@@ -194,34 +205,21 @@
 
 .loginForm > form > button {
   cursor: pointer;
-  font-weight: bold;
   font-size: var(--main-font-size);
   width: 100%;
   color: white;
   background-color: var(--main-color);
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 30px;
   margin: var(--large-margin-size) 0 var(--small-margin-size);
 }
 
-.googleLogin {
-  font-size: var(--main-font-size);
-  width: 100%;
-  background-color: var(--grey-color);
-  border: 1px solid var(--main-color);
-  border-radius: 5px;
-  height: var(--btn-height);
-  width: 340px;
-  line-height: var(--btn-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-bottom: var(--mid-margin-size);
-}
-
-#google__logo  {
-  height: var(--small-picture);
-  margin-right: var(--small-margin-size)
+@media screen and (max-width: 1024px) {
+  .loginForm {
+    width: 100%;
+  }
+  .userKind > label {
+    width: 150px;
+  }
 }
