@@ -1,25 +1,19 @@
 .fl {
-    text-align: center;
+    text-align: start;
+    width: 500px;
 }
 
 .fl__text {
-    font-size: var(--large-font-size);
-}
-
-.fl__text > div {
-    margin-top: var(--mid-margin-size);
+    font-size: var(--main-font-size);
 }
 
 .fl__data {
-    width: 450px;
-    margin: var(--large-margin-size) auto 0;
-    border: 1px solid #ffad4e;
-    border-radius: 5px;
+    width: 500px;
+    margin: var(--large-margin-size) 0 0;
 }
 
 .data__container {
-    margin: var(--mid-margin-size) auto;
-    width: fit-content;
+    margin: var(--mid-margin-size) 0;
 }
 
 .data__container > div {
@@ -29,25 +23,29 @@
 
 .fl__data label {
     font-size: var(--mid-font-size);
+    color: var(--main-color);
+    position: relative;
 }
 
 #height__input {
-    border: 1px solid var(--main-color);
-    border-radius: 5px;
-    background-color: var(--grey-color);
-    width: 100px;
-    height: var(--btn-height);
+    border: 1px solid var(--grey);
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
     margin-top: var(--small-margin-size);
     text-align: right;
-    padding-right: var(--small-margin-size);
+    padding-right: 40px;
 }
 
-#height__input:focus {
-    outline: none;
+.height__box > label > span {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
 }
 
 .position__box span {
     font-size: var(--small-font-size);
+    color: var(--grey);
 }
 
 .ps__checkbox {
@@ -71,31 +69,39 @@
     font-size: var(--main-font-size);
     margin-right: var(--main-margin-size);
     display: inline-block;
-    border: 1px solid var(--main-color);
-    border-radius: 5px;
-    padding: 5px var(--mid-margin-size);
-    background-color: var(--grey-color);
+    border: 1px solid var(--grey);
+    color: var(--grey);
+    border-radius: 10px;
+    text-align: center;
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
 }
 
 .ab__checkbox > span {
     font-size: var(--main-font-size);
     margin-right: var(--main-margin-size);
     display: inline-block;
-    border: 1px solid var(--main-color);
-    border-radius: 5px;
-    padding: 5px var(--mid-margin-size);
+    border: 1px solid var(--grey);
+    color: var(--grey);
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+    line-height: 20px;
     background-color: var(--grey-color);
     text-align: center;
 }
 
 .ab__checkbox:checked > span {
     background-color: var(--main-color);
-    color: white;
+    color: white !important;
 }
 
 .checked {
     background-color: var(--main-color) !important;
-    color: white;
+    border: none !important;
+    color: white !important;
 }
 
 .data__container > button {
@@ -116,11 +122,12 @@
 
 .location__container > div:nth-child(1) {
     font-size: var(--mid-font-size);
+    color: var(--main-color);
 }
 
 .location__container > div:nth-child(2) {
     font-size: var(--small-font-size);
-    margin-top: 5px;
+    color: var(--grey);
 }
 
 .location__container > .location__data {
@@ -134,82 +141,111 @@
     align-items: center;
 }
 
+.location__container > .location__data > div > span {
+    width: 90px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+
+.location__container > .location__data > div > div > select{
+    width: 90px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 0;
+}
+
 @media screen and (max-width: 1024px) {
-    .fl__text {
-        font-size: var(--small-font-size);
+    .fl {
+        text-align: start;
+        width: 300px;
     }
     
-    .fl__text > div {
-        margin-top: var(--small-margin-size);
+    .fl__text {
+        font-size: 10.5px;
+        margin-top: var(--large-margin-size);
     }
     
     .fl__data {
         width: 100%;
-        max-width: 400px;
-        margin: var(--large-margin-size) auto 0;
-        border: 1px solid #ffad4e;
-        border-radius: 5px;
     }
-    
-    .data__container {
-        margin: var(--mid-margin-size) auto;
-    }
-    
+
     .data__container > div {
         margin-bottom: var(--main-margin-size);
-        text-align: center;
+        text-align: start;
     }
     
     .fl__data label {
-        font-size: var(--mid-font-size);
+        font-size: var(--main-font-size);
     }
     
     #height__input {
-        border: 1px solid var(--main-color);
-        border-radius: 5px;
-        background-color: var(--grey-color);
-        width: 83%;
-        height: var(--btn-height);
-        margin-top: var(--small-margin-size);
-        text-align: right;
-        padding-right: var(--small-margin-size);
-    }
-    
-    #height__input:focus {
-        outline: none;
+        width: 100%;
     }
     
     .position__box span {
         font-size: var(--small-font-size);
+        color: var(--grey);
     }
     
     .ps__checkbox {
-        margin-top: var(--small-margin-size);
+        display: flex;
+        justify-content: space-between;
+        margin-top: var(--main-margin-size);
     }
     .ab__checkbox {
         display: flex;
         flex-wrap: wrap;
-        margin-top: var(--small-margin-size);
+        justify-content: space-between;
+        margin-top: var(--main-margin-size);
     }
     
-    .ps__checkbox,
-    .ab__checkbox {
-        display: flex;
-        justify-content: space-around;
+    .ps__checkbox > input {
+        display: none;
+    }
+    
+    .ab__checkbox > input {
+        display: none;
     }
     
     .ps__checkbox > span {
-        font-size: var(--main-font-size);
-        width: 30%;
-        margin-right: 0;
-        height: var(--btn-height);
-        padding: 0;
-        line-height: var(--btn-height);
+        width: 90px;
+        margin: 0;
+    }
+    
+    .ab__checkbox > span {
+        margin: 0 !important;
+        font-size: var(--small-font-size);
+        width: 90px;
+    }
+    
+    .ab__checkbox:checked > span {
+        background-color: var(--main-color);
+        color: white !important;
     }
 
+    .data__container > button {
+        width: 100%;
+    }
+
+    .location__container > .location__data {
+        margin-top: var(--main-margin-size);
+        font-size: var(--small-font-size);
+    }
+    
     .location__container > .location__data > div {
+        margin: var(--small-margin-size) 0;
         display: flex;
-        justify-content: space-around;
         align-items: center;
+        justify-content: space-between;
+    }
+    
+    .location__container > .location__data > div > div > select{
+        width: 90px;
+        height: 40px;
+        line-height: 40px;
+        margin-left: 0;
+        font-size: var(--small-font-size);
+        border-radius: 10px;
     }
 }

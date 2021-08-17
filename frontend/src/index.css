@@ -26,8 +26,9 @@ body {
     border: 1px solid var(--main-color) !important;
 }
 
-.btn:focus {
+input:focus {
     border: 1px solid var(--main-color) !important;
+    border-radius: 5px !important;
 }
 
 :root {

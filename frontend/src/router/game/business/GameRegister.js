@@ -143,7 +143,7 @@ const GameRegister = () => {
         <div className="people_select_box">
           <h4>최소 인원을 정해주세요</h4>
           <div className="min_people">
-            <input type="number" id="minPeople" onChange={onChange} value={minPeople}/>
+            <input type="number" id="minPeople" className="done" onChange={onChange} value={minPeople}/>
             <span onClick={() => setMinPeople(Number(minPeople)-1)}>-</span>
             <span onClick={() => setMinPeople(Number(minPeople)+1)}>+</span>
           </div>
@@ -172,7 +172,7 @@ const GameRegister = () => {
         <div className="people_select_box">
           <h4>최대 인원을 정해주세요</h4>
           <div className="max_people">
-            <input type="number" id="maxPeople" onChange={onChange} value={maxPeople} min={`${minPeople}`} max="18" />
+            <input type="number" id="maxPeople" className="done" onChange={onChange} value={maxPeople} min={`${minPeople}`} max="18" />
             <span onClick={() => setMaxPeople(Number(maxPeople)-1)}>-</span>
             <span onClick={() => setMaxPeople(Number(maxPeople)+1)}>+</span>
           </div>
