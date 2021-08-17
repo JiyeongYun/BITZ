@@ -3,38 +3,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  margin-top: var(--xlarge-margin-size);
 }
 
 .register__container > p {
-  font-size: var(--xlarge-font-size);
-  font-style: italic;
-  width: 450px;
-  text-align: center;
-  letter-spacing: 7px;
-}
-
-.register__container > p:nth-child(1) {
-  font-weight: bold;
-  font-size: 28px;
-  transform: translate(15px, 0);
-}
-
-.register__container > p > span {
+  font-size: var(--large-font-size);
+  width: 340px;
+  text-align: start;
+  font-weight: normal;
+  text-decoration: underline;
+  text-underline-position: under;
   color: var(--main-color);
-  font-weight: bold;
-  font-size: var(--xxlarge-font-size);
-}
-
-.register__container > p > img {
-  width: 150px;
-  transform: translate(0, 20px);
-}
-
-
-.registerForm {
-  display: flex;
-  justify-content: center;
 }
 
 .registerForm__center {
@@ -48,32 +27,28 @@
   margin-bottom: var(--main-margin-size);
 }
 
-.registerForm__component > label {
-  font-size: var(--mid-font-size);
-}
-
 .change_to_business {
   text-align: center;
 }
 
 .errorMessage {
   font-size: var(--small-font-size);
-  color: red;
+  color: var(--red);
   margin-bottom: var(--small-margin-size);
 }
 
 input:focus {
-  outline-color: #FFAD4E;
+  outline-color: var(--main-color);
+  border-radius: 10px;
 }
 
 .inputBox {
   display: block;
   position: relative;
   width: 340px;
-  height: var(--btn-height);
+  height: 40px;
   border: none;
-  border-radius: 5px;
-  background: var(--grey-color);
+  border-radius: 10px;
   font-size: var(--main-font-size);
   padding-left: var(--main-margin-size);
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -82,37 +57,41 @@ input:focus {
 .register__birthForm {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
 .register__birthYear {
   display: table-cell;
-  width: 80px;
-  height: var(--btn-height);
+  width: 100px;
+  height: 40px;
   margin-right: 5px;
-  border: none;
-  background: var(--grey-color);
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: var(--main-font-size);
+  padding-left: var(--main-margin-size);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .register__birthMonth {
   display: table-cell;
-  width: 80px;
-  height: var(--btn-height);
+  width: 100px;
+  height: 40px;
   vertical-align: middle;
   margin-right: 5px;
-  border: none;
-  background: var(--grey-color);
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: var(--main-font-size);
+  padding-left: var(--main-margin-size);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .register__birthDay {
   display: table-cell;
-  width: 80px;
-  height:  var(--btn-height);
-  border: none;
-  background: var(--grey-color);
-  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: var(--main-font-size);
+  padding-left: var(--main-margin-size);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .registerForm__button {
@@ -137,13 +116,16 @@ input:focus {
 .duplicationCheck__button {
   width: 100px;
   display: block;
-  background: var(--main-color);
+  background-color: var(--main-color);
   border: none;
   border-radius: 5px;
-  color: var(--grey-color);
-  font-size: var(--main-font-size);
-  height: 20px;
-  margin: var(--main-margin-size) 0 0 auto;
+  color: white;
+  font-size: var(--small-font-size);
+  font-weight: normal;
+  height: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .change_to_business div {
@@ -164,6 +146,10 @@ input:focus {
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   pointer-events: none;
+}
+
+.input_relative_box {
+  position: relative;
 }
 
 /* Register Complete */
@@ -187,7 +173,7 @@ input:focus {
 }
 
 .registerComplete__email {
-  color: #FFAD4E;
+  color: var(--main-color);
 }
 
 .registerComplete__excuse {
@@ -200,7 +186,7 @@ input:focus {
   justify-content: space-around;
   margin-top: var(--large-margin-size);
   margin-bottom: var(--large-margin-size);
-  font-size: var(--mid-font-size);
+  font-size: var(--main-font-size);
 }
 
 .register__userKind > .userKindRadio > input {
@@ -217,7 +203,7 @@ input:focus {
 }
 
 .register__userKind > label:hover > span{
-  font-size: var(--large-font-size);
+  font-size: var(--mid-font-size);
   font-weight: bold;
 }
 
@@ -227,7 +213,7 @@ input:focus {
 
 .register__userKind > .selected {
   font-weight: bold;
-  font-size: var(--large-font-size);
+  font-size: var(--mid-font-size);
   color: var(--main-color);
 }
 
@@ -347,25 +333,3 @@ input:focus {
   }
 }
 /* 애니메이션 관련 css 끝*/
-
-@media screen and (max-width: 1024px) {
-  .register__container > p {
-    font-size: var(--main-font-size);
-    width: 400px;
-    letter-spacing: 7px;
-  }
-  
-  .register__container > p:nth-child(1) {
-    font-size: var(--large-font-size);
-  }
-  
-  .register__container > p > span {
-    font-weight: bold;
-    font-size: var(--large-font-size);
-  }
-  
-  .register__container > p > img {
-    width: 100px;
-    transform: translate(0, 20px);
-  }
-}

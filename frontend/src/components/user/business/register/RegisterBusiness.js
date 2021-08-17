@@ -84,7 +84,18 @@ function RegisterBusiness({history}) {
     } else {
       setValues({ ...values, [name]: value });
     }
+    handleInput(name, value)
   }; // updateValue End
+
+  
+  // input 박스 done 클래서 적용
+  const handleInput = (id, value) => {
+    if (value) {
+      document.querySelector(`#${id}`).classList.add('done')
+    } else {
+      document.querySelector(`#${id}`).classList.add('done')
+    }
+  }
 
   // PJW - Focus out 시 유효성 검사
   const lateValidateValue = (event) => {
@@ -205,13 +216,13 @@ function RegisterBusiness({history}) {
     <div className="registerForm__center">
       {/*  이메일 */}
       <div className="register__email registerForm__component">
-        <label>이메일</label>
-        <br />
         <input
           className="inputBox"
           type="email"
           name="email"
+          id="email"
           value={values.email}
+          placeholder="이메일 주소"
           onChange={updateValue}
           onBlur={updateIsFirst}
           autoCapitalize="none"
@@ -231,12 +242,12 @@ function RegisterBusiness({history}) {
       </div>
       {/* 이름 */}
       <div className="register__name registerForm__component">
-        <label>이름</label>
-        <br />
         <input
           className="inputBox"
           type="text"
           name="name"
+          id="name"
+          placeholder="이름"
           value={values.name}
           onChange={updateValue}
           onBlur={updateIsFirst}
@@ -245,12 +256,12 @@ function RegisterBusiness({history}) {
       </div>
       {/* 비밀번호 */}
       <div className="register__password registerForm__component">
-        <label>비밀번호</label>
-        <br />
         <input
           className="inputBox"
           type="password"
           name="password"
+          id="password"
+          placeholder="비밀번호"
           value={values.password}
           onChange={updateValue}
           onBlur={updateIsFirst}
@@ -259,12 +270,12 @@ function RegisterBusiness({history}) {
       </div>
       {/* 비밀번호 확인 */}
       <div className="register__passwordConfirm registerForm__component">
-        <label>비밀번호 확인</label>
-        <br />
         <input
           className="inputBox"
           type="password"
           name="passwordConfirm"
+          id="passwordConfirm"
+          placeholder="비밀번호 확인"
           value={values.passwordConfirm}
           onChange={updateValue}
           onBlur={updateIsFirst}
@@ -274,12 +285,12 @@ function RegisterBusiness({history}) {
       </div>
       {/* 핸드폰 번호 */}
       <div className="register__phoneNumber registerForm__component">
-        <label>핸드폰 번호( '-'를 제외하고 입력 : 01012345678 )</label>
-        <br />
         <input
           className="inputBox"
           type="tel"
           name="phoneNumber"
+          id="phoneNumber"
+          placeholder="휴대폰 번호"
           value={values.phoneNumber}
           onChange={updateValue}
           onBlur={updateIsFirst}
@@ -288,24 +299,24 @@ function RegisterBusiness({history}) {
       </div>
       {/* 생년월일 */}
       <div className="register__birth registerForm__component">
-        <label>생년월일</label>
         <div className="register__birthForm">
           {/* 년 */}
           <input
             className="register__birthYear"
             type="text"
             name="birthYear"
+            id="birthYear"
             value={values.birthYear}
             onChange={updateValue}
             onBlur={updateIsFirst}
             maxLength="4"
-            placeholder="연(4자)"
+            placeholder="생년(4자)"
           ></input>
-          년{/* 월 */}
+          {/* 월 */}
           <span>
             <select
               className="register__birthMonth"
-              id="mm"
+              id="birthMonth"
               name="birthMonth"
               onChange={updateValue}
               onBlur={updateIsFirst}
@@ -330,24 +341,24 @@ function RegisterBusiness({history}) {
             className="register__birthDay"
             type="text"
             name="birthDay"
+            id="birthDay"
             value={values.birthDay}
             onChange={updateValue}
             onBlur={updateIsFirst}
             maxLength="2"
             placeholder="일"
           ></input>
-          일
         </div>
         <div className="errorMessage">{errors.birth}</div>
       </div>
       {/* 계좌 은행 */}
       <div className="register__bank">
-        <label>은행</label>
-        <br />
         <input
           className="inputBox"
           type="text"
           name="bank"
+          id="bank"
+          placeholder="은행"
           value={values.bank}
           onChange={updateValue}
           onBlur={updateIsFirst}
@@ -356,12 +367,12 @@ function RegisterBusiness({history}) {
       </div>
       {/* 계좌 번호 */}
       <div className="register__account registerForm__component">
-        <label>계좌 번호( 숫자만 입력 )</label>
-        <br />
         <input
           className="inputBox"
           type="text"
           name="account"
+          id="account"
+          placeholder="계좌 번호"
           value={values.account}
           onChange={updateValue}
           onBlur={updateIsFirst}
@@ -370,12 +381,11 @@ function RegisterBusiness({history}) {
       </div>
       {/* 사업자 등록증 파일 업로드 */}
       <div className="register__businessRegistration">
-        <label>사업자 등록증 파일 업로드</label>
-        <br />
         {/* type file 형태로 바꾸고 업로드 가능하게 만들기 */}
         <input
           type="text"
           id="show-upload"
+          placeholder="사업자 등록증"
           className="inputBox inputBox__businessRegistration"
           value={values.businessRegistration}
           disabled="disabled"
