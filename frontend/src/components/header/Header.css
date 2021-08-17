@@ -13,6 +13,7 @@
 
 .header__icons > .right_side > img {
 	width: 50px;
+	height: 50px;
 	cursor: pointer;
 }
 
@@ -64,6 +65,7 @@
 
 .header__icons > .right_side > .profile_info > .link_list > a > img{
 	width: 30px;
+	height: 30px;
 	margin-right: var(--main-margin-size);
 }
 
@@ -182,5 +184,6 @@
 
 	.header__icons > .right_side > img {
 		width: 40px;
+		height: 40px;
 	}
 }
