@@ -63,3 +63,9 @@ body {
     --small-picture: 20px;
     --logo-width: 300px;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
