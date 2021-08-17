@@ -355,10 +355,6 @@ input:focus {
     width: 300px;
   }
 
-  .registerForm__component > * {
-    width: 100%;
-  }
-
   .inputBox {
     width: 300px;
   }

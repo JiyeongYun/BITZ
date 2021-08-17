@@ -10,6 +10,10 @@
   width: 1px;
 }
 
+.registerForm__center > .register__email {
+  position: relative;
+}
+
 .register__bank {
   margin-bottom: var(--main-margin-size);
 }
@@ -23,6 +27,7 @@
 .register__businessRegistration {
   margin: 0 0 var(--main-margin-size);
   width: 340px;
+  position: relative;
 }
 
 .registerForm__center > button,
@@ -38,10 +43,18 @@
   font-weight: normal;
   background-color: var(--main-color);
   color: white;
-  width: 100px;
-  height: 20px;
-  line-height: 20px;
-  border-radius: 5px;
-  margin: var(--small-margin-size) 0 0 auto;
+  width: 70px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
   cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+@media screen and (max-width: 1024px) {
+  .register__businessRegistration {
+    width: 300px;
+  }
 }
