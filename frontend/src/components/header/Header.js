@@ -109,6 +109,12 @@ function Header() {
     }
   }
 
+  // 이미지 사이즈
+  const imgWidth = {
+    width: "20px",
+    height: "20px"
+  }
+
   return (
     <div className={isScrollTop ? "header__container" : "header__container header__shadow"}>
       <div className="header">
@@ -119,7 +125,7 @@ function Header() {
           {value.isLogin ? (
             imgUrl?
               <div className="right_side">
-                <img src={imgUrl} alt="my_profile" onClick={showMenu} />
+                <img src={imgUrl} alt="my_profile" stlye={imgWidth} onClick={showMenu} />
                 <div className="profile_info">
                   <div className="user__info">
                     <p>{userData.name}님</p>
@@ -134,7 +140,7 @@ function Header() {
                 </div>
               </div>
             : <div className="right_side">
-                <img src="/images/profile.png" alt="my_profile" onClick={showMenu} />
+                <img src="/images/profile.png" style={imgWidth} alt="my_profile" onClick={showMenu} />
                 <div className="profile_info">
                   <div className="user__info">
                     <p>{userData.name}님</p>

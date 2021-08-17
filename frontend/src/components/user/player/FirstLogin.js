@@ -90,7 +90,8 @@ function FirstLogin(props) {
         <div className="data__container">
           <div className="height__box">
             <label htmlFor="height">키가 어떻게 되시나요?<br/>
-              <input type="text" name="height" id="height__input" onChange={onChange} />  cm
+              <input type="text" name="height" id="height__input" onChange={onChange} />
+              <span>cm</span>
             </label>
           </div>
           <div className="position__box">

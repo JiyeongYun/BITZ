@@ -38,17 +38,18 @@ const RegisterGym = () => {
 
   // 체육관 시설 클릭 시 css를 변경해주는 함수
   const onClickFacilities = (event) => {
-    const { target : { parentElement : { parentElement : { classList : { length }}}} } = event;
-    const { target : { parentElement : { parentElement }} } = event;
+    const { target : { parentElement : {childNodes} }} = event;
 
-    if (length === 2) {
-      parentElement.className = "facility"
+    if (childNodes[0].style.display === "block" ) {
+      childNodes[0].style.display = "none"
       changeFacilityState(event.target.alt, false)
     } else {
-      parentElement.className = "facility clicked"
+      childNodes[0].style.display = "block"
       changeFacilityState(event.target.alt, true)
     }
   }
+
+  console.log(water, shower, scoreboard, parking, basketball, airconditioner)
 
   // 체육관 시설 클릭 시 State를 변경해주는 함수
   const changeFacilityState = (target, value) => {
@@ -89,6 +90,11 @@ const RegisterGym = () => {
       setSido(value)
     } else if (name === "gugun") {
       setGugun(value)
+    }
+    if (value) {
+      document.getElementsByName(name)[0].classList.add('done')
+    } else {
+      document.getElementsByName(name)[0].classList.remove('done')
     }
   };
 
@@ -143,32 +149,31 @@ const RegisterGym = () => {
         <h1>체육관 등록</h1>
         <div className="registerGymForm__div">
           <div className="gymName__box">
-            <h4>체육관 이름</h4>
-            <p>코트가 여러 개라면 코트 별로 등록해주세요.</p>
-            <input type="text" name="name" onChange={onChange} />
+            <input type="text" name="name" onChange={onChange} placeholder="체육관명을 입력해주세요." />
           </div>
           <div className="gymIntro__box">
-            <h4>체육관 소개</h4>
-            <textarea name="intro" onChange={onChange} />
+            <textarea name="intro" onChange={onChange} placeholder="체육관을 소개해주세요." />
           </div>
           <div className="gymNotice__box">
-            <h4>주의 사항</h4>
-            <textarea name="notice" onChange={onChange} />
+            <textarea name="notice" onChange={onChange} placeholder="주의사항을 알려주세요." />
           </div>
           <div className="courtsize__box">
-            <h4>코트 규격</h4>
-            <p>정규 코트 : 28m X 15m</p>
             <div>
-              <input type="number" name="courtLength" onChange={onChange} />m<span>X</span>
-              <input type="number" name="courtWidth" onChange={onChange} />m
+              <div>
+                <input type="number" name="courtLength" onChange={onChange} placeholder="코트 가로 길이" />
+                <span>M</span>
+              </div>
+              <span>X</span>
+              <div>
+                <input type="number" name="courtWidth" onChange={onChange} placeholder="코트 세로 길이"/>
+                <span>M</span>
+              </div>
             </div>
           </div>
           <div className="gymaddress__box">
-            <h4>위치</h4>
             <div className="gymaddress">
               <div>
-                <p>지역</p>
-                <select name="sido" onChange={onChange} className="gym__sido">
+                <select name="sido" onChange={onChange} className="gym__sido done">
                   {location.sido.map((t,idx) => {
                     return (
                       <option key={idx}>{t}</option>
@@ -177,7 +182,6 @@ const RegisterGym = () => {
                 </select>
               </div>
               <div>
-                <p>상세 지역</p>
                 <select name="gugun" onChange={onChange} className="gym__gugun">
                   {location.gugun[sido] ? location.gugun[sido].map((gu, idx) => {
                     return <option key={idx+100}>{gu}</option>
@@ -185,46 +189,63 @@ const RegisterGym = () => {
                 </select>
               </div>
               <div>
-                <p>상세 주소</p>
-                <input type="text" name="address" onChange={onChange} />
+                <input type="text" name="address" onChange={onChange} placeholder="상세 주소" />
               </div>
             </div>
           </div>
           <div className="gymfacilities__box">
-            <h4>편의 시설</h4>
+            <h4>제공되는 편의 시설을 선택해주세요.</h4>
             <div className="facilities">
               <div className="facility">
                 <div className="img_box">
+                  <div className="img_box_checked">
+                    <img src="/images/check.png" alt="check"/>
+                  </div>
                   <img src="/images/water.png" alt="water" onClick={onClickFacilities} />
                 </div>
                 <p>정수기</p>
               </div>
               <div className="facility">
                 <div className="img_box">
+                  <div className="img_box_checked">
+                    <img src="/images/check.png" alt="check"/>
+                  </div>
                   <img src="/images/shower.png" alt="shower" onClick={onClickFacilities} />
                 </div>
                 <p>샤워실</p>
               </div>
               <div className="facility">
                 <div className="img_box">
+                  <div className="img_box_checked">
+                    <img src="/images/check.png" alt="check"/>
+                  </div>
                  <img src="/images/scoreboard.png" alt="scoreboard" onClick={onClickFacilities} />
                 </div>
                 <p>점수판 & 휘슬</p>
               </div>
               <div className="facility">
               <div className="img_box">
+                <div className="img_box_checked">
+                  <img src="/images/check.png" alt="check"/>
+                </div>
                 <img src="/images/parking.png" alt="parking" onClick={onClickFacilities} />
               </div>
                 <p>주차장</p>
               </div>
               <div className="facility">
                 <div className="img_box">
+                  <div className="img_box_checked">
+                    <img src="/images/check.png" alt="check"/>
+                  </div>
                   <img src="/images/basketball.png" alt="basketball" onClick={onClickFacilities} />
                 </div>
                 <p>농구공</p>
               </div>
               <div className="facility">
                 <div className="img_box">
+                  <div className="img_box_checked">
+                    <img src="/images/check.png" alt="check"/>
+                  </div>
                   <img src="/images/airconditioner.png" alt="airconditioner" onClick={onClickFacilities} />
                 </div>
                 <p>에어컨</p>
@@ -232,7 +253,8 @@ const RegisterGym = () => {
             </div>
           </div>
           <div className="gympicture__box">
-            <h4>체육관 사진</h4>
+            <h4>체육관 사진을 등록해주세요.</h4>
+            <p>현재는 한 개의 사진만 등록 가능해요. 서둘러 개선할게요! ೕ(•̀ᴗ•́)</p>
             <input type="file" accept="image/*" onChange={onAddGymPhoto} />
           </div>
           <button className="registergym__btn" onClick={registerGym}>체육관 등록</button>

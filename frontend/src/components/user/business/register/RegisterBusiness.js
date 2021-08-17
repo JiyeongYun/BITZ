@@ -233,8 +233,8 @@ function RegisterBusiness({history}) {
           onClick={onEmailCheck}
           className={
             !errors.email
-              ? 'registerForm__button duplicationCheck__button'
-              : 'disabled registerForm__button duplicationCheck__button'
+              ? 'duplicationCheck__button'
+              : 'disabled duplicationCheck__button'
           }
         >
           중복체크
