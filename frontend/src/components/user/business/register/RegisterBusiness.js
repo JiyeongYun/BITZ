@@ -411,10 +411,6 @@ function RegisterBusiness({history}) {
       >
         회원가입
       </button>
-      <button className="googleLogin" onClick={onGoogleRegister}>
-        <img src="/images/google_logo.png" alt="sns_logo" id="google__logo" />
-        <span>구글 계정으로 회원가입</span>
-      </button>
     </div>
   );
 }

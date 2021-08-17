@@ -7,7 +7,7 @@
 }
 
 .register__container > p {
-  font-size: var(--large-font-size);
+  font-size: var(--main-font-size);
   width: 340px;
   text-align: start;
   font-weight: normal;
@@ -96,7 +96,6 @@ input:focus {
 
 .registerForm__button {
   cursor: pointer;
-  font-weight: bold;
   font-size: var(--main-font-size);
   width: 100%;
   color: white;
@@ -109,16 +108,17 @@ input:focus {
 
 .register__button {
   background: var(--main-color);
+  border-radius: 10px;
   border: none;
   color: white;
 }
 
 .duplicationCheck__button {
-  width: 100px;
+  width: 70px;
   display: block;
   background-color: var(--main-color);
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   color: white;
   font-size: var(--small-font-size);
   font-weight: normal;
@@ -130,7 +130,7 @@ input:focus {
 
 .change_to_business div {
   color: black;
-  font-size: var(--mid-font-size);
+  font-size: var(--main-font-size);
   margin: var(--large-margin-size) 0 var(--small-margin-size);
 }
 
@@ -203,8 +203,7 @@ input:focus {
 }
 
 .register__userKind > label:hover > span{
-  font-size: var(--mid-font-size);
-  font-weight: bold;
+  font-size: var(--main-font-size);
 }
 
 .register__userKind > label > span{
@@ -212,8 +211,7 @@ input:focus {
 }
 
 .register__userKind > .selected {
-  font-weight: bold;
-  font-size: var(--mid-font-size);
+  font-size: var(--main-font-size);
   color: var(--main-color);
 }
 
@@ -333,3 +331,51 @@ input:focus {
   }
 }
 /* 애니메이션 관련 css 끝*/
+
+@media screen and (max-width: 1024px) {
+  .register__container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .register__container > p {
+    width: 300px;
+    display: inline-block;
+  }
+  .register__userKind {
+    width: 300px;
+  }
+
+  .userKind > label {
+    width: 150px;
+  }
+  
+  .registerForm__component {
+    width: 300px;
+  }
+
+  .registerForm__component > * {
+    width: 100%;
+  }
+
+  .inputBox {
+    width: 300px;
+  }
+
+  .birthYear {
+    width: 90px;
+  }
+  
+  .register__birthMonth {
+    width: 90px;
+  }
+  
+  .register__birthDay {
+    width: 90px;
+  }
+  
+  .registerForm__button {
+    width: 300px !important;
+  }
+}
