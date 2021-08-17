@@ -53,13 +53,14 @@ function ChangePassword({ history }) {
   // methods ***************************************************************
   // PJW - 데이터 입력 시 값 업데이트
   const updateValue = (event) => {
-    let { name, value } = event.target;
-    if (name==="password") {
-      setValues({ ...values, [name]: value, passwordConfirm: ""});
+    let { id, value } = event.target;
+    if (id==="password") {
+      setValues({ ...values, [id]: value, passwordConfirm: ""});
       setIsFirst({...isFirst, passwordConfirm: true})
     } else {
-      setValues({ ...values, [name]: value});
+      setValues({ ...values, [id]: value});
     }
+    handleInput(id, value)
   } // updateValue End
 
   // PJW - 에러 메시지 노출을 위해 최초 입력인지 확인
@@ -109,31 +110,38 @@ function ChangePassword({ history }) {
 
   } // onChangePassword End
 
+  // input 값 입력 시 done 클래스 추가
+  const handleInput = (id, value) => {
+    if (value) {
+      document.querySelector(`#${id}`).classList.add('done')
+    } else {
+      document.querySelector(`#${id}`).classList.remove('done')
+    }
+  }
+
   return(
     <div className="changePassword">
-      <div>
-        <img className="changePassword__logo" src="/images/logo.png" alt="logo" />
-      </div>
+      <h4>비밀번호 변경</h4>
       <div className="changePasswordForm registerForm__center">
         {/* 구 비밀번호 */}
         <div className="changePassword__password changePasswordForm__component">
           <label>현재 비밀번호 입력</label>
           <br />
-          <input className="inputBox" type="password" name="password" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input className="inputBox" type="password" id="password" name="password" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.password}</div>
         </div>
         {/* 신 비밀번호 */}
         <div className="changePassword__password changePasswordForm__component">
           <label>새 비밀번호 입력</label>
           <br />
-          <input className="inputBox" type="password" name="newPassword" value={values.newPassword} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input className="inputBox" type="password" id="newPassword" name="newPassword" value={values.newPassword} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.newPassword}</div>
         </div>
         {/* 신 비밀번호 확인 */}
         <div className="changePassword__passwordConfirm changePasswordForm__component">
           <label>새 비밀번호 확인</label>
           <br />
-          <input className="inputBox" type="password" name="newPasswordConfirm" value={values.newPasswordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
+          <input className="inputBox" type="password" id="newPasswordConfirm" name="newPasswordConfirm" value={values.newPasswordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
           <div className="errorMessage">{errors.newPasswordConfirm}</div>
         </div>
 
