@@ -1,17 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function SendPassword(props) {
   return (
     <div className="sendpw">
       <div className="send__info">
-        <p><span>아래의 주소로 메일을 보내는 중 입니다.</span><span>(소요시간 : 1 ~ 2분)</span></p>
+        <p>
+          <span>임시 비밀번호가 메일로 발송되었습니다.</span>
+        </p>
         <p id="email">{props.email}</p>
-        <p>로그인 후 꼭 비밀번호를 바꿔주세요.</p>
       </div>
-      <button><Link to="/accounts/login">로그인하기</Link></button>
+      <button>
+        <Link to="/accounts/login">로그인 하기</Link>
+      </button>
     </div>
-  )
+  );
 }
 
-export default SendPassword
+export default SendPassword;
