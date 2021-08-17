@@ -1,46 +1,47 @@
 .email__info {
-    margin-bottom: var(--main-margin-size);
+  margin-bottom: var(--main-margin-size);
 }
 
 .email__info > input {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    background-color: var(--grey-color);
-    width: 340px;
-    height: var(--btn-height);
+  border: 1px solid var(--grey);
+  border-radius: 10px;
+  background-color: var(--grey-color);
+  width: 340px;
+  height: 40px;
+  padding-left: 10px;
 }
 
 .sendpw {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sendpw > button {
-    font-size: var(--main-font-size);
-    width: 340px;
-    color: white;
-    background-color: var(--main-color);
-    border: none;
-    border-radius: 5px;
-    height: var(--btn-height);
-    cursor: pointer;
+  font-size: var(--main-font-size);
+  width: 340px;
+  color: white;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 5px;
+  height: var(--btn-height);
+  cursor: pointer;
 }
 
 .send__info {
-    text-align: center;
-    margin-bottom: var(--large-margin-size);
-    font-size: var(--mid-font-size);
+  text-align: center;
+  margin-bottom: var(--large-margin-size);
+  font-size: var(--mid-font-size);
 }
 
 .send__info > #email {
-    margin: var(--mid-margin-size) 0;
-    color: var(--main-color)
+  margin: var(--mid-margin-size) 0;
+  color: var(--main-color);
 }
 
 @media screen and (max-width: 1024px) {
-    .sendpw > .send__info > p:nth-child(1) {
-        display: flex;
-        flex-direction: column;
-    }
+  .sendpw > .send__info > p:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+  }
 }
