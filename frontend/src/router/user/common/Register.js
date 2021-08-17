@@ -44,10 +44,7 @@ function Register(props) {
     <dispatchSubmitContext.Provider value={dispatch}>
       <stateSubmitContext.Provider value={stateSubmit}>
         <div className="register__container">
-          <p>농구에 미치고 싶다면?</p>
-          <p>지금 바로 BITZ에 가입하세요!</p>
-          <br/>
-          <br/>
+          <p>회원가입</p>
           <div className="register__userKind">
             <label
               className={

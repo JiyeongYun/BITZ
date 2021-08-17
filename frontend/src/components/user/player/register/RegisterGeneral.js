@@ -82,7 +82,17 @@ function RegisterGeneral({history}) {
     } else {
       setValues({ ...values, [name]: value});
     }
+    handleInput(name, value)
   } // updateValue End
+
+  // input 박스 done 클래서 적용
+  const handleInput = (id, value) => {
+    if (value) {
+      document.querySelector(`#${id}`).classList.add('done')
+    } else {
+      document.querySelector(`#${id}`).classList.add('done')
+    }
+  }
 
   // PJW - Focus out 시 유효성 검사
   const lateValidateValue = (event) => {
@@ -181,67 +191,58 @@ function RegisterGeneral({history}) {
       <div className="registerForm__center">
         {/*  이메일 */}
         <div className="register__email registerForm__component">
-          <label>이메일</label>
-          <br />
-          <input className="inputBox" type="email" name="email" value={values.email} onChange={updateValue} onBlur={updateIsFirst} autoCapitalize="none"></input>
-          <div className="errorMessage">{errors.email}</div>
-          <button
-          type="sumbit"
-          onClick={onEmailCheck}
-          className={!errors.email ? "registerForm__button duplicationCheck__button": "disabled registerForm__button duplicationCheck__button"}>
-            중복체크
-          </button>
+          <div className="input_relative_box">
+            <input className="inputBox" type="email" name="email" id="email" value={values.email} onChange={updateValue} onBlur={updateIsFirst} autoCapitalize="none" placeholder="이메일 주소"></input>
+            <div className="errorMessage">{errors.email}</div>
+            <button
+            type="sumbit"
+            onClick={onEmailCheck}
+            className={!errors.email ? "duplicationCheck__button": "disabled duplicationCheck__button"}>
+              중복체크
+            </button>
+          </div>
         </div>
         {/* 이름 */}
         <div className="register__name registerForm__component">
-          <label>이름</label>
-          <br />
-          <input className="inputBox" type="text" name="name" value={values.name} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input placeholder="이름" className="inputBox" type="text" name="name" id="name" value={values.name} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.name}</div>
         </div>
         {/* 닉네임 */}
         <div className="register__nickname registerForm__component">
-          <label>닉네임</label>
-          <br />
-          <input className="inputBox" type="text" name="nickname" value={values.nickname} onChange={updateValue} onBlur={updateIsFirst}></input>
-          <div className="errorMessage">{errors.nickname}</div>
-          <button
-          type="sumbit"
-          onClick={onNicknameCheck}
-          className={!errors.nickname ? "registerForm__button duplicationCheck__button": "disabled registerForm__button duplicationCheck__button"}>
-            중복체크
-          </button>
+          <div className="input_relative_box">
+            <input placeholder="닉네임" className="inputBox" type="text" name="nickname" id="nickname" value={values.nickname} onChange={updateValue} onBlur={updateIsFirst}></input>
+            <div className="errorMessage">{errors.nickname}</div>
+            <button
+            type="sumbit"
+            onClick={onNicknameCheck}
+            className={!errors.nickname ? "duplicationCheck__button": "disabled duplicationCheck__button"}>
+              중복체크
+            </button>
+          </div>
         </div>
         {/* 비밀번호 */}
         <div className="register__password registerForm__component">
-          <label>비밀번호</label>
-          <br />
-          <input className="inputBox" type="password" name="password" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input placeholder="비밀번호" className="inputBox" type="password" name="password" id="password" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.password}</div>
         </div>
         {/* 비밀번호 확인 */}
         <div className="register__passwordConfirm registerForm__component">
-          <label>비밀번호 확인</label>
-          <br />
-          <input className="inputBox" type="password" name="passwordConfirm" value={values.passwordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
+          <input placeholder="비밀번호 확인" className="inputBox" type="password" name="passwordConfirm" id="passwordConfirm" value={values.passwordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
           <div className="errorMessage">{errors.passwordConfirm}</div>
         </div>
         {/* 핸드폰 번호 */}
         <div className="register__phoneNumber registerForm__component">
-          <label>핸드폰 번호( '-'를 제외하고 입력 : 01012345678 )</label>
-          <br />
-          <input className="inputBox" type="tel" name="phoneNumber" value={values.phoneNumber} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input placeholder="휴대폰 번호" className="inputBox" type="tel" name="phoneNumber" id="phoneNumber" value={values.phoneNumber} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.phoneNumber}</div>
         </div>
         {/* 생년월일 */}
         <div className="register__birth registerForm__component">
-          <label>생년월일</label>
           <div className="register__birthForm">
             {/* 년 */}
-            <input className="register__birthYear" type="text" name="birthYear" value={values.birthYear} onChange={updateValue} onBlur={updateIsFirst} maxLength="4" placeholder="연(4자)"></input>년
+            <input placeholder="생년" className="register__birthYear" type="text" name="birthYear" id="birthYear" value={values.birthYear} onChange={updateValue} onBlur={updateIsFirst} maxLength="4" placeholder="생년(4자)"></input>
             {/* 월 */}
             <span>
-                <select className="register__birthMonth" id="mm" name="birthMonth" onChange={updateValue} onBlur={updateIsFirst}>
+                <select className="register__birthMonth" id="birthMonth" name="birthMonth" onChange={updateValue} onBlur={updateIsFirst}>
                     <option>월</option>
                     <option value="01">1</option>
                     <option value="02">2</option>
@@ -256,10 +257,9 @@ function RegisterGeneral({history}) {
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
-                <span> 월</span>
             </span>
             {/* 일 */}
-            <input className="register__birthDay" type="text" name="birthDay" value={values.birthDay} onChange={updateValue} onBlur={updateIsFirst} maxLength="2" placeholder="일"></input>일
+            <input className="register__birthDay" type="text" name="birthDay" id="birthDay" value={values.birthDay} onChange={updateValue} onBlur={updateIsFirst} maxLength="2" placeholder="일"></input>
           </div>
           <div className="errorMessage">{errors.birth}</div>
         </div>
