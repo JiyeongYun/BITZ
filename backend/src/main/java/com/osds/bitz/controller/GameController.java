@@ -7,6 +7,7 @@ import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.model.network.response.game.GameReserveResponse;
 import com.osds.bitz.model.network.response.game.GameResultResponse;
 import com.osds.bitz.service.GameService;
 import io.swagger.annotations.Api;
@@ -75,8 +76,8 @@ public class GameController {
 
     @GetMapping("/game/mygame")
     @ApiOperation(value = "예약한 게임 리스트 조회", notes = "사용자가 예약한 게임리스트를 조회합니다.")
-    public ResponseEntity<List<Game>> getMyGameList(@RequestParam(value = "email") String email) {
-        List<Game> response = gameService.getMyGameList(email);
+    public ResponseEntity<List<GameReserveResponse>> getMyGameList(@RequestParam(value = "email") String email) {
+        List<GameReserveResponse> response = gameService.getMyGameList(email);
         if (response == null)
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.OK).body(response);
