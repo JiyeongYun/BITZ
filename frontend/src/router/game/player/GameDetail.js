@@ -47,7 +47,6 @@ const GameDetail = ({ match, location }) => {
       }
     )
   }, [aboutGame])
- 
 
   // useEffect
   useEffect(()=>{
