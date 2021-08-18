@@ -1,36 +1,91 @@
-footer {
-    background-color: #2a2a2a;
-    width: 100%;
-    /* margin-top: var(--main-margin-size); */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  footer {
+    background-color: #555;
+    color: #bbb;
+    line-height: 1.5;
+  }
+  footer a {
+    text-decoration: none;
+    color: #eee;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .ft-title {
+    color: #fff;
+    font-size: 1.0rem;
+    padding-bottom: 0.5rem;
+  }
+  /* Sticks footer to bottom */
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  .container {
+    flex: 1;
+  }
+  /* Footer main */
+  .ft-main {
+    padding: 0.5rem 1.875rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  @media only screen and (min-width: 29.8125rem /* 477px */) {
+    .ft-main {
+      justify-content: space-evenly;
+    }
+  }
+  @media only screen and (min-width: 77.5rem /* 1240px */) {
+    .ft-main {
+      justify-content: space-evenly;
+    }
+  }
+  .ft-main-item {
+    padding: 1rem;
+    min-width: 12.5rem;
+  }
+  
+  
+  /* Footer social */
+  .ft-social {
+    padding: 0 1.875rem;
+  }
+  .ft-social-list {
     display: flex;
     justify-content: center;
-    position: relative;
-    bottom: 0;
-    color: white;
-    height: 100px;
-}
-
-footer > .contributer {
-    display: flex;
+    border-top: 1px #777 solid;
+    
+  }
+  .ft-social-list li {
+    margin: 0.5rem;
+    font-size: 1rem;
+  }
+  /* Footer legal */
+  .ft-legal {
+    padding: 0.5rem 1.875rem;
+    background-color: #333;
+  }
+  .ft-legal-list {
     width: 100%;
-    justify-content: space-evenly;
-    font-size: var(--main-font-size);
-    margin-top: var(--small-margin-size);
-}
-
-footer > .contributer > div {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-}
-
-footer > .contributer > div > p {
-    font-weight: bold;
-    border-bottom: 1px solid white;
-    margin-bottom: var(--small-margin-size);
-}
-
-footer > .contributer .contributer_name > p {
-    color: var(--grey-color);
-}
+    flex-wrap: wrap;
+  }
+  .ft-legal-list li {
+    font-size: 0.8rem;
+    margin: 0.125rem 0.625rem;
+    white-space: nowrap;
+  }
+  /* one before the last child */
+  .ft-legal-list li:nth-last-child(2) {
+      flex: 1;
+  }
+  
