@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './GameList.css';
 
 function GameList({ gameList }) {
@@ -21,7 +22,7 @@ function GameList({ gameList }) {
     });
     setList(tmpList);
   }, []);
-
+  console.log(gameList)
   return (
     <div className="MyGameList">
       {
@@ -49,10 +50,10 @@ function GameList({ gameList }) {
                       </p>
                     </div>
                     <div className="people__info">
-                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                       <p className="min_people">최소 {game.gameInfo.minPeople}</p>
+                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                     </div>
-                    <div>{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</div>
+                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</Link>
                   </div>
                 );
               }
@@ -84,7 +85,7 @@ function GameList({ gameList }) {
                       <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                       <p className="min_people">최소 {game.gameInfo.minPeople}</p>
                     </div>
-                    <div>{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</div>
+                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</Link>
                   </div>
                 );
               }
@@ -111,12 +112,13 @@ function GameList({ gameList }) {
                       <p>
                         {game.gameInfo.gym.courtLength}m X {game.gameInfo.gym.courtWidth}m
                       </p>
+                      <p>최소 :{game.gameInfo.minPeople} | 최대 : {game.gameInfo.maxPeople}</p>
                     </div>
                     <div className="people__info">
-                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                       <p className="min_people">최소 {game.gameInfo.minPeople}</p>
+                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                     </div>
-                    <div>{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</div>
+                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</Link>
                   </div>
                 );
               }

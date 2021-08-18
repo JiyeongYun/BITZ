@@ -219,7 +219,16 @@
   .loginForm {
     width: 100%;
   }
+
+  .loginForm > p {
+    width: 80%;
+  }
+
+.userKind {
+  width: 80vw;
+}
+
   .userKind > label {
-    width: 150px;
+    width: 50%;
   }
 }

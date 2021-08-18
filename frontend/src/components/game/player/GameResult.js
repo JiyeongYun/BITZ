@@ -76,9 +76,9 @@ const GameResult = () => {
           ):(
             <div className="gameResult__3">
           <table className="RecordTable">
-            <th>A팀 vs B팀</th>
-            <th>B팀 vs C팀</th>
-            <th>C팀 vs A팀</th>
+            <th>AvsB</th>
+            <th>BvsC</th>
+            <th>CvsA</th>
             <tr>
               <td>{ `${game1_team1_totlaScore} : ${game1_team2_totlaScore}` }</td>
               <td>{ `${game2_team1_totlaScore} : ${game2_team2_totlaScore}` }</td>

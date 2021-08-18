@@ -113,7 +113,7 @@ const GameReview = ({ setShowReview, setCloseReview }) => {
             </div>
           </div>
           {/* Gym */}
-          <div className="gameReview__gym">
+          {/* <div className="gameReview__gym">
             <h2>체육관은 만족스러우셨나요?</h2>
             <span>* 익명으로 제공되니, 솔직한 리뷰 부탁드립니다.</span>
             <div>
@@ -150,7 +150,7 @@ const GameReview = ({ setShowReview, setCloseReview }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* Buttons */}
           <button className="GameRecord__Input_Submit" onClick={registerReview}>리뷰 등록</button>
           <button className="GameRecord__closeBtn" onClick={closeModal}>X</button>
