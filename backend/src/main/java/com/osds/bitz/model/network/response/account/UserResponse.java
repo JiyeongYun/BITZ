@@ -32,5 +32,8 @@ public class UserResponse {
     private String gugun3;
     private double skill;
     private double manner;
+    private int winCnt;
+    private int loseCnt;
+    private int tieCnt;
 
 }
