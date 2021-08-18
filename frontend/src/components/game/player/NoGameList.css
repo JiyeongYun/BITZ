@@ -1,0 +1,29 @@
+.nogame {
+  min-height: 80vh !important;
+  transform: translate(-15%, -20%);
+}
+
+.nogame > .content {
+  border-radius: 10px;
+  background-color: var(--bright-grey);
+  width: 80%;
+  height: 200px;
+  padding: var(--main-margin-size) 0;
+  box-shadow: 0px 3px 2px var(--grey);
+}
+
+.nogame > .content > p {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-size: var(--small-font-size);
+}
+
+.nogame > .content > a {
+  font-size: var(--small-font-size);
+  text-align: start;
+  font-weight: normal;
+  text-decoration: underline;
+  text-underline-position: under;
+  background-color: var(--bright-grey) !important;
+  color: var(--main-color);
+}
