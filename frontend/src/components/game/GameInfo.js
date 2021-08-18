@@ -23,7 +23,9 @@ const GameInfo = () => {
     document.body.removeChild(textarea)
     alert("주소가 복사되었습니다.")
   }
-  
+
+  console.log(users)
+
   return (
     <div className="gameInfo">
       <div className="gamedate">
@@ -46,7 +48,7 @@ const GameInfo = () => {
           return (
             <Participant 
               key={idx}
-              idx={idx}
+              id={user.id}
               user={user}
             />
           );

@@ -1,83 +1,73 @@
 .gymInfo {
-  margin-top: 50px;
+  margin-top: var(--xlarge-margin-size);
 }
 
 .gymInfo > p {
-  color: #ffad4e;
-  font-size: 24px;
-  line-height: 250%;
-  font-weight: bold;
+  color: var(--main-color);
+  font-size: var(--xlarge-font-size);
 }
 
 .gymInfo > p > span {
-  background-color: #eaeaea;
-  color: #F28A2E;
-  padding: 5px 30px;
+  background-color: var(--bright-grey);
+  color: var(--main-color);
+  padding: 5px 20px;
   border-radius: 10px;
 }
 
 .facilities__container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
-  margin: 30px 0 50px;
+  align-items: center;
+  margin: var(--large-margin-size) 0;
 }
 
-.facilities__container .facility {
-  width: 100px;
-  height: 100px;
-  border: 1px solid #FFD3B5;
+.facilities__container > div{
+  display: flex;
+  flex-direction: column;
+  font-size: var(--main-font-size);
+  align-items: center;
+}
+
+.facilities__container > div > .img_box {
+  border-radius: 35px;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--main-margin-size);
+  position: relative;
+}
+
+.facilities__container > div > .img_box > .img_box_checked {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-}
-
-.facilities__container > div > p {
-  text-align: center;
-  margin-top: 10px;
-}
-
-#water {
-  background: url('../../components/images/water.png') no-repeat center;
-  background-color: #FFEFE3;
-}
-
-#basketball {
-  background: url('../../components/images/basketball.png') no-repeat center;
-  background-color: #FFEFE3;
-}
-
-#scoreboard {
-  background: url('../../components/images/scoreboard.png') no-repeat center;
-  background-color: #FFEFE3;
-}
-
-#parking {
-  background: url('../../components/images/parking.png') no-repeat center;
-  background-color: #FFEFE3;
-}
-
-#shower {
-  background: url('../../components/images/shower.png') no-repeat center;
-  background-color: #FFEFE3;
-}
-
-#airconditioner {
-  background: url('../../components/images/airconditioner.png') no-repeat center;
-  background-color: #FFEFE3;
-}
-
-.facilities__container .no::after{
-  content: "";
+  border: 1px solid var(--main-color);
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  z-index: -1;
+}
+
+.facilities__container > div > .img_box > .img_box_checked > img {
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  transform: translate(-50%);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.facilities__container > div > .img_box > img {
+  width: 50px;
+  height: 50px;
 }
 
 .gym__footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--main-color);
+  border-bottom: 1px solid var(--main-color);
   padding: 50px 0;
   display: flex;
 }
@@ -87,62 +77,66 @@
   padding-left: 50px;
 }
 
-.gym__footer > div > p {
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffad4e;
-  margin-bottom: 20px;
+.gym__footer > div > h4 {
+  font-size: var(--large-font-size);
+  font-weight: normal;
+  color: var(--main-color);
+  margin-bottom: var(--main-margin-size);
 }
 
-.gym__footer li {
-  margin-left: 40px;
-  margin-bottom: 10px;
+.gym__footer > div > p {
+  font-size: var(--main-font-size);
+  margin-left: var(--main-margin-size);
 }
 
 .gym__footer > .right {
-  border-left: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.gym__footer > .right > ul {
-  list-style: none;
-}
-
-.gym__footer > .right > ul:nth-child(2) {
-  margin-bottom: 40px;
+  border-left: 1px solid var(--main-color);
 }
 
 .gymInfo .reservation__btn {
   display: block;
-  margin: 50px auto 50px;
+  margin: var(--xlarge-margin-size) auto;
   width: 50%;
-  height: var(--btn-height);
+  height: 40px;
   border: none;
-  border-radius: 5px;
-  background-color: #F28A2E;
+  border-radius: 10px;
+  background-color: var(--main-color);
   color: white;
-  font-size: 18px;
+  font-size: var(--large-font-size);
   cursor: pointer;
+}
+
+.gym__footer > div > p > button {
+  font-size: var(--main-font-size);
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  color: var(--blue);
 }
 
 @media screen and (max-width: 1024px) {
   .gymInfo {
-    margin-top: var(--main-margin-size);
+    margin-top: var(--small-margin-size);
   }
   
   .gymInfo > p {
     margin-left: var(--main-margin-size);
-    font-size: var(--large-font-size);
-    line-height: 200%;
+    font-size: var(--main-font-size);
   }
-  
-  .gymInfo > p > span {
-    display: inline-block;
-  }
-  
+
   .facilities__container {
     flex-wrap: wrap;
-    margin: var(--mid-margin-size) 0 var(--mid-margin-size);
-    row-gap: 20px;
+    width: 279px;
+    margin: var(--main-margin-size) auto;
+  }
+  
+  .facilities__container > div > .img_box {
+    margin-bottom: 5px;
+  }
+  
+  .facilities__container > div > p {
+    font-size: var(--small-font-size);
+    margin-bottom: var(--main-margin-size);
   }
   
   .gym__footer {
@@ -151,45 +145,25 @@
   }
   
   .gym__footer > div {
-    width: 90%;
-    margin-left: var(--main-margin-size);
-    padding: -0;
-  }
-  
-  .gym__footer > div > p {
-    font-size: var(--large-font-size);
-    margin-bottom: 7px;
-  }
-
-  .gym__footer > div:nth-child(2) > p {
-    margin-left: var(--main-margin-size);
+    width: 100%;
+    padding: 0;
   }
   
   .gym__footer > .right {
-    margin-left: 0 !important;
     width: 100%;
     border-left: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 1px solid var(--main-color);
     padding-top: var(--main-margin-size);
     margin-top: var(--main-margin-size);
   }
-  
-  .gym__footer > .right > ul {
-    list-style: none;
-  }
-  
-  .gym__footer > .right > ul:nth-child(2) {
-    margin-bottom: var(--main-margin-size);
-  }
-  
-  .gymInfo .reservation__btn {
-    width: 90%;
-    font-size: var(--main-font-size);
-  }
 
-  .gym__footer li {
-    margin-left: var(--large-margin-size);
-    margin-bottom: 5px;
+  .gym__footer > div > h4 {
+    font-size: var(--mid-font-size);
+    margin-left: var(--main-margin-size);
   }
   
+  .gym__footer > div > p {
+    font-size: var(--main-font-size);
+    margin-left: calc(2*var(--main-margin-size));
+  }
 }
