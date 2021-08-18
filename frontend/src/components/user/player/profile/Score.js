@@ -3,7 +3,7 @@ import './Score.css';
 
 const Score = ({ userData }) => {
   // 실력점수와 매너점수를 보여주는 컴포넌트
-  const {manner, skill}= userData
+  const { manner, skill } = userData;
 
   return (
     <div class="score__container">
@@ -24,7 +24,10 @@ const Score = ({ userData }) => {
         </div>
       </div>
       <div className="match_result">
-        <h3>경기 결과</h3>
+        <h3>내 전적</h3>
+        <div classname="score_history">
+          {userData.winCnt + ' 승  ' + userData.tieCnt + ' 무  ' + userData.loseCnt + ' 패  '}
+        </div>
       </div>
     </div>
   );

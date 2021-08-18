@@ -239,6 +239,9 @@ public class UserService extends BaseAuthService {
                 .gugun3(favoriteLocation.getGugun3())
                 .skill(skillScore)
                 .manner(mannerScore)
+                .winCnt(skill.getWinCnt())
+                .loseCnt(skill.getLoseCnt())
+                .tieCnt(skill.getTieCnt())
                 .build();
         return userResponse;
     }
@@ -260,12 +263,15 @@ public class UserService extends BaseAuthService {
     public double getMannerScore(ArrayList<Manner> manner) {
         double mannerScore = 25;
         double score = 0;
-        if (manner != null) {
+        log.info("{}", " 매너 : " + manner);
+
+        if (manner != null && manner.size() > 0) {
             for (Manner m : manner) {
                 score = score + m.getScore();
             }
             score = score / 10;
         }
+        log.info("{}","score : " + score);
         return mannerScore + score;
     }
 
