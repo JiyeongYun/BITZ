@@ -39,6 +39,16 @@ function GameReservation ({ history, match }) {
         )
     }
 
+    const copyAccount = () => {
+        const textarea = document.createElement("textarea")
+        textarea.value = aboutGame.businessProfile.account
+        document.body.appendChild(textarea)
+        textarea.select()
+        document.execCommand("copy")
+        document.body.removeChild(textarea)
+        alert("계좌번호가 복사되었습니다.")
+    }
+
     if (!aboutGame.businessProfile) {
         alert('다시 예약해주세요.')
         history.push(`/detail/${params.gameId}`)
@@ -46,30 +56,32 @@ function GameReservation ({ history, match }) {
     } else {
             return (
                 <div className="GameReservation">
-                <img src="/images/logo.png" alt="logo"></img>
-                <div className="GameReservation__account">
-                    계좌은행: {aboutGame.businessProfile.bank}은행
+                    <div className="bank_info">
+                        <div className="GameReservation__account">
+                            {aboutGame.businessProfile.bank}은행
+                        </div>
+                        <div className="GameReservation__account">
+                            {aboutGame.businessProfile.account}
+                        </div>
+                        <p onClick={copyAccount}>복사하기</p>
+                    </div>
+                    <p className="GameReservation__warning">
+                        * 30분 이내로 입금을 완료해주세요.
+                    </p>
+                    <div>
+                        <p className="GameReservation__announcement">
+                            입금을 완료하신 후
+                        </p>
+                        <p className="GameReservation__announcement">
+                            <span>"입금 완료했어요!"</span> 버튼을 눌러주세요.
+                        </p>
+                    </div>
+                    
+                    <div className="GameReservation__buttons">
+                        <button onClick={RequestPaymentCheck}>입금 완료했어요!</button>
+                        <button onClick={CancelReservation}>취소할래요.</button>
+                    </div>
                 </div>
-                <div className="GameReservation__account">
-                    계좌번호: {aboutGame.businessProfile.account}
-                </div>
-                <div className="GameReservation__warning">
-                    * 30분 이내로 입금을 완료해주세요.
-                </div>
-
-                
-                <div className="GameReservation__announcement">
-                    입금을 완료하신 후
-                </div>
-                <div className="GameReservation__announcement">
-                    입금확인 요청 버튼을 눌러주세요.
-                </div>
-                
-                <div className="GameReservation__buttons">
-                    <button onClick={RequestPaymentCheck}>입금확인 요청</button>
-                    <button onClick={CancelReservation}>예약 취소</button>
-                </div>
-            </div>
         )
     }
 }

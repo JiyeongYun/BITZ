@@ -1,39 +1,71 @@
 .GameReservation {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.GameReservation > .bank_info {
+  display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.GameReservation > img {
-  width: var(--logo-width);
-}
-
-.GameReservation__account {
-  font-weight: bold;
+  flex-direction: column;
+  width: 350px;
+  height: 150px;
+  border-radius: 10px;
+  background-color: var(--bright-grey);
   font-size: var(--large-font-size);
 }
 
-.GameReservation__warning {
-  font-size: var(--mid-font-size);
-  margin: var(--large-margin-size);
-}
-
-.GameReservation__announcement {
-  font-weight: bold;
-  font-size: var(--xlarge-font-size);
-}
-
-.GameReservation__buttons {
-  display: flex;
-}
-
-.GameReservation__buttons > button {
+.GameReservation > .bank_info > p {
+  font-size: var(--main-font-size);
+  text-decoration: underline;
+  text-underline-position: under;
+  color: var(--main-color);
+  margin-top: var(--small-margin-size);
   cursor: pointer;
-  margin: var(--xlarge-font-size) var(--small-font-size);
-  background-color: var(--main-color);
+}
+
+.GameReservation > p {
+  font-size: var(--mid-font-size);
+  color: var(--main-color);
+  font-size: var(--small-font-size);
+}
+
+.GameReservation > div:nth-child(3) {
+  margin: var(--large-margin-size) 0;
+  text-align: center;
+}
+
+.GameReservation > div:nth-child(3) > p {
+  font-size: var(--mid-font-size);
+}
+
+.GameReservation > div:nth-child(3) > p > span {
+  color: var(--main-color);
+}
+
+.GameReservation > .GameReservation__buttons {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.GameReservation > .GameReservation__buttons > button {
+  height: 30px;
+  border-radius: 5px;
+  font-size: var(--main-font-size);
   border: none;
-  height: var(--btn-height);
-  padding: 0px 10px 0px 10px;
-  border-radius: 20px;
+  cursor: pointer;
+}
+
+.GameReservation > .GameReservation__buttons > button:nth-child(1) {
+  margin-bottom: var(--main-margin-size);
+  color: white;
+  background-color: var(--main-color);
+}
+
+.GameReservation > .GameReservation__buttons > button:nth-child(2) {
+  background-color: var(--bright-grey);
 }
