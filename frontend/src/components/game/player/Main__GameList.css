@@ -54,20 +54,36 @@
   gap : var(--main-margin-size);
 }
 
-.gameList__game__facility {
-  display: inline-block;
-  width: 100px;
-  height: var(--btn-height);
-  line-height: calc(var(--btn-height) - 4px);
-  border: 2px solid var(--main-color);
-  border-radius: 15px;
+.gameList__game__facilities > div {
+  width: 40px;
+  height: 40px;
   text-align: center;
-  text-decoration: none;
-  font-size: var(--main-font-size);
-  color: var(--dark-orange);
-  cursor: pointer;
-  background-color: var(--grey-color);
-  box-shadow: 3px 3px 0 0 rgba(5, 5, 5, .2);
+  position: relative;
+}
+
+.gameList__game__facilities > div > .facility_img {
+  width: 40px;
+  height: 40px;
+}
+
+.gameList__game__facilities > div > .img_on {
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--main-color);
+  position: absolute;
+  border-radius: 50%;
+  top: -10px;
+  left: -10px;
+}
+
+.gameList__game__facilities > div > .img_off {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  border-radius: 50%;
+  top: -10px;
+  left: -10px;
 }
 
 .gameList__state__button {

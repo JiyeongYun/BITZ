@@ -44,12 +44,18 @@ export default function Main__GameList() {
               </div>
 
               <div className="gameList__game__facilities">
-                {game.gymInfo.parking ? <div className="gameList__game__facility">주차장</div>:""}
+                {/* {game.gymInfo.parking ? <div className="gameList__game__facility">주차장</div>:""}
                 {game.gymInfo.shower ? <div className="gameList__game__facility">샤워시설</div>:""}
                 {game.gymInfo.airconditional ? <div className="gameList__game__facility">에어컨</div>:""}
                 {game.gymInfo.basketball ? <div className="gameList__game__facility">농구공 대여</div>:""}
                 {game.gymInfo.scoreboard ? <div className="gameList__game__facility">점수판&호루라기</div>:""}
-                {game.gymInfo.water ? <div className="gameList__game__facility">정수기</div>:""}
+                {game.gymInfo.water ? <div className="gameList__game__facility">정수기</div>:""} */}
+                <div><img src="/images/scoreboard.png" alt="scoreboard" className="facility_img" /><span className={game.gymInfo.scoreboard?"img_on":"img_off"}></span></div>
+                <div><img src="/images/airconditioner.png" alt="airconditional" className="facility_img" /><span className={game.gymInfo.airconditional?"img_on":"img_off"}></span></div>
+                <div><img src="/images/basketball.png" alt="basketball" className="facility_img" /><span className={game.gymInfo.basketball?"img_on":"img_off"}></span></div>
+                <div><img src="/images/water.png" alt="water" className="facility_img" /><span className={game.gymInfo.water?"img_on":"img_off"}></span></div>
+                <div><img src="/images/shower.png" alt="shower" className="facility_img" /><span className={game.gymInfo.shower?"img_on":"img_off"}></span></div>
+                <div><img src="/images/parking.png" alt="parking" className="facility_img" /><span className={game.gymInfo.parking?"img_on":"img_off"}></span></div>
               </div>
 
               <div className="gameList__game__state">

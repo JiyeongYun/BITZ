@@ -14,7 +14,7 @@
 }
 
 .RecordTable th {
-  background-color: #FFAD4E;
+  background-color: var(--main-color);
   color: #ffffff;
 }
 
@@ -32,12 +32,12 @@
 }
 
 .RecordTable tr:last-of-type {
-  border-bottom: 2px solid #FFAD4E;
+  border-bottom: 2px solid var(--main-color);
 }
 
 .RecordTable tr.active-row {
   font-weight: bold;
-  color: #FFAD4E;
+  color: var(--main-color);
 }
 
 .gameRecord__button td {

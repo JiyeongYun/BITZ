@@ -1,16 +1,48 @@
-import React, { useEffect } from 'react'
+import UserApi from 'api/UserApi'
+import ImgApi from 'api/ImgApi'
+import React, { useEffect, useState } from 'react'
 import './Participant.css'
 
 const Participant = (props) => {
+  // 유저 정보 State
+  const [userInfo, setUserInfo] = useState([])
+  const [imgUrl, setImgUrl] = useState(null)
+
+  // 유저 정보 가져오기
+  useEffect(() => {
+    if(props.user) {
+      UserApi.myprofile(
+        {email:props.user.userAuth.email},
+        res => setUserInfo(res.data),
+        err => console.log(err)
+      )
+      ImgApi.getUserImg(
+        {email:props.user.userAuth.email},
+        res => {
+          const url = window.URL.createObjectURL(new Blob([res.data]))
+          setImgUrl(url)
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+  }, [props])
+
   
   // 참가자의 포지션 표시
   useEffect(() => {
-    const position = props.user.position
-    if (position) {
-      position.forEach(pos => {
-        let select = document.querySelector(`.user${props.idx} #${pos}`)
-        select.className = "istrue"
-      })
+    if (userInfo.guard) {
+      let select = document.querySelector(`.user${props.id} #guard`)
+      select.className = "istrue"
+    }
+    if (userInfo.forward) {
+      let select = document.querySelector(`.user${props.id} #forward`)
+      select.className = "istrue"
+    }
+    if (userInfo.forward) {
+      let select = document.querySelector(`.user${props.id} #center`)
+      select.className = "istrue"
     }
   })
 
@@ -19,7 +51,7 @@ const Participant = (props) => {
     const {
       target: { id },
     } = event;
-    document.querySelector(`.user${id}`).style.display = 'block';
+    document.querySelector(`.${id}`).style.display = 'block';
   };
   
   // 커서 내려가면 참가자 정보 가림
@@ -27,24 +59,24 @@ const Participant = (props) => {
     const {
       target: { id },
     } = event;
-    document.querySelector(`.user${id}`).style.display = 'none';
+    document.querySelector(`.${id}`).style.display = 'none';
   };
 
   return (
     <div className="participant">
       <img
-        id={props.idx}
-        src='/images/symbol.png'
+        id={`user${props.id}`}
+        src={imgUrl?imgUrl:"/images/symbol.png"}
         onMouseOver={over}
         onMouseOut={out}
         alt="participants"
       />
-      <div className={'user' + props.idx + ' userinfo'}>
+      <div className={'user' + props.id + ' userinfo'}>
         <div className="about__user">
-          <img src='/images/symbol.png' alt="prticipants" />
+          {imgUrl?<img src={imgUrl} alt="participants" />:<img src='/images/symbol.png' alt="prticipants" />}
           <div>
-            <p>{props.user.name}</p>
-            <p>{props.user.height}cm</p>
+            <p>{userInfo.name}</p>
+            <p>{userInfo.height}cm</p>
           </div>
         </div>
         <div className="about__position">
@@ -55,11 +87,11 @@ const Participant = (props) => {
         <div className="points">
           <div className="manner">
             <p>매너 점수</p>
-            <p>{props.user.manner}</p>
+            <p>{userInfo.manner}</p>
           </div>
           <div className="skill">
             <p>실력 점수</p>
-            <p>{props.user.skill ? props.user.skill : '비공개'}</p>
+            <p>{userInfo.skill ? userInfo.skill : '비공개'}</p>
           </div>
         </div>
       </div>

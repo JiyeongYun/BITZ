@@ -4,11 +4,12 @@ import { gameStore } from 'store/gameStore';
 import { useHistory, useRouteMatch  } from 'react-router-dom';
 import { store } from 'store/store';
 import GameApi from 'api/GameApi';
+import UserApi from 'api/UserApi';
 
 const GymInfo = ({ isBusiness }) => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame } = gameStoreData;
-  const { parking, shower, airconditional, water, basketball, scoreboard } = aboutGame.gameInfo.gym
+  const { parking, shower, airconditional, water, basketball, scoreboard, intro, notice, businessAuth } = aboutGame.gameInfo.gym
   const history = useHistory();
   const match = useRouteMatch();
   const globalState = useContext(store);
@@ -16,40 +17,49 @@ const GymInfo = ({ isBusiness }) => {
   const { isLogin } = value
   const { params } = match
 
-  // 픽업게임 상세보기에서 체육관 정보를 보여주는 컴포넌트
-
+  // 체육관 소유자 정보 가져오기
+  const [busInfo, setBusInfo] = useState([])
   useEffect(() => {
-    if (!water) {
-      document.querySelector('#water').classList.add('no')
+    UserApi.BusMyProfile(
+      {email: businessAuth.email},
+      res => setBusInfo(res.data),
+      err => console.log(err)
+    )
+  }, [aboutGame])
+
+  // 픽업게임 상세보기에서 체육관 정보를 보여주는 컴포넌트
+  useEffect(() => {
+    if (water) {
+      document.querySelector('#water').style.display = 'block'
     } else {
-      document.querySelector('#water').classList.remove('no')
+      document.querySelector('#water').style.display = 'none'
     }
-    if (!shower) {
-      document.querySelector('#shower').classList.add('no');
+    if (shower) {
+      document.querySelector('#shower').style.display = 'block'
     } else {
-      document.querySelector('#shower').classList.remove('no')
+      document.querySelector('#shower').style.display = 'none'
     }
-    if (!scoreboard) {
-      document.querySelector('#scoreboard').classList.add('no');
+    if (scoreboard) {
+      document.querySelector('#scoreboard').style.display = 'block'
     } else {
-      document.querySelector('#scoreboard').classList.remove('no')
+      document.querySelector('#scoreboard').style.display = 'none'
     }
-    if (!parking) {
-      document.querySelector('#parking').classList.add('no');
+    if (parking) {
+      document.querySelector('#parking').style.display = 'block'
     } else {
-      document.querySelector('#parking').classList.remove('no')
+      document.querySelector('#parking').style.display = 'none'
     }
-    if (!basketball) {
-      document.querySelector('#basketball').classList.add('no');
+    if (basketball) {
+      document.querySelector('#basketball').style.display = 'block'
     } else {
-      document.querySelector('#basketball').classList.remove('no')
+      document.querySelector('#basketball').style.display = 'none'
     }
-    if (!airconditional) {
-      document.querySelector('#airconditioner').classList.add('no');
+    if (airconditional) {
+      document.querySelector('#airconditioner').style.display = 'block'
     } else {
-      document.querySelector('#airconditioner').classList.remove('no')
+      document.querySelector('#airconditioner').style.display = 'none'
     }
-  }, [gameStoreData]);
+  }, [aboutGame]);
   
   // PJW - 예약 완료 여부 확인
   const [isFull, setIsFull] = useState(false)
@@ -75,53 +85,88 @@ const GymInfo = ({ isBusiness }) => {
     alert('예약을 하려면 로그인을 해주세요!')
   }
 
+  // 계좌 복사
+  const copyAccount = () => {
+    const textarea = document.createElement("textarea")
+    textarea.value = busInfo.account
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand("copy")
+    document.body.removeChild(textarea)
+    alert("계좌가 복사되었습니다.")
+  }
+
   return (
     <div className="gymInfo">
       <p>저희 경기장의 코트 규격은, <span>28m x 15m</span> 입니다.</p>
       <p>편의시설은,</p>
       <div className="facilities__container">
         <div className="waterbox">
-          <div className="facility" name="water" id="water" />
+          <div className="img_box">
+            <div className="img_box_checked" id="water">
+              <img src="/images/check.png" alt="check"/>
+            </div>
+            <img src="/images/water.png" alt="water"/>
+          </div>
           <p>정수기</p>
         </div>
         <div className="showerbox">
-          <div className="facility" name="shower" id="shower" />
+          <div className="img_box">
+            <div className="img_box_checked" id="shower">
+              <img src="/images/check.png" alt="check"/>
+            </div>
+            <img src="/images/shower.png" alt="shower" />
+          </div>
           <p>샤워실</p>
         </div>
         <div className="scoreboardbox">
-          <div className="facility" name="scoreboard" id="scoreboard" />
+          <div className="img_box">
+            <div className="img_box_checked" id="scoreboard">
+              <img src="/images/check.png" alt="check"/>
+            </div>
+            <img src="/images/scoreboard.png" alt="scoreboard" />
+          </div>
           <p>점수판 & 휘슬</p>
         </div>
         <div className="parkingbox">
-          <div className="facility" name="parking" id="parking" />
+          <div className="img_box">
+            <div className="img_box_checked" id="parking">
+              <img src="/images/check.png" alt="check"/>
+            </div>
+            <img src="/images/parking.png" alt="parking" />
+          </div>
           <p>주차장</p>
         </div>
         <div className="basketballbox">
-          <div className="facility" name="basketball" id="basketball" />
+          <div className="img_box">
+            <div className="img_box_checked" id="basketball">
+              <img src="/images/check.png" alt="check"/>
+            </div>
+            <img src="/images/basketball.png" alt="basketball" />
+          </div>
           <p>농구공</p>
         </div>
         <div className="airconditionerbox">
-          <div className="facility" name="airconditioner" id="airconditioner" />
+          <div className="img_box">
+            <div className="img_box_checked" id="airconditioner">
+              <img src="/images/check.png" alt="check"/>
+            </div>
+            <img src="/images/airconditioner.png" alt="airconditioner" />
+          </div>
           <p>에어컨 & 난방</p>
         </div>
       </div>
       <div className="gym__footer">
         <div className="left">
-          <p>특이사항</p>
-          <ul>
-            <li>오픈 기념으로 이벤트 가격입니다.</li>
-            <li>많이들 참여해주세요~</li>
-          </ul>
+          <h4>체육관 소개</h4>
+          <p>{intro}</p>
+          <h4>주의사항</h4>
+          <p>{notice}</p>
         </div>
         <div className="right">
-          <p>관리자 정보</p>
-          <ul>
-            <li>권오우 010-1122-1122</li>
-          </ul>
-          <p>체육관 리뷰</p>
-          <ul>
-            <li>시설</li>
-          </ul>
+          <h4>관리자 정보</h4>
+          <p>{busInfo.name} {busInfo.phone}</p>
+          <p>{busInfo.bank} {busInfo.account}  | <button onClick={copyAccount}>계좌복사</button></p>
         </div>
       </div>
       { !isBusiness?

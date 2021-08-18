@@ -1,4 +1,28 @@
 .gameResult__tables {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+}
+
+.result__container > div:nth-child(1){
+  color: var(--main-color);
+}
+
+.gameResult__tables > p {
+  color: var(--main-color);
+  text-align: start !important;
+  display: block;
+  width: 100%;
+  margin-left: calc(2*var(--main-margin-size));
+}
+
+@media screen and (max-width: 1024px) {
+  .result__container > div:nth-child(1){
+    margin-left: var(--main-margin-size);
+  }
+
+  .gameResult__tables {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
