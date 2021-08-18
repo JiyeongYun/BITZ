@@ -87,7 +87,7 @@ function Header() {
         }
       );
     }
-  }, [value.isLogin, value.userKind]);
+  }, [value]);
 
   // 로그아웃 함수
   const onLogout = () => {

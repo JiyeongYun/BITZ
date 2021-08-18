@@ -4,6 +4,8 @@
 
 .participant > img {
     width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .participant > .userinfo {
@@ -27,6 +29,8 @@
 
 .about__user > img {
     width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 
 .about__user > div > p:nth-child(1) {
@@ -78,6 +82,7 @@
     
     .about__user > img {
         width: 40px;
+        height: 40px;
     }
     
     .about__user > div > p:nth-child(1) {
