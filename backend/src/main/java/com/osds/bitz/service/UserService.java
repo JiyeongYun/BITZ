@@ -263,7 +263,6 @@ public class UserService extends BaseAuthService {
     public double getMannerScore(ArrayList<Manner> manner) {
         double mannerScore = 25;
         double score = 0;
-        log.info("{}", " 매너 : " + manner);
 
         if (manner != null && manner.size() > 0) {
             for (Manner m : manner) {
@@ -271,7 +270,6 @@ public class UserService extends BaseAuthService {
             }
             score = score / 10;
         }
-        log.info("{}","score : " + score);
         return mannerScore + score;
     }
 
