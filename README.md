@@ -1,11 +1,11 @@
 # BITZ - Basketball In The Zone
 > 농구에 미쳐라! - 농구 픽업 게임 예약/매칭 애플리케이션
 
-![image-20210806012922184](README.assets/image-20210806012922184.png)
+(로고 추후 제공)
 
 ## 프로젝트 명세
 - 개발 문서
-  - S05P12A504 > OSDS_BITZ_개발문서_SUB23
+  - S05P12A504 > OSDS_BITZ_개발문서_Final (예정)
 
 - 프로젝트 배포 URL
   - http://i5a504.p.ssafy.io/
