@@ -3,10 +3,11 @@
 }
 
 .teaminfo > p {
-    color: #ffad4e;
+    color: var(--main-color);
     margin-bottom: 40px;
-    font-weight: bold;
-    font-size: 24px;
+    font-weight: normal;
+    font-size: var(--large-font-size);
+    margin-left: var(--main-margin-size);
 }
 
 .teaminfo > .teams {
@@ -18,11 +19,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid #ffad4e;
+    border-bottom: 1px solid var(--main-color);
 }
 
 .teaminfo > .teams > .team > p:nth-child(1) {
-    background-color: #ffad4e;
+    background-color: var(--main-color);
     color: white;
     border-radius: 20px;
     width: 100%;
@@ -60,7 +61,7 @@
 
 .teaminfo > .teams > .team > p:nth-child(3) > span {
     font-size: 24px;
-    color: #ffad4e;
+    color: var(--main-color);
     font-weight: bold;
 }
 
@@ -103,7 +104,7 @@
 }
 
 .about__position > .istrue {
-    background-color: #ffad4e;
+    background-color: var(--main-color);
     padding: 5px 10px;
     border-radius: 50vmin;
     color: white;
@@ -124,7 +125,14 @@
 
 .userinfo > .points > div > p:nth-child(2) {
     margin-top: 5px;
-    color: #ffad4e;
-    font-size: 18px;
+    color: var(--main-color);
+    font-size: var(_);
     font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+    .teaminfo > .teams {
+        flex-direction: column;
+        align-items: center;
+    }
 }

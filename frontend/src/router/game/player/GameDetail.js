@@ -47,8 +47,8 @@ const GameDetail = ({ match, location }) => {
       (err) => {
         console.log(err);
       }
-    );
-  }, [aboutGame]);
+    )
+  }, [aboutGame])
 
   // useEffect
   useEffect(() => {
@@ -96,7 +96,7 @@ const GameDetail = ({ match, location }) => {
       <div className="detail__top">
         {aboutGame.gameState === 0 ? <GameInfo /> : <GameInfo2 />}
         <div className="gympicture">
-          <img src={imgUrl} alt="gym" />
+          {imgUrl?<img src={imgUrl} alt="gym" />:<img src="/images/basketball__court.jpg" alt="gym" />}
         </div>
       </div>
       {/* 예약 페이지 */}

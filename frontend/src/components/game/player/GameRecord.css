@@ -1,3 +1,8 @@
+.gameRecord > div:nth-child(1) {
+  color: var(--main-color);
+  margin-left: var(--main-margin-size);
+}
+
 .gameRecord .gameRecord__2 {
   display: flex;
   justify-content: space-evenly;
@@ -15,4 +20,18 @@
 .gameRecord__3 table{
   margin: 20px;
   width: 20vw;
+}
+
+@media screen and (max-width: 1024px) {
+  .gameRecord .gameRecord__2 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .gameRecord .gameRecord__3 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
 }

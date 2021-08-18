@@ -53,12 +53,12 @@ const GameResult = () => {
   const teamC_lose = (game3_team1_totlaScore<game3_team2_totlaScore) + (game2_team2_totlaScore<game2_team1_totlaScore)
 
   return (
-    <div>
+    <div className="result__container">
       { showReview ? (
         <GameReview setShowReview={setShowReview} setCloseReview={setCloseReview} />
         ) : ("")}
       <div>
-        결과
+        경기결과
       </div>
       <div className="gameResult__tables">
         <div className="gameResult__totalScore">
@@ -88,6 +88,7 @@ const GameResult = () => {
           </div>
           )}
         </div>
+        <p>승패결과</p>
         <div className="gameResult__winORlose">
           { aboutGame.gameData.gameType === 2 ? (
             <div className="gameResult__2">
