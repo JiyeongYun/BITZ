@@ -17,6 +17,7 @@ import com.osds.bitz.model.network.request.ReviewRequest;
 import com.osds.bitz.model.network.request.gym.GameRequest;
 import com.osds.bitz.model.network.response.game.GameDetailResponse;
 import com.osds.bitz.model.network.response.game.GameListResponse;
+import com.osds.bitz.model.network.response.game.GameReserveResponse;
 import com.osds.bitz.model.network.response.game.GameResultResponse;
 import com.osds.bitz.repository.account.business.BusinessProfileRepository;
 import com.osds.bitz.repository.account.user.MannerRepository;
@@ -172,17 +173,18 @@ public class GameService {
     /**
      * 예약한 게임 리스트 조회
      */
-    public ArrayList<Game> getMyGameList(String userEmail) {
+    public ArrayList<GameReserveResponse> getMyGameList(String userEmail) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
         ArrayList<GameParticipant> gameParticipants = gameParticipantRepository.getGameParticipantsByUserAuth(userAuth);
-
-        ArrayList<Game> result = new ArrayList<Game>();
+        ArrayList<GameReserveResponse> result = new ArrayList<>();
 
         for (int i = 0; i < gameParticipants.size(); i++) {
             Game game = gameRepository.getGameById(gameParticipants.get(i).getGameId());
-            if (game.getDate().compareTo(new Date(System.currentTimeMillis())) >= 0) {
+            GameParticipant gameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, game.getId());
+
+            if (game.getDate().toString().compareTo(new Date(System.currentTimeMillis()).toString()) >= 0) {
                 game.getGym().getBusinessAuth().setPassword(null);
-                result.add(game);
+                result.add(new GameReserveResponse(game, gameParticipant));
             }
         }
 

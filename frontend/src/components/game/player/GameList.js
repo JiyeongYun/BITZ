@@ -1,12 +1,131 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import './GameList.css';
 
-function NoGameList () {
+function GameList({ gameList }) {
+  const [list, setList] = useState([]);
 
-    return (
-        <div className="gamelist">
-            gameList
-        </div>
-    )
+  // 오늘 날짜 가져오기
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+  const today = `${year}-${month}-${day}`;
+
+  useEffect(() => {
+    const keys = Object.keys(gameList);
+    let tmpList = [];
+    keys.map((element) => {
+      let gameObj = gameList[element];
+      gameObj.date = new Date(gameList[element].date);
+      tmpList.push(gameObj);
+    });
+    setList(tmpList);
+  }, []);
+
+  return (
+    <div className="MyGameList">
+      {
+        <section className="game_container">
+          <article className="gamelist">
+            <div className="date today">
+              {month}월 {day}일
+            </div>
+            {list.map((game) => {
+              const gamedate = new Date(game.gameInfo.date);
+              if (gamedate.getDate() === day) {
+                return (
+                  <div key={game.gameInfo.id} className="game_container">
+                    <div className="game__time">
+                      {String(game.gameInfo.startTime).slice(0, 5)} ~{' '}
+                      {String(game.gameInfo.endTime).slice(0, 5)}
+                    </div>
+                    <div className="gym__info">
+                      <h5>{game.gameInfo.gym.name}</h5>
+                      <p>
+                        {game.gameInfo.gym.sido} {game.gameInfo.gym.gugun}
+                      </p>
+                      <p>
+                        {game.gameInfo.gym.courtLength}m X {game.gameInfo.gym.courtWidth}m
+                      </p>
+                    </div>
+                    <div className="people__info">
+                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
+                      <p className="min_people">최소 {game.gameInfo.minPeople}</p>
+                    </div>
+                    <div>{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</div>
+                  </div>
+                );
+              }
+            })}
+          </article>
+          <article className="gamelist">
+            <div className="date">
+              {month}월 {day + 1}일
+            </div>
+            {list.map((game) => {
+              const gamedate = new Date(game.gameInfo.date);
+              if (gamedate.getDate() === day + 1) {
+                return (
+                  <div key={game.gameInfo.id} className="game_container">
+                    <div className="game__time">
+                      {String(game.gameInfo.startTime).slice(0, 5)} ~{' '}
+                      {String(game.gameInfo.endTime).slice(0, 5)}
+                    </div>
+                    <div className="gym__info">
+                      <h5>{game.gameInfo.gym.name}</h5>
+                      <p>
+                        {game.gameInfo.gym.sido} {game.gameInfo.gym.gugun}
+                      </p>
+                      <p>
+                        {game.gameInfo.gym.courtLength}m X {game.gameInfo.gym.courtWidth}m
+                      </p>
+                    </div>
+                    <div className="people__info">
+                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
+                      <p className="min_people">최소 {game.gameInfo.minPeople}</p>
+                    </div>
+                    <div>{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</div>
+                  </div>
+                );
+              }
+            })}
+          </article>
+          <article className="gamelist">
+            <div className="date">
+              {month}월 {day + 2}일
+            </div>
+            {list.map((game) => {
+              const gamedate = new Date(game.gameInfo.date);
+              if (gamedate.getDate() === day + 2) {
+                return (
+                  <div key={game.gameInfo.id} className="game_container">
+                    <div className="game__time">
+                      {String(game.gameInfo.startTime).slice(0, 5)} ~{' '}
+                      {String(game.gameInfo.endTime).slice(0, 5)}
+                    </div>
+                    <div className="gym__info">
+                      <h5>{game.gameInfo.gym.name}</h5>
+                      <p>
+                        {game.gameInfo.gym.sido} {game.gameInfo.gym.gugun}
+                      </p>
+                      <p>
+                        {game.gameInfo.gym.courtLength}m X {game.gameInfo.gym.courtWidth}m
+                      </p>
+                    </div>
+                    <div className="people__info">
+                      <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
+                      <p className="min_people">최소 {game.gameInfo.minPeople}</p>
+                    </div>
+                    <div>{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</div>
+                  </div>
+                );
+              }
+            })}
+          </article>
+        </section>
+      }
+    </div>
+  );
 }
 
-export default NoGameList
+export default GameList;

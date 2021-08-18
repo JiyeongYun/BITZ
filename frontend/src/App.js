@@ -18,10 +18,9 @@ import GameRegister from './router/game/business/GameRegister';
 import { GameStateProvider } from 'store/gameStore.js';
 import { store } from 'store/store';
 import GameReservation from 'router/game/player/GameReservation';
-import {Grommet} from 'grommet';
+import { Grommet } from 'grommet';
 
 function App() {
-  
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { dispatch } = globalState;
@@ -29,18 +28,18 @@ function App() {
   // 로그인 정보 확인
   useEffect(() => {
     // 플레이어 로그인
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? null;
     if (currentUser) {
-      dispatch({ type: "SELECT_USER_KIND", value: "player" })
-      dispatch({type: "LOGIN", value:currentUser.email})
+      dispatch({ type: 'SELECT_USER_KIND', value: 'player' });
+      dispatch({ type: 'LOGIN', value: currentUser.email });
     }
     // 비즈니스 로그인
-    const currentUserbusiness = JSON.parse(localStorage.getItem('currentUserbusiness')) ?? null
+    const currentUserbusiness = JSON.parse(localStorage.getItem('currentUserbusiness')) ?? null;
     if (currentUserbusiness) {
-      dispatch({ type: "SELECT_USER_KIND", value: "business" })
-      dispatch({type: "LOGIN", value:currentUserbusiness.email})
+      dispatch({ type: 'SELECT_USER_KIND', value: 'business' });
+      dispatch({ type: 'LOGIN', value: currentUserbusiness.email });
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   // offcanvas
   const [offcanvas, setOffcanvas] = useState(false);
@@ -57,18 +56,24 @@ function App() {
           <div
             className={offcanvas ? 'grey__canvas grey__canvas__show' : 'grey__canvas'}
             onClick={toggleCanvas}
-            ></div>
+          ></div>
           <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
-            <OffCanvas toggleCanvas={toggleCanvas}/>
+            <OffCanvas toggleCanvas={toggleCanvas} />
           </div>
           <Route path="/" exact={true} component={MainPage} />
-          <Route path="/registerGym" exact={true} render={() => <RegisterGym pageState="regist" />} />
+          <Route
+            path="/registerGym"
+            exact={true}
+            render={() => <RegisterGym pageState="regist" />}
+          />
           <Route path="/accounts/login" exact={true} component={Login} />
           <Route path="/accounts/register" exact={true} component={Register}></Route>
           <Route path="/accounts/profile/:email" exact={true} component={Profile} />
           <Route path="/accounts/profile/:email/update" exact={true} component={UpdateProfile} />
           <Route path="/accounts/find_password" exact={true} component={FindPassword} />
           <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
+          <Route path="/accounts/mygame" exact={true} component={MyGame} />
+
           {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
           <GameStateProvider>
             <Route path="/detail/:gameId" exact={true} component={Detail} />

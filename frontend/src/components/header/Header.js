@@ -9,20 +9,20 @@ function Header() {
   // 전역 상태 관리 (store)
   const globalState = useContext(store);
   const { value, dispatch } = globalState;
-  const [isScrollTop, setIsScrollTop] = useState(true)
+  const [isScrollTop, setIsScrollTop] = useState(true);
 
   // 프로필 이미지 State
-  const [imgUrl, setImgUrl] = useState(null)
+  const [imgUrl, setImgUrl] = useState(null);
 
   // 유저 정보 State
-  const [userData, setUserData] = useState([])
-  
+  const [userData, setUserData] = useState([]);
+
   // const [offcanvas, setOffcanvas] = useState(false)
   // const toggleCanvas = () => {
   //   setOffcanvas(!offcanvas)
   // }
   // <div>아이콘 제작자 <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
-  
+
   const handleScroll = useCallback(() => {
     if (!window.scrollY && !isScrollTop) {
       setIsScrollTop(true);
@@ -32,7 +32,7 @@ function Header() {
       setIsScrollTop(false);
       return;
     }
-  },[isScrollTop])
+  }, [isScrollTop]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -43,87 +43,85 @@ function Header() {
 
   // 사진을 가져오는 함수
   useEffect(() => {
-    const params = {email : value.isLogin}
-    if (value.userKind === "player" ) {
-
+    const params = { email: value.isLogin };
+    if (value.userKind === 'player') {
       ImgApi.getUserImg(
         params,
-        res => {
-          const url = window.URL.createObjectURL(new Blob([res.data]))
-          setImgUrl(url)
+        (res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          setImgUrl(url);
         },
-        err => {
-          console.log(err)
+        (err) => {
+          console.log(err);
         }
-      )
+      );
 
       UserApi.myprofile(
         params,
-        res => {
-          setUserData(res.data)
+        (res) => {
+          setUserData(res.data);
         },
-        err => {
-          console.log(err)
+        (err) => {
+          console.log(err);
         }
-      )
-    } else if (value.userKind === "business" ) {
-
+      );
+    } else if (value.userKind === 'business') {
       ImgApi.getBusImg(
         params,
-        res => {
-          const url = window.URL.createObjectURL(new Blob([res.data]))
-          setImgUrl(url)
+        (res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          setImgUrl(url);
         },
-        err => {
-          console.log(err)
+        (err) => {
+          console.log(err);
         }
-      )
+      );
 
       UserApi.BusMyProfile(
         params,
-        res => {
-          setUserData(res.data)
+        (res) => {
+          setUserData(res.data);
         },
-        err => {
-          console.log(err)
+        (err) => {
+          console.log(err);
         }
-      )
+      );
     }
-  }, [value.isLogin, value.userKind])
+  }, [value.isLogin, value.userKind]);
 
   // 로그아웃 함수
   const onLogout = () => {
-    localStorage.removeItem("currentUser")
-    localStorage.removeItem("currentUserbusiness")
-    dispatch({ type: "LOGIN", value: "" })
-    window.location.href="/accounts/login"
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserbusiness');
+    dispatch({ type: 'LOGIN', value: '' });
+    window.location.href = '/accounts/login';
   };
 
   // 메뉴 보여주기
   const showMenu = () => {
-    let menu = document.querySelector(".right_side > .profile_info").style
+    let menu = document.querySelector('.right_side > .profile_info').style;
     if (menu.display === 'block') {
-      menu.display = 'none' 
+      menu.display = 'none';
     } else {
-      menu.display = 'block'
+      menu.display = 'block';
     }
-  }
+  };
 
   // 이미지 사이즈
   const imgWidth = {
-    width: "20px",
-    height: "20px"
-  }
+    width: '20px',
+    height: '20px',
+  };
 
   return (
-    <div className={isScrollTop ? "header__container" : "header__container header__shadow"}>
+    <div className={isScrollTop ? 'header__container' : 'header__container header__shadow'}>
       <div className="header">
         <Link to="/">
           <img className="header__symbol" src="/images/symbol.png" alt="logo" />
         </Link>
         <div className="header__icons">
           {value.isLogin ? (
-            imgUrl?
+            imgUrl ? (
               <div className="right_side">
                 <img src={imgUrl} alt="my_profile" stlye={imgWidth} onClick={showMenu} />
                 <div className="profile_info">
@@ -133,14 +131,28 @@ function Header() {
                   </div>
                   <hr />
                   <div className="link_list">
-                    {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
-                    <Link to={`/accounts/profile/`+userData.email} onClick={showMenu}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
+                    {value.userKind === 'player' ? (
+                      <Link>
+                        <img src="/images/reservation.png" alt="res_logo" />
+                        예약확인
+                      </Link>
+                    ) : null}
+                    <Link to={`/accounts/profile/` + userData.email} onClick={showMenu}>
+                      <img src="/images/profile_black.png" alt="profile_logo" />
+                      마이페이지
+                    </Link>
                   </div>
                   <button onClick={onLogout}>로그아웃</button>
                 </div>
               </div>
-            : <div className="right_side">
-                <img src="/images/profile.png" style={imgWidth} alt="my_profile" onClick={showMenu} />
+            ) : (
+              <div className="right_side">
+                <img
+                  src="/images/profile.png"
+                  style={imgWidth}
+                  alt="my_profile"
+                  onClick={showMenu}
+                />
                 <div className="profile_info">
                   <div className="user__info">
                     <p>{userData.name}님</p>
@@ -148,12 +160,21 @@ function Header() {
                   </div>
                   <hr />
                   <div className="link_list">
-                    {value.userKind === 'player' ? <Link><img src="/images/reservation.png" alt="res_logo" />예약확인</Link> : null}
-                    <Link to={`/accounts/profile/`+userData.email} onClick={showMenu}><img src="/images/profile_black.png" alt="profile_logo" />마이페이지</Link>
+                    {value.userKind === 'player' ? (
+                      <Link>
+                        <img src="/images/reservation.png" alt="res_logo" />
+                        예약확인
+                      </Link>
+                    ) : null}
+                    <Link to={`/accounts/profile/` + userData.email} onClick={showMenu}>
+                      <img src="/images/profile_black.png" alt="profile_logo" />
+                      마이페이지
+                    </Link>
                   </div>
                   <button onClick={onLogout}>로그아웃</button>
                 </div>
               </div>
+            )
           ) : (
             <Link to="/accounts/login">
               <p className="icon">로그인</p>

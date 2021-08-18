@@ -1,180 +1,197 @@
-import axios from "axios";
+import axios from 'axios';
 
 // Local 에서 돌릴 때는 이 주석 풀고
-const BASE_URL = 'http://127.0.0.1:8080'
+const BASE_URL = 'http://127.0.0.1:8080';
 
 // EC@ 에서 돌릴 떄는 이 주석 풀기
 // const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
- 
+
+// JHW - My Game Data 요청
+const requestMyGame = (data, callback, errorCallback) => {
+  axios({
+    method: 'get',
+    url: BASE_URL + '/game/game/mygame',
+    params: data,
+  })
+    .then(callback)
+    .catch(errorCallback);
+};
+
 // PJW - Game List Data 요청
-const requsetGameList = (data,callback,errorCallback) => {
-    axios({
-      method: "get",
-      url: BASE_URL + "/game/game/list",
-      params: data
-    })
+const requsetGameList = (data, callback, errorCallback) => {
+  axios({
+    method: 'get',
+    url: BASE_URL + '/game/game/list',
+    params: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - Game Data 요청
-const requsetGame = (data,callback,errorCallback) => {
-    axios({
-      method: "get",
-      url: BASE_URL + "/game/game",
-      params: data
-    })
+const requsetGame = (data, callback, errorCallback) => {
+  axios({
+    method: 'get',
+    url: BASE_URL + '/game/game',
+    params: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
+    .catch(errorCallback);
+};
 
 // KOW - Game 등록 요청
 const registerGame = (data, callback, errorCallback) => {
   axios({
-    method: "post",
-    url: BASE_URL + "/game/game",
+    method: 'post',
+    url: BASE_URL + '/game/game',
     data: data,
   })
-  .then(callback)
-  .catch(errorCallback)
-}
- 
+    .then(callback)
+    .catch(errorCallback);
+};
+
 // PJW - Game 예약 버튼
-const reserveGame = (data,callback,errorCallback) => {
-    axios({
-      method: "POST",
-      url: BASE_URL + "/game/game/reserve",
-      data: data
-    })
+const reserveGame = (data, callback, errorCallback) => {
+  axios({
+    method: 'POST',
+    url: BASE_URL + '/game/game/reserve',
+    data: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - Game 입금 확인 버튼
-const requsetPaymentCheck = (data,callback,errorCallback) => {
-    axios({
-      method: "PUT",
-      url: BASE_URL + "/game/game/reserve",
-      data: data
-    })
+const requsetPaymentCheck = (data, callback, errorCallback) => {
+  axios({
+    method: 'PUT',
+    url: BASE_URL + '/game/game/reserve',
+    data: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - Game 예약 취소 버튼
-const cancelReservation = (data,callback,errorCallback) => {
-    axios({
-      method: "DELETE",
-      url: BASE_URL + "/game/gameparticipant",
-      data: data
-    })
+const cancelReservation = (data, callback, errorCallback) => {
+  axios({
+    method: 'DELETE',
+    url: BASE_URL + '/game/gameparticipant',
+    data: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - Game 확정 버튼
-const ConfirmReservation = (data,callback,errorCallback) => {
-    axios({
-      method: "PUT",
-      url: BASE_URL + "/game/gameparticipant",
-      data: data
-    })
+const ConfirmReservation = (data, callback, errorCallback) => {
+  axios({
+    method: 'PUT',
+    url: BASE_URL + '/game/gameparticipant',
+    data: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
+    .catch(errorCallback);
+};
 
 // PJW - Game 리뷰 여부 확인
-const ReviewCheck = (data,callback,errorCallback) => {
+const ReviewCheck = (data, callback, errorCallback) => {
   axios({
-    method: "GET",
-    url: BASE_URL + "/game/review",
-    params: data
+    method: 'GET',
+    url: BASE_URL + '/game/review',
+    params: data,
   })
-  .then(callback)
-  .catch(errorCallback)
-}
+    .then(callback)
+    .catch(errorCallback);
+};
 
 // PJW - Game 리뷰 제출
-const ApplyReview = (data,callback,errorCallback) => {
+const ApplyReview = (data, callback, errorCallback) => {
   axios({
-    method: "POST",
-    url: BASE_URL + "/game/review",
-    data: data
+    method: 'POST',
+    url: BASE_URL + '/game/review',
+    data: data,
   })
-  .then(callback)
-  .catch(errorCallback)
-}
- 
+    .then(callback)
+    .catch(errorCallback);
+};
+
 // PJW - 쿼터별 경기 기록 조회
-const getGameRecord = (data,callback,errorCallback) => {
-    axios({
-      method: "GET",
-      url: BASE_URL + "/game/gamerecord",
-      params: data
-    })
+const getGameRecord = (data, callback, errorCallback) => {
+  axios({
+    method: 'GET',
+    url: BASE_URL + '/game/gamerecord',
+    params: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - 쿼터별 경기 기록 저장
-const RecordGame = (data,callback,errorCallback) => {
-    axios({
-      method: "POST",
-      url: BASE_URL + "/game/gamerecord",
-      data: data
-    })
+const RecordGame = (data, callback, errorCallback) => {
+  axios({
+    method: 'POST',
+    url: BASE_URL + '/game/gamerecord',
+    data: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - 경기 1시간 전 팀 배정
-const Teaming = (data,callback,errorCallback) => {
-    axios({
-      method: "PUT",
-      url: BASE_URL + "/game/teaming",
-      data: data
-    })
+const Teaming = (data, callback, errorCallback) => {
+  axios({
+    method: 'PUT',
+    url: BASE_URL + '/game/teaming',
+    data: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
- 
+    .catch(errorCallback);
+};
+
 // PJW - 비즈니스 계정 메인페이지의 게임 리스트 요청
-const requsetBusinessGameList = (data,callback,errorCallback) => {
-    axios({
-      method: "GET",
-      url: BASE_URL + "/account/business/game/list",
-      params: data
-    })
+const requsetBusinessGameList = (data, callback, errorCallback) => {
+  axios({
+    method: 'GET',
+    url: BASE_URL + '/account/business/game/list',
+    params: data,
+  })
     .then(callback)
-    .catch(errorCallback)
-}
+    .catch(errorCallback);
+};
 
 // PJW - 게임 결과 저장
-const saveGameResult = (data,callback,errorCallback) => {
+const saveGameResult = (data, callback, errorCallback) => {
   axios({
-    method: "POST",
-    url: BASE_URL + "/game/gameresult",
-    data: data
+    method: 'POST',
+    url: BASE_URL + '/game/gameresult',
+    data: data,
   })
-  .then(callback)
-  .catch(errorCallback)
-}
- 
-const GameApi = {
-  requsetGameList: (data,callback,errorCallback)=>requsetGameList(data,callback,errorCallback),
-  registerGame: (data,callback,errorCallback)=>registerGame(data,callback,errorCallback),
-  requsetGame:(data,callback,errorCallback)=>requsetGame(data,callback,errorCallback),
-  reserveGame:(data,callback,errorCallback)=>reserveGame(data,callback,errorCallback),
-  requsetPaymentCheck:(data,callback,errorCallback)=>requsetPaymentCheck(data,callback,errorCallback),
-  cancelReservation:(data,callback,errorCallback)=>cancelReservation(data,callback,errorCallback),
-  ConfirmReservation:(data,callback,errorCallback)=>ConfirmReservation(data,callback,errorCallback),
-  ApplyReview:(data,callback,errorCallback)=>ApplyReview(data,callback,errorCallback),
-  ReviewCheck:(data,callback,errorCallback)=>ReviewCheck(data,callback,errorCallback),
-  getGameRecord:(data,callback,errorCallback)=>getGameRecord(data,callback,errorCallback),
-  RecordGame:(data,callback,errorCallback)=>RecordGame(data,callback,errorCallback),
-  Teaming:(data,callback,errorCallback)=>Teaming(data,callback,errorCallback),
-  requsetBusinessGameList:(data,callback,errorCallback)=>requsetBusinessGameList(data,callback,errorCallback),
-  saveGameResult:(data,callback,errorCallback)=>saveGameResult(data,callback,errorCallback),
-}
+    .then(callback)
+    .catch(errorCallback);
+};
 
-export default GameApi 
+const GameApi = {
+  requsetGameList: (data, callback, errorCallback) =>
+    requsetGameList(data, callback, errorCallback),
+  registerGame: (data, callback, errorCallback) => registerGame(data, callback, errorCallback),
+  requsetGame: (data, callback, errorCallback) => requsetGame(data, callback, errorCallback),
+  reserveGame: (data, callback, errorCallback) => reserveGame(data, callback, errorCallback),
+  requsetPaymentCheck: (data, callback, errorCallback) =>
+    requsetPaymentCheck(data, callback, errorCallback),
+  cancelReservation: (data, callback, errorCallback) =>
+    cancelReservation(data, callback, errorCallback),
+  ConfirmReservation: (data, callback, errorCallback) =>
+    ConfirmReservation(data, callback, errorCallback),
+  ApplyReview: (data, callback, errorCallback) => ApplyReview(data, callback, errorCallback),
+  ReviewCheck: (data, callback, errorCallback) => ReviewCheck(data, callback, errorCallback),
+  getGameRecord: (data, callback, errorCallback) => getGameRecord(data, callback, errorCallback),
+  RecordGame: (data, callback, errorCallback) => RecordGame(data, callback, errorCallback),
+  Teaming: (data, callback, errorCallback) => Teaming(data, callback, errorCallback),
+  requsetBusinessGameList: (data, callback, errorCallback) =>
+    requsetBusinessGameList(data, callback, errorCallback),
+  saveGameResult: (data, callback, errorCallback) => saveGameResult(data, callback, errorCallback),
+  requestMyGame: (data, callback, errorCallback) => requestMyGame(data, callback, errorCallback),
+};
+
+export default GameApi;

@@ -1,0 +1,160 @@
+.MyGameList {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.MyGameList > div {
+  width: 70vw;
+}
+
+.MyGameList section > article > .date {
+  width: 100%;
+  height: var(--btn-height);
+  line-height: var(--btn-height);
+  font-size: var(--main-font-size);
+  font-weight: bold;
+  background-color: var(--grey);
+  color: white;
+  text-align: center;
+  margin: var(--mid-margin-size) 0 0;
+  border-radius: 5px;
+  margin-bottom: var(--main-margin-size);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.MyGameList section > article > .today {
+  background-color: var(--main-color);
+}
+
+.MyGameList section > article > .game_container {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--main-font-size);
+  border-bottom: 1px solid black;
+  gap: 10px;
+}
+
+.MyGameList section > article > .game_container > .game__time,
+.MyGameList section > article > .game_container > .gym__info {
+  flex: 2;
+}
+
+.MyGameList section > article > .game_container > .game__time {
+  text-align: start;
+  font-size: var(--large-font-size);
+}
+
+.MyGameList section > article > .game_container > .gym__info > h5 {
+  font-size: var(--main-font-size);
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+.MyGameList section > article > .game_container > .gym__info > p {
+  font-size: var(--small-font-size);
+}
+
+.MyGameList section > article > .game_container > .people__info > .max_people,
+.MyGameList section > article > .game_container > .people__info > .min_people {
+  margin: 0 auto;
+  height: 20px;
+  width: fit-content;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.MyGameList section > article > .game_container > .people__info > .max_people {
+  background-color: var(--blue);
+  margin-bottom: 3px;
+}
+
+.MyGameList section > article > .game_container > .people__info > .min_people {
+  background-color: var(--red);
+}
+
+.MyGameList section > article > .game_container > .participant {
+  flex: 3;
+  font-size: var(--mid-font-size);
+  text-align: center;
+}
+
+.MyGameList section > article > .game_container > .participant span {
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: var(--large-font-size);
+}
+
+.MyGameList section > article > .game_container > .people__info,
+.MyGameList section > article > .game_container > .game__btn {
+  flex: 1;
+}
+
+.MyGameList section > article > .game_container > .game__btn {
+  height: var(--btn-height);
+  line-height: var(--btn-height);
+  text-align: center;
+  border-radius: 5px;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .MyGameList > div {
+    width: 90vw;
+  }
+
+  .MainBusiness__top {
+    font-size: var(--main-font-size);
+  }
+
+  .MyGameList section > article > .game_container {
+    font-size: var(--small-font-size);
+  }
+
+  .MyGameList section > article > .game_container > .game__time {
+    flex: 1;
+  }
+
+  .MyGameList section > article > .game_container > .gym__info {
+    flex: 2.5;
+  }
+
+  .MyGameList section > article > .game_container > .gym__info > h5 {
+    font-size: var(--small-font-size);
+    margin-bottom: 5px;
+    font-weight: normal;
+  }
+
+  .MyGameList section > article > .game_container > .game__time {
+    font-size: var(--small-font-size);
+    text-align: center;
+  }
+
+  .MyGameList section > article > .game_container > .people__info {
+    display: none;
+  }
+
+  .MyGameList section > article > .game_container > .participant {
+    flex: 3;
+    font-size: var(--small-font-size);
+    text-align: center;
+  }
+
+  .MyGameList section > article > .game_container > .participant span {
+    font-size: var(--main-font-size);
+  }
+
+  .MyGameList section > article > .game_container > .game__btn {
+    font-size: var(--small-font-size);
+    padding: 0 5px;
+  }
+}
