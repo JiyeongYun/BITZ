@@ -132,7 +132,7 @@ function Header() {
                   <hr />
                   <div className="link_list">
                     {value.userKind === 'player' ? (
-                      <Link>
+                      <Link to="/match/mygames">
                         <img src="/images/reservation.png" alt="res_logo" />
                         예약확인
                       </Link>

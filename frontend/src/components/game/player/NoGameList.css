@@ -1,12 +1,12 @@
 .nogame {
-  min-height: 80vh !important;
-  transform: translate(-15%, -20%);
+  text-align: center;
+  width: 100%;
 }
 
 .nogame > .content {
   border-radius: 10px;
   background-color: var(--bright-grey);
-  width: 80%;
+  width: 100%;
   height: 200px;
   padding: var(--main-margin-size) 0;
   box-shadow: 0px 3px 2px var(--grey);

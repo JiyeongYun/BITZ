@@ -1,20 +1,12 @@
 .mygame {
   margin: 0px auto;
-  width: 60vw;
+  width: 600px;
+  min-height: 87vh;
 }
 
-.mygame > h3 {
-  font-size: var(--large-font-size);
-  text-align: end;
-}
-
-.mygame > h3:hover {
-  text-decoration: underline;
-}
-
-.mygame > h2 {
+.mygame > div > h2 {
   margin: var(--large-margin-size) 0;
-  font-size: var(--small-font-size);
+  font-size: var(--main-font-size);
   text-align: start;
   font-weight: normal;
   text-decoration: underline;
@@ -22,38 +14,23 @@
   color: var(--main-color);
 }
 
-.nogame {
-  position: relative;
-  font-size: var(--large-font-size);
-  text-align: center;
-  background-color: var(--grey-color);
-  width: 100vw;
-  /* transform: translate(-20%, -20%); */
-  height: 200px;
-}
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.nogame > .content > h2 {
-  color: var(--main-color);
-  margin-bottom: var(--xlarge-margin-size);
-}
-
-.nogame > .content > a {
-  color: white;
-  background-color: var(--main-color);
-  padding: 10px;
-  border-radius: 5px;
-  font-size: var(--main-font-size);
-  height: var(--btn-height);
-}
-
 @media screen and (max-width: 1024px) {
   .mygame {
-    width: 70vw;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .mygame > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -70%);
+    width: 80%;
+  }
+
+  .mygame > div > h2 {
+    margin-top: 0 !important;
   }
 }

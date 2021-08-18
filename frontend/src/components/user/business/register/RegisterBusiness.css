@@ -55,6 +55,6 @@
 
 @media screen and (max-width: 1024px) {
   .register__businessRegistration {
-    width: 300px;
+    width: 80vw;
   }
 }
