@@ -163,9 +163,7 @@ public class GameService {
         for (int i = 0; i < gameList.size(); i++) { // 해당 날짜의 게임 중 체육관 정보
             Game game = gameList.get(i);
             Gym gym = game.getGym();
-            if (gym.getSido().equals(sido)) {
-                result.add(new GameListResponse(game, gym));
-            }
+            result.add(new GameListResponse(game, gym));
         }
         return result;
     }
