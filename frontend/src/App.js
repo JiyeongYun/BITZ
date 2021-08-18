@@ -1,6 +1,7 @@
 import Header from './components/header/Header';
 import Footer from './components/header/Footer';
 import OffCanvas from './components/header/OffCanvas';
+import Intro from './components/intro/Intro';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
@@ -60,6 +61,7 @@ function App() {
           <div className={offcanvas ? 'offcanvas__show offcanvas' : 'offcanvas'}>
             <OffCanvas toggleCanvas={toggleCanvas} />
           </div>
+          <Route path="/intro" exact={true} component={Intro} />
           <Route path="/" exact={true} component={MainPage} />
           <Route
             path="/registerGym"
