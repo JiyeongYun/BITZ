@@ -1,19 +1,18 @@
 .gameInfo {
-  margin-right: 20px;
+  margin-right: var(--main-margin-size);
   /* border-bottom: 1px solid black; */
 }
 
 .gameInfo > div {
-  margin-bottom: 18px;
+  margin-bottom: var(--main-margin-size);
 }
 
 .gameInfo > .gamedate {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: var(--large-font-size);
 }
 
 .gameInfo > .gyminfo {
-  font-size : 14px;
+  font-size : var(--main-font-size);
 }
 
 .gameInfo > .gyminfo > #gymname {
@@ -22,19 +21,19 @@
 }
 
 .gameInfo > .gyminfo > #gymaddress > button {
-  font-weight: bold;
+  color: var(--blue);
   border: none;
   background-color: white;
   cursor: pointer;
 }
 
 .gameInfo > .gameuser > p {
-  font-size: 18px;
+  font-size: var(--main-font-size);
 }
 
 .gameInfo > .gameuser > p > span {
-  font-size: 24px;
-  color: #ffad4e;
+  font-size: var(--large-font-size);
+  color: var(--main-color);
   font-weight: bold;
 }
 

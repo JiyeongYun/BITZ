@@ -83,7 +83,6 @@ const GameDetail = ({ match, location }) => {
         }
       })
     },[gameDispatch, aboutGame.gameParticipantList])
-    
   
   return (
     <div className="gameDetail">
