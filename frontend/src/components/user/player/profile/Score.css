@@ -6,7 +6,7 @@
 .match__container {
   width: 500px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .match__container > div {
@@ -71,7 +71,7 @@
 
 @media screen and (max-width: 1024px) {
   .score__container {
-    width: 90%;
+    width: 80%;
     border-right: none;
     border-bottom: 1px solid var(--grey);
     margin: 0 auto;

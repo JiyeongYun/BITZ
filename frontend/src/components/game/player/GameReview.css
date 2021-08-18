@@ -1,10 +1,15 @@
 .gameReview {
-  color: #ffad4e;
+  color: var(--main-color);
   top: 10vw;
 }
 
 .gameReview__input {
   width: 80%;
+}
+
+.gameReview__manner > div > .teaminfo,
+.gameReview__MVP > div > .teaminfo {
+  margin: 0;
 }
 
 .gameReview__MVP, .gameReview__manner, .gameReview__gym {
@@ -45,4 +50,59 @@
   top: 70px;
   left: 75px;
   z-index: 2;
+}
+
+@media screen and (max-width: 1024px) {
+  .gameReview__input {
+    width: 90%;
+  }
+  
+  .gameReview__input > div > h2 {
+    font-size: var(--large-font-size);
+  }
+  
+  .gameReview__input > div > span {
+    font-size: var(--small-font-size);
+  }
+  
+  .gameReview__MVP, .gameReview__manner, .gameReview__gym {
+    margin-top: 40px;
+    text-align: start;
+  }
+  
+  .gameReview__basketballScore {
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .gameReview__gym_itemName {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #0a1840;
+  }
+  
+  .gameReview__Facility {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .gameReview__Kindness {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .gameReview__badge {
+    width: 30px;
+    position: relative;
+    top: 70px;
+    left: 75px;
+    z-index: 2;
+  }
+  
 }

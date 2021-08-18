@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  width: 100%;
 }
 
 .result__container > div:nth-child(1){
@@ -11,9 +12,9 @@
 .gameResult__tables > p {
   color: var(--main-color);
   text-align: start !important;
-  display: block;
+  display: inline-block;
   width: 100%;
-  margin-left: calc(2*var(--main-margin-size));
+  padding-left: var(--main-margin-size);
 }
 
 @media screen and (max-width: 1024px) {

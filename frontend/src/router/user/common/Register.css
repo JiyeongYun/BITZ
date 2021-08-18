@@ -338,25 +338,33 @@ input:focus {
     justify-content: center;
     align-items: center;
   }
+  
+  .input_relative_box {
+    width: 80vw;
+  }
 
   .register__container > p {
-    width: 300px;
+    width: 80%;
     display: inline-block;
   }
   .register__userKind {
-    width: 300px;
+    width: 80%;
   }
 
   .userKind > label {
-    width: 150px;
+    width: 50%;
   }
   
   .registerForm__component {
-    width: 300px;
+    width: 80vw;
   }
 
   .inputBox {
-    width: 300px;
+    width: 80vw;
+  }
+
+  .register__birthForm {
+    width: 80vw;
   }
 
   .birthYear {
@@ -372,6 +380,6 @@ input:focus {
   }
   
   .registerForm__button {
-    width: 300px !important;
+    width: 80vw !important;
   }
 }

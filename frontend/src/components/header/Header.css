@@ -28,6 +28,7 @@
 	position: absolute;
 	right: 0;
 	display: none;
+	box-shadow: 1px 1px 4px 2px var(--grey);
 }
 
 .header__icons > .right_side > .profile_info > hr {
@@ -185,5 +186,36 @@
 	.header__icons > .right_side > img {
 		width: 40px;
 		height: 40px;
+	}
+
+	.header__icons > .right_side > .profile_info {
+		width: 150px;
+	}
+
+	.header__icons > .right_side > .profile_info > div{
+		margin: var(--main-margin-size) 10%;
+		margin-right: var(--xlarge-margin-size);
+	}
+
+	.header__icons > .right_side > .profile_info > .user__info > p:nth-child(1) {
+		font-size: var(--main-font-size);
+	}
+
+	.header__icons > .right_side > .profile_info > .user__info > p:nth-child(2) {
+		font-size: var(--small-font-size);
+	}
+
+	.header__icons > .right_side > .profile_info > .link_list > a {
+		font-size: var(--small-font-size);
+		width: 100px;
+	}
+
+	.header__icons > .right_side > .profile_info > .link_list > a > img{
+		width: 16px;
+		height: 16px;
+	}
+
+	.header__icons > .right_side > .profile_info > button {
+		font-size: var(--small-font-size);
 	}
 }
