@@ -12,6 +12,7 @@
 }
 
 .mygym > .mygym__container > h3 {
+  font-size: var(--mid-font-size);
   font-weight: normal !important;
   color: var(--main-color);
 }
@@ -36,18 +37,26 @@
   font-size: var(--large-font-size);
   color: var(--main-color);
   border-bottom: 2px solid var(--main-color);
-  padding-bottom: var(--small-margin-size);
+  padding-bottom: 5px;
   text-align: center;
 }
 
 .mygym > .mygym__list > .gym__info {
   display: flex;
   justify-content: space-around;
-  font-size: var(--main-font-size);
+  font-size: var(--small-font-size);
   margin-top: var(--main-margin-size);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   padding-bottom: var(--main-margin-size);
   text-align: center;
+}
+
+.mygym > .mygym__list > .list__title {
+  font-size: var(--main-font-size);
+}
+
+.mygym > .mygym__list > .gym__info {
+  font-size: var(--small-font-size);
 }
 
 .mygym > .mygym__list > .list__title > p:nth-child(1),
@@ -72,7 +81,16 @@
 @media screen and (max-width: 1024px) {
   .mygym {
     margin: var(--large-margin-size);
-    width: 90vw;
+    width: 100%;
+  }
+
+  .mygym > div {
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  .mygym > .mygym__list {
+    margin: var(--main-margin-size) auto;
   }
   
   .mygym > .mygym__container {

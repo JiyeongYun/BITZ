@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import UserApi from 'api/UserApi'
+import './UpdateProfileGeneral.css'
 
 function UpdateProfileBusiness({userData, setUserData}) {  
   // birth 관련 State
@@ -47,11 +48,10 @@ function UpdateProfileBusiness({userData, setUserData}) {
   
   // view ***************************************************************
   return(
-    <div className="registerForm__center">
+    <div className="registerForm">
+      <h5>마이페이지 수정</h5>
       {/*  이메일 */}
       <div className="register__email registerForm__component">
-        <label>이메일</label>
-        <br />
         <input
           className="inputBox"
           type="email"
@@ -63,8 +63,6 @@ function UpdateProfileBusiness({userData, setUserData}) {
       </div>
       {/* 이름 */}
       <div className="register__name registerForm__component">
-        <label>이름</label>
-        <br />
         <input
           className="inputBox"
           type="text"
@@ -75,8 +73,6 @@ function UpdateProfileBusiness({userData, setUserData}) {
       </div>
       {/* 핸드폰 번호 */}
       <div className="register__phoneNumber registerForm__component">
-        <label>핸드폰 번호( '-'를 제외하고 입력 : 01012345678 )</label>
-        <br />
         <input
           className="inputBox"
           type="tel"
@@ -87,7 +83,6 @@ function UpdateProfileBusiness({userData, setUserData}) {
       </div>
       {/* 생년월일 */}
       <div className="register__birth registerForm__component">
-        <label>생년월일</label>
         <div className="register__birthForm">
           {/* 년 */}
           <input
@@ -99,7 +94,7 @@ function UpdateProfileBusiness({userData, setUserData}) {
             maxLength="4"
             placeholder="연(4자)"
           ></input>
-          년{/* 월 */}
+          {/* 월 */}
           <span>
             <select
               className="register__birthMonth"
@@ -133,13 +128,10 @@ function UpdateProfileBusiness({userData, setUserData}) {
             maxLength="2"
             placeholder="일"
           ></input>
-          일
         </div>
       </div>
       {/* 계좌 은행 */}
       <div className="register__bank">
-        <label>은행</label>
-        <br />
         <input
           className="inputBox"
           type="text"
@@ -150,8 +142,6 @@ function UpdateProfileBusiness({userData, setUserData}) {
       </div>
       {/* 계좌 번호 */}
       <div className="register__account registerForm__component">
-        <label>계좌 번호( 숫자만 입력 )</label>
-        <br />
         <input
           className="inputBox"
           type="text"

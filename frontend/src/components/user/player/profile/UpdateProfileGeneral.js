@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import UserApi from 'api/UserApi'
+import './UpdateProfileGeneral.css'
 
 function UpdateProfileGeneral({userData, setUserData}) {  
   // PJW - 닉네임 중복 체크
@@ -65,24 +66,19 @@ function UpdateProfileGeneral({userData, setUserData}) {
   // view ***************************************************************
   return(
     <div className="registerForm">
+      <h5>마이페이지 수정</h5>
       {/* 중앙 영역 */}
       <div className="registerForm__center">
         {/*  이메일 */}
         <div className="register__email registerForm__component">
-          <label>이메일</label>
-          <br />
           <input  disabled className="inputBox" type="email" name="email" value={userData.email}autoCapitalize="none"></input>
         </div>
         {/* 이름 */}
         <div className="register__name registerForm__component">
-          <label>이름</label>
-          <br />
           <input disabled className="inputBox" type="text" name="name" value={userData.name}></input>
         </div>
         {/* 닉네임 */}
         <div className="register__nickname registerForm__component">
-          <label>닉네임</label>
-          <br />
           <input className="inputBox" type="text" name="nickname" value={userData.nickname} onChange={onChange}></input>
           <button
           type="sumbit"
@@ -93,16 +89,13 @@ function UpdateProfileGeneral({userData, setUserData}) {
         </div>
         {/* 핸드폰 번호 */}
         <div className="register__phoneNumber registerForm__component">
-          <label>핸드폰 번호( '-'를 제외하고 입력 : 01012345678 )</label>
-          <br />
           <input onChange={onChange} maxLength="11" className="inputBox" type="tel" name="phone" value={userData.phone}></input>
         </div>
         {/* 생년월일 */}
         <div className="register__birth registerForm__component">
-          <label>생년월일</label>
           <div className="register__birthForm">
             {/* 년 */}
-            <input onChange={onChange} className="register__birthYear" type="text" name="birthYear" value={birthYear} maxLength="4" placeholder="연(4자)"></input>년
+            <input onChange={onChange} className="register__birthYear" type="text" name="birthYear" value={birthYear} maxLength="4" placeholder="연(4자)"></input>
             {/* 월 */}
             <span>
                 <select onChange={onChange} value={birthMonth} className="register__birthMonth" id="mm" name="birthMonth">
@@ -120,10 +113,9 @@ function UpdateProfileGeneral({userData, setUserData}) {
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
-                <span> 월</span>
             </span>
             {/* 일 */}
-            <input onChange={onChange} className="register__birthDay" type="text" name="birthDay" value={birthDay} maxLength="2" placeholder="일"></input>일
+            <input onChange={onChange} className="register__birthDay" type="text" name="birthDay" value={birthDay} maxLength="2" placeholder="일"></input>
           </div>
         </div>
 

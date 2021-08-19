@@ -71,7 +71,9 @@
 
 .registerGym__div > .gym__container > .registerGymForm__div > div > textarea {
   resize: none;
-  height: 70px;
+  height: 90px;
+  padding: 10px !important;
+  box-sizing: border-box;
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > div > textarea::placeholder {
@@ -115,28 +117,29 @@
 
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div > div > span {
   position: absolute;
-  top: 0;
+  top: -1px;
   line-height: 40px;
-  right: 5px;
+  right: 8px;
+  font-weight: bold;
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div > div > input {
   width: 150px;
   text-align: end;
-  padding-right: 24px;
+  padding-right: 30px;
 }
 
-.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) span {
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) i {
   color: var(--main-color);
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > .sido__box {
-  width:130px;
+  width: fit-content;
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > .gugun__box {
   width:130px;
-  margin-left: 31px;
+  margin-left: 30px;
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress {
@@ -274,16 +277,16 @@
 @media screen and (max-width: 1024px) {
   .registerGym__div > .gym__container {
     margin: var(--small-margin-size) auto;
-    width: 90%;
+    width: 100%;
   }
 
   .registerGym__div > .gym__container > h1 {
     margin: var(--main-margin-size) 0;
-    width: 90%;
+    width: 80%;
   }
 
   .registerGym__div > .gym__container > .registerGymForm__div {
-    width: 90%;
+    width: 80%;
     margin: 0;
   }
 
@@ -302,7 +305,7 @@
   }
 
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div {
-    width: 81vw;
+    width: 80vw;
   }
 
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > h4,
@@ -363,7 +366,6 @@
     > div
     > input {
     width: 100%;
-    min-width: 110px;
     text-align-last: center;
   }
 
@@ -383,7 +385,7 @@
     > .gymaddress
     > div
     > input {
-    width: 81vw;
+    width: 80vw;
     padding-left: var(--small-margin-size);
   }
 
@@ -406,5 +408,15 @@
 
   .gym__container > .registerGymForm__div > button {
     width: 100%;
+  }
+
+  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > .sido__box {
+    width: 45%;
+  }
+
+  
+  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > .gugun__box {
+    margin-left: 10%;
+    width: 45%;
   }
 }

@@ -125,7 +125,7 @@ function Header() {
               <div className="right_side">
                 <img src={imgUrl} alt="my_profile" stlye={imgWidth} onClick={showMenu} />
                 <div className="profile_info">
-                  <div><span onClick={showMenu}>X</span></div>
+                  <i onClick={showMenu} class="fas fa-times"></i>
                   <div className="user__info">
                     <p>{userData.name}님</p>
                     <p>{userData.email}</p>
@@ -155,7 +155,7 @@ function Header() {
                   onClick={showMenu}
                 />
                 <div className="profile_info">
-                  <div><span onClick={showMenu}>X</span></div>
+                  <i onClick={showMenu} class="fas fa-times"></i>
                   <div className="user__info">
                     <p>{userData.name}님</p>
                     <p>{userData.email}</p>

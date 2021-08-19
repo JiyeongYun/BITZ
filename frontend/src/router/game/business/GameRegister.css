@@ -101,7 +101,6 @@
 .game__container > .date_select_box > input {
     width: 200px;
     text-align: center;
-    
 }
 
 .game__container > div:nth-child(3) input ~ span {
@@ -124,6 +123,7 @@
 .game__container > .time_select_box > .time_container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .game__container > .time_select_box > .time_container h5 {
@@ -179,5 +179,35 @@
 
     .game__container > button {
         width: 100%;
+    }
+    
+    .game__container > .date_select_box > input {
+        padding: 0;
+        padding-left: 30px;
+    }
+
+    
+    .people_select_box > .min_people ,
+    .people_select_box > .max_people {
+        width: 100%;
+    }
+
+    .people_select_box > .min_people > input,
+    .people_select_box > .max_people > input {
+        width: 100%;
+    }
+
+    .game__container > .date_select_box > input,
+    .game__container > .gym_select_box > select {
+        width: 100%;
+    }
+
+    .game__container > div input {
+        width: 126.5px;
+    }
+
+    .fee_select_box > input {
+        width: 100% !important;
+        text-align: center !important;
     }
 }
