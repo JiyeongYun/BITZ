@@ -40,10 +40,8 @@ const GameResult = () => {
 
     GameApi.GameResultCheck(data,
       res => {
-        console.log(res);
         if (res.status == 200) {
           GameApi.saveGameResult({gameId: aboutGame.gameInfo.id},
-          res=>console.log(res.data),
           err=>console.log(err)
           )
         }
