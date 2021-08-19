@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import './MyGame.css';
 import NoGameList from 'components/game/player/NoGameList';
 import GameList from 'components/game/player/GameList';
@@ -10,7 +9,7 @@ function MyGame() {
   const [gameList, setGameList] = useState([]);
 
   const globalState = useContext(store);
-  const { dispatch, value } = globalState;
+  const { value } = globalState;
 
   useEffect(() => {
     const params = {
@@ -25,7 +24,7 @@ function MyGame() {
         console.log(error);
       }
     );
-  }, []);
+  }, [value.isLogin]);
 
   return (
     <div className={!gameList.length ? "mygame mar_100" : "mygame"}>

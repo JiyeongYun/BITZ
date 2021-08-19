@@ -41,7 +41,7 @@ const GameRegister = ({history}) => {
         console.log(err)
       }
     )
-  }, [])
+  }, [value.isLogin])
 
   // 입력 데이터 업데이트
   const onChange = (e) => {

@@ -10,7 +10,7 @@ import { gameStore } from 'store/gameStore';
 import GameApi from 'api/GameApi';
 import UserApi from 'api/UserApi';
 import { store } from 'store/store';
-import GameDetail__Business from 'components/game/business/GameDetail__Business';
+import GameDetailBusiness from 'components/game/business/GameDetail__Business';
 import ImgApi from 'api/ImgApi';
 
 const GameDetail = ({ match, location }) => {
@@ -65,7 +65,7 @@ const GameDetail = ({ match, location }) => {
       },
       (err) => console.log(err)
     );
-  }, []);
+  }, [gameDispatch, params]);
 
   // (3) Game 참감자 세부 정보 저장
   useEffect(() => {
@@ -89,7 +89,7 @@ const GameDetail = ({ match, location }) => {
         setIsParticipant(true);
       }
     });
-  }, [gameDispatch, aboutGame.gameParticipantList]);
+  }, [gameDispatch, aboutGame.gameParticipantList, value.userKind, value.isLogin]);
 
   return (
     <div className="gameDetail">
@@ -119,7 +119,7 @@ const GameDetail = ({ match, location }) => {
       ) : (
         ''
       )}
-      {isBusiness ? <GameDetail__Business /> : ''}
+      {isBusiness ? <GameDetailBusiness /> : ''}
     </div>
   );
 };

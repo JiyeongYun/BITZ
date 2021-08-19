@@ -64,6 +64,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           console.log(err);
         }
       );
+      return null
     })
     setImgUrlList(list);
   }, [members])
@@ -124,7 +125,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           <div className="members">
             {members.map((member, idx) => {
               return member.team === 1? (
-                <div className={`member ${reviewType}${idx}`}>
+                <div key={idx} className={`member ${reviewType}${idx}`}>
                   <div className="Participants__selected">
                     { reviewType==="manner"&&(reviewScore.manner.includes(`${idx}`))? 
                       <div className="manner__overlay">
@@ -164,7 +165,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           <div className="members">
             {members.map((member, idx) => {
               return member.team === 2? (
-                <div className={`member ${reviewType}${idx}`}>
+                <div key={idx} className={`member ${reviewType}${idx}`}>
                 <div className="Participants__selected">
                   { reviewType==="manner"&&(reviewScore.manner.includes(`${idx}`))? 
                     <div className="manner__overlay">
@@ -204,7 +205,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
           <div className="members">
             {members.map((member, idx) => {
               return member.team === 3? (
-                <div className={`member ${reviewType}${idx}`}>
+                <div key={idx} className={`member ${reviewType}${idx}`}>
                 <div className="Participants__selected">
                   { reviewType==="manner"&&(reviewScore.manner.includes(`${idx}`))? 
                     <div className="manner__overlay">
