@@ -76,6 +76,10 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .gameReview__manner > div > .teaminfo {
+        width: 100%;
+    }
+
     .participant > .userinfo {
         width: 150px;
     }
