@@ -36,38 +36,36 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
     if (window.confirm('경기 기록은 수정할 수 없습니다. 기록하시겠습니까?')) {
       const data = {
         team1: team1_score,
-        team1_score: (modalSwitch? parseInt(scores.team1_score)-aboutGame.gameData[team1_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team1_score)),
+        team1_score: Number(scores.team1_score),
         team2: team2_score,
-        team2_score: (modalSwitch? parseInt(scores.team2_score)-aboutGame.gameData[team2_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team2_score)),
+        team2_score: Number(scores.team2_score),
         recorder: recorder,
         current_recorder: value.isLogin,
         unKnown_bugFix: aboutGame.gameData[recorder].length // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
       }
-      console.log(data)
 
       // team1 점수 기록
       GameApi.RecordGame({
         "gameId": aboutGame.gameInfo.id,
         "quarter": (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length+1),
-        "score": (modalSwitch? parseInt(scores.team1_score)-aboutGame.gameData[team1_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team1_score)),
+        "score": Number(scores.team1_score),
         "team": teamNameTranslater[team1],
         "userEmail": value.isLogin
       },
         res=>{
-          console.log(res.data)
           // team2 점수 기록
           GameApi.RecordGame({
             "gameId": aboutGame.gameInfo.id,
             "quarter": (aboutGame.gameData.game1_recorder.length+aboutGame.gameData.game2_recorder.length+aboutGame.gameData.game3_recorder.length+1),
-            "score": (modalSwitch? parseInt(scores.team2_score)-aboutGame.gameData[team2_score].reduce((sum, currValue)=>(sum+currValue), 0) : parseInt(scores.team2_score)),
+            "score": Number(scores.team2_score),
             "team": teamNameTranslater[team2],
             "userEmail": value.isLogin
           },
             res=>{
-              console.log(res.data)
+              // console.log(res.data)
               GameApi.getGameRecord({gameId: aboutGame.gameInfo.id},
                 (res)=>{
-                  console.log(res.data)
+                  // console.log(res.data)
                   const data = {
                     gameType: res.data.length, // 2: 2팀, 3: 3팀
                     game1_team1_score: res.data[0].teamAScoreList,
@@ -76,11 +74,11 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
                     game2_team2_score: res.data[1].teamBScoreList,
                     game3_team1_score: res.data[2]? res.data[2].teamBScoreList:[], // res.data는 무조건 사전순 (teamA=> A, teamB=> C)
                     game3_team2_score: res.data[2]? res.data[2].teamAScoreList:[],
-                    game1_recorder: res.data[0].recorderList.map(element=>element.email), // 2팀 게임은 game1만 사용
-                    game2_recorder: res.data[1].recorderList.map(element=>element.email),
-                    game3_recorder: res.data[2]? res.data[2].recorderList.map(element=>element.email):[]
+                    game1_recorder: res.data[0].recorderList.map(element=>element), // 2팀 게임은 game1만 사용
+                    game2_recorder: res.data[1].recorderList.map(element=>element),
+                    game3_recorder: res.data[2]? res.data[2].recorderList.map(element=>element):[]
                   }
-                  console.log(data)
+                  // console.log(data)
                   gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
                 },
                 (err)=>console.log(err)
@@ -103,7 +101,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   }
   // PJW - 입력 타입 변경 (true: 누적합 / false: 쿼터별)
   const switchRecordingType = () => {
-    setModalSwitch(!modalSwitch)
+    // setModalSwitch(!modalSwitch)
   }
   
   return (
@@ -113,7 +111,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
         <div className="modal__switch" onClick={switchRecordingType}>
           <div className={modalSwitch? "modal__switch_current" : "modal__switch_current modal__switch_active"}></div>
           <div className={modalSwitch? "modal__switch_prefix modal__switch_stateActivated" : "modal__switch_prefix"}>누적합</div>
-          <div className={modalSwitch? "modal__switch_each" : "modal__switch_each modal__switch_stateActivated"}>쿼터별</div>
+          {/* <div className={modalSwitch? "modal__switch_each" : "modal__switch_each modal__switch_stateActivated"}>쿼터별</div> */}
         </div>
         <div className="modal__Scores">
           <input className="GameRecord__Input_Score" name="team1_score" value={scores.team1_score} onChange={changeScore} placeholder={`${team1}팀`} />
