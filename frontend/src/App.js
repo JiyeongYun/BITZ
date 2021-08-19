@@ -74,7 +74,7 @@ function App() {
           <Route path="/accounts/profile/:email/update" exact={true} component={UpdateProfile} />
           <Route path="/accounts/find_password" exact={true} component={FindPassword} />
           <Route path="/accounts/change_password" exact={true} component={ChangePassword} />
-          <Route path="/accounts/mygame" exact={true} component={MyGame} />
+          {/* <Route path="/accounts/mygame" exact={true} component={MyGame} /> */}
 
           {/* Detail의 경우 연결된 컴포넌트가 많아서 전역 변수화 */}
           <GameStateProvider>
