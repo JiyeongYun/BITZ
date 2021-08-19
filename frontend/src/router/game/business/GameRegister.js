@@ -104,7 +104,17 @@ const GameRegister = () => {
         console.log(err)
       }
     )
+  }
 
+  if (minPeople > maxPeople) {
+    if (maxPeople < 12) {
+      setMaxPeople(12)
+    }
+    setMinPeople(maxPeople)
+  } else if (maxPeople > 18) {
+    setMaxPeople(18)
+  } else if (minPeople < 12) {
+    setMinPeople(12)
   }
 
 

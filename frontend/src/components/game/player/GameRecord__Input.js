@@ -43,6 +43,7 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
         current_recorder: value.isLogin,
         unKnown_bugFix: aboutGame.gameData[recorder].length // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
       }
+      console.log(data)
 
       // team1 점수 기록
       GameApi.RecordGame({

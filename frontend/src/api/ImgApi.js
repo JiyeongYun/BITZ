@@ -18,7 +18,7 @@ const uploadUserImg = (data, callback, errorCallback) => {
 }; 
  
 // KOW - 사용자 프로필 이미지 출력
-const getUserImg = (data, callback, errorCallback) => {
+const getUserImg = async (data, callback, errorCallback) => {
   axios({
     method: 'post',
     url: BASE_URL + '/amazons3/get/userprofile',

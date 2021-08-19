@@ -38,7 +38,6 @@ const Profile = ({ history }) => {
       UserApi.myprofile(
         params,
         (res) => {
-          console.log(res.data);
           setUserData(res.data);
         },
         (err) => {

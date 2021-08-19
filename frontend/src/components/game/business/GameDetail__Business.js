@@ -4,6 +4,7 @@ import { gameStore } from 'store/gameStore';
 import "./GameDetail__Business.css"
 import { useParams } from "react-router-dom"
 import GymInfo from "../GymInfo";
+import ImgApi from "api/ImgApi";
 
 function GameDetail__Business () {
   const gameStoreData = useContext(gameStore);
@@ -70,13 +71,12 @@ function GameDetail__Business () {
     
   return (
   <div className="GameDatail__Business">
-    <div className="GameDatail__Business_top">
+    {/* <div className="GameDatail__Business_top">
       <span className={manageMode? "activate GameDatail__Business_button" : "GameDatail__Business_button"} onClick={switchManageMode} >인원관리</span> | <span className={!manageMode? "activate GameDatail__Business_button" : "GameDatail__Business_button"} onClick={switchPreviewMode} >미리보기</span>
-    </div>
+    </div> */}
     { manageMode? (
       <table className="GameDatail__Business_table">
         <thead>
-          <th>프로필</th>
           <th>이름</th>
           <th>포지션</th>
           <th>신장</th>
@@ -88,15 +88,14 @@ function GameDetail__Business () {
           {aboutGame.gameParticipantList.map((participant, idx)=>{
             return (
               <tr>
-                <td><img src='/images/symbol.png' alt="profile" /></td>
                 <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].name : ""}</td>
                 <td className="GameDatail__Business_table_Position">
-                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].guard? <div>g</div> : "") : ""}
-                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].forward? <div>f</div> : "") : ""}
-                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].center? <div>c</div> : "") : ""}
+                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].guard? <div>G</div> : "") : ""}
+                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].forward? <div>F</div> : "") : ""}
+                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].center? <div>C</div> : "") : ""}
                 </td>
-                <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].height+"cm" : ""}</td>
-                <td>데이터X</td>
+                <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].height : ""}</td>
+                <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].manner: ""}</td>
                 <td>{translator[participant.state]}</td>
                 <td className="GameDatail__Business_table_Roster">
                   {participant.state === "COMPLETE"? <div className="GameDatail__Business_red GameDatail__Business_button" id={participant.userAuth.email} onClick={CancelReservation}>내보내기</div>:""}
