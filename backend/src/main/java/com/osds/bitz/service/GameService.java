@@ -11,6 +11,7 @@ import com.osds.bitz.model.entity.game.GameParticipant;
 import com.osds.bitz.model.entity.game.GameRecord;
 import com.osds.bitz.model.entity.gym.Gym;
 import com.osds.bitz.model.entity.gym.GymReview;
+import com.osds.bitz.model.entity.log.GameRecordLog;
 import com.osds.bitz.model.enumclass.UserState;
 import com.osds.bitz.model.network.request.RecordRequest;
 import com.osds.bitz.model.network.request.ReviewRequest;
@@ -29,6 +30,7 @@ import com.osds.bitz.repository.game.GameRecordRepository;
 import com.osds.bitz.repository.game.GameRepository;
 import com.osds.bitz.repository.gym.GymRepository;
 import com.osds.bitz.repository.gym.GymReviewRepository;
+import com.osds.bitz.repository.log.GameRecordLogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +74,9 @@ public class GameService {
 
     @Autowired
     private SkillRepository skillRepository;
+
+    @Autowired
+    private GameRecordLogRepository gameRecordLogRepository;
 
     class UserSkill implements Comparable<UserSkill> {
         String userId;
@@ -493,6 +498,8 @@ public class GameService {
      * 게임 결과 반영
      */
     public GameResultResponse completeGame(Long gameId) {
+        gameRecordLogRepository.save(GameRecordLog.builder().gameId(gameId).build());
+
         GameResultResponse gameResultResponse = new GameResultResponse();
         Game game = gameRepository.getGameById(gameId);
         int teamCnt = game.getTeamCnt(); // 팀 개수
@@ -548,6 +555,15 @@ public class GameService {
         return gameResultResponse;
     }
 
+    /**
+     * 게임 결과 반영 유무
+     */
+    public boolean checkGameResult(Long gameId) {
+        if(gameRecordLogRepository.getGameRecordLogByGameId(gameId) != null)
+            return true;
+
+        return false;
+    }
     /**
      * 선수 전적 업데이트
      */

@@ -148,6 +148,16 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/gameresult")
+    @ApiOperation(value="게임 결과 반영 유무 확인", notes="끝난 경기의 결과가 반영이 됐는지 확인합니다.")
+    public ResponseEntity checkGameResult(@RequestParam(value="gameId") Long gameId) {
+        
+        if(gameService.checkGameResult(gameId))
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
     @PostMapping("/review")
     @ApiOperation(value = "경기 리뷰 저장", notes = "경기 리뷰를 저장합니다.")
     public ResponseEntity createReview(@RequestBody @ApiParam(value = "리뷰 정보") ReviewRequest reviewRequest) {

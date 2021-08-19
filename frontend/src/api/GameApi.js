@@ -6,6 +6,16 @@ const BASE_URL = 'http://127.0.0.1:8080';
 // EC@ 에서 돌릴 떄는 이 주석 풀기
 // const BASE_URL = 'http://i5a504.p.ssafy.io:8080'
 
+const GameResultCheck = (data, callback, errorCallback) => {
+  axios({
+    method: 'get',
+    url: BASE_URL + '/game/gameresult',
+    params: data,
+  })
+    .then(callback)
+    .catch(errorCallback);
+}
+
 // JHW - My Game Data 요청
 const requestMyGame = (data, callback, errorCallback) => {
   axios({
@@ -192,6 +202,7 @@ const GameApi = {
     requsetBusinessGameList(data, callback, errorCallback),
   saveGameResult: (data, callback, errorCallback) => saveGameResult(data, callback, errorCallback),
   requestMyGame: (data, callback, errorCallback) => requestMyGame(data, callback, errorCallback),
+  GameResultCheck: (data, callback, errorCallback) => GameResultCheck(data, callback, errorCallback),
 };
 
 export default GameApi;
