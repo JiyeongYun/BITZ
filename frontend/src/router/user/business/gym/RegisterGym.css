@@ -45,7 +45,6 @@
   margin-bottom: var(--main-margin-size);
 }
 
-
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > h4,
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(3) > h4,
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(5) > h4,
@@ -62,7 +61,7 @@
 
 .registerGym__div > .gym__container > .registerGymForm__div > div > input,
 .registerGym__div > .gym__container > .registerGymForm__div > div > div > input,
-.registerGym__div > .gym__container > .registerGymForm__div > div > div > div >input,
+.registerGym__div > .gym__container > .registerGymForm__div > div > div > div > input,
 .registerGym__div > .gym__container > .registerGymForm__div > div > textarea {
   border: 1px solid var(--grey);
   border-radius: 5px;
@@ -110,7 +109,7 @@
   width: 400px;
 }
 
-.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div > div{
+.registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div > div {
   position: relative;
 }
 
@@ -118,29 +117,46 @@
   position: absolute;
   top: 0;
   line-height: 40px;
-  right: 5px  ;
+  right: 5px;
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div > div > input {
   width: 150px;
   text-align: end;
-  padding-right: var(--mid-margin-size);
+  padding-right: 24px;
 }
 
 .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) span {
   color: var(--main-color);
 }
 
+.registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > .sido__box {
+  width:130px;
+}
+
+.registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > .gugun__box {
+  width:130px;
+  margin-left: 31px;
+}
+
 .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress {
   display: flex;
 }
 
-.registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div {
-  margin-right: var(--main-margin-size)
-}
-
-.registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div > select,
-.registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div > input {
+.registerGym__div
+  > .gym__container
+  > .registerGymForm__div
+  > .gymaddress__box
+  > .gymaddress
+  > div
+  > select,
+.registerGym__div
+  > .gym__container
+  > .registerGymForm__div
+  > .gymaddress__box
+  > .gymaddress
+  > div
+  > input {
   width: 100px;
   border-radius: 5px;
   border: 1px solid var(--grey);
@@ -149,7 +165,13 @@
   background-color: var(--grey-color);
 }
 
-.registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div > input {
+.registerGym__div
+  > .gym__container
+  > .registerGymForm__div
+  > .gymaddress__box
+  > .gymaddress
+  > div
+  > input {
   width: 168px;
 }
 
@@ -181,7 +203,13 @@
   position: relative;
 }
 
-.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility > .img_box > .img_box_checked {
+.gym__container
+  > .registerGymForm__div
+  > .gymfacilities__box
+  > .facilities
+  > .facility
+  > .img_box
+  > .img_box_checked {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -191,7 +219,14 @@
   z-index: -1;
 }
 
-.gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility > .img_box > .img_box_checked > img {
+.gym__container
+  > .registerGymForm__div
+  > .gymfacilities__box
+  > .facilities
+  > .facility
+  > .img_box
+  > .img_box_checked
+  > img {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -206,8 +241,8 @@
 }
 
 .gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
 }
 
@@ -241,26 +276,26 @@
     margin: var(--small-margin-size) auto;
     width: 90%;
   }
-  
+
   .registerGym__div > .gym__container > h1 {
     margin: var(--main-margin-size) 0;
-    width: 90%
+    width: 90%;
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div {
     width: 90%;
     margin: 0;
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div {
     margin: var(--mid-margin-size) 0;
     font-size: var(--main-font-size);
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div > h4 {
     font-size: var(--main-font-size);
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(1) > p,
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > p {
     margin-bottom: var(--small-margin-size);
@@ -269,8 +304,7 @@
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div {
     width: 81vw;
   }
-  
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > h4,
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(3) > h4,
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(5) > h4,
@@ -278,62 +312,98 @@
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(7) > h4 {
     margin-bottom: 0;
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(1) > input {
     width: 100%;
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(2) > textarea {
     width: 100%;
   }
-  
+
   .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(3) > textarea {
     width: 100%;
   }
-  
-  .registerGym__div > .gym__container > .registerGymForm__div > div:nth-child(4) > div > div > input {
-    width: 120px;
+
+  .registerGym__div
+    > .gym__container
+    > .registerGymForm__div
+    > div:nth-child(4)
+    > div
+    > div
+    > input {
+    width: 130px;
     text-align: end;
   }
   .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress {
     flex-wrap: wrap;
   }
-  
-  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div {
-    margin-right: var(--main-margin-size)
+
+  .registerGym__div
+    > .gym__container
+    > .registerGymForm__div
+    > .gymaddress
+    > div {
+    margin-right: var(--main-margin-size);
+    width: 40%;
   }
-  
-  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div > select,
-  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div > input {
+
+  .registerGym__div
+    > .gym__container
+    > .registerGymForm__div
+    > .gymaddress__box
+    > .gymaddress
+    > div
+    > select,
+  .registerGym__div
+    > .gym__container
+    > .registerGymForm__div
+    > .gymaddress__box
+    > .gymaddress
+    > div
+    > input {
     width: 100%;
+    min-width: 110px;
+    text-align-last: center;
   }
-  
-  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div:nth-child(3) {
+
+  .registerGym__div
+    > .gym__container
+    > .registerGymForm__div
+    > .gymaddress__box
+    > .gymaddress
+    > div:nth-child(3) {
     margin-top: var(--small-margin-size);
   }
 
-  .registerGym__div > .gym__container > .registerGymForm__div > .gymaddress__box > .gymaddress > div > input {
+  .registerGym__div
+    > .gym__container
+    > .registerGymForm__div
+    > .gymaddress__box
+    > .gymaddress
+    > div
+    > input {
     width: 81vw;
     padding-left: var(--small-margin-size);
   }
-  
+
   .gym__container > .registerGymForm__div > .gymfacilities__box > .facilities {
     width: 100%;
   }
-  
+
   .gym__container > .registerGymForm__div > .gymfacilities__box > .facilities > .facility {
-    width: calc(100%/3);
+    width: calc(100% / 3);
     max-width: 100px;
   }
-  
+
   .gym__container > .registerGymForm__div > .gympicture__box > .gympictures {
     width: 100%;
   }
-  
+
   .gym__container > .registerGymForm__div > .gympicture__box > .gympictures > .gympicture {
-    width: calc(100%/3);
+    width: calc(100% / 3);
   }
-  
+
   .gym__container > .registerGymForm__div > button {
     width: 100%;
   }

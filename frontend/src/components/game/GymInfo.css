@@ -3,14 +3,13 @@
 }
 
 .gymInfo > p {
-  color: var(--main-color);
   font-size: var(--xlarge-font-size);
 }
 
 .gymInfo > p > span {
   background-color: var(--bright-grey);
   color: var(--main-color);
-  padding: 5px 20px;
+  padding: 5px 15px;
   border-radius: 10px;
 }
 
@@ -22,11 +21,13 @@
   margin: var(--large-margin-size) 0;
 }
 
-.facilities__container > div{
+.facilities__container > div {
   display: flex;
   flex-direction: column;
   font-size: var(--main-font-size);
   align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .facilities__container > div > .img_box {
@@ -48,7 +49,7 @@
   border: 1px solid var(--main-color);
   position: absolute;
   display: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 .facilities__container > div > .img_box > .img_box_checked > img {
@@ -61,8 +62,8 @@
 }
 
 .facilities__container > div > .img_box > img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 
 .gym__footer {
@@ -96,13 +97,12 @@
 .gymInfo .reservation__btn {
   display: block;
   margin: var(--xlarge-margin-size) auto;
-  width: 50%;
-  height: 40px;
+  width: 100%;
+  height: var(--btn-height);
   border: none;
   border-radius: 10px;
   background-color: var(--main-color);
   color: white;
-  font-size: var(--large-font-size);
   cursor: pointer;
 }
 
@@ -117,38 +117,42 @@
 @media screen and (max-width: 1024px) {
   .gymInfo {
     margin-top: var(--small-margin-size);
+    width: 80vw;
+    margin: 0 auto !important;
   }
-  
+
   .gymInfo > p {
-    margin-left: var(--main-margin-size);
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
   }
 
   .facilities__container {
     flex-wrap: wrap;
     width: 279px;
-    margin: var(--main-margin-size) auto;
   }
-  
+
   .facilities__container > div > .img_box {
     margin-bottom: 5px;
   }
-  
+
   .facilities__container > div > p {
     font-size: var(--small-font-size);
     margin-bottom: var(--main-margin-size);
   }
-  
+
   .gym__footer {
     flex-direction: column;
     padding: var(--main-margin-size) 0;
   }
-  
+
   .gym__footer > div {
     width: 100%;
     padding: 0;
   }
-  
+
+  .gym__footer > .left > .notice {
+    margin-top: var(--main-margin-size) !important;
+  }
+
   .gym__footer > .right {
     width: 100%;
     border-left: none;
@@ -159,11 +163,15 @@
 
   .gym__footer > div > h4 {
     font-size: var(--mid-font-size);
-    margin-left: var(--main-margin-size);
   }
-  
+
   .gym__footer > div > p {
     font-size: var(--main-font-size);
-    margin-left: calc(2*var(--main-margin-size));
+  }
+
+  .gymInfo > .reservation__btn {
+    margin-top: 10px;
+    width: 100% !important;
+    height: 30px;
   }
 }
