@@ -172,7 +172,7 @@ const RegisterGym = () => {
           </div>
           <div className="gymaddress__box">
             <div className="gymaddress">
-              <div>
+              <div className="sido__box">
                 <select name="sido" onChange={onChange} className="gym__sido done">
                   {location.sido.map((t,idx) => {
                     return (
@@ -181,7 +181,7 @@ const RegisterGym = () => {
                   })}
                 </select>
               </div>
-              <div>
+              <div className="gugun__box">
                 <select name="gugun" onChange={onChange} className="gym__gugun">
                   {location.gugun[sido] ? location.gugun[sido].map((gu, idx) => {
                     return <option key={idx+100}>{gu}</option>

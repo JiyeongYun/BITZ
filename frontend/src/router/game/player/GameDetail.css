@@ -28,15 +28,17 @@
   .gameDetail {
     width: 100vw;
   }
-  
+
   .detail__top {
     flex-direction: column-reverse;
     height: fit-content;
   }
-  
+
   .detail__top > .gympicture > img {
-    width: 100%;
+    width: 80vw;
     height: inherit;
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
   }
-  
 }
