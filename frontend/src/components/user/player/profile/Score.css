@@ -60,6 +60,7 @@
 
 .match_result {
   margin-top: var(--large-margin-size);
+  margin-bottom: var(--mid-margin-size);
   text-align: center;
 }
 
@@ -67,6 +68,7 @@
   font-size: var(--large-font-size);
   font-weight: normal;
   color: var(--main-color);
+  margin-bottom: var(--main-margin-size);
 }
 
 @media screen and (max-width: 1024px) {

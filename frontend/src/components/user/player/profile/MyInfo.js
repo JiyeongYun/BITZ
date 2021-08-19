@@ -125,7 +125,7 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
         <p>선호지역</p>
         <div className="location__box">
           <div>
-            <p>1 지망</p>
+            <p className="zimang">1 지망</p>
             {isUpdate? 
               <Location setSido={setSido1} setGugun={setGugun1}/> :
               <div>
@@ -135,7 +135,7 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
             }
           </div>
           <div>
-            <p>2 지망</p>
+            <p className="zimang">2 지망</p>
             {isUpdate? 
               <Location setSido={setSido2} setGugun={setGugun2}/> :
               <div>
@@ -145,7 +145,7 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
             }
           </div>
           <div>
-            <p>3 지망</p>
+            <p className="zimang">3 지망</p>
             {isUpdate? 
               <Location setSido={setSido3} setGugun={setGugun3}/> :
               <div>

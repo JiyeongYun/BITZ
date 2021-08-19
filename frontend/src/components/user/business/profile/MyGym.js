@@ -19,14 +19,12 @@ const MyGym = ({gyminfo}) => {
         <div className="list__title">
           <p>체육관명</p>
           <p>위치</p>
-          <p>코트 규격</p>
         </div>
         {gyminfo ? gyminfo.map(gym => {
           return (
             <div className="gym__info">
               <p>{gym.name}</p>
               <p>{gym.sido} {gym.gugun} {gym.address}</p>
-              <p>{gym.courtLength}m X {gym.courtWidth}m</p>
             </div>
           )
         }): null}

@@ -195,12 +195,22 @@ const Profile = ({ history }) => {
   // 프로필 사진 업로드 보여주기
   const showUpload = () => {
     const select = document.querySelector('.profile_img_update');
+    if (select.style.display === 'flex') {
+      select.style.display = 'none';
+    } else {
+      select.style.display = 'flex';
+    }
+  };
+
+  // 사업자 등록증 보여주기
+  const showBusReg = () => {
+    const select = document.querySelector('.business_registration');
     if (select.style.display === 'block') {
       select.style.display = 'none';
     } else {
       select.style.display = 'block';
     }
-  };
+  }
 
   // 프로필 사진 삭제
   const deleteImg = () => {
@@ -277,7 +287,7 @@ const Profile = ({ history }) => {
         {imgUrl ? (
           <img src={imgUrl} alt="profile" onClick={showUpload} />
         ) : (
-          <img onClick={showUpload} src="/images/profile.png" />
+          <img onClick={showUpload} src="/images/profile_none.jpg" />
         )}
         <div className="profile_img_update">
           <form name="img" encType="multipart/form-data" onSubmit={submitImg}>
@@ -317,7 +327,8 @@ const Profile = ({ history }) => {
       {userKind === 'business' && (
         <>
           <MyGym gyminfo={userData.gymProfile} />
-          <div classNmae="business_registration">
+          <div className="bus_reg_show" onClick={showBusReg}>사업자 등록증 보기</div>
+          <div className="business_registration">
             <img src={regUrl} alt="registration_img" />
             <div>
               <input type="file" accept="image/*" onChange={uploadReg} />

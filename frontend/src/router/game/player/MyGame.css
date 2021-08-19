@@ -4,6 +4,10 @@
   min-height: 87vh;
 }
 
+.mar_100 {
+  margin-top: 100px;
+}
+
 .mygame > div > h2 {
   margin: var(--large-margin-size) 0;
   font-size: var(--main-font-size);
@@ -17,9 +21,6 @@
 @media screen and (max-width: 1024px) {
   .mygame {
     width: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
   .mygame > div {
