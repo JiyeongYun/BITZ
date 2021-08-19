@@ -13,7 +13,7 @@ function MainPlayerCommon({ isBusiness }) {
   // (1) store에서 가져온 store Context를 globalState 변수에 집어넣음
   const globalState = useContext(store);
   // (2) globalState에서 전역 변수 value를 업데이트하는 dispatch만 가져오기
-  const { value, dispatch } = globalState;
+  const { value } = globalState;
 
   useEffect(()=>{
     // (3) 위에서 가져온 dipatch를 이용해서 reducer 실행 => 전역 변수 value 업데이트
@@ -21,7 +21,6 @@ function MainPlayerCommon({ isBusiness }) {
     dispatch로 value를 업데이트하면 관련 컴포넌트 Rerendering
     => Main__Player_Common 함수가 다시 실행되면서 useEffect 바깥에 있는 코드가 전부 재실행됨
     이 때 dispatch가 바깥에 있으면. dispatch 재귀적 무한 실행 & 무한 렌더링으로 에러 발생 */
-    dispatch({ type: 'TEST' })
 
     const data = {
       email : value.isLogin,
@@ -40,7 +39,7 @@ function MainPlayerCommon({ isBusiness }) {
         }
       )
     }
-  },[value.isLogin, isBusiness, dispatch])
+  },[value.isLogin, isBusiness])
 
   const firstLoginData = function () {
     setIsFirstLogin(false)

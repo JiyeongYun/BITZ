@@ -22,7 +22,7 @@ const MyGym = ({gyminfo}) => {
         </div>
         {gyminfo ? gyminfo.map(gym => {
           return (
-            <div className="gym__info">
+            <div key={gym.id} className="gym__info">
               <p>{gym.name}</p>
               <p>{gym.sido} {gym.gugun} {gym.address}</p>
             </div>

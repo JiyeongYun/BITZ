@@ -64,7 +64,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
           </tr>
         </thead>
         <tbody>
-          { quarters.map(quarter=>(<tr>
+          { quarters.map((quarter, idx)=>(<tr key={idx}>
             <td>{quarter+1}</td>
             <td>{aboutGame.gameData[team1_score]?aboutGame.gameData[team1_score][quarter]:""}</td>
             <td>{aboutGame.gameData[team2_score]?aboutGame.gameData[team2_score][quarter]:""}</td>

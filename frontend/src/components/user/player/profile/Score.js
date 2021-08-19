@@ -6,7 +6,7 @@ const Score = ({ userData }) => {
   const { manner, skill } = userData;
 
   return (
-    <div class="score__container">
+    <div className="score__container">
       <div className="match__container">
         <div className="manner_box">
           <div className="logo">
@@ -25,7 +25,7 @@ const Score = ({ userData }) => {
       </div>
       <div className="match_result">
         <h3>내 전적</h3>
-        <div classname="score_history">
+        <div className="score_history">
           {userData.winCnt + ' 승  ' + userData.tieCnt + ' 무  ' + userData.loseCnt + ' 패  '}
         </div>
       </div>
