@@ -35,11 +35,23 @@ const GameResult = () => {
     }
   }, [])
 
-  useEffect(()=>{
-    GameApi.saveGameResult({gameId: aboutGame.gameInfo.id},
-    res=>console.log(res.data),
-    err=>console.log(err)
-    )
+  useEffect(() => {
+    const data = { gameId: aboutGame.gameInfo.id };
+
+    GameApi.GameResultCheck(data,
+      res => {
+        console.log(res);
+        if (res.status == 200) {
+          GameApi.saveGameResult({gameId: aboutGame.gameInfo.id},
+          res=>console.log(res.data),
+          err=>console.log(err)
+          )
+        }
+      }, err => {
+        console.log(err);
+    })
+
+    
   },[])
 
   // 점수 합산 => 누적합 계산
