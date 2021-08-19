@@ -14,6 +14,15 @@ export default function Main__GameList() {
     history.push(`/detail/${event.target.value}`)
   }
 
+  gameData.sort((a, b) => {
+    const result = Number(String(a.gameInfo.startTime).slice(0, 2)) - Number(String(b.gameInfo.startTime).slice(0, 2))
+    if (result < 0) {
+      return -1
+    } else {
+      return 1
+    }
+  })
+
   return(
     <div className="main__gameList">
       <hr></hr>
