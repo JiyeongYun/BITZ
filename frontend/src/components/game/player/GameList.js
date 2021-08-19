@@ -7,10 +7,8 @@ function GameList({ gameList }) {
 
   // 오늘 날짜 가져오기
   const date = new Date();
-  const year = date.getFullYear();
   const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
   const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-  const today = `${year}-${month}-${day}`;
 
   useEffect(() => {
     const keys = Object.keys(gameList);
@@ -19,9 +17,10 @@ function GameList({ gameList }) {
       let gameObj = gameList[element];
       gameObj.date = new Date(gameList[element].date);
       tmpList.push(gameObj);
+      return null
     });
     setList(tmpList);
-  }, []);
+  }, [gameList]);
   console.log(gameList)
   return (
     <div className="MyGameList">
@@ -53,10 +52,10 @@ function GameList({ gameList }) {
                       <p className="min_people">최소 {game.gameInfo.minPeople}</p>
                       <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                     </div>
-                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</Link>
+                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state === 'COMPLETE' ? '확정' : '대기중'}</Link>
                   </div>
                 );
-              }
+              } else return null
             })}
           </article>
           <article className="gamelist">
@@ -85,10 +84,10 @@ function GameList({ gameList }) {
                       <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                       <p className="min_people">최소 {game.gameInfo.minPeople}</p>
                     </div>
-                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</Link>
+                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state === 'COMPLETE' ? '확정' : '대기중'}</Link>
                   </div>
                 );
-              }
+              } else return null
             })}
           </article>
           <article className="gamelist">
@@ -118,10 +117,10 @@ function GameList({ gameList }) {
                       <p className="min_people">최소 {game.gameInfo.minPeople}</p>
                       <p className="max_people">최대 {game.gameInfo.maxPeople}</p>
                     </div>
-                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state == 'COMPLETE' ? '확정' : '대기중'}</Link>
+                    <Link to={`/detail/${game.gameInfo.id}`} className="situation">{game.gameParticipant.state === 'COMPLETE' ? '확정' : '대기중'}</Link>
                   </div>
                 );
-              }
+              } return null
             })}
           </article>
         </section>

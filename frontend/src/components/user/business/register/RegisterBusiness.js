@@ -114,10 +114,10 @@ function RegisterBusiness({history}) {
   }; // lateValidateValue End
 
   // PJW - SNS 회원가입 버튼 클릭
-  const onGoogleRegister = () => {
-    alert('소셜 로그인 기능을 빨리 구현하세요!');
-    console.log(values, errors, isValidated);
-  }; // onGoogleRegister End
+  // const onGoogleRegister = () => {
+  //   alert('소셜 로그인 기능을 빨리 구현하세요!');
+  //   console.log(values, errors, isValidated);
+  // }; // onGoogleRegister End
 
   // JHW - 회원가입 버튼 클릭
   const onRegister = () => {

@@ -35,7 +35,7 @@ const GymInfo = ({ isBusiness }) => {
       (res) => setBusInfo(res.data),
       (err) => console.log(err)
     );
-  }, [aboutGame]);
+  }, [businessAuth.email]);
 
   // 픽업게임 상세보기에서 체육관 정보를 보여주는 컴포넌트
   useEffect(() => {
@@ -69,7 +69,7 @@ const GymInfo = ({ isBusiness }) => {
     } else {
       document.querySelector("#airconditioner").style.display = "none";
     }
-  }, [aboutGame]);
+  }, [water, shower, scoreboard, parking, basketball, airconditional]);
 
   // PJW - 예약 완료 여부 확인
   const [isFull, setIsFull] = useState(false);

@@ -4,7 +4,7 @@ import { store } from 'store/store.js';
 import { Link } from 'react-router-dom';
 import UserApi from 'api/UserApi';
 import GameApi from 'api/GameApi';
-import Main__Player_Common from '../player/Main__Player_Common';
+import MainPlayerCommon from '../player/MainPlayerCommon';
 
 function Main__Business({ history }) {
   // Global State Managemnet
@@ -57,7 +57,7 @@ function Main__Business({ history }) {
         console.log(err);
       }
     );
-  }, []);
+  }, [isLogin, today]);
 
   // 모든 게임 보기 버튼 활성화
   const [toggleGameList, setToggleGameList] = useState(true);
@@ -142,7 +142,7 @@ function Main__Business({ history }) {
                         </Link>
                       </div>
                     );
-                  }
+                  } else { return null}
                 })}
               </article>
               <article className="gamelist">
@@ -186,7 +186,7 @@ function Main__Business({ history }) {
                         </Link>
                       </div>
                     );
-                  }
+                  } else return null
                 })}
               </article>
               <article className="gamelist">
@@ -230,12 +230,12 @@ function Main__Business({ history }) {
                         </Link>
                       </div>
                     );
-                  }
+                  } else return null
                 })}
               </article>
             </section>
           ) : (
-            <Main__Player_Common isBusiness={true} />
+            <MainPlayerCommon isBusiness={true} />
           )}
         </div>
       </div>

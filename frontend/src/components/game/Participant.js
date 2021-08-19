@@ -27,7 +27,7 @@ const Participant = (props) => {
         }
       );
     }
-  }, []);
+  }, [props.user]);
 
   // 참가자의 포지션 표시
   useEffect(() => {
@@ -43,7 +43,7 @@ const Participant = (props) => {
       let select = document.querySelector(`.user${props.id} #center`);
       select.className = 'istrue';
     }
-  }, []);
+  }, [userInfo, props.id]);
 
   // 커서 올라가면 참가자 정보 표시
   const over = (event) => {

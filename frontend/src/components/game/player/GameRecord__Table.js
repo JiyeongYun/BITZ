@@ -22,7 +22,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
   useEffect(()=>{
     // (1) - 쿼터 데이터 세팅
     setQuaters([...Array(aboutGame.gameData[recorder].length).keys()].map(key => key))
-  },[aboutGame.gameData])
+  },[aboutGame.gameData, recorder])
 
   useEffect(()=>{
     // (2) 게임 정보 조회 API
@@ -44,7 +44,7 @@ const GameRecord__Table = ({ team1, team2, game }) => {
       },
       (err)=>console.log(err)
       )
-  },[aboutGame.gameInfo.id])
+  },[aboutGame.gameInfo.id, gameDispatch])
 
   // 입력 버튼 클릭
   // (백에서 동시 입력으로 인한 중복 저장이 불가능하게 처리 필요)
