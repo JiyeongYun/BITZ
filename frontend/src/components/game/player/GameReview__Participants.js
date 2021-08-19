@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { gameStore } from 'store/gameStore';
+import ImgApi from 'api/ImgApi';
 import GameReviewParticipantsMiniInfo from './GameReview__participants_miniInfo';
 import "./GameReview__Participants.css"
 
@@ -8,6 +9,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
   const { aboutGame } = gameStoreData;
 
   const [members, setMembers] = useState(aboutGame.gameParticipantDetails)
+  const [imgUrlList, setImgUrlList] = useState({});
   
   useEffect(()=>{
     setMembers(aboutGame.gameParticipantDetails)
@@ -46,6 +48,25 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
       }
     }
   }, [reviewScore, members.length, members])
+
+
+  useEffect(() => {
+    let list = {};
+    members.map((member) => {
+      console.log(member);
+      ImgApi.getUserImg(
+        { email: member.email },
+        (res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          list[member.email] = url;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    })
+    setImgUrlList(list);
+  }, [])
 
   // 커서 올라가면 참가자 정보 표시
   const over = (event) => {
@@ -131,7 +152,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
                       </div>
                     }
                   </div>
-                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}  className="round_profile"></img>      
+                  <img id={idx} src={imgUrlList[member.email]? imgUrlList[member.email] : '/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}  className="round_profile"></img>
                   <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
@@ -171,7 +192,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
                     </div>
                   }
                 </div>
-                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}  className="round_profile"></img>
+                  <img id={idx} src={imgUrlList[member.email]? imgUrlList[member.email] : '/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}  className="round_profile"></img>
                   <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")
