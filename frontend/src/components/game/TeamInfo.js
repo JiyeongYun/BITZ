@@ -26,6 +26,7 @@ const TeamInfo = () => {
         }
       )
       setImgUrlList(list)
+      return null
     })
   }, [members])
 

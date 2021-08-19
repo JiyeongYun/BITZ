@@ -56,10 +56,12 @@ const GameRecord__Table = ({ team1, team2, game }) => {
     <div className="gameRecord__table">
       <table className="RecordTable">
         <thead>
-          <th>쿼터</th>
-          <th>{team1}팀</th>
-          <th>{team2}팀</th>
-          <th>기록자</th>
+          <tr>
+            <th>쿼터</th>
+            <th>{team1}팀</th>
+            <th>{team2}팀</th>
+            <th>기록자</th>
+          </tr>
         </thead>
         <tbody>
           { quarters.map(quarter=>(<tr>

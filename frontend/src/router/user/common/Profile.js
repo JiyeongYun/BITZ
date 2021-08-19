@@ -251,7 +251,7 @@ const Profile = ({ history }) => {
       },
       (err) => console.log(err)
     );
-  }, [updateReg]);
+  }, [updateReg, isLogin]);
 
   // 사업자 등록증 수정
   const updateRegImg = () => {
@@ -287,7 +287,7 @@ const Profile = ({ history }) => {
         {imgUrl ? (
           <img src={imgUrl} alt="profile" onClick={showUpload} />
         ) : (
-          <img onClick={showUpload} src="/images/profile_none.jpg" />
+          <img onClick={showUpload} src="/images/profile_none.jpg" alt="prfile_none" />
         )}
         <div className="profile_img_update">
           <form name="img" encType="multipart/form-data" onSubmit={submitImg}>
