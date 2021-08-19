@@ -43,6 +43,16 @@
 	margin-right: var(--xlarge-margin-size);
 }
 
+.header__icons > .right_side > .profile_info > div:nth-child(1){
+	margin: var(--small-margin-size) 10% 0 !important;
+	text-align: end;
+}
+
+.header__icons > .right_side > .profile_info > div:nth-child(1) > span{
+	font-size: var(--main-font-size);
+	cursor: pointer;
+}
+
 .header__icons > .right_side > .profile_info > .user__info > p:nth-child(1) {
 	font-size: var(--mid-font-size);
 }
@@ -195,6 +205,11 @@
 
 	.header__icons > .right_side > .profile_info > div{
 		margin: var(--main-margin-size) 10%;
+		margin-right: var(--xlarge-margin-size);
+	}
+
+	.header__icons > .right_side > .profile_info > div:nth-child(2){
+		margin-top: 0;
 		margin-right: var(--xlarge-margin-size);
 	}
 

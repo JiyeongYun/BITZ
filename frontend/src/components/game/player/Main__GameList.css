@@ -38,7 +38,6 @@
 .gameList__game__name {
   font-size: var(--mid-font-size);
   font-weight: bold;
-  margin-bottom: var(--small-margin-size);
 }
 
 .gameList__game__info {
@@ -51,7 +50,7 @@
   flex-wrap: wrap;
   align-items: center;
   width: 400px;
-  gap : var(--main-margin-size);
+  gap : 0;
 }
 
 .gameList__game__facilities > div {
@@ -62,28 +61,28 @@
 }
 
 .gameList__game__facilities > div > .facility_img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .gameList__game__facilities > div > .img_on {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border: 1px solid var(--main-color);
   position: absolute;
   border-radius: 50%;
-  top: -10px;
-  left: -10px;
+  top: -5px;
+  left: 0px;
 }
 
 .gameList__game__facilities > div > .img_off {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(0, 0, 0, 0.4);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   border-radius: 50%;
-  top: -10px;
-  left: -10px;
+  top: -5px;
+  left: 0px;
 }
 
 .gameList__state__button {
@@ -121,7 +120,6 @@
   
   .gameList__game__name {
     font-size: var(--small-font-size);
-    margin-bottom: 5px;
   }
   
   .gameList__game__info > .gameList__game__location > span {
