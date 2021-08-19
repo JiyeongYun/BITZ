@@ -44,50 +44,52 @@ function Header() {
   // 사진을 가져오는 함수
   useEffect(() => {
     const params = { email: value.isLogin };
-    if (value.userKind === 'player') {
-      ImgApi.getUserImg(
-        params,
-        (res) => {
-          const url = window.URL.createObjectURL(new Blob([res.data]));
-          setImgUrl(url);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-
-      UserApi.myprofile(
-        params,
-        (res) => {
-          setUserData(res.data);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else if (value.userKind === 'business') {
-      ImgApi.getBusImg(
-        params,
-        (res) => {
-          const url = window.URL.createObjectURL(new Blob([res.data]));
-          setImgUrl(url);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-
-      UserApi.BusMyProfile(
-        params,
-        (res) => {
-          setUserData(res.data);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    if (value.isLogin) {
+      if (value.userKind === 'player') {
+        ImgApi.getUserImg(
+          params,
+          (res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            setImgUrl(url);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+  
+        UserApi.myprofile(
+          params,
+          (res) => {
+            setUserData(res.data);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      } else if (value.userKind === 'business') {
+        ImgApi.getBusImg(
+          params,
+          (res) => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            setImgUrl(url);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+  
+        UserApi.BusMyProfile(
+          params,
+          (res) => {
+            setUserData(res.data);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      }
     }
-  }, [value]);
+  }, [value.isLogin, value.email, value.userKind]);
 
   // 로그아웃 함수
   const onLogout = () => {

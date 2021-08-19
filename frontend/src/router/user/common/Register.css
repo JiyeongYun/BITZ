@@ -16,6 +16,10 @@
   color: var(--main-color);
 }
 
+.register__container > div > .registerForm {
+  margin-top: 0;
+}
+
 .registerForm__center {
   display: flex;
   flex-direction: column;

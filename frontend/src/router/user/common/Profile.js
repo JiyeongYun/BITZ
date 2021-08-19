@@ -243,15 +243,17 @@ const Profile = ({ history }) => {
 
   // 사업자 등록증 가져오기
   useEffect(() => {
-    ImgApi.getRegImg(
-      { email: isLogin },
-      (res) => {
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        setRegUrl(url);
-      },
-      (err) => console.log(err)
-    );
-  }, [updateReg, isLogin]);
+    if (userKind === 'business' ) {
+      ImgApi.getRegImg(
+        { email: isLogin },
+        (res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          setRegUrl(url);
+        },
+        (err) => console.log(err)
+      );
+    }
+  }, [updateReg, isLogin, userKind]);
 
   // 사업자 등록증 수정
   const updateRegImg = () => {
