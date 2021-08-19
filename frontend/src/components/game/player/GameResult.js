@@ -43,21 +43,36 @@ const GameResult = () => {
   },[])
 
   // 점수 합산 => 누적합 계산
-  const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
-  const game1_team2_totlaScore = aboutGame.gameData.game1_team2_score.reduce((sum, currValue)=>(sum+currValue), 0)
-  const game2_team1_totlaScore = aboutGame.gameData.game2_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
-  const game2_team2_totlaScore = aboutGame.gameData.game2_team2_score.reduce((sum, currValue)=>(sum+currValue), 0)
-  const game3_team1_totlaScore = aboutGame.gameData.game3_team1_score.reduce((sum, currValue)=>(sum+currValue), 0)
-  const game3_team2_totlaScore = aboutGame.gameData.game3_team2_score.reduce((sum, currValue)=>(sum+currValue), 0)
+  const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score[aboutGame.gameData.game1_team1_score.length - 1]
+  const game1_team2_totlaScore = aboutGame.gameData.game1_team2_score[aboutGame.gameData.game1_team2_score.length - 1]
+  const game2_team1_totlaScore = aboutGame.gameData.game2_team1_score[aboutGame.gameData.game2_team1_score.length - 1]
+  const game2_team2_totlaScore = aboutGame.gameData.game2_team2_score[aboutGame.gameData.game2_team2_score.length - 1]
+  const game3_team1_totlaScore = aboutGame.gameData.game3_team1_score[aboutGame.gameData.game3_team1_score.length - 1]
+  const game3_team2_totlaScore = aboutGame.gameData.game3_team2_score[aboutGame.gameData.game3_team2_score.length - 1]
 
   // 승패 계산
-  const teamA_win = (game1_team1_totlaScore>game1_team2_totlaScore) + (game3_team2_totlaScore>game3_team1_totlaScore)
-  const teamA_lose = (game1_team1_totlaScore<game1_team2_totlaScore) + (game3_team2_totlaScore<game3_team1_totlaScore)
-  const teamB_win = (game1_team2_totlaScore>game1_team1_totlaScore) + (game2_team1_totlaScore>game2_team2_totlaScore)
-  const teamB_lose = (game1_team2_totlaScore<game1_team1_totlaScore) + (game2_team1_totlaScore<game2_team2_totlaScore)
-  const teamC_win = (game3_team1_totlaScore>game3_team2_totlaScore) + (game2_team2_totlaScore>game2_team1_totlaScore)
-  const teamC_lose = (game3_team1_totlaScore<game3_team2_totlaScore) + (game2_team2_totlaScore<game2_team1_totlaScore)
+  let teamA_win = 0
+  let teamA_lose = 0
+  let teamB_win = 0
+  let teamB_lose = 0
+  let teamC_win = 0
+  let teamC_lose = 0
 
+  // 3팀이 경기한 경우
+  if (aboutGame.gameData.game3_team1_score.length) {
+    teamA_win = (game1_team1_totlaScore > game1_team2_totlaScore) + (game3_team1_totlaScore > game3_team2_totlaScore)
+    teamA_lose = (game1_team1_totlaScore < game1_team2_totlaScore) + (game3_team1_totlaScore < game3_team2_totlaScore)
+    teamB_win = (game1_team1_totlaScore < game1_team2_totlaScore) + (game2_team1_totlaScore > game2_team2_totlaScore)
+    teamB_lose = (game1_team1_totlaScore > game1_team2_totlaScore) + (game2_team1_totlaScore < game2_team2_totlaScore)
+    teamC_win = (game2_team2_totlaScore < game2_team2_totlaScore) + (game3_team1_totlaScore < game3_team2_totlaScore)
+    teamC_lose = (game2_team2_totlaScore > game2_team2_totlaScore) + (game3_team1_totlaScore > game3_team2_totlaScore)
+  } else { // 2팀이 경기하는 경우
+    teamA_win = (game1_team1_totlaScore > game1_team2_totlaScore) + (game2_team1_totlaScore > game2_team2_totlaScore)
+    teamA_lose = (game1_team1_totlaScore < game1_team2_totlaScore) + (game2_team1_totlaScore < game2_team2_totlaScore)
+    teamB_win = (game1_team1_totlaScore < game1_team2_totlaScore) + (game2_team1_totlaScore < game2_team2_totlaScore)
+    teamB_lose = (game1_team1_totlaScore > game1_team2_totlaScore) + (game2_team1_totlaScore > game2_team2_totlaScore)
+  }
+  
   return (
     <div className="result__container">
       { showReview ? (
