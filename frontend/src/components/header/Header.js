@@ -125,7 +125,7 @@ function Header() {
               <div className="right_side">
                 <img src={imgUrl} alt="my_profile" stlye={imgWidth} onClick={showMenu} />
                 <div className="profile_info">
-                  <i onClick={showMenu} class="fas fa-times"></i>
+                  <i onClick={showMenu} className="fas fa-times"></i>
                   <div className="user__info">
                     <p>{userData.name}님</p>
                     <p>{userData.email}</p>
@@ -155,7 +155,7 @@ function Header() {
                   onClick={showMenu}
                 />
                 <div className="profile_info">
-                  <i onClick={showMenu} class="fas fa-times"></i>
+                  <i onClick={showMenu} className="fas fa-times"></i>
                   <div className="user__info">
                     <p>{userData.name}님</p>
                     <p>{userData.email}</p>
@@ -163,7 +163,7 @@ function Header() {
                   <hr />
                   <div className="link_list">
                     {value.userKind === 'player' ? (
-                      <Link>
+                      <Link to="/match/mygames">
                         <img src="/images/reservation.png" alt="res_logo" />
                         예약확인
                       </Link>

@@ -27,8 +27,8 @@ export default function Main__GameList() {
     <div className="main__gameList">
       <hr></hr>
       <div className="gameList__List">
-        { gameData.map((game)=>(
-          <div className="gameList__game" key={game.id}>
+        { gameData.map((game, idx)=>(
+          <div className="gameList__game" key={idx}>
             <div className="gameList__content">
 
               <div className="gameList__game__Time">

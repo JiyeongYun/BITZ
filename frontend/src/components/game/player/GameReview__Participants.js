@@ -37,7 +37,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
         }
       }
     })
-  }, [members])
+  }, [members, reviewType])
 
   // 선택되지 않은 참가자 제거 (정확히는 모든 참가자의 선택사항 display를 none으로 초기화)
   useEffect(() => {
@@ -53,7 +53,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
   useEffect(() => {
     let list = {};
     members.map((member) => {
-      console.log(member);
+    
       ImgApi.getUserImg(
         { email: member.email },
         (res) => {
@@ -66,7 +66,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
       );
     })
     setImgUrlList(list);
-  }, [])
+  }, [members])
 
   // 커서 올라가면 참가자 정보 표시
   const over = (event) => {
@@ -232,7 +232,7 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
                     </div>
                   }
                 </div>
-                  <img id={idx} src={'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}  className="round_profile"></img>
+                  <img id={idx} src={imgUrlList[member.email]? imgUrlList[member.email] : '/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out} onClick={select}  className="round_profile"></img>
                   <GameReviewParticipantsMiniInfo idx={idx} member={member} reviewType={reviewType} />
                 </div>
               ):("")

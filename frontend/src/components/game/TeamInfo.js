@@ -2,12 +2,33 @@ import React, { useEffect, useContext, useState } from 'react';
 import './TeamInfo.css';
 import { gameStore } from 'store/gameStore';
 import GameApi from 'api/GameApi';
+import ImgApi from 'api/ImgApi';
 
 const TeamInfo = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame, gameDispatch } = gameStoreData;
+  const [imgUrlList_, setImgUrlList] = useState({})
     
   const members = aboutGame.gameParticipantDetails
+
+  // 유저들 프로필 사진 가져오기
+  useEffect(() => {
+    let list = {}
+    members.map((member) => {
+      ImgApi.getUserImg(
+        { email: member.email },
+        res => {
+          const url = window.URL.createObjectURL(new Blob([res.data]))
+          list[member.email] = url
+        },
+        err => {
+          console.log(err)
+        }
+      )
+      setImgUrlList(list)
+    })
+  }, [members])
+
 
   
   useEffect(()=>{
@@ -25,7 +46,7 @@ const TeamInfo = () => {
         (err)=>{console.log(err)}
         )
       }
-  },[aboutGame.gameInfo.id])
+  },[aboutGame.gameInfo.id, aboutGame.gameState, gameDispatch])
   
   // 참가자의 포지션 표시
   useEffect(() => {
@@ -53,7 +74,7 @@ const TeamInfo = () => {
     if (aboutGame.gameParticipantDetails.length === aboutGame.gameParticipantList.length) {
       setFetchDataComplete(true)
     }
-  }, [aboutGame])
+  }, [members, aboutGame.gameParticipantDetails.length, aboutGame.gameParticipantList.length])
 
 
   // 커서 올라가면 참가자 정보 표시
@@ -85,7 +106,7 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 1? (
                 <div className="member" key={idx}>
-                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={imgUrlList_[member.email]?imgUrlList_[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
                       <img src='/images/symbol.png' alt="member" />
@@ -122,7 +143,7 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 2? (
                 <div className="member" key={idx}>
-                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={imgUrlList_[member.email]?imgUrlList_[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
                       <img src='/images/symbol.png' alt="member" />
@@ -160,7 +181,7 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 3? (
                 <div className="member" key={idx}>
-                  <img id={idx} src='/images/symbol.png' alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={imgUrlList_[member.email]?imgUrlList_[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
                       <img src='/images/symbol.png' alt="member" />

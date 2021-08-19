@@ -96,7 +96,7 @@ export default function Main__DateCarousel() {
       },
       err => console.log(err)
     )
-  },[selectedDay])
+  },[selectedDay, dispatch])
   
   
   // PJW - Rendering
