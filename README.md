@@ -15,7 +15,7 @@
 - BE(BackEnd)
   - S05P12A504 > backend
 
-- 관련 문서 자료
+- 관련 문서,UCC 자료
   - S05P12A504 > exec
 
 - 프로젝트 배포 URL
