@@ -107,11 +107,11 @@
 }
 
 .gym__footer > div > p > button {
-  font-size: var(--main-font-size);
+  font-size: 11px;
   border: none;
   background-color: white;
   cursor: pointer;
-  color: var(--blue);
+  color:var(--main-color);
 }
 
 @media screen and (max-width: 1024px) {
@@ -162,11 +162,11 @@
   }
 
   .gym__footer > div > h4 {
-    font-size: var(--mid-font-size);
+    font-size: var(--main-font-size);
   }
 
   .gym__footer > div > p {
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
   }
 
   .gymInfo > .reservation__btn {

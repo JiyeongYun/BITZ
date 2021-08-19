@@ -78,9 +78,6 @@ function GameDetail__Business () {
       <table className="GameDatail__Business_table">
         <thead>
           <th>이름</th>
-          <th>포지션</th>
-          <th>신장</th>
-          <th>매너점수</th>
           <th>상태</th>
           <th>명단 관리</th>
         </thead>
@@ -89,13 +86,6 @@ function GameDetail__Business () {
             return (
               <tr>
                 <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].name : ""}</td>
-                <td className="GameDatail__Business_table_Position">
-                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].guard? <div>G</div> : "") : ""}
-                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].forward? <div>F</div> : "") : ""}
-                  {aboutGame.gameParticipantDetails[idx]? (aboutGame.gameParticipantDetails[idx].center? <div>C</div> : "") : ""}
-                </td>
-                <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].height : ""}</td>
-                <td>{aboutGame.gameParticipantDetails[idx]? aboutGame.gameParticipantDetails[idx].manner: ""}</td>
                 <td>{translator[participant.state]}</td>
                 <td className="GameDatail__Business_table_Roster">
                   {participant.state === "COMPLETE"? <div className="GameDatail__Business_red GameDatail__Business_button" id={participant.userAuth.email} onClick={CancelReservation}>내보내기</div>:""}

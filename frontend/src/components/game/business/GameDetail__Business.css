@@ -11,7 +11,8 @@
 }
 
 .GameDatail__Business_table {
-  width: 100%;
+  width: 80%;
+  margin: 10px auto;
   border: 0;
   border-collapse: separate; 
   border-spacing: 0 5px;

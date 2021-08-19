@@ -187,7 +187,7 @@ const GymInfo = ({ isBusiness }) => {
             {busInfo.name} {busInfo.phone}
           </p>
           <p>
-            {busInfo.bank} {busInfo.account} | <button onClick={copyAccount}>계좌복사</button>
+            {busInfo.bank} {busInfo.account} <button onClick={copyAccount}>계좌복사</button>
           </p>
         </div>
       </div>
