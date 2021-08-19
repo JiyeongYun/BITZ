@@ -1,0 +1,14 @@
+.registerForm {
+    width: 80%;
+    margin: 80px auto 0;
+}
+
+.registerForm > h5 {
+    width: 100%;
+    font-size: var(--main-font-size);
+    color: var(--main-color);
+    margin-bottom: var(--mid-margin-size);
+    text-decoration: underline;
+    text-underline-position: under;
+    font-weight: normal;
+}

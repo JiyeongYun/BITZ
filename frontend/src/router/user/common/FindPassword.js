@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './FindPassword.css';
 import WriteEmail from 'components/user/WriteEmail';
 import SendPassword from 'components/user/SendPassword';
@@ -13,6 +13,11 @@ function FindPassword() {
 
   const [email, setEmail] = useState('');
   const [isSend, setIsSend] = useState(false);
+
+  useEffect(() => {
+    const value = 'player'
+    dispatch({ type: 'SELECT_USER_KIND', value });
+  }, [])
 
   const onChange = (event) => {
     const {

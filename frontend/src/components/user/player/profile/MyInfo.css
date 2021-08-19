@@ -20,9 +20,8 @@
 }
 
 .phoneForm > input {
-  border: 1px solid var(--grey);
+  border: 1px solid var(--main-color);
   border-radius: 5px;
-  background-color: var(--grey-color);
   width: 120px;
   height: var(--btn-height);
   margin-top: 5px;
@@ -30,10 +29,14 @@
   font-size: var(--small-font-size);
 }
 
+.done {
+  border: 1px solid var(--grey) !important;
+  box-shadow: none !important;
+}
+
 .heightForm > input {
-  border: 1px solid var(--grey);
+  border: 1px solid var(--main-color);
   border-radius: 5px;
-  background-color: var(--grey-color);
   width: 120px;
   height: var(--btn-height);
   margin-top: 5px;
@@ -73,7 +76,7 @@
 
 .location > .location__box p {
   width: 70px;
-  color: var(--main-color);
+  color: #686868;
   margin: 0 var(--main-margin-size);
   height: var(--btn-height);
   line-height: 28px;

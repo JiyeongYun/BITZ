@@ -163,7 +163,7 @@ const RegisterGym = () => {
                 <input type="number" name="courtLength" onChange={onChange} placeholder="코트 가로 길이" />
                 <span>M</span>
               </div>
-              <span>X</span>
+              <i class="fas fa-times"></i>
               <div>
                 <input type="number" name="courtWidth" onChange={onChange} placeholder="코트 세로 길이"/>
                 <span>M</span>

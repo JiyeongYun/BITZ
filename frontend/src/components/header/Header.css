@@ -43,14 +43,11 @@
 	margin-right: var(--xlarge-margin-size);
 }
 
-.header__icons > .right_side > .profile_info > div:nth-child(1){
-	margin: var(--small-margin-size) 10% 0 !important;
+.header__icons > .right_side > .profile_info > i {
+	margin: var(--small-margin-size) 10% 0 85%;
 	text-align: end;
-}
-
-.header__icons > .right_side > .profile_info > div:nth-child(1) > span{
 	font-size: var(--main-font-size);
-	cursor: pointer;
+	color: var(--grey);
 }
 
 .header__icons > .right_side > .profile_info > .user__info > p:nth-child(1) {
@@ -218,7 +215,7 @@
 	}
 
 	.header__icons > .right_side > .profile_info > .user__info > p:nth-child(2) {
-		font-size: var(--small-font-size);
+		font-size: 11px;
 	}
 
 	.header__icons > .right_side > .profile_info > .link_list > a {

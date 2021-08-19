@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { store } from 'store/store'
 import './GameRegister.css'
 
-const GameRegister = () => {
+const GameRegister = ({history}) => {
   const globalState = useContext(store);
   const { value } = globalState;
   // 오늘 날짜
@@ -99,6 +99,7 @@ const GameRegister = () => {
           "시간 : " + startHour_ + ":" + startMinute_ + " ~ " + finishHour_ + ":" + finishMinute_ + "\n" + 
           "픽업 게임이 생성되었습니다!"
         )
+        history.push('/')
       },
       err => {
         console.log(err)
@@ -157,27 +158,6 @@ const GameRegister = () => {
             <span onClick={() => setMinPeople(Number(minPeople)-1)}>-</span>
             <span onClick={() => setMinPeople(Number(minPeople)+1)}>+</span>
           </div>
-          {/* <Stack>
-            <Box direction="row" justify="between">
-              {[12, 13, 14, 15, 16, 17, 18].map(value => (
-                <Box key={value} pad="small" border={false}>
-                  <Text>
-                    {value}
-                  </Text>
-                </Box>
-              ))}
-            </Box>
-            <RangeSelector
-              direction="horizontal"
-              invert={false}
-              min={12}
-              max={18}
-              size="full"
-              round="small"
-              values={people}
-              onChange={values => setPeople(values)}
-            />
-          </Stack> */}
         </div>
         <div className="people_select_box">
           <h4>최대 인원을 정해주세요</h4>
@@ -188,9 +168,8 @@ const GameRegister = () => {
           </div>
         </div>
         <div className="fee_select_box">
-          <h4>인당 요금을 정해주세요</h4>
+          <h4>인당 요금을 정해주세요 ( 단위: 원 )</h4>
           <input type="number" className="btn" id="fee" onChange={onChange} />
-          <span> 원</span>
         </div>
         <button onClick={registerGame}>등록하기</button>
       </div>

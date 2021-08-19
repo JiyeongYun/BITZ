@@ -22,11 +22,11 @@
   cursor: pointer;
   font-size: var(--main-font-size);
   border: none;
-  padding: 2px 4px;
   height: var(--btn-height);
   border-radius: 5px;
   background-color: var(--main-color);
   color: white;
+  width: 50px;;
 }
 
 .user__profile {
@@ -78,6 +78,7 @@
   margin: var(--mid-margin-size) 0;
   color: var(--main-color);
   font-weight: normal;
+  font-size: var(--mid-font-size);
 }
 
 .accountSetting span {
@@ -105,6 +106,49 @@
 .quit__btn {
   color: rgba(0,0,0,0.7);
   font-size: var(--mid-font-size);
+}
+
+.bus_reg_show {
+  font-size: var(--main-font-size);
+  color: var(--main-color);
+}
+
+.business_registration {
+  width: 80%;
+  display: none;
+  margin-top: var(--main-margin-size);
+}
+
+.business_registration > img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.business_registration > div > input {
+  width: 50%;
+}
+
+.business_registration > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.business_registration > div > button {
+  width: 40px;
+  height: 30px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.business_registration > div > button:nth-child(2) {
+  background-color: var(--main-color);
+}
+
+.business_registration > div > button:nth-child(3) {
+  background-color: var(--red);
 }
 
 @media screen and (max-width: 1024px) {
@@ -164,5 +208,29 @@
     border-radius: 5px;
     height: var(--btn-height);
     margin: var(--small-margin-size) 0;
+  }
+
+  .profile_img_update {
+    justify-content: center;
+  }
+
+  .profile_img_update > form {
+    width: 70%;
+  }
+
+  .profile_img_update > form > input {
+    width: 68%;
+  }
+
+  .profile_img_update > button {
+    margin-left: var(--small-margin-size);
+    cursor: pointer;
+    font-size: var(--main-font-size);
+    border: none;
+    height: var(--btn-height);
+    border-radius: 5px;
+    background-color: var(--red);
+    color: white;
+    width: 50px;
   }
 }

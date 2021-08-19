@@ -28,7 +28,7 @@ function MyGame() {
   }, []);
 
   return (
-    <div className="mygame">
+    <div className={!gameList.length ? "mygame mar_100" : "mygame"}>
       <div>
         <h2>내 픽업 게임</h2>
         {!gameList.length ? <NoGameList /> : <GameList gameList={gameList} />}
