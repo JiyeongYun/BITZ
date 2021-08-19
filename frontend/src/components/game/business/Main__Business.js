@@ -106,6 +106,7 @@ function Main__Business({ history }) {
                   {month}월 {day}일
                 </div>
                 {gameLists.map((game) => {
+                  console.log(game)
                   const gamedate = new Date(game.date);
                   if (gamedate.getDate() === day) {
                     return (

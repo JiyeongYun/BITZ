@@ -1,5 +1,5 @@
 .teaminfo {
-    margin: var(--xlarge-margin-size) 0;
+    margin: var(--mid-margin-size) 0;
 }
 
 .teaminfo > p {
@@ -19,6 +19,7 @@
     flex-direction: column;
     align-items: center;
     border-bottom: 1px solid var(--main-color);
+    margin: 0 auto;
 }
 
 .teaminfo > .teams > .team > p:nth-child(1) {
@@ -133,6 +134,19 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .teaminfo {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .modal__content > .gameReview__input > .gameReview__MVP > div > .teaminfo {
+        width: 100%
+    } 
+    
+    .teaminfo > p {
+        margin-left: 0;
+    }
+
     .teaminfo > .teams {
         flex-direction: column;
         align-items: center;

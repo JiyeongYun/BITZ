@@ -7,7 +7,7 @@ import ImgApi from 'api/ImgApi';
 const TeamInfo = () => {
   const gameStoreData = useContext(gameStore);
   const { aboutGame, gameDispatch } = gameStoreData;
-  const [imgUrlList, setImgUrlList] = useState({})
+  const [imgUrlList_, setImgUrlList] = useState({})
     
   const members = aboutGame.gameParticipantDetails
 
@@ -106,7 +106,7 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 1? (
                 <div className="member" key={idx}>
-                  <img id={idx} src={imgUrlList[member.email]?imgUrlList[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={imgUrlList_[member.email]?imgUrlList_[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
                       <img src='/images/symbol.png' alt="member" />
@@ -143,7 +143,7 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 2? (
                 <div className="member" key={idx}>
-                  <img id={idx} src={imgUrlList[member.email]?imgUrlList[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={imgUrlList_[member.email]?imgUrlList_[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
                       <img src='/images/symbol.png' alt="member" />
@@ -181,7 +181,7 @@ const TeamInfo = () => {
             {members.map((member, idx) => {
               return member.team === 3? (
                 <div className="member" key={idx}>
-                  <img id={idx} src={imgUrlList[member.email]?imgUrlList[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
+                  <img id={idx} src={imgUrlList_[member.email]?imgUrlList_[member.email]:'/images/symbol.png'} alt="profile" onMouseOver={over} onMouseOut={out}></img>
                   <div className={'user' + idx + ' userinfo'}>
                     <div className="about__user">
                       <img src='/images/symbol.png' alt="member" />
