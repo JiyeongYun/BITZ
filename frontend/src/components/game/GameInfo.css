@@ -27,11 +27,11 @@
 }
 
 .gameInfo > .gyminfo > #gymaddress > button {
-  color: var(--blue);
+  color: var(--main-color);
   border: none;
   background-color: white;
   cursor: pointer;
-  font-size: var(--small-font-size);
+  font-size: 10px;
 }
 
 .gameInfo > .gameuser > p {
