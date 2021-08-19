@@ -106,8 +106,8 @@ React JS
 
 ------
 
-**Version** : 0.3
+**Version** : 0.4
 
 **Date** : 21.08.20 (금)
 
-**Author** : 장현웅
+**Author** : 이소은
