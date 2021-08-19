@@ -34,6 +34,8 @@ React JS
     - game : 경기 관련 페이지
     - error : 에러 페이지
 
+
+
 ## Frontend URI
 | path                                 | 페이지           | 비고                                                         |
 | ------------------------------------ | ---------------- | ------------------------------------------------------------ |
@@ -52,7 +54,10 @@ React JS
 | /match/register                      | 경기 등록        | 관리자 전용                                                  |
 | /match/:match-id/update              | 경기 수정        | 관리자 전용                                                  |
 
+
+
 ## Backend 통신 API (RESTful API)
+
 | Category            | Summary                              | Method | RequestMapping (package에 해당) | URI                            | Request Header | Params         | Request Body                                                 | Success Code | Response Header | ResponseBody                                                 |
 | ------------------- | ------------------------------------ | ------ | ------------------------------- | ------------------------------ | -------------- | -------------- | ------------------------------------------------------------ | ------------ | --------------- | ------------------------------------------------------------ |
 | **일반 사용자**     | 회원가입                             | POST   | `/account/user`                 | `/userauth`                    | X              | X              | email : String, password : String, name : String, nickname : String phone : String      birth : String | 200          | X               | X                                                            |
@@ -85,22 +90,10 @@ React JS
 |                     | 게임 점수 기록                       | POST   | 위와 동일                       | `/gamerecord`                  | accesstoken    | X              | team : int quarter : int score : int email : String game_id : long | 200          | accesstoken     | gamerecord                                                   |
 |                     | 경기 리뷰 저장                       | POST   | 위와 동일                       | `/review`                      | accesstoken    | X              | email: String game_id : long mvp : String manner : String [] gym { kindness : int ficility : int } | 200          | accesstoken     | gymreview { }  manner { }                                    |
 
-## 개발 특이사항
-| Date | Feature | 담당자 | 특이사항 | 참고 자료 |
-| ---- | ------- | ------- | -------- | ---------- |
-| 2021.07.23 | RegisterGeneral/Business | 박정웅 | Components에 추가한 validation 파일로 유효성 검증 (코드가 길어지고 읽기 힘들어지는 것 방지 용도) | https://www.daleseo.com/react-forms-with-hooks/ <br> https://skm1104.tistory.com/4 <br> https://webdir.tistory.com/435 |
-| 2021.07.27 | Frontend 전체 | 박정웅 | 동일 Form이지만 각 페이지가 다른 CSS를 가지고 있음 => 통일 필요 |  | 
-| 2021.07.28 | Frontend 전체 | 박정웅 | Vanilla React의 Context API, Hook을 사용해 Redux 대체 작업 완료 / Store를 통한 전역 상태 관리 시작 |  |
-| 2021.07.29 | RegisterBusiness | 장현웅 | File 업로드 기능 구현 / DB 저장 구현 |  |
-| 2021.08.02 | Frontend 전체 | 권오우 | CSS 통일을 위한 표준 작성 |  |
-| 2021.08.05 | 배포 | 이소은 | 배포 |  |
-
-
-
 ------
 
-**Version** : 0.2
+**Version** : 0.3
 
-**Date** : 21.08.06 (금)
+**Date** : 21.08.13 (금)
 
 **Author** : 이소은
