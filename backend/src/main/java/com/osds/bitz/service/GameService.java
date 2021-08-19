@@ -128,7 +128,7 @@ public class GameService {
      */
     public Game updateGame(GameRequest gameRequest) {
         Game updateGame = gameRepository.getGameById(gameRequest.getGameId());
-        Gym gym = updateGame.getGym();d
+        Gym gym = updateGame.getGym();
 
         updateGame.builder()
                 .id(gameRequest.getGameId())

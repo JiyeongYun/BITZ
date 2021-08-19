@@ -122,23 +122,17 @@ function ChangePassword({ history }) {
       <div className="changePasswordForm registerForm__center">
         {/* 구 비밀번호 */}
         <div className="changePassword__password changePasswordForm__component">
-          <label>현재 비밀번호 입력</label>
-          <br />
-          <input className="inputBox" type="password" id="password" name="password" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input className="inputBox" type="password" id="password" name="password" placeholder="현재 비밀번호 입력" value={values.password} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.password}</div>
         </div>
         {/* 신 비밀번호 */}
         <div className="changePassword__password changePasswordForm__component">
-          <label>새 비밀번호 입력</label>
-          <br />
-          <input className="inputBox" type="password" id="newPassword" name="newPassword" value={values.newPassword} onChange={updateValue} onBlur={updateIsFirst}></input>
+          <input className="inputBox" type="password" id="newPassword" name="newPassword" placeholder="새 비밀번호 입력" value={values.newPassword} onChange={updateValue} onBlur={updateIsFirst}></input>
           <div className="errorMessage">{errors.newPassword}</div>
         </div>
         {/* 신 비밀번호 확인 */}
         <div className="changePassword__passwordConfirm changePasswordForm__component">
-          <label>새 비밀번호 확인</label>
-          <br />
-          <input className="inputBox" type="password" id="newPasswordConfirm" name="newPasswordConfirm" value={values.newPasswordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
+          <input className="inputBox" type="password" id="newPasswordConfirm" name="newPasswordConfirm" placeholder="새 비밀번호 확인" value={values.newPasswordConfirm} onChange={updateValue} onBlur={updateIsFirst} onFocus={lateValidateValue}></input>
           <div className="errorMessage">{errors.newPasswordConfirm}</div>
         </div>
 
