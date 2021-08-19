@@ -24,8 +24,6 @@ const GameInfo = () => {
     alert("주소가 복사되었습니다.")
   }
 
-  console.log(users)
-
   return (
     <div className="gameInfo">
       <div className="gamedate">

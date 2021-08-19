@@ -89,6 +89,7 @@
 }
 
 .game__container > div input {
+    width: 120px;
     height: var(--btn-height);
     border: 1px solid var(--grey);
     border-radius: 5px;
@@ -159,11 +160,12 @@
     }
     
     .game_register_container {
-        width: 90vw;
+        width: 80vw;
         font-size: var(--small-font-size);
     }
 
     .game_register_container > h1 {
+        font-size: var(--mid-font-size);
         margin-bottom: var(--mid-margin-size);
     }
     

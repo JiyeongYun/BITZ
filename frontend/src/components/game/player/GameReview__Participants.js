@@ -39,7 +39,6 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
 
   // 선택되지 않은 참가자 제거 (정확히는 모든 참가자의 선택사항 display를 none으로 초기화)
   useEffect(() => {
-    console.log(members.length)
     for (let idx=0;idx<members.length;idx++){
       let select1 = document.querySelector(`.mvp${idx} .Participants__selected`)
       if (select1) {
