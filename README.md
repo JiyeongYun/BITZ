@@ -9,8 +9,18 @@
 - 포팅 매뉴얼
   - S05P12A504 > exec >  포팅 매뉴얼
 
+- FE(FrontEnd)
+  - S05P12A504 > frontend
+
+- BE(BackEnd)
+  - S05P12A504 > backend
+
+- 관련 문서 자료
+  - S05P12A504 > exec
+
 - 프로젝트 배포 URL
   - http://i5a504.p.ssafy.io/
+
 
 ## 업데이트 내역
 :white_check_mark: ver_0.1_2021.07.30
@@ -34,6 +44,7 @@
 ## 개발기간
 2021.07.05(월) ~ 2021.08.20(금)
 
+
 ## 개발 환경
 - window10
 - Backend 
@@ -42,6 +53,7 @@
   - React
 - DB
   - MySQL
+
 
 ## Developer
 |권오우|박정웅|윤지영|이소은|장현웅|
