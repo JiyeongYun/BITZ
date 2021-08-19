@@ -46,6 +46,8 @@
 
 
 ## 개발 환경
+- 모바일용 화면 사이즈
+  - Galaxy S5
 - window10
 - Backend 
   - Spring Boot 
