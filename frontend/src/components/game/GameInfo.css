@@ -1,5 +1,6 @@
 .gameInfo {
   margin-right: var(--main-margin-size);
+
   /* border-bottom: 1px solid black; */
 }
 
@@ -8,11 +9,12 @@
 }
 
 .gameInfo > .gamedate {
+  margin-top: var(--main-margin-size);
   font-size: var(--large-font-size);
 }
 
 .gameInfo > .gyminfo {
-  font-size : var(--main-font-size);
+  font-size: var(--main-font-size);
 }
 
 .gameInfo > .gyminfo > #gymname {
@@ -20,11 +22,16 @@
   font-weight: bold;
 }
 
+.gameInfo > .gyminfo > #gymaddress {
+  font-size: 10px;
+}
+
 .gameInfo > .gyminfo > #gymaddress > button {
   color: var(--blue);
   border: none;
   background-color: white;
   cursor: pointer;
+  font-size: var(--small-font-size);
 }
 
 .gameInfo > .gameuser > p {
@@ -32,7 +39,7 @@
 }
 
 .gameInfo > .gameuser > p > span {
-  font-size: var(--large-font-size);
+  font-size: var(--main-font-size) !important;
   color: var(--main-color);
   font-weight: bold;
 }
@@ -44,32 +51,40 @@
 
 @media screen and (max-width: 1024px) {
   .gameInfo {
-    margin-right: 0px;
+    width: 80vw;
+    margin: 0 auto !important;
   }
-  
+
   .gameInfo > div {
     margin-bottom: var(--main-margin-size);
-    margin-left: var(--main-margin-size);
   }
-  
+
   .gameInfo > .gamedate {
     font-size: var(--large-font-size);
   }
-  
+
+  .gameInfo > .gamedate > p > img{
+    width: 16px;
+    height: 19px;
+    margin-top: 5px;
+    padding-top:5px;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+
   .gameInfo > .gyminfo {
-    font-size : var(--main-font-size);
+    font-size: var(--main-font-size);
   }
   .gameInfo > .gameuser > p {
     font-size: var(--main-font-size);
   }
-  
+
   .gameInfo > .gameuser > p > span {
     font-size: var(--large-font-size);
   }
-  
+
   .participants {
     display: flex;
     flex-wrap: wrap;
   }
-  
 }

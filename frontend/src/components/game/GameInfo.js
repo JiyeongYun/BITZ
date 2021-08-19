@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import './GameInfo.css';
-import Participant from './Participant';
-import { gameStore } from 'store/gameStore';
+import React, { useContext } from "react";
+import "./GameInfo.css";
+import Participant from "./Participant";
+import { gameStore } from "store/gameStore";
 
 const GameInfo = () => {
   const gameStoreData = useContext(gameStore);
@@ -11,38 +11,41 @@ const GameInfo = () => {
 
   const time = new Date();
   time.setTime(aboutGame.gameInfo.date);
-  const day = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+  const day = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
   // 복사
   const copyAddress = () => {
-    const textarea = document.createElement('textarea');
+    const textarea = document.createElement("textarea");
     textarea.value =
       aboutGame.gameInfo.gym.sido +
-      ' ' +
+      " " +
       aboutGame.gameInfo.gym.gugun +
-      ' ' +
+      " " +
       aboutGame.gameInfo.gym.address;
     document.body.appendChild(textarea);
     textarea.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(textarea);
-    alert('주소가 복사되었습니다.');
+    alert("주소가 복사되었습니다.");
   };
 
   return (
     <div className="gameInfo">
       <div className="gamedate">
+        
         <p>
+        <img src="/images/calendar.png" alt="calendar" />
           {time.getFullYear()}년 {time.getMonth() + 1}월 {time.getDate()}일 {day[time.getDay()]}
         </p>
         <p>
+        <img src="/images/clock.png" alt="clock" />
           {aboutGame.gameInfo.startTime.substr(0, 5)} ~ {aboutGame.gameInfo.endTime.substr(0, 5)}
         </p>
       </div>
       <div className="gyminfo">
         <p id="gymname">{aboutGame.gameInfo.gym.name}</p>
         <p id="gymaddress">
-          {aboutGame.gameInfo.gym.sido} {aboutGame.gameInfo.gym.gugun}{' '}
+          {aboutGame.gameInfo.gym.sido} {aboutGame.gameInfo.gym.gugun}{" "}
           {aboutGame.gameInfo.gym.address} | <button onClick={copyAddress}>주소복사</button>
         </p>
       </div>

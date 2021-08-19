@@ -496,14 +496,14 @@ public class GameService {
         GameResultResponse gameResultResponse = new GameResultResponse();
         Game game = gameRepository.getGameById(gameId);
         int teamCnt = game.getTeamCnt(); // 팀 개수
-
+        log.info("{}", teamCnt);
         ArrayList<int[]>[] team = (ArrayList<int[]>[]) new ArrayList[teamCnt + 1];
 
         for (int i = 1; i <= teamCnt; i++)
             team[i] = new ArrayList<>();
 
         RecordTable[] recordTableList = readRecord(gameId);
-
+        log.info("{}", recordTableList);
         int[][] gameResult = new int[teamCnt][3];
         int[][] gameScoreTable = new int[teamCnt][4];
 
@@ -544,7 +544,7 @@ public class GameService {
 
         gameResultResponse.setGameResult(gameResult);
         gameResultResponse.setGameScoreTable(gameScoreTable);
-
+        log.info("{}", gameResultResponse);
         return gameResultResponse;
     }
 
