@@ -27,7 +27,7 @@ const Participant = (props) => {
         }
       );
     }
-  }, [props]);
+  }, []);
 
   // 참가자의 포지션 표시
   useEffect(() => {
