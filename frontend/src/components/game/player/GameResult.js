@@ -14,20 +14,26 @@ const GameResult = () => {
   const [showReview, setShowReview] = useState(false)
   const [closeReview, setCloseReview] = useState(false)
 
-  // 게임 리뷰가 존재하는지 확인
-  if (value.isLogin && !closeReview) {
-    GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), email: value.isLogin},
-    (res)=>{
-      if (res.status===204) { // 존재 하는 경우
-        setShowReview(false)
-      } else if (res.status===200) { // 존재하지 않는 경우
-        console.log('show!')
-        setShowReview(true)
-      }
-    },
-    (error)=>console.log(error)  
-    )
+  const changeReviewState = () => {
+    setShowReview(false);
+    setCloseReview(true);
   }
+
+  // 게임 리뷰가 존재하는지 확인
+  useEffect(() => {
+    if (value.isLogin && !closeReview) {
+      GameApi.ReviewCheck({gameId: parseInt(aboutGame.gameInfo.id), email: value.isLogin},
+      (res)=>{
+        if (res.status===204) { // 존재 하는 경우
+          setShowReview(false)
+        } else if (res.status===200) { // 존재하지 않는 경우
+          setShowReview(true)
+        }
+      },
+      (error)=>console.log(error)  
+      )
+    }
+  }, [])
 
   useEffect(()=>{
     GameApi.saveGameResult({gameId: aboutGame.gameInfo.id},
@@ -55,7 +61,7 @@ const GameResult = () => {
   return (
     <div className="result__container">
       { showReview ? (
-        <GameReview setShowReview={setShowReview} setCloseReview={setCloseReview} />
+        <GameReview changeReviewState={ changeReviewState} />
         ) : ("")}
       <div>
         경기결과
