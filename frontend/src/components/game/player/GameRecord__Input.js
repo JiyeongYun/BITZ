@@ -14,16 +14,16 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   const teamNameTranslater = {"A": 1, "B": 2, "C": 3}
   
   // 이 컴포넌트가 어떤 게임의 입력창인지 지정
-  const team1_score = game+'_team1_score'
-  const team2_score = game+'_team2_score'
-  const recorder = game+'_recorder'
+  // const team1_score = game+'_team1_score'
+  // const team2_score = game+'_team2_score'
+  // const recorder = game+'_recorder'
 
   // State
   const [scores, setScores] = useState({
     team1_score: '',
     team2_score: '',
   })
-  const [modalSwitch, setModalSwitch] = useState(true)
+  const [modalSwitch] = useState(true)
 
   // Methods
   // PJW - 변화한 값을 임시저장하는 함수
@@ -34,15 +34,15 @@ const GameRecord__Input = ({ game, setShowInput, team1, team2 }) => {
   // PJW - 입력된 값을 기록하는 함수
   const recordScore = () => {
     if (window.confirm('경기 기록은 수정할 수 없습니다. 기록하시겠습니까?')) {
-      const data = {
-        team1: team1_score,
-        team1_score: Number(scores.team1_score),
-        team2: team2_score,
-        team2_score: Number(scores.team2_score),
-        recorder: recorder,
-        current_recorder: value.isLogin,
-        unKnown_bugFix: aboutGame.gameData[recorder].length // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
-      }
+      // const data = {
+      //   team1: team1_score,
+      //   team1_score: Number(scores.team1_score),
+      //   team2: team2_score,
+      //   team2_score: Number(scores.team2_score),
+      //   recorder: recorder,
+      //   current_recorder: value.isLogin,
+      //   unKnown_bugFix: aboutGame.gameData[recorder].length // 함수 1번 실행 => dispatch 2번 실행 => state 3번 변경이라는 해괴한 오류 방지
+      // }
 
       // team1 점수 기록
       GameApi.RecordGame({

@@ -4,7 +4,6 @@ import { gameStore } from 'store/gameStore';
 import "./GameDetail__Business.css"
 import { useParams } from "react-router-dom"
 import GymInfo from "../GymInfo";
-import ImgApi from "api/ImgApi";
 
 function GameDetail__Business () {
   const gameStoreData = useContext(gameStore);
@@ -18,13 +17,7 @@ function GameDetail__Business () {
   }
 
   // 미리보기 - 인원관리
-  const [manageMode, setManageMode] = useState(true)
-  const switchManageMode = () => {
-    setManageMode(true)
-  }
-  const switchPreviewMode = () => {
-    setManageMode(false)
-  }
+  const [manageMode] = useState(true)
 
   // PJW - 입금 확인 버튼
   const ConfirmReservation = (event) => {

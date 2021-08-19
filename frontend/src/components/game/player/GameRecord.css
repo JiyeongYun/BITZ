@@ -14,6 +14,16 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .gameRecord {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .gameRecord > div:nth-child(1) {
+    margin-left: 0;
+    font-size: var(--mid-font-size);
+  }
+
   .gameRecord .gameRecord__2 {
     flex-direction: column;
     align-items: center;

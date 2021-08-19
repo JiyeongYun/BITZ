@@ -12,13 +12,13 @@ const GameReview = ({ changeReviewState }) => {
   const { value } = globalState;
 
   // State
-  const [tempScore, setTempScore] = useState({
-    mvp: "",
-    manner: "",
-    goodPeople: [],
-    badPeople: [],
-    facility: 0
-  })
+  // const [tempScore, setTempScore] = useState({
+  //   mvp: "",
+  //   manner: "",
+  //   goodPeople: [],
+  //   badPeople: [],
+  //   facility: 0
+  // })
   const [reviewScore, setReviewScore] = useState({
     mvp: "",
     manner: "",
@@ -57,24 +57,24 @@ const GameReview = ({ changeReviewState }) => {
     )
   }
   // PJW - 농구공 점수 임시 등록 (MouseOver 시)
-  const Basketball_scoring = (event) => {
-    if (!reviewScore.facility) {
-      const { name } = event.target;
-      const value = event.target.getAttribute('value')
-      setTempScore({...tempScore, [name]: value})
-    }
-  }
+  // const Basketball_scoring = (event) => {
+  //   if (!reviewScore.facility) {
+  //     const { name } = event.target;
+  //     const value = event.target.getAttribute('value')
+  //     setTempScore({...tempScore, [name]: value})
+  //   }
+  // }
   // PJW - 농구공 점수 복구 (MouseOut 시)
-  const Basketball_scoring_restore = () => {
-    setTempScore({...reviewScore})
-  }
+  // const Basketball_scoring_restore = () => {
+  //   setTempScore({...reviewScore})
+  // }
   // PJW - 농구공 점수 확정 (MouseClick 시)
-  const Basketball_scoring_select = (event) => {
-    const { name } = event.target;
-    const value = event.target.getAttribute('value')
-    setReviewScore({...reviewScore, [name]: value})
-    setTempScore({...reviewScore, [name]: value})
-  }
+  // const Basketball_scoring_select = (event) => {
+  //   const { name } = event.target;
+  //   const value = event.target.getAttribute('value')
+  //   setReviewScore({...reviewScore, [name]: value})
+  //   setTempScore({...reviewScore, [name]: value})
+  // }
 
   // PJW - MVP, Manner에 선택된 사람 표시
   useEffect(()=>{

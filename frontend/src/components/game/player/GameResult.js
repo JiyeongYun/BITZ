@@ -33,14 +33,14 @@ const GameResult = () => {
       (error)=>console.log(error)  
       )
     }
-  }, [])
+  }, [aboutGame.gameInfo.id, closeReview, value.isLogin])
 
   useEffect(() => {
     const data = { gameId: aboutGame.gameInfo.id };
 
     GameApi.GameResultCheck(data,
       res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           GameApi.saveGameResult({gameId: aboutGame.gameInfo.id},
           err=>console.log(err)
           )
@@ -50,7 +50,7 @@ const GameResult = () => {
     })
 
     
-  },[])
+  },[aboutGame.gameInfo.id])
 
   // 점수 합산 => 누적합 계산
   const game1_team1_totlaScore = aboutGame.gameData.game1_team1_score[aboutGame.gameData.game1_team1_score.length - 1]
@@ -74,8 +74,8 @@ const GameResult = () => {
     teamA_lose = (game1_team1_totlaScore < game1_team2_totlaScore) + (game3_team1_totlaScore < game3_team2_totlaScore)
     teamB_win = (game1_team1_totlaScore < game1_team2_totlaScore) + (game2_team1_totlaScore > game2_team2_totlaScore)
     teamB_lose = (game1_team1_totlaScore > game1_team2_totlaScore) + (game2_team1_totlaScore < game2_team2_totlaScore)
-    teamC_win = (game2_team2_totlaScore < game2_team2_totlaScore) + (game3_team1_totlaScore < game3_team2_totlaScore)
-    teamC_lose = (game2_team2_totlaScore > game2_team2_totlaScore) + (game3_team1_totlaScore > game3_team2_totlaScore)
+    teamC_win = (game2_team1_totlaScore < game2_team2_totlaScore) + (game3_team1_totlaScore < game3_team2_totlaScore)
+    teamC_lose = (game2_team1_totlaScore > game2_team2_totlaScore) + (game3_team1_totlaScore > game3_team2_totlaScore)
   } else { // 2팀이 경기하는 경우
     teamA_win = (game1_team1_totlaScore > game1_team2_totlaScore) + (game2_team1_totlaScore > game2_team2_totlaScore)
     teamA_lose = (game1_team1_totlaScore < game1_team2_totlaScore) + (game2_team1_totlaScore < game2_team2_totlaScore)

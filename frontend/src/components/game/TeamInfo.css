@@ -1,5 +1,5 @@
 .teaminfo {
-    margin: var(--xlarge-margin-size) 0;
+    margin: var(--mid-margin-size) 0;
 }
 
 .teaminfo > p {
@@ -19,6 +19,7 @@
     flex-direction: column;
     align-items: center;
     border-bottom: 1px solid var(--main-color);
+    margin: 0 auto;
 }
 
 .teaminfo > .teams > .team > p:nth-child(1) {
@@ -47,7 +48,9 @@
 }
 
 .teaminfo > .teams > .team > .members > .member > img {
-    width: 100px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
 .teaminfo > .teams > .team > .members > .member > .userinfo {
@@ -69,13 +72,13 @@
     display: none;
     position: absolute;
     text-align: center;
-    left: 100px;
-    top: 0;
+    left: -50px;
+    top: 50px;
     border: 1px solid var(--grey);
     background-color: white;
     border-radius: 20px;
-    width: 200px;
-    z-index: 1;
+    width: 150px;
+    z-index: 90;
 }
 
 .about__user {
@@ -131,6 +134,19 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .teaminfo {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .modal__content > .gameReview__input > .gameReview__MVP > div > .teaminfo {
+        width: 100%
+    } 
+    
+    .teaminfo > p {
+        margin-left: 0;
+    }
+
     .teaminfo > .teams {
         flex-direction: column;
         align-items: center;

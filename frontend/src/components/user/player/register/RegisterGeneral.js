@@ -114,10 +114,10 @@ function RegisterGeneral({history}) {
   } // lateValidateValue End
 
   // PJW - SNS 회원가입 버튼 클릭
-  const onGoogleRegister = () => {
-    alert('소셜 로그인 기능을 빨리 구현하세요!');
-    console.log(values, errors, isValidated);
-  } // onGoogleRegister End
+  // const onGoogleRegister = () => {
+  //   alert('소셜 로그인 기능을 빨리 구현하세요!');
+  //   console.log(values, errors, isValidated);
+  // } // onGoogleRegister End
 
   // PJW - 회원가입 버튼 클릭
   const onRegister = () => {
@@ -239,7 +239,7 @@ function RegisterGeneral({history}) {
         <div className="register__birth registerForm__component">
           <div className="register__birthForm">
             {/* 년 */}
-            <input placeholder="생년" className="register__birthYear" type="text" name="birthYear" id="birthYear" value={values.birthYear} onChange={updateValue} onBlur={updateIsFirst} maxLength="4" placeholder="생년(4자)"></input>
+            <input className="register__birthYear" type="text" name="birthYear" id="birthYear" value={values.birthYear} onChange={updateValue} onBlur={updateIsFirst} maxLength="4" placeholder="생년(4자)"></input>
             {/* 월 */}
             <span>
                 <select className="register__birthMonth" id="birthMonth" name="birthMonth" onChange={updateValue} onBlur={updateIsFirst}>
