@@ -194,8 +194,13 @@ public class GameService {
      */
     public GameParticipant reserveGame(String userEmail, Long gameId) {
         UserAuth userAuth = userAuthRepository.getUserAuthByEmail(userEmail);
-        if (gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId) != null)
-            return null;
+        if (gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId) != null) {
+            GameParticipant gameParticipant = gameParticipantRepository.getGameParticipantByUserAuthAndGameId(userAuth, gameId);
+            if(gameParticipant.getState().equals(UserState.ON_DEPOSIT))
+                return gameParticipant;
+            else
+                return null;
+        }
 
         GameParticipant newGameParticipant =
                 new GameParticipant().builder()
