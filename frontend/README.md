@@ -40,19 +40,19 @@ React JS
 | path                                 | 페이지           | 비고                                                         |
 | ------------------------------------ | ---------------- | ------------------------------------------------------------ |
 | /                                    | 메인             | 유저, 관리자 로그인, 첫 로그인 시 첫 로그인 전용 화면으로 이동 |
+| /intro                               | BITZ 소개 페이지 |                                                              |
 | /accounts/login                      | 로그인           |                                                              |
 | /accounts/find-password              | 비밀번호 찾기    |                                                              |
 | /accounts/register                   | 회원가입         |                                                              |
 | /accounts/profile/:user-email        | 프로필           | 내 프로필, 유저 프로필                                       |
 | /accounts/change-password            | 비밀번호 변경    |                                                              |
-| /accounts/gym/register               | 체육관 등록      |                                                              |
 | /accounts/gym/:gym-id/update         | 체육관 수정      |                                                              |
 | /accounts/profile/:user-email/update | 회원 정보 수정   |                                                              |
-| /match/:match-id                     | 픽업 게임 상세   | 게임 시작하면 체육관 관리자 및 참가자만 기록 관련 접근 가능  |
-| /match/:match-id/pay                 | 입금 요청        |                                                              |
+| /detail/:game-id                     | 픽업 게임 상세   | 게임 시작하면 체육관 관리자 및 참가자만 기록 관련 접근 가능  |
+| /detail/:match-id/reservation        | 입금 요청        |                                                              |
 | /match/mygames                       | 내가 예약한 경기 |                                                              |
 | /match/register                      | 경기 등록        | 관리자 전용                                                  |
-| /match/:match-id/update              | 경기 수정        | 관리자 전용                                                  |
+| /registerGym                         | 체육관 등록      |                                                              |
 
 
 
