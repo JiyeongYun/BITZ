@@ -44,7 +44,6 @@ function Login({ history }) {
       UserApi.requestLogin(
         data,
         (res) => {
-          const { data } = res; // 유저 정보
           localStorage.setItem("currentUser", JSON.stringify({ email }));
           dispatch({ type: "LOGIN", value: email });
           history.push("/");
@@ -57,7 +56,6 @@ function Login({ history }) {
       UserApi.requestBusinessLogin(
         data,
         (res) => {
-          const { data } = res; // 유저 정보
           localStorage.setItem("currentUserbusiness", JSON.stringify({ email }));
           dispatch({ type: "LOGIN", value: email });
           history.push("/");

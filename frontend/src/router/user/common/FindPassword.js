@@ -17,7 +17,7 @@ function FindPassword() {
   useEffect(() => {
     const value = 'player'
     dispatch({ type: 'SELECT_USER_KIND', value });
-  }, [])
+  }, [dispatch])
 
   const onChange = (event) => {
     const {

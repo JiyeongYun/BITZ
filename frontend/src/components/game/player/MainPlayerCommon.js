@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"; // useContext import
 import "./Main__Player_Common.css";
 import DateCarousel from "components/game/player/Main__DateCarousel.js";
-import PreferredArea from "components/game/player/Main__PreferredArea.js";
 import GameList from "components/game/player/Main__GameList.js";
 import { store } from 'store/store.js'; // store import
 // import gameListDummy from "store/gameListDummy.js"
@@ -41,7 +40,7 @@ function MainPlayerCommon({ isBusiness }) {
         }
       )
     }
-  },[value.isLogin, dispatch])
+  },[value.isLogin, isBusiness, dispatch])
 
   const firstLoginData = function () {
     setIsFirstLogin(false)

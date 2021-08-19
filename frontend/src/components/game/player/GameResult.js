@@ -96,25 +96,37 @@ const GameResult = () => {
           { aboutGame.gameData.gameType === 2 ? (
             <div className="gameResult__2">
             <table className="RecordTable">
-              <th>A팀</th>
-              <th>B팀</th>
-              <tr>
-                <td>{ game1_team1_totlaScore }</td>
-                <td>{ game1_team2_totlaScore }</td>
-              </tr>
+              <thead>
+                <tr>
+                  <th>A팀</th>
+                  <th>B팀</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{ game1_team1_totlaScore }</td>
+                  <td>{ game1_team2_totlaScore }</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           ):(
             <div className="gameResult__3">
           <table className="RecordTable">
-            <th>AvsB</th>
-            <th>BvsC</th>
-            <th>CvsA</th>
-            <tr>
-              <td>{ `${game1_team1_totlaScore} : ${game1_team2_totlaScore}` }</td>
-              <td>{ `${game2_team1_totlaScore} : ${game2_team2_totlaScore}` }</td>
-              <td>{ `${game3_team1_totlaScore} : ${game3_team2_totlaScore}` }</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>AvsB</th>
+                <th>BvsC</th>
+                <th>CvsA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{ `${game1_team1_totlaScore} : ${game1_team2_totlaScore}` }</td>
+                <td>{ `${game2_team1_totlaScore} : ${game2_team2_totlaScore}` }</td>
+                <td>{ `${game3_team1_totlaScore} : ${game3_team2_totlaScore}` }</td>
+              </tr>
+            </tbody>
           </table>
           </div>
           )}
@@ -124,25 +136,37 @@ const GameResult = () => {
           { aboutGame.gameData.gameType === 2 ? (
             <div className="gameResult__2">
             <table className="RecordTable">
-              <th>A팀</th>
-              <th>B팀</th>
-              <tr>
-                <td>{ `${teamA_win}승 ${teamA_lose}패` }</td>
-                <td>{ `${teamB_win}승 ${teamB_lose}패`}</td>
-              </tr>
+              <thead>
+                <tr>
+                  <th>A팀</th>
+                  <th>B팀</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{ `${teamA_win}승 ${teamA_lose}패` }</td>
+                  <td>{ `${teamB_win}승 ${teamB_lose}패`}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           ):(
             <div className="gameResult__3">
           <table className="RecordTable">
-            <th>A팀</th>
-            <th>B팀</th>
-            <th>C팀</th>
-            <tr>
-              <td>{ `${teamA_win}승 ${teamA_lose}패` }</td>
-              <td>{ `${teamB_win}승 ${teamB_lose}패` }</td>
-              <td>{ `${teamC_win}승 ${teamC_lose}패` }</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>A팀</th>
+                <th>B팀</th>
+                <th>C팀</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{ `${teamA_win}승 ${teamA_lose}패` }</td>
+                <td>{ `${teamB_win}승 ${teamB_lose}패` }</td>
+                <td>{ `${teamC_win}승 ${teamC_lose}패` }</td>
+              </tr>
+              </tbody>
           </table>
           </div>
           )}
