@@ -36,8 +36,8 @@ const GameRecord__Table = ({ team1, team2, game }) => {
           game2_team2_score: res.data[1].teamBScoreList,
           game3_team1_score: res.data[2]? res.data[2].teamBScoreList:[], // res.data는 무조건 사전순 (teamA=> A, teamB=> C)
           game3_team2_score: res.data[2]? res.data[2].teamAScoreList:[],
-          game1_recorder: res.data[0].recorderList.map(element=>element.email), // 2팀 게임은 game1만 사용
-          game2_recorder: res.data[1].recorderList.map(element=>element.email),
+          game1_recorder: res.data[0].recorderList.map(element=>element), // 2팀 게임은 game1만 사용
+          game2_recorder: res.data[1].recorderList.map(element=>element),
           game3_recorder: res.data[2]? res.data[2].recorderList.map(element=>element.email):[]
         }
         gameDispatch({ type: "UPADTE_GAME_SCORE", value: data })
