@@ -38,17 +38,19 @@ const GameDetail = ({ match, location }) => {
     const params = {
       gymId: aboutGame.gameInfo.gym.id,
     };
-    ImgApi.getGymImg(
-      params,
-      (res) => {
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        setImgUrl(url);
-      },
-      (err) => {
-        console.log(err);
-      }
-    )
-  }, [aboutGame])
+    if (aboutGame.gameInfo.gym.id) {
+      ImgApi.getGymImg(
+        params,
+        (res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          setImgUrl(url);
+        },
+        (err) => {
+          console.log(err);
+        }
+      ) 
+    }
+  }, [aboutGame.gameInfo.gym.id])
 
   // useEffect
   useEffect(() => {

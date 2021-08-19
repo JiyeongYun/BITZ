@@ -53,7 +53,6 @@ const GameReview__Participants = ({ reviewType, setReviewScore, reviewScore, mod
   useEffect(() => {
     let list = {};
     members.map((member) => {
-    
       ImgApi.getUserImg(
         { email: member.email },
         (res) => {

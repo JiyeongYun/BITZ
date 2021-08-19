@@ -21,7 +21,6 @@ function GameList({ gameList }) {
     });
     setList(tmpList);
   }, [gameList]);
-  console.log(gameList)
   return (
     <div className="MyGameList">
       {
