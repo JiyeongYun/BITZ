@@ -33,6 +33,7 @@ function FindPassword() {
   } else {
     return (
       <div className="findpw">
+        <u id="findPasswordTitle">비밀번호 찾기</u>
         <div className="userKind">
           <label
             className={
@@ -51,7 +52,7 @@ function FindPassword() {
             <span>비즈니스</span>
           </label>
         </div>
-        <u id="findPasswordTitle">비밀번호 찾기</u>
+        
         <WriteEmail
           setEmail={(e) => setEmail(e)}
           setIsSend={() => {
