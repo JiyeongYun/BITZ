@@ -23,7 +23,7 @@
   color: white;
   background-color: var(--main-color);
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   height: var(--btn-height);
   cursor: pointer;
 }
