@@ -20,7 +20,7 @@
 }
 
 .phoneForm > input {
-  border: none;
+  border: 1px solid var(--grey);
   border-radius: 5px;
   background-color: var(--grey-color);
   width: 120px;
@@ -31,7 +31,7 @@
 }
 
 .heightForm > input {
-  border: none;
+  border: 1px solid var(--grey);
   border-radius: 5px;
   background-color: var(--grey-color);
   width: 120px;
@@ -90,8 +90,12 @@
 
 .location > .location__box > div > div > p {
   display: inline-block;
-  border: 1px solid var(--main-color);
+  border: 1px solid var(--grey);
   border-radius: 5px;
+}
+
+.location > .location__box > div > div > select {
+  border: 1px solid var(--grey);
 }
 
 .MyInfo > .save__btn {
@@ -138,10 +142,10 @@
   .location > .location__box > div > div > p {
     height: var(--btn-height);
     line-height: var(--btn-height);
-    border: 1px solid var(--main-color);
+    border: 1px solid var(--grey);
     border-radius: 5px;
     width: 70px;
     margin: 0 var(--main-margin-size);
-    background-color: var(--grey-color);
   }
+  
 }

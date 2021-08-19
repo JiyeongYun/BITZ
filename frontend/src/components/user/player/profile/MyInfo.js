@@ -21,6 +21,8 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
   // 버튼 클릭 시
   const toggleIsUpdate = () => {
     setIsUpdate(!isUpdate)
+    document.querySelector(`#height`).classList.add('done')
+    document.querySelector(`#phone`).classList.add('done')
   }
 
   const onClickBtn = () => {
@@ -30,7 +32,12 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
         userData,
         res => {alert("수정되었습니다.")},
         err => {console.log(err)}
-      )
+        )
+        document.querySelector(`#height`).classList.add('done')
+        document.querySelector(`#phone`).classList.add('done')
+    } else {
+      document.querySelector(`#height`).classList.remove('done')
+      document.querySelector(`#phone`).classList.remove('done')
     }
     setIsUpdate(!isUpdate)
   }
@@ -41,6 +48,15 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
       setUserData({...userData, height:e.target.value})
     } else if (e.target.name === 'phone') {
       setUserData({...userData, phone:e.target.value})
+    }
+    handleClass(e.target.name, e.target.value)
+  }
+
+  const handleClass = (id, value) => {
+    if (value) {
+      document.querySelector(`#${id}`).classList.add('done')
+    } else {
+      document.querySelector(`#${id}`).classList.remove('done')
     }
   }
 
@@ -70,13 +86,13 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
       <div className="phone">
         <p>핸드폰 번호</p>
         <form className="phoneForm" name="phoneForm">
-          <input type="text" className="done" name="phone" disabled={isUpdate?false:true} onChange={onChange} value={userData.phone?userData.phone : ""} />
+          <input type="text" className="done" name="phone" id="phone" disabled={isUpdate?false:true} onChange={onChange} value={userData.phone?userData.phone : ""} />
         </form>
       </div>
       <div className="height">
         <p>신장</p>
         <form className="heightForm" name="heightForm">
-          <input type="text" className="done" name="height" disabled={isUpdate?false:true} onChange={onChange} value={userData.height?userData.height : ""} />
+          <input type="text" className="done" name="height" id="height" disabled={isUpdate?false:true} onChange={onChange} value={userData.height?userData.height : ""} />
         </form>
       </div>
       <div className="position">
@@ -113,8 +129,8 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
             {isUpdate? 
               <Location setSido={setSido1} setGugun={setGugun1}/> :
               <div>
-                <p>{userData.sido1}</p>
-                <p>{userData.gugun1}</p>
+                <p className={userData.sido1?"done":null}>{userData.sido1}</p>
+                <p className={userData.gugun1?"done":null}>{userData.gugun1}</p>
               </div>
             }
           </div>
@@ -123,8 +139,8 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
             {isUpdate? 
               <Location setSido={setSido2} setGugun={setGugun2}/> :
               <div>
-                <p>{userData.sido2}</p>
-                <p>{userData.gugun2}</p>
+                <p className={userData.sido2?"done":null}>{userData.sido2}</p>
+                <p className={userData.gugun2?"done":null}>{userData.gugun2}</p>
               </div>
             }
           </div>
@@ -133,8 +149,8 @@ const MyInfo = ({ userObj, userData, setUserData }) => {
             {isUpdate? 
               <Location setSido={setSido3} setGugun={setGugun3}/> :
               <div>
-                <p>{userData.sido3}</p>
-                <p>{userData.gugun3}</p>
+                <p className={userData.sido3?"done":null}>{userData.sido3}</p>
+                <p className={userData.gugun3?"done":null}>{userData.gugun3}</p>
               </div>
             }
           </div>
