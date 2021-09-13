@@ -38,8 +38,8 @@ public class BaseAuthService {
         javaMailSender.setProtocol("smtp");
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
-        javaMailSender.setUsername("angpang1106@gmail.com");
-        javaMailSender.setPassword("rozqumdjyahhtaui");
+        javaMailSender.setUsername("");
+        javaMailSender.setPassword("");
         javaMailSender.setDefaultEncoding("UTF-8");
         Properties properties = javaMailSender.getJavaMailProperties();
         properties.put("mail.smtp.starttls.enable", true);
